@@ -1,0 +1,15 @@
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\RestaurantReviews.Core.dll.config
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\RestaurantReviews.Core.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\RestaurantReviews.Core.pdb
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Abp.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Core.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Facilities.Logging.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Windsor.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\System.Collections.Immutable.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Abp.xml
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Core.xml
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Facilities.Logging.xml
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\Castle.Windsor.xml
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\bin\Debug\System.Collections.Immutable.xml
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\obj\Debug\RestaurantReviews.Core.dll
+C:\Users\thahn\Documents\RestaurantReviews\RestaurantReviews.Core\obj\Debug\RestaurantReviews.Core.pdb
