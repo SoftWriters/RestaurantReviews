@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CustomerReview"
+    targetNamespace="http://tempuri.org/CustomerReview.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/CustomerReview.xsd"
+    xmlns:mstns="http://tempuri.org/CustomerReview.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:complexType name="GetRestaurantRequestType">
+    <xs:sequence>
+      <xs:element name ="RestaurantSearch" type="RestaurantQueryType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GetRestaurantResponseType">
+    <xs:sequence>
+      <xs:element name ="Restaurants" type="RestaurantType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddRestaurantRequestType">
+    <xs:sequence>
+      <xs:element name ="Restaurant" type="RestaurantType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddRestaurantResponseType">
+    <xs:sequence>
+      <xs:element name ="Acknowledgement" type="AcknowledgementType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddRestaurantReviewRequestType">
+    <xs:sequence>
+      <xs:element name ="RestaurantReview" type="RestaurantReviewType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddRestaurantReviewResponseType">
+    <xs:sequence>
+      <xs:element name ="Acknowledgement" type="AcknowledgementType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GetRestaurantReviewRequestType">
+    <xs:sequence>
+      <xs:element name ="RestaurantReviewSearch" type="RestaurantReviewQueryType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GetRestaurantReviewResponseType">
+    <xs:sequence>
+      <xs:element name ="RestaurantReviews" type="RestaurantReviewType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeleteRestaurantReviewRequestType">
+    <xs:sequence>
+      <xs:element name ="RestaurantReviewSearch" type="RestaurantReviewQueryType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeleteRestaurantReviewResponseType">
+    <xs:sequence>
+      <xs:element name ="Acknowledgement" type="AcknowledgementType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestaurantReviewType">
+    <xs:sequence>
+      <xs:element name ="ReviewId" type="xs:int"/>
+      <xs:element name ="RestaurantReviewed" type="RestaurantType"/>
+      <xs:element name ="UserId" type="xs:string"/>
+      <xs:element name ="Message" type="xs:string"/>
+      <xs:element name ="StarsCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestaurantReviewQueryType">
+    <xs:sequence>
+      <xs:element name ="ReviewId" type="xs:int" minOccurs="0"/>
+      <xs:element name ="RestaurantId" type="xs:int" minOccurs="0"/>
+      <xs:element name ="UserId" type="xs:string" minOccurs="0"/>
+      <xs:element name ="StarsCode" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestaurantType">
+    <xs:sequence>
+      <xs:element name ="RestaurantId" type="xs:int"/>
+      <xs:element name ="Name" type="xs:string"/>
+      <xs:element name ="Address" type="AddressType"/>
+      <xs:element name ="Phone" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestaurantQueryType">
+    <xs:sequence>
+      <xs:element name ="RestaurantId" type="xs:int" minOccurs="0"/>
+      <xs:element name ="NameSearch" type="xs:string" minOccurs="0"/>
+      <xs:element name ="AddressSearch" type="AddressQueryType" minOccurs="0"/>
+      <xs:element name ="PhoneSearch" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element name ="AddressId" type="xs:int"/>
+      <xs:element name ="LocationName" type="xs:string" minOccurs="0"/>
+      <xs:element name ="AddressLine1" type="xs:string"/>
+      <xs:element name ="AddressLine2" type="xs:string" minOccurs="0"/>
+      <xs:element name ="City" type="xs:string"/>
+      <xs:element name ="State" type="xs:string"/>
+      <xs:element name ="ZipCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AddressQueryType">
+    <xs:sequence>
+      <xs:element name ="AddressId" type="xs:int" minOccurs="0"/>
+      <xs:element name ="AddressLine1" type="xs:string" minOccurs="0"/>
+      <xs:element name ="City" type="xs:string" minOccurs="0"/>
+      <xs:element name ="State" type="xs:string" minOccurs="0"/>
+      <xs:element name ="ZipCode" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AcknowledgementType">
+    <xs:sequence>
+      <xs:element name ="Status" type="xs:string"/>
+      <xs:element name ="Message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
