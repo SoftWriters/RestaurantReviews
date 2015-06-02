@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0503e71145bf4e6fa8b372d5c59d1fb9" Name="Diagram1">
+        <EntityTypeShape EntityType="RestaurantReviewsModel.Address" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantReviewsModel.City" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantReviewsModel.Restaurant" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantReviewsModel.Reviewer" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantReviewsModel.Review" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="RestaurantReviewsModel.FK_Restaurants_Addresses" ManuallyRouted="false" />
+        <AssociationConnector Association="RestaurantReviewsModel.FK_Restaurants_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="RestaurantReviewsModel.FK_Reviews_Restaurants" ManuallyRouted="false" />
+        <AssociationConnector Association="RestaurantReviewsModel.FK_Reviews_Reviewers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
