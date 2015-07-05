@@ -1,0 +1,12 @@
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\Model.dll
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\Model.pdb
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\RestaurantReviews\DataAccess\obj\Debug\DataAccess.pdb
