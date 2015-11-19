@@ -1,0 +1,152 @@
+body {
+  padding-top: 100px;
+  padding-bottom: 0px;
+  height: 100%;
+}
+.highlight_review td {
+  background-color: #ffab88;
+}
+div.float-menu ul {
+  list-style-type: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+div.float-menu {
+  background-color: white;
+  border: 1px solid silver;
+}
+div.float-menu ul li {
+  border-bottom: 1px dashed silver;
+  float: none;
+  clear: both;
+  margin: 0;
+  padding: 2px;
+}
+.float-menu li.option:hover {
+  background-color: #f49b0e;
+}
+div.inputable {
+  display: block;
+  float: none;
+  clear: both;
+  overflow: hidden;
+}
+div.inputable input.search-term {
+  -moz-border-radius: 0 0 0 0;
+  -webkit-border-radius: 0 0 0 0;
+  border-radius: 0 0 0 0;
+}
+div.inputable label.count-indicator {
+  display: inline-block;
+  float: right;
+  font-size: 11px;
+  padding: 2px;
+}
+div.inputable ul.select-options {
+  max-height: 300px;
+  overflow: auto;
+  width: auto;
+}
+div.value-selector {
+  border: 1px solid silver;
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  cursor: pointer;
+  -moz-border-radius: 0 5px 5px 0;
+  -webkit-border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0;
+  margin: 0 0 0 -1px;
+  padding: 8px 4px;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+div.value-selector span {
+  color: #454545;
+  padding: 4px 0 4px 2px;
+}
+input.selection-indicator {
+  -moz-border-radius: 5px 0 0 5px;
+  -webkit-border-radius: 5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid silver;
+  background-color: white !important;
+  display: block;
+  float: left;
+  width: 250px;
+  margin: 0;
+  padding: 6px 12px;
+}
+/* Set padding to keep content from hitting the edges. */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.break-word {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+/* Allow only vertical resizing of textareas. */
+textarea {
+  resize: vertical;
+}
+.filter-parent label {
+  position: absolute;
+  left: 17px;
+  top: 50px;
+}
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+.md-textarea {
+  height: 50px !important;
+}
+.lg-textarea {
+  height: 100px !important;
+}
+.md-padding {
+  padding: 10px;
+}
+.logo {
+  background-image: url('images/frp_logo.jpg');
+  display: block;
+  height: 35px;
+  width: 85px;
+}
+.display-inline {
+  display: !important inline;
+}
+.bold-text {
+  font-weight: bold;
+}
+.inlineedit-hover {
+  background-color: #fffbe1 !important;
+}
+.inlineedit {
+  white-space: pre-wrap;
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  line-height: 1.4285;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: #333333;
+  background-color: #f6f6f6;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+.inlineedit textarea {
+  width: 100%;
+}
+textarea.animated {
+  transition: height 0.4s;
+}
+.padding-top {
+  padding-top: 10px;
+}
