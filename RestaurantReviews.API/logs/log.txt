@@ -1,0 +1,145 @@
+ERROR2016-01-20 02:19:10 - RestaurantReviews.Entities.Data.RetrievalException: Failed to retrieve restaurant instance, ID=45.
+   at RestaurantReviews.Entities.Data.RestaurantSQL.GetRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantSQL.cs:line 81
+   at RestaurantReviews.Entities.Logic.RestaurantManager.GetRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantManager.cs:line 88
+   at RestaurantReviews.API.Controllers.RestaurantController.GetRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantController.cs:line 23
+ERROR2016-01-20 02:25:44 - System.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_RestaurantAddress_Restaurant". The conflict occurred in database "RestaurantReviews", table "dbo.RestaurantAddress", column 'Restaurant_ID'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at RestaurantReviews.Entities.Data.RestaurantSQL.DeleteRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantSQL.cs:line 111
+   at RestaurantReviews.Entities.Logic.RestaurantManager.DeleteRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantManager.cs:line 96
+   at RestaurantReviews.API.Controllers.RestaurantController.DeleteRestaurant(Int64 restaurantId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantController.cs:line 68
+ClientConnectionId:b423eb00-c54f-4f73-9408-ab5c1671eec5
+Error Number:547,State:0,Class:16
+ERROR2016-01-21 08:55:38 - RestaurantReviews.Entities.Data.RetrievalException: Failed to retrieve address instance, ID=26.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.GetRestaurantAddress(Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 91
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.GetRestaurantAddress(Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 131
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 25
+ERROR2016-01-21 09:29:45 - RestaurantReviews.Entities.Data.RetrievalException: Failed to retrieve address instance, ID=27.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 92
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 131
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 24
+ERROR2016-01-21 09:30:24 - RestaurantReviews.Entities.Data.RetrievalException: Failed to retrieve address instance, ID=27.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 92
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 131
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 24
+ERROR2016-01-21 09:31:06 - RestaurantReviews.Entities.Data.RetrievalException: Failed to retrieve address instance, ID=27.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 92
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 131
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.GetRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 24
+ERROR2016-01-21 09:32:22 - System.ArgumentException: Postal code exceeds maximum length of 10 characters.
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.ValidateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 46
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.CreateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 81
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.CreateRestaurantAddress(Int64 restaurantId, String street1, String street2, String city, String region, String postalcode) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 68
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.CreateRestaurantAddress(Int64 restaurantId, RestaurantAddressModel address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 59
+ERROR2016-01-21 09:35:42 - System.ArgumentException: Postal code exceeds maximum length of 10 characters.
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.ValidateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 46
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 120
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId, String street1, String street2, String city, String region, String postalcode) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 107
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId, RestaurantAddressModel address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 74
+ERROR2016-01-21 09:36:18 - RestaurantReviews.Entities.Data.PersistanceException: Failed to update address, ID=5.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 66
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 122
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId, String street1, String street2, String city, String region, String postalcode) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 107
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId, RestaurantAddressModel address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 74
+ERROR2016-01-21 09:36:55 - RestaurantReviews.Entities.Data.PersistanceException: Failed to update address, ID=4.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 66
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 122
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId, String street1, String street2, String city, String region, String postalcode) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 107
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId, RestaurantAddressModel address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 74
+ERROR2016-01-21 09:37:43 - RestaurantReviews.Entities.Data.PersistanceException: Failed to update address, ID=4.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 66
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(RestaurantAddress address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 122
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId, String street1, String street2, String city, String region, String postalcode) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 107
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.UpdateRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId, RestaurantAddressModel address) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 74
+ERROR2016-01-21 09:39:53 - RestaurantReviews.Entities.Data.PersistanceException: Failed to delete address, ID=35.
+   at RestaurantReviews.Entities.Data.RestaurantAddressSQL.DeleteRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\RestaurantAddressSQL.cs:line 172
+   at RestaurantReviews.Entities.Logic.RestaurantAddressManager.DeleteRestaurantAddress(Int64 restaurantId, Int64 restaurantAddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\RestaurantAddressManager.cs:line 157
+   at RestaurantReviews.API.Controllers.RestaurantAddressController.DeleteRestaurantAddress(Int64 restaurantId, Int64 restaurantaddressId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\RestaurantAddressController.cs:line 94
+ERROR2016-01-21 10:04:27 - System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Review_Restaurant". The conflict occurred in database "RestaurantReviews", table "dbo.Restaurant", column 'ID'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at RestaurantReviews.Entities.Data.ReviewSQL.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 56
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 58
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Int64 restaurantId, Int64 memberId, String body) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 43
+   at RestaurantReviews.API.Controllers.ReviewController.CreateReview(Int64 restaurantId, ReviewModel review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 24
+ClientConnectionId:62557e94-bd75-4221-9743-e99e3b20b53e
+Error Number:547,State:0,Class:16
+ERROR2016-01-21 10:04:33 - System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Review_Restaurant". The conflict occurred in database "RestaurantReviews", table "dbo.Restaurant", column 'ID'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at RestaurantReviews.Entities.Data.ReviewSQL.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 56
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 58
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Int64 restaurantId, Int64 memberId, String body) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 43
+   at RestaurantReviews.API.Controllers.ReviewController.CreateReview(Int64 restaurantId, ReviewModel review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 24
+ClientConnectionId:62557e94-bd75-4221-9743-e99e3b20b53e
+Error Number:547,State:0,Class:16
+ERROR2016-01-21 10:05:13 - System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Review_Member". The conflict occurred in database "RestaurantReviews", table "dbo.Member", column 'ID'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at RestaurantReviews.Entities.Data.ReviewSQL.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 56
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 58
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Int64 restaurantId, Int64 memberId, String body) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 43
+   at RestaurantReviews.API.Controllers.ReviewController.CreateReview(Int64 restaurantId, ReviewModel review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 24
+ClientConnectionId:62557e94-bd75-4221-9743-e99e3b20b53e
+Error Number:547,State:0,Class:16
+ERROR2016-01-21 10:07:12 - RestaurantReviews.Entities.Data.PersistanceException: Failed to delete review, ID=22.
+   at RestaurantReviews.Entities.Data.ReviewSQL.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 204
+   at RestaurantReviews.Entities.Logic.ReviewManager.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 108
+   at RestaurantReviews.API.Controllers.ReviewController.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 69
+ERROR2016-01-21 11:06:20 - System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Review_Restaurant". The conflict occurred in database "RestaurantReviews", table "dbo.Restaurant", column 'ID'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at RestaurantReviews.Entities.Data.ReviewSQL.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 56
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Review review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 58
+   at RestaurantReviews.Entities.Logic.ReviewManager.CreateReview(Int64 restaurantId, Int64 memberId, String body) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 43
+   at RestaurantReviews.API.Controllers.ReviewController.CreateReview(Int64 restaurantId, ReviewModel review) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 30
+ClientConnectionId:527538ac-7f47-4b19-a1eb-e8314fe69627
+Error Number:547,State:0,Class:16
+ERROR2016-01-21 01:38:37 - RestaurantReviews.Entities.Data.PersistanceException: Failed to delete review, ID=23.
+   at RestaurantReviews.Entities.Data.ReviewSQL.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 200
+   at RestaurantReviews.Entities.Logic.ReviewManager.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 108
+   at RestaurantReviews.API.Controllers.ReviewController.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 90
+ERROR2016-01-21 01:38:40 - RestaurantReviews.Entities.Data.PersistanceException: Failed to delete review, ID=2.
+   at RestaurantReviews.Entities.Data.ReviewSQL.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Data\ReviewSQL.cs:line 200
+   at RestaurantReviews.Entities.Logic.ReviewManager.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.Entities\Logic\ReviewManager.cs:line 108
+   at RestaurantReviews.API.Controllers.ReviewController.DeleteReview(Int64 reviewId) in C:\Users\jdean\Desktop\Projects\RestaurantReviews\RestaurantReviews.API\Controllers\ReviewController.cs:line 90
