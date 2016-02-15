@@ -1,0 +1,9 @@
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\RestaurantReviews.Service.dll
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\RestaurantReviews.Service.pdb
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\RestaurantReviews.Data.dll
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\EntityFramework.dll
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\RestaurantReviews.Data.pdb
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\bin\Debug\EntityFramework.xml
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\obj\Debug\RestaurantReviews.Service.csprojResolveAssemblyReference.cache
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\obj\Debug\RestaurantReviews.Service.dll
+C:\Users\mkrummert\Documents\Visual Studio 2015\Projects\RestaurantReviews\RestaurantReviews.Service\obj\Debug\RestaurantReviews.Service.pdb
