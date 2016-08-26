@@ -1,5 +1,7 @@
 Developer Comments 
 =================
+Sorry it took so long to get this completed. There were many issues going on with my current employer that were urgent and had me working late nights so I couldn't find the time to finalize this project.
+
 I did not implement any security or membership for the users. I would probably setup OWIN based security and have users log in with their Facebook, Google, or Microsoft accounts since it would be better for users to not have to create another account.
 
 I would usually do much more commenting within the project adding XML comments above methods to outline description and parameters.
