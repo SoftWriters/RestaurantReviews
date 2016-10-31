@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReviews</name>
+    </assembly>
+    <members>
+        <member name="M:RestaurantReviews.Controllers.RestaurantController.GetByAddressProperties(RestaurantReviews.Models.RestaurantRequest)">
+            <summary>
+            Returns restaurants within a certain city, zip code or a radius of certain coordinates. 
+            </summary>
+            <remarks></remarks>
+            <param name="request"></param>
+            <returns>List of restaurants within a certain area.</returns>
+            <response code="200">The request was successful. </response>
+            <response code="404">No restaurants match the search criteria supplied. </response>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.RestaurantController.AddRestaurant(RestaurantReviews.Models.Restaurant)">
+            <summary>
+            Add a restaurant to the database.  
+            </summary>
+            <remarks>If the restaurant is added to the database http status code 201 is returned. 
+            If the restaurant already exists http status code 409 (conflict) is returned.</remarks>
+            <param name="restaurant">Constructed Restaurant.</param>
+            <returns>HttpStatusCode.Created(201) if the restaurant is successfully created.</returns>
+            <response code="201">The restaurant has been succesfully created. </response>
+            <response code="409">The restaurant record already exists. </response>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.ReviewController.GetByUser(RestaurantReviews.Models.UserRequest)">
+            <summary>
+            Gets a list of restaurant reviews that have been submitted by a user.
+            </summary>
+            <remarks>This method returns all reviews submitted by a user based on the user's username, email or user Id. </remarks>
+            <param name="user"></param>
+            <response code="200">The request was successful. </response>
+            <response code="404">No valid reviews were found based upon the search criteria supplied.</response>
+            <returns>List or reviews. </returns>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.ReviewController.GetByRestaurant(RestaurantReviews.Models.RestaurantRequest)">
+            <summary>
+            Get reviews per restaurant. 
+            </summary>
+            <remarks>Returns a list of reviews for the restaurant requested. If reviews exist the response will have HttpStatusCode 200. If 
+            there are no valid reviews then the response will have HttpStatusCode 404. </remarks>
+            <param name="restaurant"></param>
+            <response code="200"></response>
+            <response code="404">No valid reviews were found based upon the search criteria supplied.</response>
+            <returns>List or reviews. </returns>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.ReviewController.AddRestaurantReview(RestaurantReviews.Models.ReviewRequest)">
+            <summary>
+            Adds a review for a restaurant. 
+            </summary>
+            <remarks>If the review is added successfully to the database a 201 reponse code is returned.</remarks>
+            <param name="review"></param>
+            <returns>HttpStatusCode.Created(201) the review was successfully created.</returns>
+            <response code="201">The review was successfully created.</response>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.ReviewController.RemoveRestaurantReview(System.Int64)">
+            <summary>
+            Removes a review based upon its Id. 
+            </summary>
+            <remarks></remarks>
+            <param name="reviewId"></param>
+            <returns></returns>
+            <response code="200">The review has been deleted. </response>
+            <repsonse code="400">The review was unable to be deleted. </repsonse>
+        </member>
+        <member name="M:RestaurantReviews.Controllers.UserController.AddNewUser(RestaurantReviews.Models.User)">
+            <summary>
+            Adds a new user to the database.
+            </summary>
+            <remarks>This method adds a user to the database. This was created for testing purposes. No constraints on the table. </remarks>
+            <param name="user"></param>
+            <returns>HttpStatusCode 201 when the user is created. </returns>
+            <response code="201">The user has been successfully created.</response>
+        </member>
+        <member name="T:RestaurantReviews.Services.Repositories.RestaurantRepository">
+            <summary>
+            Restaurant repository.
+            </summary>
+        </member>
+        <member name="T:RestaurantReviews.Services.Repositories.ReviewRepository">
+            <summary>
+            Repository object for reviews. 
+            </summary>
+        </member>
+        <member name="T:RestaurantReviews.Services.Repositories.UserRepository">
+            <summary>
+            User repository
+            </summary>
+        </member>
+    </members>
+</doc>
