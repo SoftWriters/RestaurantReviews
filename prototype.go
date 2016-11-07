@@ -26,7 +26,7 @@ type Restaurant struct {
 	Address    string  `db:"address" json:"address"`
 	Latitude   float64 `db:"latitude" json:"latitude"`
 	Longitude  float64 `db:"longitude" json:"longitude"`
-	avg_rating int8    `db:"rating" json:"rating"`
+	Avg_rating int8    `db:"avg_rating" json:"avg_rating"`
 }
 
 type User struct {
@@ -62,6 +62,7 @@ func initDb() *gorp.DbMap {
 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.PostgresDialect{}}
 	dbmap.AddTableWithName(User{}, "User").SetKeys(true, "Id")
 	dbmap.AddTableWithName(Review{}, "Review").SetKeys(true, "Id")
+	dbmap.AddTableWithName(Restaurant{}, "Restaurants").SetKeys(true, "Id")
 
 	err = dbmap.CreateTablesIfNotExists()
 	checkErr(err, "Create tables failed")
@@ -82,7 +83,7 @@ func main() {
 	{
 		v1.GET("/restaurants", GetRestaurants)
 		v1.GET("/restaurants/:id", GetRestaurant)
-		// v1.POST("/restaurants", PostRestaurant)
+		v1.POST("/restaurants", PostRestaurant)
 		v1.GET("/restaurants/:id/reviews", GetReviewsByRestaurant)
 		// v1.POST("/restaurants/:id/reviews", PostReview)
 		// v1.DELETE("/restaurants/:id/reviews", DeleteReview)
@@ -123,7 +124,7 @@ func GetRestaurants(c *gin.Context) {
 		if err == nil {
 			c.JSON(200, restaurants)
 		} else {
-			c.JSON(404, gin.H{"error": err, "lat": latitude, "lng":longitude})
+			c.JSON(404, gin.H{"error": err, "lat": latitude, "lng": longitude})
 		}
 
 	}
@@ -141,6 +142,36 @@ func GetRestaurant(c *gin.Context) {
 		c.JSON(404, gin.H{"error": err})
 	}
 
+}
+
+func PostRestaurant(c *gin.Context) {
+	var restaurant Restaurant
+	c.Bind(&restaurant)
+
+	log.Println(restaurant.Name)
+	log.Println(restaurant.Address)
+
+
+	if restaurant.Name != "" {
+		if restaurant.Address != "" {
+			log.Println("Got address")
+			content := &Restaurant{0, restaurant.Name, restaurant.Address, 0, 0, 0,}
+			zerr := dbmap.Insert(content)
+			checkErr(zerr, "Doh")
+			if zerr == nil {
+				c.JSON(201, content)
+			} else {
+				c.JSON(400, gin.H{"dmap error": zerr})
+			}
+
+			log.Println("Postinsert")
+
+		} else {
+			c.JSON(400, gin.H{"Error: missing address": restaurant})
+		}
+	} else {
+			c.JSON(400, gin.H{"Error: missing Name": restaurant})
+	}		
 }
 
 func GetReviewsByRestaurant(c *gin.Context) {
