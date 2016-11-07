@@ -44,12 +44,12 @@ type Review struct {
 }
 
 type ReviewView struct {
-	RestaurantName string 
-	UserName       string 
-	ReviewID       int64  
-	ReviewTitle    string 
-	ReviewContent  string 
-	ReviewRating   uint8  
+	RestaurantName string
+	UserName       string
+	ReviewID       int64
+	ReviewTitle    string
+	ReviewContent  string
+	ReviewRating   uint8
 }
 
 var dbmap = initDb()
@@ -107,13 +107,25 @@ func GetUsers(c *gin.Context) {
 }
 
 func GetRestaurants(c *gin.Context) {
+	latitude := c.Query("lat")
+	longitude := c.Query("lng")
 	var restaurants []Restaurant
-	_, err := dbmap.Select(&restaurants, "SELECT gid, name, address FROM \"restaurants\"")
 
-	if err == nil {
-		c.JSON(200, restaurants)
+	if latitude == "" || longitude == "" {
+		_, err := dbmap.Select(&restaurants, "SELECT gid, name, address FROM \"restaurants\"")
+		if err == nil {
+			c.JSON(200, restaurants)
+		} else {
+			c.JSON(404, gin.H{"error": err})
+		}
 	} else {
-		c.JSON(404, gin.H{"error": err})
+		_, err := dbmap.Select(&restaurants, "SELECT gid, name, address FROM restaurants WHERE GeometryType(ST_Centroid(the_geom)) = 'POINT' AND ST_Distance_Sphere( ST_Point(ST_X(ST_Centroid(the_geom)), ST_Y(ST_Centroid(the_geom))), (ST_MakePoint($1, $2))) <= 1609.34", latitude, longitude)
+		if err == nil {
+			c.JSON(200, restaurants)
+		} else {
+			c.JSON(404, gin.H{"error": err, "lat": latitude, "lng":longitude})
+		}
+
 	}
 
 }
@@ -143,19 +155,10 @@ func GetReviewsByRestaurant(c *gin.Context) {
 	}
 }
 
-// RestaurantName string `db:"restaurant" json:"restaurant"`
-// UserName       string `db:"username" json:"username"`
-// ReviewID       int64  `db:"reviewid" json:"reviewid"`
-// ReviewTitle    string `db:title" json:"title"`
-// ReviewContent  string `db:content" json:"content"`
-// ReviewRating   uint8  `db:"rating" json:"rating"`
-
 func GetReviewsByUser(c *gin.Context) {
 	var reviews []ReviewView
 	userid := c.Params.ByName("id")
 	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE u.id=$1 AND u.id = rv.userid and rs.gid = rv.id", userid)
-
-
 
 	if err == nil {
 		c.JSON(200, reviews)
