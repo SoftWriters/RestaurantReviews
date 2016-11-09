@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"gopkg.in/gorp.v1"
 	"log"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -40,7 +41,7 @@ type Review struct {
 	UserId       int64  `db:"userid" json"userid"`
 	Title        string `db:"title" json:"title"`
 	Content      string `db:"content" json:"content"`
-	Rating       uint8  `db:"rating" json:"rating"`
+	Rating       int64  `db:"rating" json:"rating"`
 }
 
 type ReviewView struct {
@@ -85,10 +86,13 @@ func main() {
 		v1.GET("/restaurants/:id", GetRestaurant)
 		v1.POST("/restaurants", PostRestaurant)
 		v1.GET("/restaurants/:id/reviews", GetReviewsByRestaurant)
-		// v1.POST("/restaurants/:id/reviews", PostReview)
-		// v1.DELETE("/restaurants/:id/reviews", DeleteReview)
+		v1.POST("/restaurants/:id/reviews", PostReview)
 		v1.GET("/users/:id/reviews", GetReviewsByUser)
 		v1.GET("/users", GetUsers)
+		v1.GET("/reviews", GetReviews)
+		v1.GET("/reviews/:id", GetReview)
+		v1.DELETE("/reviews/:id/", DeleteReview)
+
 	}
 
 	r.Run(":8080")
@@ -151,13 +155,12 @@ func PostRestaurant(c *gin.Context) {
 	log.Println(restaurant.Name)
 	log.Println(restaurant.Address)
 
-
 	if restaurant.Name != "" {
 		if restaurant.Address != "" {
 			log.Println("Got address")
-			content := &Restaurant{0, restaurant.Name, restaurant.Address, 0, 0, 0,}
+			content := &Restaurant{0, restaurant.Name, restaurant.Address, 0, 0, 0}
 			zerr := dbmap.Insert(content)
-			checkErr(zerr, "Doh")
+			checkErr(zerr, "Error adding restaurant.")
 			if zerr == nil {
 				c.JSON(201, content)
 			} else {
@@ -170,8 +173,81 @@ func PostRestaurant(c *gin.Context) {
 			c.JSON(400, gin.H{"Error: missing address": restaurant})
 		}
 	} else {
-			c.JSON(400, gin.H{"Error: missing Name": restaurant})
-	}		
+		c.JSON(400, gin.H{"Error: missing Name": restaurant})
+	}
+}
+
+// Id           int64
+// RestaurantId int64
+// UserId       int64
+// Title        string
+// Content      string
+// Rating       uint8
+
+func GetReviews(c *gin.Context){
+	var reviews []ReviewView
+	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE  u.id = rv.userid and rs.gid = rv.restid")
+
+	if err == nil {
+		c.JSON(200, reviews)
+	} else {
+		c.JSON(404, gin.H{"error": err})
+	}
+
+}
+
+func GetReview(c *gin.Context){
+	var review ReviewView
+	reviewId := c.Params.ByName("id")
+
+	err := dbmap.SelectOne(&review, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE rv.id = $1 AND u.id = rv.userid and rs.gid = rv.restid ", reviewId)
+
+	if err == nil {
+		c.JSON(200, review)
+	} else {
+		c.JSON(404, gin.H{"error": err})
+	}
+
+}
+
+func PostReview(c *gin.Context) {
+	var review Review
+	c.Bind(&review)
+
+	restaurantId, _ := strconv.ParseInt(c.Params.ByName("id"),10,64)
+	userId, _ := strconv.ParseInt(c.PostForm("uid"),10,64)
+	title := c.PostForm("title")
+	reviewContent := c.PostForm("content")
+
+	rating, _ := strconv.ParseInt( c.PostForm("rating"),10,8)
+
+	log.Println("restid: %d userid: %d", restaurantId, userId);
+	log.Println("Title: %s \n %s", title, reviewContent);
+
+	content := &Review{0, restaurantId, userId, title, reviewContent, rating}
+	err := dbmap.Insert(content)
+	if err == nil {
+		c.JSON(201, content)
+	} else {
+		c.JSON(400, gin.H{"dmap error": err})
+	}
+}
+
+func DeleteReview(c *gin.Context){
+
+
+	reviewId, _ := strconv.ParseInt(c.Params.ByName("id"),10,64)
+	userId, _ := strconv.ParseInt(c.PostForm("uid"),10,64)
+	
+	_, err := dbmap.Exec("DELETE from review where id=$1 and userid=$2", reviewId, userId)
+    if err == nil {
+		c.JSON(202, "Item marked for deletion.")
+	} else {
+		c.JSON(400, gin.H{"dmap error": err})
+	}
+
+
+
 }
 
 func GetReviewsByRestaurant(c *gin.Context) {
