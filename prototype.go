@@ -189,7 +189,7 @@ func GetReviewsByRestaurant(c *gin.Context) {
 func GetReviewsByUser(c *gin.Context) {
 	var reviews []ReviewView
 	userid := c.Params.ByName("id")
-	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE u.id=$1 AND u.id = rv.userid and rs.gid = rv.id", userid)
+	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE u.id=$1 AND u.id = rv.userid and rs.gid = rv.restid", userid)
 
 	if err == nil {
 		c.JSON(200, reviews)
