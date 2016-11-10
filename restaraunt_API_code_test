@@ -18,10 +18,10 @@ example:    GET /qjf884-345r-44324-sdg43/dominics_italian_eatery/
 
 3)
 --------------------
-GET /cities/{guid}/{category}
+GET /{CityGUID}/{category}
 
 returns a list of restaurants within a specific category from that city
-example:    GET /cities/qjf884-345r-44324-sdg43/barbershops
+example:    GET /{CityGUID}/italian/dominics_italian_eatery/
 
 4)
 --------------------
