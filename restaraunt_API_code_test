@@ -1,0 +1,98 @@
+API Usage:
+
+Below is the API endpoints, these should work with checked in 'json datasets'...
+
+1)
+--------------------
+GET /cities
+
+returns a list of all cities
+example:    GET /cities
+
+2)
+--------------------
+GET /{CityGUID}/restaraunts/
+
+returns a list of all restaraunts within a specific city.
+example:    GET /qjf884-345r-44324-sdg43/dominics_italian_eatery/
+
+3)
+--------------------
+GET /cities/{guid}/{category}
+
+returns a list of restaurants within a specific category from that city
+example:    GET /cities/qjf884-345r-44324-sdg43/barbershops
+
+4)
+--------------------
+POST /restaurants
+
+adds a restaurant.
+example:    POST /restaurants {
+    CityGUID: 'qjf884-345r-44324-sdg43',
+    Name: 'Dominics Italian Eatery',
+    Type: 'Italian Restaurant'
+}
+
+5)
+--------------------
+GET /restaurants/{guid}
+
+gets an restaurants by its guid
+example: /restaurants/qjf884-345r-44324-sdg43
+
+6)
+--------------------
+GET /restaurants/{guid}/reviews
+
+gets an restaurants reviews
+example: /restaurants/qjf884-345r-44324-sdg43/reviews/
+
+7)
+--------------------
+POST /restaurants/{guid}/reviews
+
+adds a review for a restaurant
+example:    POST /restaurants/qjf884-345r-44324-sdg43/reviews {
+    UserID: '1234567890',
+    Title: 'Best meatball in town!!!',
+    Review: 'I never have to wait long and the service is unmatched!!!!',
+    Rating: '10'
+}
+
+8)
+--------------------
+DELETE /reviews/{guid}?authToken={token}
+
+deletes the review.
+NOTE: obviously - the test user would be the only review that could be deleted here - we would have to add full blown authentication to tie into the authorization token to be able to code in which review would be deleted.
+example:    DELETE /reviews/455fwf-sdfqr3-sfva3-fw4d-t4dg1?authToken=anyString
+
+9)
+--------------------
+GET /users/authenticate?authToken={token}
+
+Authenticates user based on token ID
+TEST USER ONLY****
+
+example: GET /users/authenticate?authToken=anyString
+
+10)
+--------------------
+GET /users/{guid}/reviews
+
+Gets reviews that a specific user has left
+
+example: GET /users/qjf884-345r-44324-sdg43/reviews/
+--------------------
+
+
+
+API Design principle and thoughts: 
+
+The design requirements are basic to begin with building this API but are straighforward enough to get us going. I understand the following requirements; 
+    -We need a list of restaraunts by city - (2)
+    -We need to be able to ADD a restaurant that is not currently in our DB - (4)
+    -We need to be able to post a review for a restaurant - (7)
+    -We need to view a list of reviews from a specific user - (10)
+    -We need to be able to delete a review - (8)
