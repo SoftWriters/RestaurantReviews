@@ -69,15 +69,20 @@ grep Restaurant RestaurentData.csv > Restaurants_only.csv
 b)
 cat RestaurentData.csv |grep Restaurant | grep -v without > Restaurants_noLiquor
 
-c)
+c) Scripts to extract address information and format it for use with curl.
+
+```
 awk -F "\"*,\"*" '{print "address="$2 " "  $3 , $4 ", " $5 " " $6 "key=<GOOGLE GEO CODE KEY>" }' Restaurants_noLiquor.csv > RestAddresses.csv
 
 awk -F "\"*,\"*" '{print $1 "|" $2 " "  $3 , $4 ", " $5 " " $6 "|" $9 "|" $10}' Restaurants_LiquorWLatLong.csv > Restaurants_LiquorWLatLongEdite.csv
- 
+```
+
 
 d) Create a CSV file that includes Lat/Long
+```
 cat Downloads/15217Rests.txt| xargs -I {} curl -G https://maps.googleapis.com/maps/api/geocode/json --data-urlencode {} |jq '.results| map(.formatted_address, .geometry.location.lat, .geometry.location.lng ) |@csv ' >test.csv
 
+```
 Some manual editing is required to verify that the results have not returned an extra field.
 
 
