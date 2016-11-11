@@ -1,5 +1,11 @@
 package main
 
+/* 
+*  Jay Palat
+*  jay@palat.net
+*  MIT Licensed
+*/
+
 import (
 	"database/sql"
 	"gopkg.in/gorp.v1"
@@ -10,16 +16,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-//x name
-//x id
-//x location (street addr)
-// lat
-// long
-// genre?
-// phone
-// fax
-// website
-// avg_rating
+
 
 type Restaurant struct {
 	Id         int64   `db:"gid" json:"id"`
@@ -177,12 +174,6 @@ func PostRestaurant(c *gin.Context) {
 	}
 }
 
-// Id           int64
-// RestaurantId int64
-// UserId       int64
-// Title        string
-// Content      string
-// Rating       uint8
 
 func GetReviews(c *gin.Context){
 	var reviews []ReviewView
