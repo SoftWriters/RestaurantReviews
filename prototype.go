@@ -68,6 +68,13 @@ func initDb() *gorp.DbMap {
 	return dbmap
 }
 
+func Cors() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
+		c.Next()
+	}
+}
+
 func checkErr(err error, msg string) {
 	if err != nil {
 		log.Fatalln(msg, err)
@@ -76,6 +83,7 @@ func checkErr(err error, msg string) {
 
 func main() {
 	r := gin.Default()
+	r.Use(Cors())
 
 	v1 := r.Group("api/v1")
 	{
