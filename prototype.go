@@ -24,7 +24,6 @@ type Restaurant struct {
 	Address    string  `db:"address" json:"address"`
 	Latitude   float64 `db:"latitude" json:"latitude"`
 	Longitude  float64 `db:"longitude" json:"longitude"`
-	Avg_rating int8    `db:"avg_rating" json:"avg_rating"`
 }
 
 type User struct {
@@ -49,6 +48,8 @@ type ReviewView struct {
 	ReviewContent  string
 	ReviewRating   uint8
 }
+
+
 
 var dbmap = initDb()
 
@@ -163,7 +164,7 @@ func PostRestaurant(c *gin.Context) {
 	if restaurant.Name != "" {
 		if restaurant.Address != "" {
 			log.Println("Got address")
-			content := &Restaurant{0, restaurant.Name, restaurant.Address, 0, 0, 0}
+			content := &Restaurant{0, restaurant.Name, restaurant.Address, 0, 0}
 			zerr := dbmap.Insert(content)
 			checkErr(zerr, "Error adding restaurant.")
 			if zerr == nil {
