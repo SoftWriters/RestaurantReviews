@@ -33,6 +33,11 @@ paths:
           required: false
           type: number
           format: double
+        - name: page
+          in: query
+          description: Page of results (sets of 20).
+          required: false
+          type: number
       tags:
         - Restaurant
       responses:
@@ -47,7 +52,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     post:
-      summary: A new restaurant.
+      summary: Create a new restaurant.
       description: |
         The Restaurants endpoint to create restaurants.
       parameters:
