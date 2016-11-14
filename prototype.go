@@ -116,10 +116,15 @@ func GetUsers(c *gin.Context) {
 func GetRestaurants(c *gin.Context) {
 	latitude := c.Query("lat")
 	longitude := c.Query("lng")
+	limit := 20
+
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "0")) 
+	offset := page * limit
+
 	var restaurants []Restaurant
 
 	if latitude == "" || longitude == "" {
-		_, err := dbmap.Select(&restaurants, "SELECT gid, name, address FROM \"restaurants\"")
+		_, err := dbmap.Select(&restaurants, "SELECT gid, name, address FROM \"restaurants\" ORDER BY gid LIMIT $1 OFFSET $2 ", limit, offset)
 		if err == nil {
 			c.JSON(200, restaurants)
 		} else {
