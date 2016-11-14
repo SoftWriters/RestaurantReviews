@@ -46,6 +46,30 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+    post:
+      summary: A new restaurant.
+      description: |
+        The Restaurants endpoint to create restaurants.
+      parameters:
+        - name: restaurant
+          in: body
+          description: review details.
+          required: true
+          schema:
+            $ref: '#/definitions/NewRestaurant'
+      tags:
+        - Restaurant
+      responses:
+        200:
+          description: An array of restaurants
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Restaurant'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /restaurants/{id}:
     get:
       summary: A restaurant in the system.
@@ -82,7 +106,37 @@ paths:
           description: restaurant identifier.
           required: true
           type: number
-  
+
+      tags:
+        - Review
+        - Restaurant
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: A restaurant in the system.
+      description: |
+        Returns the reviews for a specific restaurant.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+        - name: review
+          in: body
+          description: review details.
+          required: true
+          schema:
+            $ref: '#/definitions/NewReview'
       tags:
         - Review
         - Restaurant
@@ -117,9 +171,34 @@ paths:
             $ref: '#/definitions/Error'
   /reviews/{id}:
     get:
-      summary: All reviews.
+      summary: Get a review.
       description: |
         Returns a specified review.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+  
+      tags:
+        - Review
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReviewView'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      summary: Delete review.
+      description: |
+        Delete a specified review.
       parameters:
         - name: id
           in: path
@@ -186,11 +265,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     # v1.POST("/restaurants", PostRestaurant)
-    # v1.POST("/restaurants/:id/reviews", PostReview)
-
-    # v1.GET("/users/:id/reviews", GetReviewsByUser)
-    # v1.GET("/users", GetUsers)
-    # v1.DELETE("/reviews/:id/", DeleteReview)
+  
 
 
   
@@ -217,9 +292,25 @@ definitions:
         type: number
         format: double
         description: Longitude.
-      Avg_rating: 
+
+  NewRestaurant:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: Name of restaurant.
+      Address:
+        type: string
+        description: Street Address.
+      Latitude:
         type: number
-        description: Avereage rating for this restaurant.
+        format: double
+        description: Latitude.
+      Longitude:
+        type: number
+        format: double
+        description: Longitude.
+
   Review:
     type: object
     properties:
@@ -229,6 +320,21 @@ definitions:
       RestaurantId:
         type: number
         description: Restaurant id.
+      UserId:
+        type: number
+        description: User id number.
+      Title:
+        type: string
+        description: Review Title.
+      Content:
+        type: string
+        description: Text of the review.
+      Rating:
+        type: number
+        description: Star rating (1-5).
+  NewReview:
+    type: object
+    properties:
       UserId:
         type: number
         description: User id number.
@@ -279,5 +385,4 @@ definitions:
     properties:
       message:
         type: string
-      fields:
-        type: string
+
