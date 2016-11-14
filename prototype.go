@@ -1,10 +1,10 @@
 package main
 
-/* 
+/*
 *  Jay Palat
 *  jay@palat.net
 *  MIT Licensed
-*/
+ */
 
 import (
 	"database/sql"
@@ -16,14 +16,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-
-
 type Restaurant struct {
-	Id         int64   `db:"gid" json:"id"`
-	Name       string  `db:"name" json:"name"`
-	Address    string  `db:"address" json:"address"`
-	Latitude   float64 `db:"latitude" json:"latitude"`
-	Longitude  float64 `db:"longitude" json:"longitude"`
+	Id        int64   `db:"gid" json:"id"`
+	Name      string  `db:"name" json:"name"`
+	Address   string  `db:"address" json:"address"`
+	Latitude  float64 `db:"latitude" json:"latitude"`
+	Longitude float64 `db:"longitude" json:"longitude"`
 }
 
 type User struct {
@@ -48,8 +46,6 @@ type ReviewView struct {
 	ReviewContent  string
 	ReviewRating   uint8
 }
-
-
 
 var dbmap = initDb()
 
@@ -183,8 +179,7 @@ func PostRestaurant(c *gin.Context) {
 	}
 }
 
-
-func GetReviews(c *gin.Context){
+func GetReviews(c *gin.Context) {
 	var reviews []ReviewView
 	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE  u.id = rv.userid and rs.gid = rv.restid")
 
@@ -196,7 +191,7 @@ func GetReviews(c *gin.Context){
 
 }
 
-func GetReview(c *gin.Context){
+func GetReview(c *gin.Context) {
 	var review ReviewView
 	reviewId := c.Params.ByName("id")
 
@@ -214,15 +209,15 @@ func PostReview(c *gin.Context) {
 	var review Review
 	c.Bind(&review)
 
-	restaurantId, _ := strconv.ParseInt(c.Params.ByName("id"),10,64)
-	userId, _ := strconv.ParseInt(c.PostForm("uid"),10,64)
+	restaurantId, _ := strconv.ParseInt(c.Params.ByName("id"), 10, 64)
+	userId, _ := strconv.ParseInt(c.PostForm("uid"), 10, 64)
 	title := c.PostForm("title")
 	reviewContent := c.PostForm("content")
 
-	rating, _ := strconv.ParseInt( c.PostForm("rating"),10,8)
+	rating, _ := strconv.ParseInt(c.PostForm("rating"), 10, 8)
 
-	log.Println("restid: %d userid: %d", restaurantId, userId);
-	log.Println("Title: %s \n %s", title, reviewContent);
+	log.Println("restid: %d userid: %d", restaurantId, userId)
+	log.Println("Title: %s \n %s", title, reviewContent)
 
 	content := &Review{0, restaurantId, userId, title, reviewContent, rating}
 	err := dbmap.Insert(content)
@@ -233,27 +228,24 @@ func PostReview(c *gin.Context) {
 	}
 }
 
-func DeleteReview(c *gin.Context){
+func DeleteReview(c *gin.Context) {
 
+	reviewId, _ := strconv.ParseInt(c.Params.ByName("id"), 10, 64)
+	userId, _ := strconv.ParseInt(c.PostForm("uid"), 10, 64)
 
-	reviewId, _ := strconv.ParseInt(c.Params.ByName("id"),10,64)
-	userId, _ := strconv.ParseInt(c.PostForm("uid"),10,64)
-	
 	_, err := dbmap.Exec("DELETE from review where id=$1 and userid=$2", reviewId, userId)
-    if err == nil {
+	if err == nil {
 		c.JSON(202, "Item marked for deletion.")
 	} else {
 		c.JSON(400, gin.H{"dmap error": err})
 	}
 
-
-
 }
 
 func GetReviewsByRestaurant(c *gin.Context) {
-	var reviews []Review
 	restid := c.Params.ByName("id")
-	_, err := dbmap.Select(&reviews, "SELECT * FROM review WHERE restid=$1", restid)
+	var reviews []ReviewView
+	_, err := dbmap.Select(&reviews, "SELECT rs.name RestaurantName, u.username UserName, rv.id ReviewID, rv.title ReviewTitle, rv.content ReviewContent, rv.rating ReviewRating FROM review rv, restaurants rs, \"user\" u WHERE  u.id = rv.userid and rs.gid = rv.restid and rs.gid =$1", restid)
 
 	if err == nil {
 		c.JSON(200, reviews)
