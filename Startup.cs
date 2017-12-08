@@ -28,41 +28,26 @@ namespace RestaurantReviews
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
+                .AddJwtBearer("JwtBearer", options =>
+                {
                     options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
+                    {                            
                         ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
 
-                        ValidIssuer = "RestaurantReviews.Bearer",
-                        ValidAudience = "RestaurantReviews.Bearer",
-                        IssuerSigningKey = JwtSecurityKey.Create("restaurantreviews-secret-key")
-                    };
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["JwtIssuer"],
 
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnAuthenticationFailed = context =>
-                        {
-                            Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
-                            return Task.CompletedTask;
-                        },
-                        OnTokenValidated = context =>
-                        {
-                            Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
-                            return Task.CompletedTask;
-                        }
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JwtIssuer"],
+
+                        ValidateLifetime = true, //validate the expiration and not before values in the token
+
+                        ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                     };
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Member",
-                    policy => policy.RequireClaim("MembershipId"));
-            });
-
-            services.AddDbContext<RestaurantReviews.Models.RestaurantContext>(opt => opt.UseInMemoryDatabase("RestaurantReviews"));
+            services.AddDbContext<RestaurantReviews.Models.RestaurantReviewContext>(opt => opt.UseInMemoryDatabase("RestaurantReviews"));
 
             services.AddMvc();
         }
@@ -75,6 +60,8 @@ namespace RestaurantReviews
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+            
             app.UseMvc();
         }
     }

@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RestaurantReviews.Models
 {
-    public class RestaurantContext : DbContext
+    public class RestaurantReviewContext : DbContext
     {
-        public RestaurantContext(DbContextOptions<RestaurantContext> options)
+        public RestaurantReviewContext(DbContextOptions<RestaurantReviewContext> options)
             : base(options)
         {
         }
 
         public DbSet<Restaurant> Restaurants { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
     }
 }
