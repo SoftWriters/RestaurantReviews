@@ -23,6 +23,13 @@ namespace RestaurantReviews.Controllers
             }
         }
 
+        [HttpGet]
+        public IEnumerable<Restaurant> Get()
+        {
+            return (from rest in context_.Restaurants 
+                select rest).ToArray();
+        }
+
         [HttpGet("{id}")]
         public IEnumerable<Restaurant> Get(long id)
         {

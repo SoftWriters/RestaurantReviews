@@ -61,6 +61,8 @@ namespace RestaurantReviews
             }
 
             app.UseAuthentication();
+
+            app.UseStaticFiles();
             
             app.UseMvc();
         }

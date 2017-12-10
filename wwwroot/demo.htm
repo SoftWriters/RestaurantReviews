@@ -1,0 +1,69 @@
+<html>
+    <header><title>RestaurantReviews Demo Page</title></header>
+    <body>
+        <p>
+            <h3>Get Reviews</h3>
+            <button id="btnGetAllReviews" onclick="do_web_request('api/reviews', 'GET', '', '', updateReviews)" >Get All</button>
+        </p>
+        <p>
+            <h3>Get Restaurants</h3>
+            <button id="btnGetAllRestaurants" onclick="do_web_request('api/restaurants', 'GET', '', '', updateReviews)" >Get All</button>
+        </p>
+        <p>
+            <h3>Add Restaurant</h3>
+        </p>
+        <p>
+            <h3>Add Review</h3>
+        </p>
+        <p>
+            <h3>Delete Review</h3>
+        </p>
+        
+        <p>
+            Message:&nbsp;<div id="divMessage"></div>
+        </p>
+
+        <script type="text/javascript">
+            function btnGetAllReviews_click()
+            {
+                do_web_request("api/reviews", "GET", "", "", updateReviews);
+            }
+
+            function updateReviews(data)
+            {
+                alert(JSON.stringify(data));
+            }
+
+            function do_web_request(url, verb, name, value, ui_callback)
+            {
+                var bustCache = '?' + new Date().getTime();
+                var divStatus = document.getElementById('divStatus')
+                var oReq = new XMLHttpRequest();
+                oReq.onload = function (e) {
+                    if (e.target.response != null)
+                    {
+                        document.getElementById("divMessage").innerHTML = e.target.statusText;
+                        ui_callback(e.target.response);
+                    }
+                    else
+                    {
+                        document.getElementById("divMessage").innerHTML = "No vaild response";
+                    }
+                };
+                oReq.open(verb, url + bustCache, true);
+                oReq.setRequestHeader("Authorization", "Basic aHlsaWlvbjoxMDAwVW5pdHNPblJvYWQh");
+                oReq.setRequestHeader("Accept", "application/json");
+                oReq.responseType = 'json';
+                var body = name + "=" + value;
+                if (body.length > 0)
+                {
+                    oReq.send(body);
+                }
+                else
+                {
+                    oReq.send();
+                }
+            }
+        </script>
+    </body>
+</html>
