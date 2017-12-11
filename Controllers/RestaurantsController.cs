@@ -15,35 +15,73 @@ namespace RestaurantReviews.Controllers
         public RestaurantsController(RestaurantReviewContext context)
         {
             context_ = context;
+        }
 
-            if (context_.Restaurants.Count() == 0)
+        [HttpGet]
+        public IEnumerable<Restaurant> Get(string city = "") 
+        {            
+            if (!String.IsNullOrEmpty(city))
             {
-                context_.Restaurants.Add(new Restaurant { Name = "Item1" });
+                return (from rest in context_.Restaurants
+                    where String.Equals(city, rest.City, StringComparison.OrdinalIgnoreCase)
+                    select rest).ToArray();
+            }
+            else 
+            {
+                return (from rest in context_.Restaurants select rest).ToArray();
+            }
+        }
+
+        [HttpGet("{id}")]
+        public Restaurant Get(long id)
+        {
+            return (from rest in context_.Restaurants 
+                where rest.RestaurantId == id 
+                select rest).DefaultIfEmpty(null).SingleOrDefault();
+        }
+
+        // POST api/restaurants
+        [HttpPost]
+        public void Post([FromBody]Restaurant new_restaurant)
+        {
+            context_.Restaurants.Add(new_restaurant);
+            context_.SaveChanges();
+        }
+
+        // PUT api/restaurants/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]Restaurant update_restaurant)
+        {
+            var old_restaurant= (from restaurant in context_.Restaurants
+                where restaurant.RestaurantId == id
+                select restaurant).DefaultIfEmpty(null).SingleOrDefault();
+
+            if (old_restaurant != null)
+            {
+                old_restaurant.Name = update_restaurant.Name;
+                old_restaurant.City = update_restaurant.City;
+                old_restaurant.Country = update_restaurant.Country;
+                old_restaurant.Street = update_restaurant.Street;
+                old_restaurant.State = update_restaurant.State;
+                old_restaurant.Zip = update_restaurant.Zip;
+                context_.Restaurants.Update(old_restaurant);
                 context_.SaveChanges();
             }
         }
 
-        [HttpGet]
-        public IEnumerable<Restaurant> Get()
+        // DELETE api/restaurants/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            return (from rest in context_.Restaurants 
-                select rest).ToArray();
-        }
+            var to_delete = (from restaurant in context_.Restaurants
+                where restaurant.RestaurantId == id
+                select restaurant).DefaultIfEmpty(null).SingleOrDefault();
 
-        [HttpGet("{id}")]
-        public IEnumerable<Restaurant> Get(long id)
-        {
-            return (from rest in context_.Restaurants 
-                where rest.RestaurantID == id 
-                select rest).ToArray();
-        }
-
-        [HttpGet("{city}")]
-        public IEnumerable<Restaurant> Get(string city)
-        {
-            return (from rest in context_.Restaurants 
-                where rest.City == city 
-                select rest).ToArray();
+            if (to_delete != null)
+            {
+                context_.Restaurants.Remove(to_delete);
+                context_.SaveChanges();
+            }
         }
     }
 }

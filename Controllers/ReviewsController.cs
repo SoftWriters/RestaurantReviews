@@ -15,35 +15,43 @@ namespace RestaurantReviews.Controllers
         public ReviewsController(RestaurantReviewContext context)
         {
             context_ = context;
-
-            if (context_.Restaurants.Count() == 0)
-            {
-                context_.Restaurants.Add(new Restaurant { Name = "Item1" });
-                context_.SaveChanges();
-            }
         }    
-
-        [HttpGet]
-        public IEnumerable<Review> Get()
-        {
-            return (from review in context_.Reviews select review).ToArray();
-        }   
 
         [HttpGet("{id}")]
         public Review Get(long id)
         {
             return (from review in context_.Reviews 
-                where review.ReviewID == id 
+                where review.ReviewId == id 
                 select review).DefaultIfEmpty(null).SingleOrDefault();
         }
 
-        // GET api/reviews/user
-        [HttpGet("{user}")]
-        public IEnumerable<Review> Get(string user)
+        // GET api/reviews
+        [HttpGet()]
+        public IEnumerable<Review> Get(long? restaurantid = null, int? minrating = null, string username = "")
         {
-            return (from review in context_.Reviews 
-                where review.UserName == user 
-                select review).ToArray();
+            if (minrating != null)
+            {
+                return (from review in context_.Reviews 
+                    where review.Rating >= minrating
+                    select review).ToArray();
+            }
+            if (!String.IsNullOrEmpty(username))
+            {
+                return (from review in context_.Reviews 
+                    where review.UserName == username 
+                    select review).ToArray();
+            }
+            else if (restaurantid != null)
+            {
+                return (from review in context_.Reviews 
+                    where review.RestaurantId == restaurantid 
+                    select review).ToArray();
+            }
+            else
+            {
+                return (from review in context_.Reviews 
+                    select review).ToArray();
+            }
         }
 
         // POST api/reviews
@@ -59,12 +67,15 @@ namespace RestaurantReviews.Controllers
         public void Put(int id, [FromBody]Review update_review)
         {
             var old_review = (from review in context_.Reviews
-                where review.ReviewID == id
+                where review.ReviewId == id
                 select review).DefaultIfEmpty(null).SingleOrDefault();
 
             if (old_review != null)
             {
-                old_review = update_review;
+                old_review.Rating = update_review.Rating;
+                old_review.Description = update_review.Description;
+                old_review.RestaurantId = update_review.RestaurantId;
+                old_review.UserName = update_review.UserName;
                 context_.SaveChanges();
             }
         }
@@ -74,7 +85,7 @@ namespace RestaurantReviews.Controllers
         public void Delete(int id)
         {
             var to_delete = (from review in context_.Reviews
-                where review.ReviewID == id
+                where review.ReviewId == id
                 select review).DefaultIfEmpty(null).SingleOrDefault();
 
             if (to_delete != null)

@@ -2,21 +2,51 @@
     <header><title>RestaurantReviews Demo Page</title></header>
     <body>
         <p>
+            <h3>Get Restaurants&nbsp;</h3>
+            City Filter:&nbsp;<input id="inputCityFilter" type="text"/><br/>
+            <button id="btnGetAllRestaurants" onclick="do_web_request('api/restaurants', 'GET', {'city': document.getElementById('inputCityFilter').value}, null, document.getElementById('divRestaurants'))" >Get Restaurants</button>
+            <div id="divRestaurants"></div>
+        </p>
+        <p>
+            <h3>Add/Update Restaurant</h3>
+            <form id="formRestaurants">
+                Name:&nbsp;<input id="inputName" type="text" name="Name"/><br/>
+                Street:&nbsp;<input id="inputStreet" type="text" name="Street"/><br/>
+                City:&nbsp;<input id="inputCity" type="text" name="City"/><br/>
+                Country:&nbsp;<input id="inputCountry" type="text" name="Country"/><br/>
+                State:&nbsp;<input id="inputState" type="text" name="State"/><br/>
+                Postal:&nbsp;<input id="inputZip" type="text" name="Zip"/><br/>
+            </form>
+            <button type="button" onclick="do_web_request('api/restaurants', 'POST', null, new FormData(document.getElementById('formRestaurants')), null)">Post</button><br>
+            Restaurant ID:&nbsp;<input id="inputRestaurantId" type="number"/><br/>
+            <button id="btnRestaurantGetID" onclick="do_web_request('api/restaurants/' + document.getElementById('inputRestaurantId').value, 'GET', null, null, document.getElementById('divRestaurants'))">Get by ID</button>
+            <button id="btnRestaurantUpdate" onclick="do_web_request('api/restaurants/' + document.getElementById('inputRestaurantId').value, 'PUT', null, new FormData(document.getElementById('formRestaurants')), document.getElementById('divRestaurants'))">Update by ID</button>
+        </p>
+        <p>
             <h3>Get Reviews</h3>
-            <button id="btnGetAllReviews" onclick="do_web_request('api/reviews', 'GET', '', '', updateReviews)" >Get All</button>
+            
+            <div id="divReviews"></div>
+            Min Rating Filter:&nbsp;<input id="inputRatingFilter" type="number" min="1" max="5"/><br/>
+            Restaurant Filter:&nbsp;<input id="inputReviewRestaurantIdFilter" type="number"/><br/>
+            User Filter:&nbsp;<input id="inputReviewUserName" type="text"/><br/>
+            <button id="btnReviewGetAll" onclick="do_web_request('api/reviews', 'GET', null, null, document.getElementById('divReviews'))">Get All</button>
+            <button id="btnReviewGetRestaurantID" onclick="do_web_request('api/reviews/', 'GET', {'restaurantid': document.getElementById('inputReviewRestaurantIdFilter').value}, null, document.getElementById('divReviews'))">Get by Restaurant ID</button>
+            <button id="btnReviewGetUser" onclick="do_web_request('api/reviews/', 'GET', {'username': document.getElementById('inputReviewUserName').value}, null, document.getElementById('divReviews'))">Get by User</button>
+            <button id="btnReviewGetRating" onclick="do_web_request('api/reviews/', 'GET', {'minrating': document.getElementById('inputRatingFilter').value}, null, document.getElementById('divReviews'))">Get by Rating</button>
         </p>
         <p>
-            <h3>Get Restaurants</h3>
-            <button id="btnGetAllRestaurants" onclick="do_web_request('api/restaurants', 'GET', '', '', updateReviews)" >Get All</button>
-        </p>
-        <p>
-            <h3>Add Restaurant</h3>
-        </p>
-        <p>
-            <h3>Add Review</h3>
-        </p>
-        <p>
-            <h3>Delete Review</h3>
+            <h3>Add/Update/Delete Review</h3>
+            <form id="formReview">
+                User Name:&nbsp;<input id="inputUserName" type="text" name="UserName"/><br/>
+                Rating:&nbsp;<input id="inputRating" type="number" min="1" max="5" name="Rating"/><br/>
+                Description:&nbsp;<input id="inputDescription" type="text" name="Description" style="width: 400px"/><br/>
+                RestaurantId:&nbsp;<input id="inputReviewRestaurantId" type="text" name="RestaurantId"/><br/>
+            </form>
+            <button type="button" onclick="do_web_request('api/reviews', 'POST', null, new FormData(document.getElementById('formRestaurants')), null)">Post</button><br>
+            Review ID:&nbsp;<input id="inputReviewId" type="number"/><br/>
+            <button id="btnReviewGetID" onclick="do_web_request('api/reviews/' + document.getElementById('inputReviewId').value, 'GET', null, null, document.getElementById('divReviews'))">Get by ID</button>
+            <button id="btnReviewUpdate" onclick="do_web_request('api/reviews/' + document.getElementById('inputReviewId').value, 'PUT', null, new FormData(document.getElementById('formReview')), document.getElementById('divReviews'))">Update by ID</button>
+            <button id="btnReviewDelete" onclick="do_web_request('api/reviews/' + document.getElementById('inputReviewId').value, 'DELETE', null, null, document.getElementById('divReviews'))">Delete by ID</button>
         </p>
         
         <p>
@@ -24,17 +54,88 @@
         </p>
 
         <script type="text/javascript">
-            function btnGetAllReviews_click()
+
+            
+            /**
+            * @brief Create an HTML table of the passed output data object
+            * @param divOwner HTML div to place table in
+            * @param data the object data, generally an array of objects
+            */
+            function buildTable(divOwner, data)
             {
-                do_web_request("api/reviews", "GET", "", "", updateReviews);
+                if (divOwner == null)
+                    return;
+
+                while (divOwner.firstChild)
+                {
+                    divOwner.removeChild(divOwner.firstChild);
+                }
+
+                if (data != null)
+                {
+                    var table = document.createElement("table");
+                    var headerDone = false;
+                    if (data instanceof Array)
+                    {
+                        for (var i = 0; i < data.length; i++)
+                        {
+                            if (!headerDone)
+                            {
+                                var tr_header = document.createElement("tr");
+                                for (key in data[i])
+                                {
+                                    var th = document.createElement("th");
+                                    th.innerHTML = key;
+                                    tr_header.appendChild(th);
+                                }
+                                table.appendChild(tr_header);
+                                headerDone = true;
+                            }
+
+                            var tr = document.createElement("tr");
+                            for (key in data[i])
+                            {
+                                var td = document.createElement("td");
+                                td.innerHTML = data[i][key];
+                                tr.appendChild(td);
+                            }
+                            table.appendChild(tr);
+                        }
+                    }
+                    else
+                    {
+                        //copy to the form
+                        if (divOwner.id == "divRestaurants")
+                        {
+                            document.getElementById("inputName").value = data["name"];
+                            document.getElementById("inputStreet").value = data["street"];
+                            document.getElementById("inputCity").value = data["city"];
+                            document.getElementById("inputCountry").value = data["country"];
+                            document.getElementById("inputState").value = data["state"];
+                            document.getElementById("inputZip").value = data["zip"];
+                        }
+                        else if(divOwner.id == "divReviews")
+                        {
+                            document.getElementById("inputUserName").value = data["userName"];
+                            document.getElementById("inputRating").value = data["rating"];
+                            document.getElementById("inputDescription").value = data["description"];
+                            document.getElementById("inputReviewRestaurantId").value = data["restaurantId"];
+                        }
+                    }
+
+                    divOwner.appendChild(table);
+                }
             }
 
-            function updateReviews(data)
-            {
-                alert(JSON.stringify(data));
-            }
-
-            function do_web_request(url, verb, name, value, ui_callback)
+            /**
+            * @brief web service call
+            * @param url URL of service call
+            * @param verb HTTP method (GET, POST, etc)
+            * @param qry_kvp HTTP url query string key value pairs
+            * @param qry_kvp HTTP body x-www-form-urlencoded key value pairs
+            * @param ui_div HTML div to place visual data
+            */
+            function do_web_request(url, verb, qry_kvp, formData, ui_div)
             {
                 var bustCache = '?' + new Date().getTime();
                 var divStatus = document.getElementById('divStatus')
@@ -43,21 +144,37 @@
                     if (e.target.response != null)
                     {
                         document.getElementById("divMessage").innerHTML = e.target.statusText;
-                        ui_callback(e.target.response);
+                        buildTable(ui_div, e.target.response);
                     }
                     else
                     {
-                        document.getElementById("divMessage").innerHTML = "No vaild response";
+                        document.getElementById("divMessage").innerHTML = "";
+                        buildTable(ui_div, null);
                     }
                 };
-                oReq.open(verb, url + bustCache, true);
-                oReq.setRequestHeader("Authorization", "Basic aHlsaWlvbjoxMDAwVW5pdHNPblJvYWQh");
+
+                var qry = "";
+                for (var key in qry_kvp)
+                {
+                    qry += "&" + key + "=" + qry_kvp[key];
+                }
+                oReq.open(verb, url + bustCache + qry, true);
+                oReq.setRequestHeader("Authorization", "Bearer TODO");
                 oReq.setRequestHeader("Accept", "application/json");
                 oReq.responseType = 'json';
-                var body = name + "=" + value;
-                if (body.length > 0)
+
+                if (formData != null)
                 {
-                    oReq.send(body);
+                    oReq.setRequestHeader("Content-Type","application/json");
+                    var data = formData.entries();              
+                    var obj = data.next();
+                    var retrieved = {};             
+                    while(undefined !== obj.value) {    
+                        retrieved[obj.value[0]] = obj.value[1];
+                        obj = data.next();
+                    }
+                    console.log('retrieved: ',retrieved);
+                    oReq.send(JSON.stringify(retrieved));
                 }
                 else
                 {
