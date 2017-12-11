@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "RestaurantListByCity";
+}
+
+<h2>RestaurantListByCity</h2>
+
+@Html.Label("Select City")
+@using (Html.BeginForm("GetRestaurantFromCity", "Home", FormMethod.Post))
+{
+    @Html.DropDownList("MyCity", ViewBag.Restaurants as SelectList, "Select City")
+
+    <td>
+        <input type="submit" id="sub" value="GetRestaurant" />
+    </td>
+
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

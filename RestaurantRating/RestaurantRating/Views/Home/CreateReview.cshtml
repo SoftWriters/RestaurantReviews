@@ -1,0 +1,49 @@
+﻿@model RestaurantRating.Models.Users
+
+@{
+    ViewBag.Title = "CreateReview";
+}
+
+<h2>CreateReview</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Users</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NameOfRest)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.NameOfRest)*@
+            @Html.DropDownListFor(model => model.NameOfRest, ViewBag.NameRest as SelectList, "Select Restaurant")
+            @*@Html.ValidationMessageFor(model => model.NameOfRest)*@
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Reviews)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Reviews)
+            @Html.ValidationMessageFor(model => model.Reviews)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

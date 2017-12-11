@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "DetailsReview";
+}
+
+<h2>DetailsReview</h2>
+
+@Html.Label("Select User")
+@using (Html.BeginForm("GetReview", "Home", FormMethod.Post))
+{
+    @Html.DropDownList("username", ViewBag.FindUser as SelectList, "Select User")
+
+    <td>
+        <input type="submit" id="sub" value="GetReview" />
+    </td>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
