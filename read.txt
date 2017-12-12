@@ -9,3 +9,4 @@ I created my database in SQL SERVER. I used Entity FrameWork for database connec
 My Web API service is talking to MVC client. MVC action methods(In Home Controller) 
 will call the WEB API controllers and generate the views. 
 These are the high level details of my Project. For any further explanations please connect with me.
+You might have to change the number in localhost address in Home Controller if mine doesn't work
