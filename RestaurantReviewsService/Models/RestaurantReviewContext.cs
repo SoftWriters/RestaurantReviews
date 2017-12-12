@@ -41,7 +41,7 @@ namespace RestaurantReviews.Models
                     State = "PA",
                     Zip = "15017"});
                 Restaurants.Add(new Restaurant {
-                    Name = "Little Tokyo ", 
+                    Name = "Little Tokyo", 
                     Street = "636 Washington Rd",
                     City = "Pittsburgh",
                     State = "PA",

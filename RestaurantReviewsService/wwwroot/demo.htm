@@ -29,10 +29,7 @@
             Min Rating Filter:&nbsp;<input id="inputRatingFilter" type="number" min="1" max="5"/><br/>
             Restaurant Filter:&nbsp;<input id="inputReviewRestaurantIdFilter" type="number"/><br/>
             User Filter:&nbsp;<input id="inputReviewUserName" type="text"/><br/>
-            <button id="btnReviewGetAll" onclick="do_web_request('api/reviews', 'GET', null, null, document.getElementById('divReviews'))">Get All</button>
-            <button id="btnReviewGetRestaurantID" onclick="do_web_request('api/reviews/', 'GET', {'restaurantid': document.getElementById('inputReviewRestaurantIdFilter').value}, null, document.getElementById('divReviews'))">Get by Restaurant ID</button>
-            <button id="btnReviewGetUser" onclick="do_web_request('api/reviews/', 'GET', {'username': document.getElementById('inputReviewUserName').value}, null, document.getElementById('divReviews'))">Get by User</button>
-            <button id="btnReviewGetRating" onclick="do_web_request('api/reviews/', 'GET', {'minrating': document.getElementById('inputRatingFilter').value}, null, document.getElementById('divReviews'))">Get by Rating</button>
+            <button id="btnReviewGetAll" onclick="do_web_request('api/reviews', 'GET', {'restaurantid': document.getElementById('inputReviewRestaurantIdFilter').value, 'minrating': document.getElementById('inputRatingFilter').value, 'username': document.getElementById('inputReviewUserName').value}, null, document.getElementById('divReviews'))">Get Reviews</button>
         </p>
         <p>
             <h3>Add/Update/Delete Review</h3>

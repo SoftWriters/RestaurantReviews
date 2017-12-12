@@ -42,15 +42,16 @@ namespace RestaurantReviews.Controllers
 
         // POST api/restaurants
         [HttpPost]
-        public void Post([FromBody]Restaurant new_restaurant)
+        public Restaurant Post([FromBody]Restaurant new_restaurant)
         {
             context_.Restaurants.Add(new_restaurant);
             context_.SaveChanges();
+            return new_restaurant;
         }
 
         // PUT api/restaurants/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Restaurant update_restaurant)
+        public Restaurant Put(int id, [FromBody]Restaurant update_restaurant)
         {
             var old_restaurant= (from restaurant in context_.Restaurants
                 where restaurant.RestaurantId == id
@@ -67,6 +68,8 @@ namespace RestaurantReviews.Controllers
                 context_.Restaurants.Update(old_restaurant);
                 context_.SaveChanges();
             }
+
+            return old_restaurant;
         }
 
         // DELETE api/restaurants/5

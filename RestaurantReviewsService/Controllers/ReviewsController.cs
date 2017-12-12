@@ -29,29 +29,25 @@ namespace RestaurantReviews.Controllers
         [HttpGet()]
         public IEnumerable<Review> Get(long? restaurantid = null, int? minrating = null, string username = "")
         {
+            var qry = from review in context_.Reviews 
+                    select review;
+                    
             if (minrating != null)
             {
-                return (from review in context_.Reviews 
-                    where review.Rating >= minrating
-                    select review).ToArray();
+                qry = qry.Where(review => review.Rating >= minrating);
             }
+
             if (!String.IsNullOrEmpty(username))
             {
-                return (from review in context_.Reviews 
-                    where review.UserName == username 
-                    select review).ToArray();
+                qry = qry.Where(review => review.UserName == username);
             }
-            else if (restaurantid != null)
+            
+            if (restaurantid != null)
             {
-                return (from review in context_.Reviews 
-                    where review.RestaurantId == restaurantid 
-                    select review).ToArray();
+                qry = qry.Where(review => review.RestaurantId == restaurantid);
             }
-            else
-            {
-                return (from review in context_.Reviews 
-                    select review).ToArray();
-            }
+            
+            return qry.ToArray(); //final DB qry happenns here
         }
 
         // POST api/reviews
