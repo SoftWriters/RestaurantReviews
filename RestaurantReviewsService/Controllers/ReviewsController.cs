@@ -52,15 +52,16 @@ namespace RestaurantReviews.Controllers
 
         // POST api/reviews
         [HttpPost]
-        public void Post([FromBody]Review new_review)
+        public Review Post([FromBody]Review new_review)
         {
             context_.Add(new_review);
             context_.SaveChanges();
+            return new_review;
         }
 
         // PUT api/reviews/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Review update_review)
+        public Review Put(int id, [FromBody]Review update_review)
         {
             var old_review = (from review in context_.Reviews
                 where review.ReviewId == id
@@ -74,6 +75,8 @@ namespace RestaurantReviews.Controllers
                 old_review.UserName = update_review.UserName;
                 context_.SaveChanges();
             }
+
+            return old_review;
         }
 
         // DELETE api/reviews/5

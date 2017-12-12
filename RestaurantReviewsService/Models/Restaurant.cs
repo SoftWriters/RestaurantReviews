@@ -9,7 +9,7 @@ namespace RestaurantReviews.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long? RestaurantId {get; set;}
+        public long RestaurantId {get; set;}
         public string Name {get; set;}
         public string Street {get; set;}
         public string City {get; set;}

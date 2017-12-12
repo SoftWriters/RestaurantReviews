@@ -11,22 +11,22 @@ namespace RestaurantReviews.Models
             BuildDB();
         }
         
-        ///<summary>
-        ///Ensure unique address when creating a new restaurant
-        ///</summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
              modelBuilder.Entity<Restaurant>()
                 .HasAlternateKey(c => new {c.Street, c.City, c.State})
-                .HasName("AlternateKey_Street_City_State");
+                .HasName("AlternateKey_Street_City_State"); //enforce uniqueness in a relational DB
         }
 
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
+        /// <summary>
+        /// For testing purposes, create some DB entries
+        /// </summary>
         public void BuildDB()
         {
-            if (Restaurants.Count() == 0 && initDone_ == false)
+            if (Restaurants.Count() == 0)
             {
                 Restaurants.Add(new Restaurant {
                     Name = "Eat'n Park", 
@@ -50,7 +50,7 @@ namespace RestaurantReviews.Models
                 SaveChanges();
             }
 
-            if (Reviews.Count() == 0 && initDone_ == false)
+            if (Reviews.Count() == 0)
             {
                 Reviews.Add(new Review { UserName = "demouser1",
                     Rating = 4,
@@ -63,11 +63,6 @@ namespace RestaurantReviews.Models
                 
                 SaveChanges();
             }
-            
-
-            initDone_ = true;
         }
-
-        static bool initDone_ = false;
     }
 }

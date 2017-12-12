@@ -59,7 +59,7 @@ namespace RestaurantReviews.Test
             task.Wait();
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(model.Name, "Eat'n Park");
+            Assert.Equal("Eat'n Park", model.Name);
 
             task = client_.GetAsync("/api/restaurants?city=Pittsburgh")
                 .ContinueWith((taskwithresponse) =>
@@ -73,7 +73,7 @@ namespace RestaurantReviews.Test
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.True(models.Count() == 1);
-            Assert.Equal(models[0].Name, "Little Tokyo");
+            Assert.Equal("Little Tokyo", models[0].Name);
         }
 
         [Fact]
@@ -101,10 +101,11 @@ namespace RestaurantReviews.Test
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.NotNull(model.RestaurantId);
+            Assert.NotNull(model);
+
             Console.WriteLine("New RestaurantId: " + model.RestaurantId.ToString());
 
-            task = client_.PutAsync("/api/restaurants", new StringContent(
+            task = client_.PutAsync("/api/restaurants/" + model.RestaurantId.ToString(), new StringContent(
                     JsonConvert.SerializeObject(new Restaurant() { 
                     Name = "TestRest 2",
                     Street = "TestStreet",
@@ -121,6 +122,9 @@ namespace RestaurantReviews.Test
                 });
             task.Wait();
 
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal("TestRest 2", model.Name);
+
             task = client_.GetAsync("/api/restaurants/" + model.RestaurantId.ToString())
                 .ContinueWith((taskwithresponse) =>
                 {
@@ -132,7 +136,135 @@ namespace RestaurantReviews.Test
             task.Wait();
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(model.Name, "TestRest 2");
+            Assert.Equal("TestRest 2", model.Name);
+        }
+
+        [Fact]
+        public void CanGetReviews()
+        {
+            Review model = null;
+            List<Review> models = null;
+            HttpResponseMessage response = null;
+
+            var task = client_.GetAsync("/api/reviews")
+                 .ContinueWith((taskwithresponse) =>
+                 {
+                     response = taskwithresponse.Result;
+                     var jsonString = response.Content.ReadAsStringAsync();
+                     jsonString.Wait();
+                     models = JsonConvert.DeserializeObject<List<Review>>(jsonString.Result);
+                 });
+            task.Wait();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(models);
+            Assert.Equal(2, models.Count());
+
+            task = client_.GetAsync("/api/reviews/1")
+                 .ContinueWith((taskwithresponse) =>
+                 {
+                     response = taskwithresponse.Result;
+                     var jsonString = response.Content.ReadAsStringAsync();
+                     jsonString.Wait();
+                     model = JsonConvert.DeserializeObject<Review>(jsonString.Result);
+                 });
+            task.Wait();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(model);
+            Assert.Equal(3, model.RestaurantId);
+
+            task = client_.GetAsync("/api/reviews?username=demouser2&minrating=5&restaurantid=2")
+                 .ContinueWith((taskwithresponse) =>
+                 {
+                     response = taskwithresponse.Result;
+                     var jsonString = response.Content.ReadAsStringAsync();
+                     jsonString.Wait();
+                     models = JsonConvert.DeserializeObject<List<Review>>(jsonString.Result);
+                 });
+            task.Wait();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Single(models);
+        }
+
+        [Fact]
+        public void CanCreateReviews()
+        {
+            Review model = null;
+            HttpResponseMessage response = null;
+
+            var task = client_.PostAsync("/api/reviews", new StringContent(
+                    JsonConvert.SerializeObject(new Review()
+                    {
+                        UserName = "TestUser",
+                        Rating = 1,
+                        Description = "Test Description",
+                        RestaurantId = 3
+                    }).ToString(), Encoding.UTF8, "application/json"))
+                .ContinueWith((taskwithresponse) =>
+                {
+                    response = taskwithresponse.Result;
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    model = JsonConvert.DeserializeObject<Review>(jsonString.Result);
+                });
+            task.Wait();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(model);
+
+            task = client_.GetAsync("/api/reviews/" + model.ReviewId.ToString())
+                .ContinueWith((taskwithresponse) =>
+                {
+                    response = taskwithresponse.Result;
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    model = JsonConvert.DeserializeObject<Review>(jsonString.Result);
+                });
+            task.Wait();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(model);
+            Assert.Equal("TestUser", model.UserName);
+
+            task = client_.PutAsync("/api/reviews/" + model.ReviewId.ToString(), new StringContent(
+                    JsonConvert.SerializeObject(new Review()
+                    {
+                        UserName = "TestUser",
+                        Rating = 1,
+                        Description = "Test Description Updated",
+                        RestaurantId = 3
+                    }).ToString(), Encoding.UTF8, "application/json"))
+                .ContinueWith((taskwithresponse) =>
+                {
+                    response = taskwithresponse.Result;
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    model = JsonConvert.DeserializeObject<Review>(jsonString.Result);
+                });
+            task.Wait();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(model);
+            Assert.Equal("Test Description Updated", model.Description);
+
+            task = client_.GetAsync("/api/reviews/" + model.ReviewId.ToString())
+                 .ContinueWith((taskwithresponse) =>
+                 {
+                     response = taskwithresponse.Result;
+                     var jsonString = response.Content.ReadAsStringAsync();
+                     jsonString.Wait();
+                     model = JsonConvert.DeserializeObject<Review>(jsonString.Result);
+                 });
+            task.Wait();
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotNull(model);
+            Assert.Equal("Test Description Updated", model.Description);
         }
     }
 }
