@@ -12,6 +12,7 @@ using System.Web;
 using System.Security.Claims;
 using System.Text.Encodings;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantReviews.Controllers
 {
@@ -31,6 +32,7 @@ namespace RestaurantReviews.Controllers
             configuration_ = configuration;
         }
 
+        [AllowAnonymous]
         // method should be called over HTTPS
         [HttpPost]
         public IActionResult GenerateToken([FromBody]LoginObject loginObj)

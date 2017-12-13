@@ -11,6 +11,8 @@ using RestaurantReviews.Models;
 using System.Linq;
 using System.Text;
 using System.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RestaurantReviews.Test
 {
@@ -23,15 +25,21 @@ namespace RestaurantReviews.Test
         public RestaurantAPITest()
         {
             // Arrange
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables();
             server_ = new TestServer(new WebHostBuilder()
+                .UseConfiguration(builder.Build())
                 .UseStartup<Startup>());
+            
             client_ = server_.CreateClient();
 
             dynamic tokenObj = null;
             HttpResponseMessage response = null;
 
+            string login = "{\"email\": \"demouser1@demo.com\", \"pass\": \"demopass\"}";
             var task = client_.PostAsync("/api/JWT/GenerateToken", 
-                new StringContent("{\"email\": \"demouser1@demo.com\", \"pass\": \"demopass\"}"))
+                new StringContent(login, Encoding.UTF8, "application/json"))
                 .ContinueWith((taskwithresponse) =>
                 {
                     response = taskwithresponse.Result;
