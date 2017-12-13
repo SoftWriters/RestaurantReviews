@@ -24,11 +24,9 @@ Have fun.
 The Solution
 --------------
 
-.NET Core 2 Web API
-Entity Framework Code-First DB definition
-EntityFrameworkCore.InMemory implementation for ease of testing
-demo.htm web page to demonstrate the calls from JavaScript
-
-An xUnit based unit testing framework has also been created.
-
-All Post/Put/Delete methods are secured via Bearer JWT. User security is dummied for demonstation/testing.
+- .NET Core 2 Web API
+- Entity Framework Code-First DB definition
+- EntityFrameworkCore.InMemory implementation for ease of testing
+- demo.htm web page to demonstrate the calls from JavaScript
+- An xUnit based unit testing framework has also been created.
+- All Post/Put/Delete methods are secured via Bearer JWT. User security is dummied for demonstation/testing.
