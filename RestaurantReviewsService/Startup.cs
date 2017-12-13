@@ -29,7 +29,7 @@ namespace RestaurantReviews
         {
             // TODO
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer("JwtBearer", options =>
+                .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {                            
@@ -40,7 +40,7 @@ namespace RestaurantReviews
                         ValidIssuer = Configuration["JwtIssuer"],
 
                         ValidateAudience = true,
-                        ValidAudience = Configuration["JwtIssuer"],
+                        ValidAudience = Configuration["JwtAudience"],
 
                         ValidateLifetime = true, //validate the expiration and not before values in the token
 

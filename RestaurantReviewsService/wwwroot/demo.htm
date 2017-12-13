@@ -2,6 +2,15 @@
     <header><title>RestaurantReviews Demo Page</title></header>
     <body>
         <p>
+            <h3>Login</h3>
+            <form id="formLogin">
+                Email:&nbsp;<input id="email" name="email" type="email" value="demouser1@demo.com"/><br/>
+                Password:&nbsp;<input id="pass" name="pass" type="password" value="demopass"/><br/>
+            </form>
+            <button type="button" onclick="do_web_request('http://localhost:5000/api/JWT/GenerateToken', 'POST', null, new FormData(document.getElementById('formLogin')), null, processLogin)">Login</button><br>
+            *generates a 30min bearer access token
+        </p>
+        <p>
             <h3>Get Restaurants&nbsp;</h3>
             City Filter:&nbsp;<input id="inputCityFilter" type="text"/><br/>
             <button id="btnGetAllRestaurants" onclick="do_web_request('api/restaurants', 'GET', {'city': document.getElementById('inputCityFilter').value}, null, document.getElementById('divRestaurants'))" >Get Restaurants</button>
@@ -51,7 +60,7 @@
         </p>
 
         <script type="text/javascript">
-
+            var g_accessToken = "TODO";
             
             /**
             * @brief Create an HTML table of the passed output data object
@@ -132,7 +141,7 @@
             * @param qry_kvp HTTP body x-www-form-urlencoded key value pairs
             * @param ui_div HTML div to place visual data
             */
-            function do_web_request(url, verb, qry_kvp, formData, ui_div)
+            function do_web_request(url, verb, qry_kvp, formData, ui_div, processFunc)
             {
                 var bustCache = '?' + new Date().getTime();
                 var divStatus = document.getElementById('divStatus')
@@ -141,7 +150,14 @@
                     if (e.target.response != null)
                     {
                         document.getElementById("divMessage").innerHTML = e.target.statusText;
-                        buildTable(ui_div, e.target.response);
+                        if (processFunc === undefined || processFunc == null )
+                        {
+                            buildTable(ui_div, e.target.response);
+                        }
+                        else
+                        {
+                            processFunc(e.target.response);
+                        }
                     }
                     else
                     {
@@ -156,7 +172,7 @@
                     qry += "&" + key + "=" + qry_kvp[key];
                 }
                 oReq.open(verb, url + bustCache + qry, true);
-                oReq.setRequestHeader("Authorization", "Bearer TODO");
+                oReq.setRequestHeader("Authorization", "Bearer " + g_accessToken);
                 oReq.setRequestHeader("Accept", "application/json");
                 oReq.responseType = 'json';
 
@@ -177,6 +193,15 @@
                 {
                     oReq.send();
                 }
+            }
+
+            /**
+            * @brief basically here to deal with login
+            * @param url URL of service call
+            */
+            function processLogin(objData)
+            {
+                g_accessToken = objData.token;
             }
         </script>
     </body>

@@ -15,6 +15,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace RestaurantReviews.Controllers
 {
+    public class LoginObject
+    {
+        public string Email {get; set;}
+        public string Pass {get; set;}
+    }
+
     [Route("api/[controller]/[action]")]
     public class JWTController : Controller
     {
@@ -27,16 +33,16 @@ namespace RestaurantReviews.Controllers
 
         // method should be called over HTTPS
         [HttpPost]
-        public IActionResult GenerateToken([FromForm]string email, [FromForm]string pass)
+        public IActionResult GenerateToken([FromBody]LoginObject loginObj)
         {
             if (ModelState.IsValid)
             {
                 /* TODO: Validate users here */
-                if (email == "demouser@demo.com" && pass == "demopass")
+                if (loginObj.Email == "demouser1@demo.com" && loginObj.Pass == "demopass")
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(JwtRegisteredClaimNames.Sub, email),
+                        new Claim(JwtRegisteredClaimNames.Sub, loginObj.Email),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 
@@ -46,12 +52,16 @@ namespace RestaurantReviews.Controllers
 
                     var token = new JwtSecurityToken(
                         configuration_["JwtIssuer"],
-                        configuration_["JwtIssuer"],
+                        configuration_["JwtAudience"],
                         claims,
                         expires: expires,
                         signingCredentials: creds
                     );
                     return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                }
+                else
+                {
+                    return Unauthorized();
                 }
             }
 

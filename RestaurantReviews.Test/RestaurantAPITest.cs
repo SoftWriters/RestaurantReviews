@@ -10,6 +10,7 @@ using Xunit;
 using RestaurantReviews.Models;
 using System.Linq;
 using System.Text;
+using System.Net.Http.Headers;
 
 namespace RestaurantReviews.Test
 {
@@ -17,6 +18,7 @@ namespace RestaurantReviews.Test
     {
         private readonly TestServer server_;
         private readonly HttpClient client_;
+        private readonly string accesstoken_;
 
         public RestaurantAPITest()
         {
@@ -24,6 +26,26 @@ namespace RestaurantReviews.Test
             server_ = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());
             client_ = server_.CreateClient();
+
+            dynamic tokenObj = null;
+            HttpResponseMessage response = null;
+
+            var task = client_.PostAsync("/api/JWT/GenerateToken", 
+                new StringContent("{\"email\": \"demouser1@demo.com\", \"pass\": \"demopass\"}"))
+                .ContinueWith((taskwithresponse) =>
+                {
+                    response = taskwithresponse.Result;
+                    var jsonString = response.Content.ReadAsStringAsync();
+                    jsonString.Wait();
+                    tokenObj = JsonConvert.DeserializeObject<dynamic>(jsonString.Result);
+                });
+            task.Wait();
+
+            if (tokenObj != null)
+            {
+                accesstoken_ = tokenObj["token"];
+                client_.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", accesstoken_ );
+            }
         }
 
         [Fact]

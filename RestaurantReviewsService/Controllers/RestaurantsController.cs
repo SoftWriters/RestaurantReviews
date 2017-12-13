@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantReviews.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class RestaurantsController : Controller
     {
@@ -17,6 +19,7 @@ namespace RestaurantReviews.Controllers
             context_ = context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Restaurant> Get(string city = "") 
         {            
@@ -32,6 +35,7 @@ namespace RestaurantReviews.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public Restaurant Get(long id)
         {
