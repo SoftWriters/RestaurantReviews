@@ -25,7 +25,8 @@ The Solution
 --------------
 
 .NET Core 2 Web API
-Entity Framework Code-First DB definition, EntityFrameworkCore.InMemory implementation for ease of testing
+Entity Framework Code-First DB definition
+EntityFrameworkCore.InMemory implementation for ease of testing
 demo.htm web page to demonstrate the calls from JavaScript
 
 An xUnit based unit testing framework has also been created.
