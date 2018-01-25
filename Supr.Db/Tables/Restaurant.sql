@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[Restaurant]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	 [Name] NVARCHAR(100) NOT NULL, 
+	 [Street] NVARCHAR(100) NULL, 
+	 [City] NVARCHAR(50) NULL, 
+	 [State] NVARCHAR(2) NULL, 
+	 [ZipCode] NVARCHAR(6) NULL, 
+	 [Category] NVARCHAR(25) NULL, 
+	 [Created] DATETIME NOT NULL DEFAULT getdate()
+)
