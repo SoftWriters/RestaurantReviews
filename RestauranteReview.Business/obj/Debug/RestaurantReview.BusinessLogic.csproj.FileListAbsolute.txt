@@ -1,0 +1,13 @@
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.BusinessLogic.dll.config
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.BusinessLogic.dll
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.BusinessLogic.pdb
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\EntityFramework.dll
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\EntityFramework.SqlServer.dll
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.Data.dll
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.Data.pdb
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\RestaurantReview.Data.dll.config
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\EntityFramework.xml
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\bin\Debug\EntityFramework.SqlServer.xml
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\obj\Debug\RestaurantReview.BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\obj\Debug\RestaurantReview.BusinessLogic.dll
+C:\Dev\C#\RestaurantReview\RestauranteReview.Business\obj\Debug\RestaurantReview.BusinessLogic.pdb
