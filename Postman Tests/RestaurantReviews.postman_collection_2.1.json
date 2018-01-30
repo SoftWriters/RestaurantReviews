@@ -1,0 +1,435 @@
+{
+	"info": {
+		"name": "RestaurantReviews",
+		"_postman_id": "1e5c3e63-7a9d-63cf-b574-04b30a31dec3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Restaurants",
+			"description": "",
+			"item": [
+				{
+					"name": "GetRestaurants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/restaurants",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PostRestaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cCj-2AL_jHmnoDM8PcDf7laWGSQbjwwEyGMLFQllsro9OwtmO_cOsLMoaKIVv8XXxYvc_HxN1dokQB_0mI8hpiUd-mDZOeZ6tXSS-KCjyvgBcbVQ3bmYv1sk0sySauE_qwsBr-r4USN_pnouJrgIg9H0oU1RFGGvfkfqhpFnme2OaolsdGTsUZhNg9lBJttqjeagUKj5S5SG_xeWD2ma1SagDNTQsRXAZoCFRaSzyMc6DRIcavlHuA-nn8a4xgDgd8yNnEXbuciHUzVCmGxaNKv0KuXWKOpakVOdzVJ8rStg4dZGSXMO5IRJUq4B9zljuZdqIttdxSsl0VcHBzfsUZBdCCUJ9-6aItKo9hg_891XeklIYGiUaCHfm0EVuHSodAJIqgoV3124tvr8Q0WSLL-A-9W5H_sZFdeKEopmANs7qnVL6RTn51IGYA6bTZKGikPE0_s5QY8sf8lxBan7AAjIFsJdRQQMy1RYcn9-eIhSRjQiZuUqpdsa1BOvaVz2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"name\":\"test-name\",\r\n   \"streetAddress\":\"test-streetAddress\",\r\n   \"zipcode\":\"test-zipcode\",\r\n   \"city\":\"test-city\",\r\n   \"state\":\"test-state\",\r\n   \"country\":\"test-country\",\r\n   \"thumbnailBase64\":\"test-thumbnailBase64\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/restaurants",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GetRestaurantByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/restaurants/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PutRestaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cCj-2AL_jHmnoDM8PcDf7laWGSQbjwwEyGMLFQllsro9OwtmO_cOsLMoaKIVv8XXxYvc_HxN1dokQB_0mI8hpiUd-mDZOeZ6tXSS-KCjyvgBcbVQ3bmYv1sk0sySauE_qwsBr-r4USN_pnouJrgIg9H0oU1RFGGvfkfqhpFnme2OaolsdGTsUZhNg9lBJttqjeagUKj5S5SG_xeWD2ma1SagDNTQsRXAZoCFRaSzyMc6DRIcavlHuA-nn8a4xgDgd8yNnEXbuciHUzVCmGxaNKv0KuXWKOpakVOdzVJ8rStg4dZGSXMO5IRJUq4B9zljuZdqIttdxSsl0VcHBzfsUZBdCCUJ9-6aItKo9hg_891XeklIYGiUaCHfm0EVuHSodAJIqgoV3124tvr8Q0WSLL-A-9W5H_sZFdeKEopmANs7qnVL6RTn51IGYA6bTZKGikPE0_s5QY8sf8lxBan7AAjIFsJdRQQMy1RYcn9-eIhSRjQiZuUqpdsa1BOvaVz2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"name\":\"UnitTestRecord\",\r\n   \"streetAddress\":\"UnitTestRecord\",\r\n   \"zipcode\":\"UnitTestRecord\",\r\n   \"city\":\"UnitTestRecord\",\r\n   \"state\":\"UnitTestRecord\",\r\n   \"country\":\"UnitTestRecord\",\r\n   \"thumbnailBase64\":\"UnitTestRecord\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/restaurants/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"3"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRestaurantByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/restaurants/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"description": "",
+			"item": [
+				{
+					"name": "PostReview",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cCj-2AL_jHmnoDM8PcDf7laWGSQbjwwEyGMLFQllsro9OwtmO_cOsLMoaKIVv8XXxYvc_HxN1dokQB_0mI8hpiUd-mDZOeZ6tXSS-KCjyvgBcbVQ3bmYv1sk0sySauE_qwsBr-r4USN_pnouJrgIg9H0oU1RFGGvfkfqhpFnme2OaolsdGTsUZhNg9lBJttqjeagUKj5S5SG_xeWD2ma1SagDNTQsRXAZoCFRaSzyMc6DRIcavlHuA-nn8a4xgDgd8yNnEXbuciHUzVCmGxaNKv0KuXWKOpakVOdzVJ8rStg4dZGSXMO5IRJUq4B9zljuZdqIttdxSsl0VcHBzfsUZBdCCUJ9-6aItKo9hg_891XeklIYGiUaCHfm0EVuHSodAJIqgoV3124tvr8Q0WSLL-A-9W5H_sZFdeKEopmANs7qnVL6RTn51IGYA6bTZKGikPE0_s5QY8sf8lxBan7AAjIFsJdRQQMy1RYcn9-eIhSRjQiZuUqpdsa1BOvaVz2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n        \"restaurantID\":\"3\",\r\n        \"rating\":\"2\",\r\n        \"comments\":\"TestComments\",\r\n        \"userName\":\"correalf01@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GetReviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PutReview",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cCj-2AL_jHmnoDM8PcDf7laWGSQbjwwEyGMLFQllsro9OwtmO_cOsLMoaKIVv8XXxYvc_HxN1dokQB_0mI8hpiUd-mDZOeZ6tXSS-KCjyvgBcbVQ3bmYv1sk0sySauE_qwsBr-r4USN_pnouJrgIg9H0oU1RFGGvfkfqhpFnme2OaolsdGTsUZhNg9lBJttqjeagUKj5S5SG_xeWD2ma1SagDNTQsRXAZoCFRaSzyMc6DRIcavlHuA-nn8a4xgDgd8yNnEXbuciHUzVCmGxaNKv0KuXWKOpakVOdzVJ8rStg4dZGSXMO5IRJUq4B9zljuZdqIttdxSsl0VcHBzfsUZBdCCUJ9-6aItKo9hg_891XeklIYGiUaCHfm0EVuHSodAJIqgoV3124tvr8Q0WSLL-A-9W5H_sZFdeKEopmANs7qnVL6RTn51IGYA6bTZKGikPE0_s5QY8sf8lxBan7AAjIFsJdRQQMy1RYcn9-eIhSRjQiZuUqpdsa1BOvaVz2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n        \"restaurantID\":\"3\",\r\n        \"rating\":\"2\",\r\n        \"comments\":\"TestComments\",\r\n        \"userName\":\"correalf01@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GetReviewByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/reviews/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteReviewByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "ZWq5jpsM__DMmgHW5xIQ5r3b61F-ylUYnIUK1EzHSRG9PYbbvVMRMubUbS7g576sGOZ59TUYP1gR_Qw6uU2mJA5R4qahbsjTOLbPwQxwCulO1Oo_m8hHfMrrYrIx5GKJtnaqxKrfqGC_Ha9Oht-3NQyivHiU3zG7Fma_uYc-18seIK2vyVPkxxe_VRN43XZCRq8iGvtEyxYyOaB-EZlJohoiKbjMIiKFLZNzJLuRT-tMkCcDE0eVr27p7KlYQ31e8bTUpnRdem9eegxg2Yv2UdXrTMr95Q2hCF0W4NRPNvBOO7Zy2PRger54qyLhV9K_efFXU88M9uiGW7QetflEcULILa0IuueXo3h4ukgKhsCwrvmLz9i6s6VdrRG1p7IIcMU5Er6o6xIYUZnWGJmP32sWb4VU9O5dkcGrx0sO6ziLUCXeJrfje-FRZCtEohOanTJ98AND1Hq3RqI528qsvmnM-bEzfBITsX9BzBhVwYYcmvacl3JNL31SmnxXimS6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/reviews/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetToken",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "correalf01@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "RestaurantReviewPass#1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/token",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterAccount",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Email\": \"correalf01@gmail.com\",\r\n  \"Password\": \"RestaurantReviewPass#1\",\r\n  \"ConfirmPassword\": \"RestaurantReviewPass#1\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/account/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
