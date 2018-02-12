@@ -68,6 +68,9 @@ C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\Re
 C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Web.xml
-C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.csprojResolveAssemblyReference.cache
 C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.dll
 C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.pdb
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReview.Data.dll
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReview.Data.pdb
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReview.Data.dll.config
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.csprojResolveAssemblyReference.cache
