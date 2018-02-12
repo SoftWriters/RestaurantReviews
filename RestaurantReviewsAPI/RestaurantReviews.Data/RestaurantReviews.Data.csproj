@@ -55,6 +55,7 @@
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
     <Compile Include="Framework\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\User.cs" />
