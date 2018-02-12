@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReviews.Data.EfLibrary.Context;
 using RestaurantReviews.Data.EfLibrary.Respositories;
 using RestaurantReviews.Data.Framework.RepoContracts;
-using RestaurantReviews.Data.Framework.UnitOfWork;
+using RestaurantReviews.Data.Framework.UnitOfWorkContract;
 
 namespace RestaurantReviews.Data.EfLibrary
 {

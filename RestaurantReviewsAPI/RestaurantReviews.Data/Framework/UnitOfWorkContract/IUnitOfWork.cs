@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using RestaurantReviews.Data.Framework.RepoContracts;
 
-namespace RestaurantReviews.Data.Framework.UnitOfWork
+namespace RestaurantReviews.Data.Framework.UnitOfWorkContract
 {
     public interface IUnitOfWork
     {

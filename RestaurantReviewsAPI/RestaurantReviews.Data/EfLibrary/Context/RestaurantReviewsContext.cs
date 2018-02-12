@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using RestaurantReviews.Data.EfLibrary.Entities;
 
-namespace RestaurantReviews.Data.EfLibrary
+namespace RestaurantReviews.Data.EfLibrary.Context
 {
     public class RestaurantReviewsContext : DbContext
     {
