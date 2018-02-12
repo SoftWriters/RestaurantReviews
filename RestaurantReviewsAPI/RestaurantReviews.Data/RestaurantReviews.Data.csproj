@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EfLibrary\Entities\RestaurantDBO.cs" />
+    <Compile Include="EfLibrary\Entities\StateDBO.cs" />
+    <Compile Include="EfLibrary\Entities\UserDBO.cs" />
+    <Compile Include="EfLibrary\RestaurantReviewsContext.cs" />
     <Compile Include="Framework\RepoContracts\IRestaurantRepo.cs" />
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
