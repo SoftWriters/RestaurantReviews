@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using RestaurantReviews.Data.EfLibrary.Entities;
+
 namespace RestaurantReviews.Data.Migrations
 {
     using System;
@@ -14,10 +17,37 @@ namespace RestaurantReviews.Data.Migrations
 
         protected override void Seed(RestaurantReviews.Data.EfLibrary.RestaurantReviewsContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var seedUsers = new List<UserDBO>
+            {
+                new UserDBO
+                {
+                    Id = 1,
+                    Username = "jtTestUser",
+                    Password = "testing"
+                }
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            seedUsers
+                .ForEach(user => context.Users.AddOrUpdate(user));
+
+            var states = new List<StateDBO>
+            {
+                new StateDBO
+                {
+                    Id = 1,
+                    Code = "PA",
+                    Name = "Pennsylvania"
+                },
+                new StateDBO
+                {
+                    Id = 2,
+                    Code = "OH",
+                    Name = "Ohio"
+                }
+            };
+
+            states
+                .ForEach(state => context.States.AddOrUpdate(state));
         }
     }
 }
