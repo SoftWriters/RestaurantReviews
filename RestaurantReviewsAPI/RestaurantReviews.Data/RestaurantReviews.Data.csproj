@@ -55,6 +55,10 @@
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
     <Compile Include="Framework\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201802120316514_SchemaV1.cs" />
+    <Compile Include="Migrations\201802120316514_SchemaV1.Designer.cs">
+      <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\State.cs" />
@@ -64,6 +68,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802120316514_SchemaV1.resx">
+      <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

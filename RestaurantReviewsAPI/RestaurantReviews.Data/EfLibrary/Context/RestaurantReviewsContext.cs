@@ -10,6 +10,10 @@ namespace RestaurantReviews.Data.EfLibrary
 {
     public class RestaurantReviewsContext : DbContext
     {
+        public RestaurantReviewsContext() : base("DefaultConnection")
+        {
+        }
+
         public IDbSet<UserDBO> Users { get; set; }
         public IDbSet<StateDBO> States { get; set; }
         public IDbSet<RestaurantDBO> Restaurants { get; set; }
