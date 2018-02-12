@@ -9,6 +9,7 @@
 			+ Add
 			+ Get
 		+ State Repo
+			+ Query
 		+ Restaurant Repo
 			+ Add
 	+ Construct UnitOfWork
