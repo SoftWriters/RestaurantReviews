@@ -50,11 +50,15 @@
     <Compile Include="EfLibrary\Entities\RestaurantDBO.cs" />
     <Compile Include="EfLibrary\Entities\StateDBO.cs" />
     <Compile Include="EfLibrary\Entities\UserDBO.cs" />
-    <Compile Include="EfLibrary\RestaurantReviewsContext.cs" />
+    <Compile Include="EfLibrary\Context\RestaurantReviewsContext.cs" />
+    <Compile Include="EfLibrary\Respositories\RestaurantRepo.cs" />
+    <Compile Include="EfLibrary\Respositories\StateRepo.cs" />
+    <Compile Include="EfLibrary\Respositories\UserRepo.cs" />
+    <Compile Include="EfLibrary\UnitOfWork.cs" />
     <Compile Include="Framework\RepoContracts\IRestaurantRepo.cs" />
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
-    <Compile Include="Framework\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Framework\UnitOfWorkContract\IUnitOfWork.cs" />
     <Compile Include="Migrations\201802120316514_SchemaV1.cs" />
     <Compile Include="Migrations\201802120316514_SchemaV1.Designer.cs">
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
@@ -74,5 +78,6 @@
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
