@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1724BD8-11A6-4C8E-8D40-2F69DDEC62DF}</ProjectGuid>
+    <ProjectGuid>{7A3AB718-B1FE-4429-B5D6-CDE34B2C56F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RestaurantReview.Data</RootNamespace>
-    <AssemblyName>RestaurantReview.Data</AssemblyName>
+    <RootNamespace>RestaurantReviews.Data</RootNamespace>
+    <AssemblyName>RestaurantReviews.Data</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

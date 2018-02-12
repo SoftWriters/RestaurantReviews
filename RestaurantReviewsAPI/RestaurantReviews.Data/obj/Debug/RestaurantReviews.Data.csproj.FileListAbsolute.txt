@@ -1,0 +1,10 @@
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\RestaurantReviews.Data.dll.config
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\RestaurantReviews.Data.dll
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\RestaurantReviews.Data.pdb
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\EntityFramework.dll
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\EntityFramework.xml
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\obj\Debug\RestaurantReviews.Data.csprojResolveAssemblyReference.cache
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\obj\Debug\RestaurantReviews.Data.dll
+C:\Users\jthompson\Source\Git\Personal\RestaurantReviews\RestaurantReviewsAPI\RestaurantReviews.Data\obj\Debug\RestaurantReviews.Data.pdb

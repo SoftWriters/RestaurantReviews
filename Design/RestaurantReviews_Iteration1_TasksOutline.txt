@@ -2,6 +2,7 @@
 1. Construct Add Restaurant Call
 	+ Construct DB
 		+ Add User Entity
+		+ Add State Entity
 		+ Add Restaurant Entity
 	+ Construct Repository Layer
 		+ User Repo
