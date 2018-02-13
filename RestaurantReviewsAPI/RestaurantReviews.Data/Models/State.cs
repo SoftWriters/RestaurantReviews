@@ -1,4 +1,4 @@
-﻿namespace RestaurantReviews.Data.Models.Domain
+﻿namespace RestaurantReviews.Data.Models
 {
     public class State
     {

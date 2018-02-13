@@ -66,10 +66,9 @@
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Domain\Restaurant.cs" />
-    <Compile Include="Models\Domain\State.cs" />
-    <Compile Include="Models\Domain\User.cs" />
-    <Compile Include="Models\Validation\ValidationError.cs" />
+    <Compile Include="Models\Restaurant.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
