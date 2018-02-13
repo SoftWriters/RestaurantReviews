@@ -9,6 +9,6 @@ namespace RestaurantReviews.Data.Framework.RepoContracts
 {
     public interface IStateRepo
     {
-        Task<List<State>> Query(string code, string name);
+        Task<bool> Exists(string code = null, string name = null);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using RestaurantReviews.Data.EfLibrary.Context;
 using RestaurantReviews.Data.EfLibrary.Respositories;
 using RestaurantReviews.Data.Framework.RepoContracts;
-using RestaurantReviews.Data.Framework.UnitOfWorkContract;
+using RestaurantReviews.Data.Framework.UnitOfWorkContracts;
 
 namespace RestaurantReviews.Data.EfLibrary
 {

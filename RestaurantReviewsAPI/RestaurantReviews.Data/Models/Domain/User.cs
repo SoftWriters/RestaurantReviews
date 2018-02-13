@@ -1,4 +1,4 @@
-﻿namespace RestaurantReviews.Data.Models
+﻿namespace RestaurantReviews.Data.Models.Domain
 {
     public class User
     {

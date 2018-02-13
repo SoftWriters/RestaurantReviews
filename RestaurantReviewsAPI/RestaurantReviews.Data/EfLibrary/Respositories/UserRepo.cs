@@ -7,6 +7,7 @@ using RestaurantReviews.Data.EfLibrary.Context;
 using RestaurantReviews.Data.EfLibrary.Entities;
 using RestaurantReviews.Data.Framework.RepoContracts;
 using RestaurantReviews.Data.Models;
+using RestaurantReviews.Data.Models.Domain;
 
 namespace RestaurantReviews.Data.EfLibrary.Respositories
 {

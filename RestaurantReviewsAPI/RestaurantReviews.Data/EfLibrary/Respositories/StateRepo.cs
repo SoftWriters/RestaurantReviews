@@ -19,7 +19,7 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
             _context = context;
         }
 
-        public async Task<List<State>> Query(string code, string name)
+        public async Task<bool> Exists(string code = null, string name = null)
         {
             var query = _context
                 .States
@@ -31,17 +31,8 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(state => state.Name == name);
 
-            var results = await query
-                .ToListAsync();
-
-            return results
-                .Select(state => new State
-                {
-                    Id = state.Id,
-                    Name = state.Name,
-                    Code = state.Code
-                })
-                .ToList();
+            return await query
+                .AnyAsync();
         }
     }
 }

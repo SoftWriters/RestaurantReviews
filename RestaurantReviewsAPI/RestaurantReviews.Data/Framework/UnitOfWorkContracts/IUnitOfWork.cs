@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RestaurantReviews.Data.Framework.RepoContracts;
 
-namespace RestaurantReviews.Data.Framework.UnitOfWorkContract
+namespace RestaurantReviews.Data.Framework.UnitOfWorkContracts
 {
     public interface IUnitOfWork
     {

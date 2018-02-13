@@ -55,18 +55,21 @@
     <Compile Include="EfLibrary\Respositories\StateRepo.cs" />
     <Compile Include="EfLibrary\Respositories\UserRepo.cs" />
     <Compile Include="EfLibrary\UnitOfWork.cs" />
+    <Compile Include="EfLibrary\UnitOfWorkFactory.cs" />
     <Compile Include="Framework\RepoContracts\IRestaurantRepo.cs" />
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
-    <Compile Include="Framework\UnitOfWorkContract\IUnitOfWork.cs" />
+    <Compile Include="Framework\UnitOfWorkContracts\IUnitOfWork.cs" />
+    <Compile Include="Framework\UnitOfWorkContracts\IUnitOfWorkFactory.cs" />
     <Compile Include="Migrations\201802120316514_SchemaV1.cs" />
     <Compile Include="Migrations\201802120316514_SchemaV1.Designer.cs">
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Restaurant.cs" />
-    <Compile Include="Models\State.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Domain\Restaurant.cs" />
+    <Compile Include="Models\Domain\State.cs" />
+    <Compile Include="Models\Domain\User.cs" />
+    <Compile Include="Models\Validation\ValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

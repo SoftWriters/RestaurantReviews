@@ -1,11 +1,12 @@
 ﻿using System.Data.Entity;
 using RestaurantReviews.Data.EfLibrary.Entities;
+using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
 
 namespace RestaurantReviews.Data.EfLibrary.Context
 {
     public class RestaurantReviewsContext : DbContext
     {
-        public RestaurantReviewsContext() : base("DefaultConnection")
+        public RestaurantReviewsContext(string connectionStringName = "DefaultConnection") : base(connectionStringName)
         {
         }
 
