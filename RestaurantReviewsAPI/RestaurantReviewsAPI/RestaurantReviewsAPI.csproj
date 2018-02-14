@@ -177,6 +177,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Attributes\ValidateModelAttribute.cs" />
+    <Compile Include="Authorization\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="Authorization\AuthenticationFailureResult.cs" />
+    <Compile Include="Authorization\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Authorization\HttpAuthenticationChallengeContextExtensions.cs" />
+    <Compile Include="Authorization\IdentityBasicAuthenticationAttribute.cs" />
     <Compile Include="Const\HttpStatusCodesExtended.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />

@@ -8,11 +8,14 @@ using System.Web.Http;
 using RestaurantReviews.Data.Models;
 using RestaurantReviews.Domain.Codes;
 using RestaurantReviewsAPI.Attributes;
+using RestaurantReviewsAPI.Authorization;
 using RestaurantReviewsAPI.Const;
 using RestaurantReviewsAPI.Services;
 
 namespace RestaurantReviewsAPI.Controllers
 {
+    [Authorize]
+    [IdentityBasicAuthentication]
     [RoutePrefix("api/v1/restaurants")]
     public class RestaurantsController : ApiController
     {
