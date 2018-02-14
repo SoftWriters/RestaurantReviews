@@ -8,6 +8,7 @@ namespace RestaurantReviews.Data.Framework.UnitOfWorkContracts
         IUserRepo UserRepo { get; }
         IStateRepo StateRepo { get; }
         IRestaurantRepo RestaurantRepo { get; }
+        IReviewRepo ReviewRepo { get; }
         Task<int> CommitAsync();
     }
 }

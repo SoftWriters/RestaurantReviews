@@ -36,10 +36,29 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 });
         }
 
+        public Restaurant Get(long restaurantId)
+        {
+            var restaurant = _context
+                .Restaurants
+                .Find(restaurantId);
+
+            if (restaurant == null)
+                return null;
+
+            return new Restaurant
+            {
+                Id = restaurant.Id,
+                Name = restaurant.Name,
+                City = restaurant.City,
+                StateCode = restaurant.State.Code
+            };
+        }
+
         public Task<bool> Exists(string name = null, string city = null, string stateCode = null)
         {
             var query = _context
                 .Restaurants
+                .Include(restaurant => restaurant.State)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(name))

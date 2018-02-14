@@ -48,15 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EfLibrary\Entities\RestaurantDBO.cs" />
+    <Compile Include="EfLibrary\Entities\ReviewDBO.cs" />
     <Compile Include="EfLibrary\Entities\StateDBO.cs" />
     <Compile Include="EfLibrary\Entities\UserDBO.cs" />
     <Compile Include="EfLibrary\Context\RestaurantReviewsContext.cs" />
     <Compile Include="EfLibrary\Respositories\RestaurantRepo.cs" />
+    <Compile Include="EfLibrary\Respositories\ReviewRepo.cs" />
     <Compile Include="EfLibrary\Respositories\StateRepo.cs" />
     <Compile Include="EfLibrary\Respositories\UserRepo.cs" />
     <Compile Include="EfLibrary\UnitOfWork.cs" />
     <Compile Include="EfLibrary\UnitOfWorkFactory.cs" />
     <Compile Include="Framework\RepoContracts\IRestaurantRepo.cs" />
+    <Compile Include="Framework\RepoContracts\IReviewRepo.cs" />
     <Compile Include="Framework\RepoContracts\IStateRepo.cs" />
     <Compile Include="Framework\RepoContracts\IUserRepo.cs" />
     <Compile Include="Framework\UnitOfWorkContracts\IUnitOfWork.cs" />
@@ -65,8 +68,17 @@
     <Compile Include="Migrations\201802120316514_SchemaV1.Designer.cs">
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802140328549_ReviewSchemaAdditions.cs" />
+    <Compile Include="Migrations\201802140328549_ReviewSchemaAdditions.Designer.cs">
+      <DependentUpon>201802140328549_ReviewSchemaAdditions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802140351233_ApplyUniqueIndexToUsername.cs" />
+    <Compile Include="Migrations\201802140351233_ApplyUniqueIndexToUsername.Designer.cs">
+      <DependentUpon>201802140351233_ApplyUniqueIndexToUsername.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Restaurant.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +90,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802120316514_SchemaV1.resx">
       <DependentUpon>201802120316514_SchemaV1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802140328549_ReviewSchemaAdditions.resx">
+      <DependentUpon>201802140328549_ReviewSchemaAdditions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802140351233_ApplyUniqueIndexToUsername.resx">
+      <DependentUpon>201802140351233_ApplyUniqueIndexToUsername.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

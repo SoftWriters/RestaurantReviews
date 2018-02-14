@@ -7,10 +7,9 @@ using RestaurantReviews.Data.Models;
 
 namespace RestaurantReviews.Data.Framework.RepoContracts
 {
-    public interface IRestaurantRepo
+    public interface IReviewRepo
     {
-        void Add(Restaurant restaurant);
-        Restaurant Get(long restaurantId);
-        Task<bool> Exists(string name = null, string city = null, string stateCode = null);
+        void Add(long restaurantId, long authorId, Review review);
+        Task<bool> Exists(long restaurantId = -1, long authorId = -1);
     }
 }

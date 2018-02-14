@@ -12,7 +12,11 @@ namespace RestaurantReviewsAPI.Services
     {
         private static IUnitOfWorkFactory UnitOfWorkFactory => new UnitOfWorkFactory("DefaultConnection");
 
-        public static RestaurantService RestaurantService => new RestaurantService(UnitOfWorkFactory);
+        public static RestaurantService RestaurantService(long currentUserId)
+        {
+            return new RestaurantService(UnitOfWorkFactory, currentUserId);
+        }
+
         public static UserAuthenticationService UserAuthenticationService => new UserAuthenticationService(UnitOfWorkFactory);
     }
 }

@@ -48,13 +48,12 @@ Restaurant: {
 	Id:long,
 	Name:string,
 	City:string,
-	State_Id:FK->State
+	StateCode:string
 }
 
 Review: {
 	Id:long,
-	User_Id:FK->User,
-	Restaurant_Id:FK->Restaurant,
+	AuthorUsername:string,
 	Stars:int,
 	Comments:string
 }

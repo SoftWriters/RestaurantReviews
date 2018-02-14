@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestaurantReviews.Data.Framework.UnitOfWorkContracts;
+using RestaurantReviews.Data.Models;
 
 namespace RestaurantReviews.Domain.Service
 {
@@ -16,7 +17,7 @@ namespace RestaurantReviews.Domain.Service
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public async Task<bool> AuthenticateUser(string username, string password)
+        public async Task<User> AuthenticateUser(string username, string password)
         {
             var unitOfWork = _unitOfWorkFactory.Get();
 
@@ -24,11 +25,18 @@ namespace RestaurantReviews.Domain.Service
                 .UserRepo
                 .Query(username);
 
-            if (!usersQueryResults.Any())
-                return false;
+            var exactMatches =  usersQueryResults
+                .Where(user => user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.ValidatePassword(password))
+                .ToList();
 
-            return usersQueryResults
-                .Any(user => user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.ValidatePassword(password));
+            if (!exactMatches.Any())
+                return null;
+
+            if(exactMatches.Count() > 1)
+                throw new Exception($"Encountered username {username} with duplicate accounts.");
+
+            return exactMatches
+                .First();
         }
     }
 }

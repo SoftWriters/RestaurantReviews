@@ -182,6 +182,7 @@
     <Compile Include="Authorization\BasicAuthenticationAttribute.cs" />
     <Compile Include="Authorization\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="Authorization\IdentityBasicAuthenticationAttribute.cs" />
+    <Compile Include="Authorization\IIdentityExtensions.cs" />
     <Compile Include="Const\HttpStatusCodesExtended.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />

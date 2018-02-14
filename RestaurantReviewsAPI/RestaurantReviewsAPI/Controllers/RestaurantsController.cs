@@ -19,7 +19,8 @@ namespace RestaurantReviewsAPI.Controllers
     [RoutePrefix("api/v1/restaurants")]
     public class RestaurantsController : ApiController
     {
-        
+        protected long? CurrentUserId { get { return RequestContext.Principal.Identity.GetUserId(); } }
+
         [Route("")]
         [HttpPost]
         [ValidateModel]
@@ -28,8 +29,12 @@ namespace RestaurantReviewsAPI.Controllers
             if (!ModelState.IsValid)
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
 
+            var currentUserId = CurrentUserId;
+            if (currentUserId == null)
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+
             var service = ServiceFactory
-                .RestaurantService;
+                .RestaurantService(currentUserId.Value);
 
             try
             {
@@ -39,11 +44,41 @@ namespace RestaurantReviewsAPI.Controllers
                 if(serviceResponse.OpCode == OpCodes.InvalidOperation)
                     return Request.CreateResponse(ExtendedHttpStatusCodes.UnprocessableEntity, serviceResponse.Message);
                 if(serviceResponse.OpCode == OpCodes.Success)
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.Write(e);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
+        }
+
+        [Route("{restaurantid}/reviews")]
+        public async Task<HttpResponseMessage> Post(long restaurantid, [FromBody]Review review)
+        {
+            if (!ModelState.IsValid)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            var currentUserId = CurrentUserId;
+            if (currentUserId == null)
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+
+            try
+            {
+                var service = ServiceFactory
+                    .RestaurantService(currentUserId.Value);
+                var serviceResponse = await service
+                    .AddReviewToRestaurant(restaurantid, review);
+
+                if (serviceResponse.OpCode == OpCodes.InvalidOperation)
+                    return Request.CreateResponse(ExtendedHttpStatusCodes.UnprocessableEntity, serviceResponse.Message);
+                if (serviceResponse.OpCode == OpCodes.Success)
+                    return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
             }
 
             return Request.CreateResponse(HttpStatusCode.InternalServerError);

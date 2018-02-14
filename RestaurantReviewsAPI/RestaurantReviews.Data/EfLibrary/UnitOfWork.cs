@@ -28,6 +28,9 @@ namespace RestaurantReviews.Data.EfLibrary
         private IRestaurantRepo _restaurantRepo;
         public IRestaurantRepo RestaurantRepo { get{return _restaurantRepo ?? (_restaurantRepo = new RestaurantRepo(_context)); } }
 
+        private IReviewRepo _reviewRepo;
+        public IReviewRepo ReviewRepo { get { return _reviewRepo ?? (_reviewRepo = new ReviewRepo(_context)); } }
+
         public async Task<int> CommitAsync()
         {
             return await _context.SaveChangesAsync();

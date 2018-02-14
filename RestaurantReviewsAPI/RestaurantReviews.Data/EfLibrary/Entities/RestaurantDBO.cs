@@ -16,6 +16,6 @@ namespace RestaurantReviews.Data.EfLibrary.Entities
         public string Name { get; set; }
         [MaxLength(100)]
         public string City { get; set; }
-        public StateDBO State { get; set; }
+        public virtual StateDBO State { get; set; }
     }
 }
