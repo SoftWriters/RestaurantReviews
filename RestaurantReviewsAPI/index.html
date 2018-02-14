@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Restaurant Reviews</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h2>Get a list of restaurants by city</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">City: </div>
+			<div class="col-md-6"><input type="text" id="restaurantSearchCity" size="10" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">State: </div>
+			<div class="col-md-6"><select id="restaurantSearchStateId"></select></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><input type="button" value="Search" onclick="SearchRestaurants();" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><div id="restaurantSearchResults" /></div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h2>Post a restaurant that is not in the database</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">Name: </div>
+						<div class="col-md-6"><input type="text" id="restaurantAddName" size="10" /></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">City: </div>
+						<div class="col-md-6"><input type="text" id="restaurantAddCity" size="10" /></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">State: </div>
+						<div class="col-md-6"><select id="restaurantAddStateId"></select></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">Creator: </div>
+						<div class="col-md-6"><input type="text" id="restaurantAddCreator" size="10" /></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="button" value="Add Restaurant" onclick="AddRestaurant();" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="restaurantAdd" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h2>Post a review for a restaurant</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">Restaurant: </div>
+						<div class="col-md-6"><select id="reviewAddRestaurantId"></select></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">Review: </div>
+						<div class="col-md-6"><textarea id="reviewAddReviewText" rows="20" cols="50"></textarea></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">Reviewer: </div>
+						<div class="col-md-6"><input type="text" id="reviewAddReviewReviewer" size="10" /></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="button" value="Add Review" onclick="AddReview();" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div id="reviewAdd" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h2>Get a list of reviews by user</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Reviewer: </div>
+			<div class="col-md-6"><input type="text" id="reviewSearchUser" size="10" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><input type="button" value="Search Reviews" onclick="SearchReviews();" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><div id="reviewSearchResults" /></div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12"><h2>Delete a review</h2></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Review Id: </div>
+			<div class="col-md-6"><input type="text" id="reviewDeleteId" size="10" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><input type="button" value="Delete Review" onclick="DeleteReview();" /></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><div id="reviewDelete" /></div>
+		</div>
+	</div>
+
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			// populate state dropdowns
+			$.getJSON('api/state', function (data) {
+				var options = $("#restaurantSearchStateId");
+				$.each(data, function (key, state) {
+					options.append(new Option(state.Abbreviation, state.Id));
+				});
+			});
+
+			$.getJSON('api/state', function (data) {
+				var options = $("#restaurantAddStateId");
+				$.each(data, function (key, state) {
+					options.append(new Option(state.Abbreviation, state.Id));
+				});
+			});
+
+			$.getJSON('api/restaurant', function (data) {
+				var options = $("#reviewAddRestaurantId");
+				$.each(data, function (key, restaurant) {
+					options.append(new Option(restaurant.Name + ' - ' + restaurant.City + ', ' + restaurant.State.Abbreviation, restaurant.Id));
+				});
+			});
+		});
+
+		function formatRestaurant(restaurant) {
+			return restaurant.Name + ' ' + restaurant.City + ', ' + restaurant.State.Abbreviation;
+		}
+
+		function formatReview(review) {
+			return review.Id + ' ' + review.Restaurant.Name + ' ' + review.Restaurant.City + ', ' + review.Restaurant.State.Abbreviation + '     Review: ' + review.ReviewText;
+		}
+
+		function SearchRestaurants() {
+			var city = $('#restaurantSearchCity').val();
+			var stateId = $('#restaurantSearchStateId').val();
+			$.getJSON('api/restaurant/GetRestaurantsByCity/' + city + '/' + stateId + '/')
+					.done(function (data) {
+						// On success, 'data' contains a list of restaurants.
+						$('#restaurantSearchResults').text('');
+
+						$.each(data, function (key, restaurant) {
+							$('<div>',{ text: formatRestaurant(restaurant) }, '</div>').appendTo($('#restaurantSearchResults'));
+						});
+					})
+					.fail(function (jqXHR, textStatus, error) {
+						$('#restaurantSearchResults').text('Error: ' + error);
+					});
+		}
+
+		function AddRestaurant() {
+			var restaurant = { Name: $('#restaurantAddName').val(), City: $('#restaurantAddCity').val(), State: { Id: $('#restaurantAddStateId').val() }, Creator: { Username: $('#restaurantAddCreator').val() } };
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(restaurant),
+				url: 'api/restaurant',
+				contentType: 'application/json'
+			})
+			.done(function (data) {
+				$('#restaurantAdd').text('Restaurant Save Successful.');
+			})
+			.fail(function (jqXHR, textStatus, error) {
+				$('#restaurantAdd').text('Error: ' + error);
+			});
+
+		}
+
+		function AddReview() {
+			var review = { ReviewText: $('#reviewAddReviewText').val(), Restaurant: { Id: $('#reviewAddRestaurantId').val() }, Reviewer: { Username: $('#reviewAddReviewReviewer').val() } };
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(review),
+				url: 'api/review',
+				contentType: 'application/json'
+			})
+			.done(function (data) {
+				$('#reviewAdd').text('Review Save Successful.');
+			})
+			.fail(function (jqXHR, textStatus, error) {
+				$('#reviewAdd').text('Error: ' + error);
+			});
+		}
+
+		function SearchReviews() {
+			var reviewer = $('#reviewSearchUser').val();
+			$.getJSON('api/review/GetReviewsByUser/' + reviewer + '/')
+					.done(function (data) {
+						// On success, 'data' contains a list of reviews.
+						$.each(data, function (key, review) {
+							$('<div>',{ text: formatReview(review) }, '</div>').appendTo($('#reviewSearchResults'));
+						});
+					})
+					.fail(function (jqXHR, textStatus, error) {
+						$('#reviewSearchResults').text('Error: ' + error);
+					});
+		}
+
+		function DeleteReview() {
+			var reviewId = $('#reviewDeleteId').val();
+			$.ajax({
+				url: '/api/review/' + reviewId,
+				type: 'DELETE',
+				contentType: "application/json",
+				success: function () {
+					$('#reviewDelete').text('Review Delete Successful.');
+				},
+				error: function (jqXHR, textStatus, error) {
+					$('#reviewDelete').text('Error: ' + error);
+				}
+			});
+		}
+	</script>
+</body>
+</html>
