@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,27 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 Username = user.Username,
                 Password = user.Password
             };
+        }
+
+        public async Task<List<User>> Query(string username = null)
+        {
+            var usersQuery = _context
+                .Users
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(username))
+                usersQuery.Where(user => user.Username.Contains(username));
+
+            var results = await usersQuery.ToListAsync();
+
+            return results
+                .Select(dbo => new User
+                {
+                    Id = dbo.Id,
+                    Password = dbo.Password,
+                    Username = dbo.Username
+                })
+                .ToList();
         }
     }
 }

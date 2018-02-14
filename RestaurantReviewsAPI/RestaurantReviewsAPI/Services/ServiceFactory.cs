@@ -8,21 +8,11 @@ using RestaurantReviews.Domain.Service;
 
 namespace RestaurantReviewsAPI.Services
 {
-    public class ServiceFactory
+    public static class ServiceFactory
     {
-        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private static IUnitOfWorkFactory UnitOfWorkFactory => new UnitOfWorkFactory("DefaultConnection");
 
-        public ServiceFactory()
-        {
-            _unitOfWorkFactory = new UnitOfWorkFactory("DefaultConnection");
-        }
-
-        public RestaurantService RestaurantService
-        {
-            get
-            {
-                return new RestaurantService(_unitOfWorkFactory);
-            }
-        }
+        public static RestaurantService RestaurantService => new RestaurantService(UnitOfWorkFactory);
+        public static UserAuthenticationService UserAuthenticationService => new UserAuthenticationService(UnitOfWorkFactory);
     }
 }

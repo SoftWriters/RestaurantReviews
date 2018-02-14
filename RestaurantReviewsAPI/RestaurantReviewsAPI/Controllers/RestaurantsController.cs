@@ -19,12 +19,6 @@ namespace RestaurantReviewsAPI.Controllers
     [RoutePrefix("api/v1/restaurants")]
     public class RestaurantsController : ApiController
     {
-        private readonly ServiceFactory _serviceFactory;
-
-        public RestaurantsController()
-        {
-            _serviceFactory = new ServiceFactory();
-        }
         
         [Route("")]
         [HttpPost]
@@ -34,7 +28,7 @@ namespace RestaurantReviewsAPI.Controllers
             if (!ModelState.IsValid)
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            var service = _serviceFactory
+            var service = ServiceFactory
                 .RestaurantService;
 
             try

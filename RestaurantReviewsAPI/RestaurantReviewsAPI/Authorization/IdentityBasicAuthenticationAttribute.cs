@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
+using RestaurantReviewsAPI.Services;
 
 namespace RestaurantReviewsAPI.Authorization
 {
@@ -11,8 +12,10 @@ namespace RestaurantReviewsAPI.Authorization
         protected override async Task<IPrincipal> AuthenticateAsync(string userName, string password, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-
-            if (userName != "testuser" || password != "Pass1word")
+            var authService = ServiceFactory.UserAuthenticationService;
+            var credentialsValid = await authService
+                .AuthenticateUser(userName, password);
+            if (!credentialsValid)
             {
                 // No user with userName/password exists.
                 return null;
