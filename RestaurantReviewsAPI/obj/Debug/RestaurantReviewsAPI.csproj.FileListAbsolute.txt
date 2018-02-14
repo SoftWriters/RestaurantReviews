@@ -1,0 +1,93 @@
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\ApplicationInsights.config
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\csc.exe
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\System.Collections.Immutable.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\vbc.exe
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\VBCSCompiler.exe
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\VBCSCompiler.exe.config
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.dll.config
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.pdb
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.SqlServer.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Web.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.WindowsServer.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.ApplicationInsights.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Newtonsoft.Json.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Net.Http.Formatting.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.WebHost.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.SqlServer.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Web.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.WindowsServer.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.ApplicationInsights.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Newtonsoft.Json.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Net.Http.Formatting.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.WebHost.xml
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.csprojResolveAssemblyReference.cache
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.dll
+c:\users\jay\documents\visual studio 2015\Projects\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.pdb
+D:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.csprojResolveAssemblyReference.cache
+D:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.dll
+D:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.pdb
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.csprojResolveAssemblyReference.cache
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\obj\Debug\RestaurantReviewsAPI.pdb
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\ApplicationInsights.config
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\csc.exe
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\System.Collections.Immutable.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\System.Reflection.Metadata.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\vbc.exe
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\VBCSCompiler.exe
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\roslyn\VBCSCompiler.exe.config
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.dll.config
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\RestaurantReviewsAPI.pdb
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.SqlServer.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Agent.Intercept.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.DependencyCollector.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.PerfCounterCollector.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.ServerTelemetryChannel.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Web.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.WindowsServer.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.ApplicationInsights.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Newtonsoft.Json.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Net.Http.Formatting.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.WebHost.dll
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\EntityFramework.SqlServer.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.DependencyCollector.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.ServerTelemetryChannel.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.Web.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.AI.WindowsServer.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.ApplicationInsights.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\Newtonsoft.Json.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Net.Http.Formatting.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.xml
+G:\Code\RestaurantReviewsAPI\RestaurantReviewsAPI\bin\System.Web.Http.WebHost.xml
