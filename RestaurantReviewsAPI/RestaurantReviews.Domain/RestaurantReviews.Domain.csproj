@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Codes\OpCodes.cs" />
+    <Compile Include="Const\QueryLimits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\OperationResponse.cs" />
     <Compile Include="Service\AuthenticationService.cs" />

@@ -11,6 +11,6 @@ namespace RestaurantReviews.Data.Framework.RepoContracts
     {
         void Add(Restaurant restaurant);
         Restaurant Get(long restaurantId);
-        Task<bool> Exists(string name = null, string city = null, string stateCode = null);
+        Task<List<Restaurant>> FindMatchingResults(string name = null, string city = null, string stateCode = null, string stateName = null, int skip = 0, int take = 500);
     }
 }

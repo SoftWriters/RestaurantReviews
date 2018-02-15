@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RestaurantReviews.Data.Framework.UnitOfWorkContracts;
 using RestaurantReviews.Data.Models;
 using RestaurantReviews.Domain.Codes;
+using RestaurantReviews.Domain.Const;
 using RestaurantReviews.Domain.Models;
 
 namespace RestaurantReviews.Domain.Service
@@ -37,11 +38,11 @@ namespace RestaurantReviews.Domain.Service
                     Message = $"Unrecognized state code {restaurant.StateCode}."
                 };
 
-            var identicalRestaurantExists = await unitOfWork
+            var identicalRestaurants = await unitOfWork
                 .RestaurantRepo
-                .Exists(restaurant.Name, restaurant.City, restaurant.StateCode);
+                .FindMatchingResults(restaurant.Name, restaurant.City, restaurant.StateCode);
 
-            if (identicalRestaurantExists)
+            if (identicalRestaurants.Any())
                 return new OperationResponse
                 {
                     OpCode = OpCodes.InvalidOperation,
@@ -59,6 +60,29 @@ namespace RestaurantReviews.Domain.Service
             {
                 OpCode = OpCodes.Success
             };
+        }
+
+
+        public async Task<List<Restaurant>> QueryRestaurants(string name = null, string stateCode = null, string stateName = null, string city = null, int skip = 0, int take = QueryConstants.DefaultPageSize)
+        {
+            var unitOfWork = _unitOfWorkFactory
+                .Get();
+
+            if (take > QueryConstants.MaxPageSize)
+                take = QueryConstants.MaxPageSize;
+
+            var filteredResults = await unitOfWork
+                .RestaurantRepo
+                .FindMatchingResults(
+                    skip: skip,
+                    take: take,
+                    name: name,
+                    stateCode: stateCode,
+                    stateName: stateName,
+                    city: city
+                );
+
+            return filteredResults;
         }
 
         public async Task<OperationResponse> AddReviewToRestaurant(long restaurantId, Review review)

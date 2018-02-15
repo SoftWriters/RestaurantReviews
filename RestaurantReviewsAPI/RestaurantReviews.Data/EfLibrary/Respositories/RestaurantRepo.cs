@@ -54,7 +54,7 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
             };
         }
 
-        public Task<bool> Exists(string name = null, string city = null, string stateCode = null)
+        public async Task<List<Restaurant>> FindMatchingResults(string name = null, string city = null, string stateCode = null, string stateName = null, int skip = 0, int take = 500)
         {
             var query = _context
                 .Restaurants
@@ -62,16 +62,36 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(name))
-                query.Where(restaraunt => restaraunt.Name == name);
+                query = query.Where(restaraunt => restaraunt.Name == name);
 
             if (!string.IsNullOrWhiteSpace(city))
-                query.Where(restaraunt => restaraunt.City == city);
+                query = query.Where(restaraunt => restaraunt.City == city);
 
             if (!string.IsNullOrEmpty(stateCode))
-                query.Where(restaurant => restaurant.State.Code == stateCode);
+                query = query.Where(restaurant => restaurant.State.Code == stateCode);
 
-            return query
-                .AnyAsync();
+            if (!string.IsNullOrEmpty(stateName))
+                query = query.Where(restaurant => restaurant.State.Name == stateName);
+
+            var results = await query
+                .Include(restaurant => restaurant.State)
+                .OrderBy(restaurant => restaurant.State.Code)
+                .OrderBy(restaurant => restaurant.City)
+                .OrderBy(restaurant => restaurant.Name)
+                .OrderBy(restaurant => restaurant.Id)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            return results
+                .Select(restaurant => new Restaurant
+                {
+                    Id = restaurant.Id,
+                    Name = restaurant.Name,
+                    City = restaurant.City,
+                    StateCode = restaurant.State.Code
+                })
+                .ToList();
         }
     }
 }
