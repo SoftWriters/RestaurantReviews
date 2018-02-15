@@ -23,7 +23,7 @@ namespace RestaurantReviews.Domain.Service
 
             var usersQueryResults = await unitOfWork
                 .UserRepo
-                .Query(username);
+                .FindMatchingResults(username);
 
             var exactMatches =  usersQueryResults
                 .Where(user => user.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase) && user.ValidatePassword(password))

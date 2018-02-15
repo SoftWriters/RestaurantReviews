@@ -7,6 +7,6 @@ namespace RestaurantReviews.Data.Framework.RepoContracts
     public interface IUserRepo
     {
         User Get(long userId);
-        Task<List<User>> Query(string username);
+        Task<List<User>> FindMatchingResults(string username);
     }
 }

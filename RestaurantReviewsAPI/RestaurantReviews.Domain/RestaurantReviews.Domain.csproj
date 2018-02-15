@@ -45,6 +45,7 @@
     <Compile Include="Models\OperationResponse.cs" />
     <Compile Include="Service\AuthenticationService.cs" />
     <Compile Include="Service\RestaurantService.cs" />
+    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestaurantReviews.Data\RestaurantReviews.Data.csproj">

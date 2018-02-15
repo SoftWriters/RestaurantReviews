@@ -10,6 +10,6 @@ namespace RestaurantReviews.Data.Framework.RepoContracts
     public interface IReviewRepo
     {
         void Add(long restaurantId, long authorId, Review review);
-        Task<bool> Exists(long restaurantId = -1, long authorId = -1);
+        Task<List<Review>> FindMatchingResults(long restaurantId = -1, long authorId = -1);
     }
 }

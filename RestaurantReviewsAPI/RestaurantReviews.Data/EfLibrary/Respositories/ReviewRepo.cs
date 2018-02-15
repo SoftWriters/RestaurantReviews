@@ -41,7 +41,7 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 });
         }
 
-        public async Task<bool> Exists(long restaurantId = -1, long authorId = -1)
+        public async Task<List<Review>> FindMatchingResults(long restaurantId = -1, long authorId = -1)
         {
             var query = _context
                 .Reviews
@@ -52,7 +52,16 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
             if (authorId > -1)
                 query = query.Where(review => review.Author.Id == authorId);
 
-            return await query.AnyAsync();
+            var results = await query
+                .ToListAsync();
+            return results
+                .Select(review => new Review
+                {
+                    Id = review.Id,
+                    Stars = review.Stars,
+                    Comments = review.Comments
+                })
+                .ToList();
         }
     }
 }

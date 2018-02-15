@@ -17,6 +17,11 @@ namespace RestaurantReviewsAPI.Services
             return new RestaurantService(UnitOfWorkFactory, currentUserId);
         }
 
+        public static UserService UserService(long currentUserId)
+        {
+            return new UserService(UnitOfWorkFactory, currentUserId);
+        }
+
         public static UserAuthenticationService UserAuthenticationService => new UserAuthenticationService(UnitOfWorkFactory);
     }
 }

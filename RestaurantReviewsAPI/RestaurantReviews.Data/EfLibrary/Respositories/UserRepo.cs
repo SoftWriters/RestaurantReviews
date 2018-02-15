@@ -37,14 +37,14 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
             };
         }
 
-        public async Task<List<User>> Query(string username = null)
+        public async Task<List<User>> FindMatchingResults(string username = null)
         {
             var usersQuery = _context
                 .Users
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(username))
-                usersQuery.Where(user => user.Username.Contains(username));
+                usersQuery.Where(user => user.Username == username);
 
             var results = await usersQuery.ToListAsync();
 

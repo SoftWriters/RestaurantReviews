@@ -92,14 +92,18 @@ IRestaurantReviewsUnitOfWork {
 }
 
 [Service Layer]
-IRestaurantService{
+RestaurantService{
 	Add(Restaurant restaurant):OpResponse response
 	Query(string city, string state):QueryResponse<Review> queryResponse
 	AddReview(long restaurantid, Review review)
 }
-IReviewService{
+
+UserService{
+	GetReviews(long userId):QueryResponse<Review> reviews
+}
+
+ReviewService{
 	Remove(long reviewId):OpResponse response
-	Query(string authorUsername):QueryResponse<Review> reviews
 }
 
 [API Layer]
@@ -109,7 +113,10 @@ RestaurantAPIController{
 	AddReview(long restaurantId, Review review)
 }
 
+UsersAPIController{	
+	GetReviews(long userId)
+}
+
 ReviewsAPIController{
-	Get(string authorUsername):Review[]
 	Delete(long reviewId)
 }

@@ -88,11 +88,11 @@ namespace RestaurantReviews.Domain.Service
             if(user == null)
                 throw new Exception("No account found matching active user's id.");
 
-            var userHasAlreadySubmittedReview = await unitOfWork
+            var existingReviews = await unitOfWork
                 .ReviewRepo
-                .Exists(restaurantId, _idOfActiveUser);
+                .FindMatchingResults(restaurantId, _idOfActiveUser);
 
-            if(userHasAlreadySubmittedReview)
+            if(existingReviews.Any())
                 return new OperationResponse
                 {
                     OpCode = OpCodes.InvalidOperation,
