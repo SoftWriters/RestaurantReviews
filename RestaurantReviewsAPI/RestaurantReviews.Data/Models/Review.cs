@@ -9,11 +9,13 @@ namespace RestaurantReviews.Data.Models
 {
     public class Review
     {
+        public const int MaxCommentLength = 1000;
+
         public long Id { get; set; }
         [Required]
         public int Stars { get; set; }
-        public const int MaxCommentLength = 1000;
         [MaxLength(MaxCommentLength)]
         public string Comments { get; set; }
+        public string AuthorUsername { get; set; }
     }
 }

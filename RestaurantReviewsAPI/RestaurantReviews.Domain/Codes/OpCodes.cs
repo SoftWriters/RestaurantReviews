@@ -9,6 +9,9 @@ namespace RestaurantReviews.Domain.Codes
     public enum OpCodes
     {
         Success,
-        InvalidOperation
+        InvalidOperation,
+        ResourceNotFound,
+        UnauthorizedOperation,
+        InsufficientPermissions
     }
 }

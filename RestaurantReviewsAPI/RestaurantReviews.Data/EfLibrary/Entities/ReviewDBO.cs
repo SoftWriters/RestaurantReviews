@@ -16,7 +16,7 @@ namespace RestaurantReviews.Data.EfLibrary.Entities
         [Required]
         public RestaurantDBO Restaurant { get; set; }
         [Required]
-        public UserDBO Author { get; set; }
+        public virtual UserDBO Author { get; set; }
         public int Stars { get; set; }
         [MaxLength(Review.MaxCommentLength)]
         public string Comments { get; set; }

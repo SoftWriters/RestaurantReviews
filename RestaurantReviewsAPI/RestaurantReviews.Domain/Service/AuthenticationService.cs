@@ -8,11 +8,11 @@ using RestaurantReviews.Data.Models;
 
 namespace RestaurantReviews.Domain.Service
 {
-    public class UserAuthenticationService
+    public class AuthenticationService
     {
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        public UserAuthenticationService(IUnitOfWorkFactory unitOfWorkFactory)
+        public AuthenticationService(IUnitOfWorkFactory unitOfWorkFactory)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
         }

@@ -63,5 +63,34 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 })
                 .ToList();
         }
+
+        public Review Get(long reviewId)
+        {
+            var reviewDBO = _context
+                .Reviews
+                .Find(reviewId);
+
+            return new Review
+            {
+                Id = reviewDBO.Id,
+                Stars = reviewDBO.Stars,
+                Comments = reviewDBO.Comments,
+                AuthorUsername = reviewDBO.Author.Username
+            };
+        }
+
+        public void Remove(long reviewId)
+        {
+            var reviewDBO = _context
+                .Reviews
+                .Find(reviewId);
+
+            if (reviewDBO == null)
+                return;
+
+            _context
+                .Reviews
+                .Remove(reviewDBO);
+        }
     }
 }
