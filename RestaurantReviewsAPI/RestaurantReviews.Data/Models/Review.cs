@@ -17,5 +17,6 @@ namespace RestaurantReviews.Data.Models
         [MaxLength(MaxCommentLength)]
         public string Comments { get; set; }
         public string AuthorUsername { get; set; }
+        public long RestaurantId { get; set; }
     }
 }

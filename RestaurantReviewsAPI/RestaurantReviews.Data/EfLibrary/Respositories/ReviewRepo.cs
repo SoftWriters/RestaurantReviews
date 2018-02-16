@@ -45,6 +45,8 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
         {
             var query = _context
                 .Reviews
+                .Include(review => review.Restaurant)
+                .Include(review => review.Author)
                 .AsQueryable();
 
             if (restaurantId > -1)
@@ -59,7 +61,9 @@ namespace RestaurantReviews.Data.EfLibrary.Respositories
                 {
                     Id = review.Id,
                     Stars = review.Stars,
-                    Comments = review.Comments
+                    Comments = review.Comments,
+                    AuthorUsername = review.Author.Username,
+                    RestaurantId = review.Restaurant.Id
                 })
                 .ToList();
         }
