@@ -1,0 +1,45 @@
+[Tasks Breakdown]
+1. Construct Add Restaurant Call
+	+ Construct DB
+		+ Add User Entity
+		+ Add State Entity
+		+ Add Restaurant Entity
+	+ Construct Repository Layer
+		+ User Repo
+			+ Add
+			+ Get
+		+ State Repo
+			+ Query
+		+ Restaurant Repo
+			+ Add
+	+ Construct UnitOfWork
+		+ User Repo
+		+ Restaurant Repo
+		+ Commit
+	+ Add Service Layer
+		+ Restaurant Service
+			+ Add
+	+ Add API Layer
+		+ RestaurantAPIController
+			+ Add Restaurant Method
+				+ Logic
+				+ Validation
+				+ Error Handling
+			+ Setup Authentication
+	+ Add Seed Operations for testing
+		+ Add test user account
+		+ Add States
+	+ Test AddRestaurant Call
+		+ Test Happy Path
+		+ Test Validation
+		+ Test Error Scenario
+2. Implement Get Restaurants, Add Review, Get Reviews, Delete Review
+	+ For each method, do the following:
+		+ Create Entity and Add to DB
+		+ Create Repository Layer if not exists
+		+ Add Service call
+		+ Add API Layer
+		+ Test
+			+ Happy Path
+			+ Validation
+			+ Error Scenario

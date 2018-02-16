@@ -1,6 +1,12 @@
 RestaurantReviews
 =================
 
+Submitter Notes
+--------------
+For your convenience, I've included a folder called "Setup" which contains a SQL script for initializing a new DB for the application, and another to setup up a few simple test users. API documentation available at the /Help endpoint.
+
+Note: I've left the password column for users in the system to allow for ease of testing. In a live system I would hash the passwords.
+
 The Problem
 --------------
 We are in the midst of building a mobile application that will let restaurant patrons rate the restaurant in which they are eating. As part of the build, we need to develop a web API that will accept and store the ratings and other sundry data from a publicly accessible interface. 

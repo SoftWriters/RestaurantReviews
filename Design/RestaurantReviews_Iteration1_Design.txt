@@ -1,0 +1,122 @@
+/****************
+*	API Specs
+****************/
+Root API URL:
+/api/v1
+
+Name: Get Restaurants
+URL: /restaurants
+Http Method: GET
+URL Params: City, State
+
+Name: Add Restaurant
+URL: /restaurants
+HTTP Method: POST
+Body Params: Name, City, State
+
+Name: Add Review
+URL:/restaurants/{restauantid}/reviews
+HTTP Method: POST
+Body Params: Stars, Comments
+
+Name: Get Reviews
+URL:/reviews
+HTTP Method: GET
+URL Params: AuthorUsername
+
+Name: Delete Review
+URL:/reviews/{reviewid}
+HTTP Method: Delete
+
+/************
+*	Model Specs
+************/
+
+User: {
+	Id:long
+	Username:string,
+	Password:string	
+}
+
+State: {
+	Id:long,
+	Code:string,
+	Name:string
+}
+
+Restaurant: {
+	Id:long,
+	Name:string,
+	City:string,
+	StateCode:string
+}
+
+Review: {
+	Id:long,
+	AuthorUsername:string,
+	Stars:int,
+	Comments:string
+}
+
+/****************
+*	Modules
+****************/
+DomainObject -> Entity
+
+[Repository Layer]
+IUserRepo{
+	/** Standard CRUD **/
+	Query(string username):List<User> userResults
+}
+
+IStateRepo{
+	Query(string code, string name):List<State> stateResults
+}
+
+IRestaurantRepo{
+	/** Standard CRUD **/
+	Query(string city, string state):List<Restaurant> restaurantResults
+}
+
+IReviewRepo{
+	/** Standard CRUD **/
+	Query(string authorUsername):List<Review> reviewResults
+}
+
+IRestaurantReviewsUnitOfWork {
+	IUserRepo UserRepo
+	IStateRepo StateRepo
+	IRestaurantRepo RestaurantRepo
+	IReviewRepo ReviewRepo
+	Commit():int entitiesSaved
+}
+
+[Service Layer]
+RestaurantService{
+	Add(Restaurant restaurant):OpResponse response
+	Query(string city, string state):QueryResponse<Review> queryResponse
+	AddReview(long restaurantid, Review review)
+}
+
+UserService{
+	GetReviews(long userId):QueryResponse<Review> reviews
+}
+
+ReviewService{
+	Remove(long reviewId):OpResponse response
+}
+
+[API Layer]
+RestaurantAPIController{
+	Get(string city, string state):Restaurant[]
+	Add(Restaurant restaurant)
+	AddReview(long restaurantId, Review review)
+}
+
+UsersAPIController{	
+	GetReviews(long userId)
+}
+
+ReviewsAPIController{
+	Delete(long reviewId)
+}
