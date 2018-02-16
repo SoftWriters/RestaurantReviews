@@ -17,6 +17,11 @@ namespace RestaurantReviewsAPI.Controllers
     [RoutePrefix("api/v1/users")]
     public class UserAPIController : BaseAPIController
     {
+        /// <summary>
+        /// Fetches a list of all the reviews written by a user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [Route("{userId}/reviews")]
         public async Task<HttpResponseMessage> GetReviews(long userId)
         {

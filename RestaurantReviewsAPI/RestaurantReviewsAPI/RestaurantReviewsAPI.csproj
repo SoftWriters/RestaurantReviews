@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data/RestaurantReviewsAPI.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,7 +191,6 @@
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Controllers\ReviewAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensions\HttpRequestMessageExts.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

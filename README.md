@@ -3,7 +3,7 @@ RestaurantReviews
 
 Submitter Notes
 --------------
-For your convenience, I've included a folder called "Setup" which contains a SQL script for initializing a new DB for the application, and another to setup up a few simple test users.
+For your convenience, I've included a folder called "Setup" which contains a SQL script for initializing a new DB for the application, and another to setup up a few simple test users. API documentation available at /Help endpoint.
 
 The Problem
 --------------

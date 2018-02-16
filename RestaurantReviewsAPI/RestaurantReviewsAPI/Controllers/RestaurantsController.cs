@@ -22,6 +22,16 @@ namespace RestaurantReviewsAPI.Controllers
     {
         protected long? CurrentUserId { get { return RequestContext.Principal.Identity.GetUserId(); } }
 
+        /// <summary>
+        /// Returns a list of restaurants in the system in ascending order by state code, city, name, then id.
+        /// </summary>
+        /// <param name="name">Instructs the system to return only restaurants with a matching name.</param>
+        /// <param name="stateCode">Instructs the system to return only restaurants in a state with a matching state code.</param>
+        /// <param name="stateName">Instructs the system to return only restaurants in a state with a matching name.</param>
+        /// <param name="city">Instructs the system to return only restaurants in the specified city.</param>
+        /// <param name="skip">Specifies the number of records to skip.</param>
+        /// <param name="take">Specifies the number of records to take. 1000 is the max.</param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         public async Task<HttpResponseMessage> Get(string name = null, string stateCode = null, string stateName = null, string city = null, int skip = 0, int take = QueryConstants.DefaultPageSize)
@@ -48,13 +58,18 @@ namespace RestaurantReviewsAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
+        /// <summary>
+        /// Inserts a restaurant into the system.
+        /// </summary>
+        /// <param name="restaurant"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         [ValidateModel]
         public async Task<HttpResponseMessage> Post([FromBody]Restaurant restaurant)
         {
             if (!ModelState.IsValid)
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(ExtendedHttpStatusCodes.UnprocessableEntity);
 
             var currentUserId = CurrentUserId;
             if (currentUserId == null)
@@ -81,6 +96,12 @@ namespace RestaurantReviewsAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
+        /// <summary>
+        /// Inserts a review for a restaurant.
+        /// </summary>
+        /// <param name="restaurantid"></param>
+        /// <param name="review"></param>
+        /// <returns></returns>
         [Route("{restaurantid}/reviews")]
         public async Task<HttpResponseMessage> Post(long restaurantid, [FromBody]Review review)
         {

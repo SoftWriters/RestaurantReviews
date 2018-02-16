@@ -106,9 +106,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\InitializeNewDB.sql" />
     <None Include="Scripts\InsertStates.sql" />
-    <None Include="Scripts\InsertTestUsers.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

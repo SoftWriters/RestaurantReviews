@@ -19,6 +19,11 @@ namespace RestaurantReviewsAPI.Controllers
     [RoutePrefix("api/v1/reviews")]
     public class ReviewAPIController : BaseAPIController
     {
+        /// <summary>
+        /// Deletes a review by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpDelete]
         public async Task<HttpResponseMessage> Delete(long id)
