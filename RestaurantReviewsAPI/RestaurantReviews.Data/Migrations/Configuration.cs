@@ -18,37 +18,7 @@ namespace RestaurantReviews.Data.Migrations
 
         protected override void Seed(RestaurantReviewsContext context)
         {
-            var seedUsers = new List<UserDBO>
-            {
-                new UserDBO
-                {
-                    Id = 1,
-                    Username = "jtTestUser",
-                    Password = "testing"
-                }
-            };
 
-            seedUsers
-                .ForEach(user => context.Users.AddOrUpdate(user));
-
-            var states = new List<StateDBO>
-            {
-                new StateDBO
-                {
-                    Id = 1,
-                    Code = "PA",
-                    Name = "Pennsylvania"
-                },
-                new StateDBO
-                {
-                    Id = 2,
-                    Code = "OH",
-                    Name = "Ohio"
-                }
-            };
-
-            states
-                .ForEach(state => context.States.AddOrUpdate(state));
         }
     }
 }
