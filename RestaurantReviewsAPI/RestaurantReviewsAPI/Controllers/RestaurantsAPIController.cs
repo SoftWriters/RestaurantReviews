@@ -18,7 +18,7 @@ namespace RestaurantReviewsAPI.Controllers
     [Authorize]
     [IdentityBasicAuthentication]
     [RoutePrefix("api/v1/restaurants")]
-    public class RestaurantsController : ApiController
+    public class RestaurantsAPIController : ApiController
     {
         protected long? CurrentUserId { get { return RequestContext.Principal.Identity.GetUserId(); } }
 

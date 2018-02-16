@@ -188,7 +188,7 @@
     <Compile Include="Const\HttpStatusCodesExtended.cs" />
     <Compile Include="Controllers\Base\BaseAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RestaurantsController.cs" />
+    <Compile Include="Controllers\RestaurantsAPIController.cs" />
     <Compile Include="Controllers\ReviewAPIController.cs" />
     <Compile Include="Controllers\UserAPIController.cs" />
     <Compile Include="Extensions\HttpRequestMessageExts.cs" />

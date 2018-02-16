@@ -3,7 +3,9 @@ RestaurantReviews
 
 Submitter Notes
 --------------
-For your convenience, I've included a folder called "Setup" which contains a SQL script for initializing a new DB for the application, and another to setup up a few simple test users. API documentation available at /Help endpoint.
+For your convenience, I've included a folder called "Setup" which contains a SQL script for initializing a new DB for the application, and another to setup up a few simple test users. API documentation available at the /Help endpoint.
+
+Note: I've left the password column for users in the system to allow for ease of testing. In a live system I would hash the passwords.
 
 The Problem
 --------------
