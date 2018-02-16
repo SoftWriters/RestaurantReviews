@@ -481,7 +481,7 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.Get(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsAPIController.Get(System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             Returns a list of restaurants in the system in ascending order by state code, city, name, then id.
             </summary>
@@ -493,14 +493,14 @@
             <param name="take">Specifies the number of records to take. 1000 is the max.</param>
             <returns></returns>
         </member>
-        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.Post(RestaurantReviews.Data.Models.Restaurant)">
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsAPIController.Post(RestaurantReviews.Data.Models.Restaurant)">
             <summary>
             Inserts a restaurant into the system.
             </summary>
             <param name="restaurant"></param>
             <returns></returns>
         </member>
-        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.Post(System.Int64,RestaurantReviews.Data.Models.Review)">
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsAPIController.Post(System.Int64,RestaurantReviews.Data.Models.Review)">
             <summary>
             Inserts a review for a restaurant.
             </summary>
@@ -508,14 +508,14 @@
             <param name="review"></param>
             <returns></returns>
         </member>
-        <member name="M:RestaurantReviewsAPI.Controllers.ReviewAPIController.Delete(System.Int64)">
+        <member name="M:RestaurantReviewsAPI.Controllers.ReviewsAPIController.Delete(System.Int64)">
             <summary>
             Deletes a review by id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:RestaurantReviewsAPI.Controllers.UserAPIController.GetReviews(System.Int64)">
+        <member name="M:RestaurantReviewsAPI.Controllers.UsersAPIController.GetReviews(System.Int64)">
             <summary>
             Fetches a list of all the reviews written by a user.
             </summary>

@@ -1,7 +1,5 @@
-﻿using RestaurantReviews.Domain.Codes;
-using RestaurantReviewsAPI.Authorization;
+﻿using RestaurantReviewsAPI.Authorization;
 using RestaurantReviewsAPI.Controllers.Base;
-using RestaurantReviewsAPI.Extensions;
 using RestaurantReviewsAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -16,17 +14,16 @@ namespace RestaurantReviewsAPI.Controllers
 {
     [Authorize]
     [IdentityBasicAuthentication]
-    [RoutePrefix("api/v1/reviews")]
-    public class ReviewAPIController : BaseAPIController
+    [RoutePrefix("api/v1/users")]
+    public class UsersAPIController : BaseAPIController
     {
         /// <summary>
-        /// Deletes a review by id.
+        /// Fetches a list of all the reviews written by a user.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        [Route("{id}")]
-        [HttpDelete]
-        public async Task<HttpResponseMessage> Delete(long id)
+        [Route("{userId}/reviews")]
+        public async Task<HttpResponseMessage> GetReviews(long userId)
         {
             try
             {
@@ -35,12 +32,12 @@ namespace RestaurantReviewsAPI.Controllers
                     return Request.CreateResponse(HttpStatusCode.Unauthorized);
 
                 var service = ServiceFactory
-                    .ReviewService(currentUserId.Value);
+                    .UserService(CurrentUserId.Value);
 
-                var serviceResponse = await service
-                    .DeleteReview(id);
+                var results = await service
+                    .GetReviewsBy(userId);
 
-                return serviceResponse.ToHttpResponse(Request);
+                return Request.CreateResponse(HttpStatusCode.OK, results);
             }
             catch(Exception ex)
             {
