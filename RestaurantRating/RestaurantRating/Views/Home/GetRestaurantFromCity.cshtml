@@ -1,0 +1,38 @@
+﻿@model IEnumerable<RestaurantRating.Models.Restaurant>
+
+@{
+    ViewBag.Title = "GetRestaurantFromCity";
+}
+
+<h2>GetRestaurantFromCity</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateRestaurant")
+</p>
+<p>@Html.ActionLink("Back to Get", "RestaurantListByCity")</p>
+<table>
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+
+        </tr>
+    }
+
+</table>

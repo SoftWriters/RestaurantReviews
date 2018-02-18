@@ -1,0 +1,42 @@
+﻿@model RestaurantRating.Models.Restaurant
+
+@{
+    ViewBag.Title = "CreateRestaurant";
+}
+
+<h2>CreateRestaurant</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Restaurant</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RestaurantName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RestaurantName)
+            @Html.ValidationMessageFor(model => model.RestaurantName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

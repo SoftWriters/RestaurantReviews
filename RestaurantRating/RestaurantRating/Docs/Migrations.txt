@@ -1,0 +1,3 @@
+﻿enable-migrations -ContextTypeName RestaurantDBContext 
+add-migration -ConfigurationTypeName RestaurantRating.Migrations.Configuration "Initial Create"
+update-database -ConfigurationTypeName RestaurantRating.Migrations.Configuration
