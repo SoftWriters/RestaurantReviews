@@ -51,15 +51,21 @@ It provides the following APIs for the following usecases:
 
 //Get a list of all the restaurants 
     http://localhost:8080/restaurants
+    
 //Get a list of restaurants by city
     http://localhost:8080/restaurants/city/:city
+    
 ////Post a restaurant that is not in the database
     http://localhost:8080/restaurants
+    
 //Post a review for a restaurant
     http://localhost:8080/restaurants/review
+    
 //Get of a list of reviews by user
     http://localhost:8080/restaurants/review/:user  
+    
 //Delete a review
     http://localhost:8080/restaurants/deletereview/:user
+    
   
 
