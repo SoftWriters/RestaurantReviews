@@ -11,12 +11,13 @@
     "mssql": "^3.3.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "dev": "nodemon server.js"
   },
   "author": "KK <kk>",
   "devDependencies": {
     "faker": "^4.1.0",
-    "json-server": "^0.12.1"
+    "json-server": "^0.12.1",
+    "nodemon": "^1.17.3"
   },
   "license": "ISC"
 }

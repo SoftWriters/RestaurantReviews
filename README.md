@@ -44,28 +44,80 @@ Should have MongoDB installed
 ├── mongoskin@1.3.20
 └── mssql@3.3.0
 3. Now execute 'node server.js'
-4. Invoke browser with type "http://localhost:8080/"
+4. Invoke browser as the application will be running on 
+    "http://localhost:8080/"
 
 
 It provides the following APIs for the following usecases:
 
-//Get a list of all the restaurants 
-    http://localhost:8080/restaurants
     
-//Get a list of restaurants by city
-    http://localhost:8080/restaurants/city/:city
-    
-////Post a restaurant that is not in the database
-    http://localhost:8080/restaurants
-    
+//Post a restaurant that is not in the database
+Endpoint: /restaurants
+//Test command
+curl -X POST   http://localhost:8080/restaurants  -H 'content-type: application/json'  -d '{
+        "name": "R1",
+        "city": "Pleasanton",
+        "email": "",
+        "user": {
+        "name": "User111",
+        "review": "Some comments for R1",
+        "rating": "3"
+        }
+
+}
+'
+
 //Post a review for a restaurant
-    http://localhost:8080/restaurants/review
+Endpoint: /restaurants/review
+//Test command
+curl -X POST   http://localhost:8080/restaurants  -H 'content-type: application/json'  -d '{
+        "name": "R1",
+        "city": "Pleasanton",
+        "email": "",
+        "user": {
+        "name": "User111",
+        "review": "Some comments for R1",
+        "rating": "3"
+        }
+
+}
+'
+
+//Get a list of restaurants by city
+Endpoint: /restaurants/city/:city
+
+//Test command
+curl -X GET http://localhost:8080/restaurants/city/Pleasanton
+
+//Get a list of all the restaurants 
+Endpoint: /restaurants
+
+//Test command
+curl -X GET \
+  http://localhost:8080/restaurants \
+  -H 'content-type: application/json' \
+  -d '{
+        "name": "R1",
+        "city": "San Ramon",
+        "email": "",
+        "user": {
+        	"name": "User111",
+        	"review": "Some comments for R1",
+        	"rating": "3"
+        }
+    }'
     
 //Get of a list of reviews by user
-    http://localhost:8080/restaurants/review/:user  
+Endpoint: /restaurants/review/:user  
+
+
+Test command
+curl -X GET http://localhost:8080/restaurants/review/User111 
     
 //Delete a review
-    http://localhost:8080/restaurants/deletereview/:user
+Endpoint: /restaurants/deletereview/:user
     
+Test command
+curl -X DELETE http://localhost:8080/restaurants/deletereview/User111
   
 
