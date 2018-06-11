@@ -1,0 +1,87 @@
+{
+  "$version": "test-case/v1",
+  "steps": [
+    {
+      "key": "2XRH9DhDkROkqyFrPHc7u7",
+      "name": "Http Request",
+      "condition": {
+        "key": "6Ga8Dd3wuVdJ72altFL32g",
+        "type": "verify",
+        "properties": {
+          "SourceVariable": "newReviewId",
+          "SourcePathType": "none",
+          "OperationType": "is-not-equal-number",
+          "Expectation": "0"
+        }
+      },
+      "action": {
+        "key": "7ih1qsFOvbnMignM5ZZ9G2",
+        "type": "http-request",
+        "properties": {
+          "Method": "GET",
+          "Body": "{\"Content\":null,\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Review/{{newReviewId}}"
+        }
+      },
+      "verifications": [
+        {
+          "key": "3F8PRB30AXL07Ing9QXAGE",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "4rzetAaq8xjRGVzXUmfNKU",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "2BUx9adueVVALQEZyMxw6t",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "7EqaqVf6XlBqrR2Yp9bTEO",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        },
+        {
+          "key": "10hjwcCovLPMMZ2jEFrd2k",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-equal",
+            "Expectation": "[]",
+            "SourcePath": "$.data.reviewList"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {}
+}

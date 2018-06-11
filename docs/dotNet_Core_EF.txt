@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=(localdb)\ProjectsV12;Initial Catalog=RestaurantReviews;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;" Microsoft.EntityFrameworkCore.SqlServer -Tables dbo.tblRestaurant,dbo.tblReviewer,dbo.tblReview -OutputDir DataModel -Force

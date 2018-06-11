@@ -1,0 +1,76 @@
+{
+  "$version": "test-case/v1",
+  "steps": [
+    {
+      "key": "6kHDhVyugY8CZQ57gaogpU",
+      "name": "Http Request",
+      "condition": {
+        "key": "17IYucUDVYAZ0cSZUsTNgg",
+        "type": "verify",
+        "properties": {
+          "SourcePathType": "none",
+          "OperationType": "is-not-equal-number",
+          "Expectation": "0",
+          "SourceVariable": "newRestaurantId"
+        }
+      },
+      "action": {
+        "key": "yOz719a2QmncUYjIODlTq",
+        "type": "http-request",
+        "properties": {
+          "Method": "GET",
+          "Body": "{\"Content\":null,\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Restaurant/{{newRestaurantId}}"
+        }
+      },
+      "verifications": [
+        {
+          "key": "2KkXIllyy89Nio2JjCEjAM",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "none",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "6TfHyIEvzqTcZMlWyoHPU9",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "14lJjOAv7hM5Pg2vX5tBd",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "2LZGQBMoIWbAEFUx1jyY2w",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {}
+}

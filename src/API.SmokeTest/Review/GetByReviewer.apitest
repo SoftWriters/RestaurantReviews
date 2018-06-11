@@ -1,0 +1,55 @@
+{
+  "$version": "test-case/v1",
+  "steps": [
+    {
+      "key": "qWuA00UByYzvfVNB7QTco",
+      "name": "Http Request",
+      "action": {
+        "key": "29zgDDmQB5TFbZ7SwrxRB4",
+        "type": "http-request",
+        "properties": {
+          "Method": "GET",
+          "Body": "{\"Content\":null,\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Review/Reviewer?id=1"
+        }
+      },
+      "verifications": [
+        {
+          "key": "1Th4ig2j2gprrDgOms9QMQ",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "none",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "2gc0oDzXXvYCIQI6UYw14O",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "1I7Tlni8F82ev4Hgj5yD16",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {}
+}

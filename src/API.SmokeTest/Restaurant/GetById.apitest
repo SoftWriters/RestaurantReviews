@@ -1,0 +1,66 @@
+{
+  "$version": "test-case/v1",
+  "steps": [
+    {
+      "key": "7htRgMgm8RVjqeCd5U6FLv",
+      "name": "Http Request",
+      "action": {
+        "key": "1qZhJ9IYSDhnoqmYHflDMc",
+        "type": "http-request",
+        "properties": {
+          "Method": "GET",
+          "Body": "{\"Content\":null,\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Restaurant/1"
+        }
+      },
+      "verifications": [
+        {
+          "key": "47CsSeEcZO7rTDoxjIGGE2",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "none",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "2szbZb9ZD5o9okX1C7PGKT",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "4sAbi57aiXbD3kQoQdx5kt",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "uA8fJBPOR0bDplmgokCTz",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {}
+}
