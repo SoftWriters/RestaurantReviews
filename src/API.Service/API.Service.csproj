@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Restaurant_Reviews_API_Service</AssemblyName>
+    <RootNamespace>RestaurantReviews.API.Service</RootNamespace>
+    <Authors>Vidya</Authors>
+    <Company>SoftWriters</Company>
+    <Product>Restaurant Reviews API Service</Product>
+    <Copyright>2018</Copyright>
+    <RepositoryUrl>https://github.com/SoftWriters/RestaurantReviews</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API.Data\API.Data.csproj" />
+    <ProjectReference Include="..\API.Interface\API.Interface.csproj" />
+    <ProjectReference Include="..\API.Model\API.Model.csproj" />
+  </ItemGroup>
+
+</Project>

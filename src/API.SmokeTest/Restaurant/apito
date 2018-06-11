@@ -1,0 +1,9 @@
+{
+  "$version": "test-order/v1",
+  "items": [
+    "GetByCity.apitest",
+    "GetById.apitest",
+    "Add.apitest",
+    "GetByIdNew.apitest"
+  ]
+}

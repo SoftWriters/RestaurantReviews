@@ -1,0 +1,129 @@
+{
+  "$version": "test-case/v1",
+  "className": "API_SmokeTest.Review.Add",
+  "steps": [
+    {
+      "key": "5Gm90hGQHPJkb1InmVmNV6",
+      "name": "Set Reviewed DateTime",
+      "condition": {
+        "key": "3crVQvQZqOVtx05oKY0fYd",
+        "type": "verify",
+        "properties": {
+          "SourcePathType": "none",
+          "OperationType": "is-equal",
+          "Expectation": "",
+          "SourceVariable": "reviewedDateTime"
+        }
+      },
+      "action": {
+        "key": "5bT6t2FrZV3Ku6SHSQhRsN",
+        "type": "coded-step",
+        "properties": {
+          "TestMethod": "SetReviewedDateTime"
+        }
+      },
+      "verifications": []
+    },
+    {
+      "key": "7HLUfZR7fRXUgaRFp4UM2l",
+      "name": "Http Request",
+      "condition": {
+        "key": "5V0gLCqeqEw5XBmLFbNOyp",
+        "type": "verify",
+        "properties": {
+          "SourcePathType": "none",
+          "OperationType": "is-not-equal",
+          "Expectation": "",
+          "SourceVariable": "reviewedDateTime"
+        }
+      },
+      "action": {
+        "key": "18clx5g4pVH91QzrRJ5acl",
+        "type": "http-request",
+        "properties": {
+          "Method": "POST",
+          "Body": "{\"Content\":\"{\\r\\n\\t\\\"Header\\\": {\\r\\n\\t\\t\\\"requestId\\\": 1\\r\\n\\t},\\r\\n\\t\\\"data\\\": {\\r\\n\\t\\t\\\"reviewer\\\": {\\r\\n\\t\\t\\t\\\"id\\\": 1,\\r\\n\\t\\t\\t\\\"name\\\": \\\"Reviewer 1\\\"\\r\\n\\t\\t},\\r\\n\\t\\t\\\"restaurant\\\": {\\r\\n\\t\\t\\t\\\"id\\\": 1,\\r\\n\\t\\t\\t\\\"name\\\": \\\"Restaurant 1\\\",\\r\\n\\t\\t\\t\\\"city\\\": \\\"Pittsburgh\\\"\\r\\n\\t\\t},\\r\\n\\t\\t\\\"reviewedDateTime\\\": \\\"{{reviewedDateTime}}\\\",\\r\\n\\t\\t\\\"rating\\\": 3,\\r\\n\\t\\t\\\"reviewText\\\": \\\"This is sample review text by Reviewer 1 for Restaurant 1.\\\"\\r\\n\\t}\\r\\n}\",\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Review",
+          "Headers": "[{\"Content-Type\":\"application/json; charset=utf-8\"}]"
+        }
+      },
+      "verifications": [
+        {
+          "key": "2ytwpvmKKAmLUyjcZroKhZ",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "none",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "463afLp0W0zgwGlsT1VqHm",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "2SB87UQSQQZNUWiexChOvI",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "7yh7mX2fB9QiOuFS1ulanq",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        }
+      ]
+    },
+    {
+      "key": "2bPzF8HLOeI3bjRx5lw1y9",
+      "name": "Save Review Id",
+      "condition": {
+        "key": "2mZ0b2VeiCvGPc5A8W1dIl",
+        "type": "verify",
+        "properties": {
+          "SourceVariable": "newReviewId",
+          "SourcePathType": "none",
+          "OperationType": "is-equal-number",
+          "Expectation": "0"
+        }
+      },
+      "action": {
+        "key": "c6Z3b0nwteuF9Lmu4zReQ",
+        "type": "set-variable",
+        "properties": {
+          "TargetLevel": 2,
+          "TransformationType": "none",
+          "SourceVariable": "Body",
+          "SourcePathType": "jsonpath",
+          "SourcePath": "$.data.id",
+          "VariableName": "newReviewId"
+        }
+      },
+      "verifications": []
+    }
+  ],
+  "variables": {
+    "reviewedDateTime": null
+  }
+}

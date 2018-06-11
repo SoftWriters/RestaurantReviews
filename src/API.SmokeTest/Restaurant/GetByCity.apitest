@@ -1,0 +1,86 @@
+{
+  "$version": "test-case/v1",
+  "steps": [
+    {
+      "key": "5GqHwM1s7P1eXUD89oWMAV",
+      "name": "Http Request",
+      "action": {
+        "key": "2KNrtSheZKmpzRnIvY7XbK",
+        "type": "http-request",
+        "properties": {
+          "Method": "GET",
+          "Body": "{\"Content\":null,\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Restaurant/City?city=Pittsburgh",
+          "FollowRedirects": true
+        }
+      },
+      "verifications": [
+        {
+          "key": "2zv9YAOJsqVqONE7pTo79s",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "Expectation": 200,
+            "OperationType": "is-equal-number"
+          }
+        },
+        {
+          "key": "6JwKAX5pljMU0OlWX2crhD",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "1F1GWetIugGCYqpQyfzvPN",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "7GgSXcrJewgcEUSv23lfqW",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        },
+        {
+          "key": "mAs8Pkw19fXMaz0645zbq",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$.data.restaurantList"
+          }
+        },
+        {
+          "key": "6e2EUeqUvYucY36R5KqpGf",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-equal",
+            "Expectation": "[]",
+            "SourcePath": "$.data.restaurantList"
+          }
+        }
+      ]
+    }
+  ],
+  "variables": {}
+}

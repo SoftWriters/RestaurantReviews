@@ -1,0 +1,8 @@
+{
+  "$version": "project-settings/v1",
+  "projectLanguage": "cs",
+  "projectReferences": [],
+  "variables": {
+    "base-url": "http://localhost:60498"
+  }
+}

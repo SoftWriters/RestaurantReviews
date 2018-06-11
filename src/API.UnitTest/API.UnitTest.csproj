@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <RootNamespace>RestaurantReviews.API.UnitTest</RootNamespace>
+
+    <AssemblyName>Restaurant_Reviews_API_Unit_Test</AssemblyName>
+
+    <Authors>Vidya</Authors>
+
+    <Company>SoftWriters</Company>
+
+    <Product>Restaurant Reviews API Unit Test</Product>
+
+    <Copyright>2018</Copyright>
+
+    <RepositoryUrl>https://github.com/SoftWriters/RestaurantReviews</RepositoryUrl>
+
+    <RepositoryType>Git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\API.Interface\API.Interface.csproj" />
+    <ProjectReference Include="..\API.Model\API.Model.csproj" />
+    <ProjectReference Include="..\API.Service\API.Service.csproj" />
+    <ProjectReference Include="..\API.Test.MockRepository\API.Test.MockRepository.csproj" />
+    <ProjectReference Include="..\API\API.csproj" />
+  </ItemGroup>
+
+</Project>

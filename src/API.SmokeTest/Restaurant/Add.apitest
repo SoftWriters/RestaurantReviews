@@ -1,0 +1,141 @@
+{
+  "$version": "test-case/v1",
+  "className": "API_SmokeTest.Restaurant.Add",
+  "steps": [
+    {
+      "key": "1QWdf98ZeotanJOOiBhj43",
+      "name": "Generate Random Name",
+      "action": {
+        "key": "1XwYiWaEoaSZPGsSUoSVCz",
+        "type": "coded-step",
+        "properties": {
+          "TestMethod": "SetRandomRestaurantName"
+        }
+      },
+      "verifications": []
+    },
+    {
+      "key": "1FKJEa1hA1jxWPF6uMSGJY",
+      "name": "Http Request",
+      "condition": {
+        "key": "3QM9H9LpeeklWCGEur49hS",
+        "type": "verify",
+        "properties": {
+          "SourceVariable": "restaurantName",
+          "SourcePathType": "none",
+          "OperationType": "is-not-equal",
+          "Expectation": ""
+        }
+      },
+      "action": {
+        "key": "52az1bZMRNFv3Kn1sUlKXb",
+        "type": "http-request",
+        "properties": {
+          "Method": "POST",
+          "Body": "{\"Content\":\"{\\r\\n\\t\\\"header\\\": {\\r\\n\\t\\t\\\"requestId\\\": 1\\r\\n\\t},\\r\\n\\t\\\"data\\\": {\\r\\n\\t\\t\\\"name\\\": \\\"{{restaurantName}}\\\",\\r\\n\\t\\t\\\"city\\\": \\\"Pittsburgh\\\"\\r\\n\\t}\\r\\n}\",\"FilePath\":null,\"Mode\":\"raw\"}",
+          "Url": "{{base-url}}/Restaurant",
+          "Headers": "[{\"Content-Type\":\"application/json; charset=utf-8\"}]"
+        }
+      },
+      "verifications": [
+        {
+          "key": "2o1dTu8QUt86icITxQBTip",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "StatusCode",
+            "SourcePathType": "none",
+            "OperationType": "is-equal-number",
+            "Expectation": "200",
+            "IgnoreCase": false,
+            "SourcePath": null
+          }
+        },
+        {
+          "key": "42rEPfJRXG3Op3wRQHyW0Q",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$"
+          }
+        },
+        {
+          "key": "59W1Xua3EQX2TOVzrkEzhT",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-null",
+            "Expectation": null,
+            "SourcePath": "$.error"
+          }
+        },
+        {
+          "key": "2gfyizxPFOM75Yfzjn1o0N",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-not-null",
+            "Expectation": null,
+            "SourcePath": "$.data"
+          }
+        },
+        {
+          "key": "2268VUDhjRrsZ216u3KKco",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-equal",
+            "Expectation": "Restaurant 1",
+            "SourcePath": "$.data.name"
+          }
+        },
+        {
+          "key": "muRscZO5Un3JgIqiTuz9j",
+          "type": "verify",
+          "properties": {
+            "SourceVariable": "Body",
+            "SourcePathType": "jsonpath",
+            "OperationType": "is-equal",
+            "Expectation": "Pittsburgh",
+            "SourcePath": "$.data.city"
+          }
+        }
+      ]
+    },
+    {
+      "key": "pgSxVDILPjLGrHJ2Qus8x",
+      "name": "Save New Restaurant Id",
+      "condition": {
+        "key": "51SgynD2Vpik55vPYjRhqW",
+        "type": "verify",
+        "properties": {
+          "SourceVariable": "newRestaurantId",
+          "SourcePathType": "none",
+          "OperationType": "is-equal-number",
+          "Expectation": "0"
+        }
+      },
+      "action": {
+        "key": "6NkG3ECzOhKK73LhUwHwyO",
+        "type": "set-variable",
+        "properties": {
+          "TargetLevel": 2,
+          "TransformationType": "none",
+          "SourceVariable": "Body",
+          "SourcePathType": "jsonpath",
+          "SourcePath": "$.data.Id",
+          "VariableName": "newRestaurantId"
+        }
+      },
+      "verifications": []
+    }
+  ],
+  "variables": {
+    "restaurantName": null
+  }
+}

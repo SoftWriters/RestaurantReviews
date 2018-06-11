@@ -1,0 +1,14 @@
+{
+  "$version": "test-order/v1",
+  "items": [
+    "GetByRestaurant.apitest",
+    "GetByReviewer.apitest",
+    "GetById.apitest",
+    "Add.apitest",
+    "GetByRestaurantNew.apitest",
+    "GetByReviewerNew.apitest",
+    "GetByIdNew.apitest",
+    "Delete.apitest",
+    "GetByIdDelete.apitest"
+  ]
+}
