@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RestaurantReviewsDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="AddressLine1" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="AddressLine2" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RestaurantReview">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantSystemId" Type="int" Nullable="false" />
+          <Property Name="ReviewerSystemId" Type="int" Nullable="false" />
+          <Property Name="ReviewDate" Type="datetime" Nullable="false" />
+          <Property Name="NumberOfStars" Type="tinyint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_RestaurantReview_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="RestaurantReview" Type="Self.RestaurantReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="RestaurantReview">
+              <PropertyRef Name="RestaurantSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantReview_Reviewer">
+          <End Role="Reviewer" Type="Self.Reviewer" Multiplicity="1" />
+          <End Role="RestaurantReview" Type="Self.RestaurantReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="RestaurantReview">
+              <PropertyRef Name="ReviewerSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestaurantReviewsDbModelStoreContainer">
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RestaurantReview" EntityType="Self.RestaurantReview" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviewer" EntityType="Self.Reviewer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RestaurantReview_Restaurant" Association="Self.FK_RestaurantReview_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="RestaurantReview" EntitySet="RestaurantReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantReview_Reviewer" Association="Self.FK_RestaurantReview_Reviewer">
+            <End Role="Reviewer" EntitySet="Reviewer" />
+            <End Role="RestaurantReview" EntitySet="RestaurantReview" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestaurantReviewsDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RestaurantReviewsDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Restaurants" EntityType="RestaurantReviewsDbModel.Restaurant" />
+          <EntitySet Name="RestaurantReviews" EntityType="RestaurantReviewsDbModel.RestaurantReview" />
+          <EntitySet Name="Reviewers" EntityType="RestaurantReviewsDbModel.Reviewer" />
+          <AssociationSet Name="FK_RestaurantReview_Restaurant" Association="RestaurantReviewsDbModel.FK_RestaurantReview_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="RestaurantReview" EntitySet="RestaurantReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RestaurantReview_Reviewer" Association="RestaurantReviewsDbModel.FK_RestaurantReview_Reviewer">
+            <End Role="Reviewer" EntitySet="Reviewers" />
+            <End Role="RestaurantReview" EntitySet="RestaurantReviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StateProvince" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RestaurantReviews" Relationship="RestaurantReviewsDbModel.FK_RestaurantReview_Restaurant" FromRole="Restaurant" ToRole="RestaurantReview" />
+        </EntityType>
+        <EntityType Name="RestaurantReview">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantSystemId" Type="Int32" Nullable="false" />
+          <Property Name="ReviewerSystemId" Type="Int32" Nullable="false" />
+          <Property Name="ReviewDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NumberOfStars" Type="Byte" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Restaurant" Relationship="RestaurantReviewsDbModel.FK_RestaurantReview_Restaurant" FromRole="RestaurantReview" ToRole="Restaurant" />
+          <NavigationProperty Name="Reviewer" Relationship="RestaurantReviewsDbModel.FK_RestaurantReview_Reviewer" FromRole="RestaurantReview" ToRole="Reviewer" />
+        </EntityType>
+        <EntityType Name="Reviewer">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RestaurantReviews" Relationship="RestaurantReviewsDbModel.FK_RestaurantReview_Reviewer" FromRole="Reviewer" ToRole="RestaurantReview" />
+        </EntityType>
+        <Association Name="FK_RestaurantReview_Restaurant">
+          <End Type="RestaurantReviewsDbModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="RestaurantReviewsDbModel.RestaurantReview" Role="RestaurantReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="RestaurantReview">
+              <PropertyRef Name="RestaurantSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RestaurantReview_Reviewer">
+          <End Type="RestaurantReviewsDbModel.Reviewer" Role="Reviewer" Multiplicity="1" />
+          <End Type="RestaurantReviewsDbModel.RestaurantReview" Role="RestaurantReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reviewer">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="RestaurantReview">
+              <PropertyRef Name="ReviewerSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestaurantReviewsDbModelStoreContainer" CdmEntityContainer="RestaurantReviewsDbEntities">
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="RestaurantReviewsDbModel.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RestaurantReviews">
+            <EntityTypeMapping TypeName="RestaurantReviewsDbModel.RestaurantReview">
+              <MappingFragment StoreEntitySet="RestaurantReview">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="NumberOfStars" ColumnName="NumberOfStars" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="ReviewerSystemId" ColumnName="ReviewerSystemId" />
+                <ScalarProperty Name="RestaurantSystemId" ColumnName="RestaurantSystemId" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviewers">
+            <EntityTypeMapping TypeName="RestaurantReviewsDbModel.Reviewer">
+              <MappingFragment StoreEntitySet="Reviewer">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
