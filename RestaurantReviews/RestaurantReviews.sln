@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CC40DF82-A677-4937-8C6C-CCB4207D6802}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99202DA5-23DD-45EF-9636-E4C40261FBD9}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RestaurantReviews", "src\RestaurantReviews\RestaurantReviews.xproj", "{4C3C3236-18FE-4D32-81DB-1432CD768244}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C3C3236-18FE-4D32-81DB-1432CD768244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3C3236-18FE-4D32-81DB-1432CD768244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3C3236-18FE-4D32-81DB-1432CD768244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3C3236-18FE-4D32-81DB-1432CD768244}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4C3C3236-18FE-4D32-81DB-1432CD768244} = {CC40DF82-A677-4937-8C6C-CCB4207D6802}
+	EndGlobalSection
+EndGlobal
