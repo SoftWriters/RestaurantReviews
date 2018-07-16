@@ -1,0 +1,12 @@
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\WebClient.exe.config
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\WebClient.exe
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\WebClient.pdb
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\obj\Debug\RestaurantWebClient.csprojResolveAssemblyReference.cache
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\obj\Debug\RestaurantWebClient.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\obj\Debug\RestaurantWebClient.csproj.CopyComplete
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\obj\Debug\WebClient.exe
+C:\Users\Admin\source\repos\RestaurantReviewAPI\WebClient\obj\Debug\WebClient.pdb
