@@ -48,6 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\RestaurantLocation.cs" />
+    <Compile Include="Data\Migrations\201808050407599_Initial.cs" />
+    <Compile Include="Data\Migrations\201808050407599_Initial.Designer.cs">
+      <DependentUpon>201808050407599_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\Migrations\Configuration.cs" />
     <Compile Include="Data\RestaurantReviewsContext.cs" />
     <Compile Include="Entities\Restaurant.cs" />
@@ -64,6 +68,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Migrations\201808050407599_Initial.resx">
+      <DependentUpon>201808050407599_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
