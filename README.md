@@ -1,4 +1,4 @@
-![Alt text](API.jpg?raw=true "Title")
+![Alt text](API.jpg)
 
 RestaurantReviews
 =================
