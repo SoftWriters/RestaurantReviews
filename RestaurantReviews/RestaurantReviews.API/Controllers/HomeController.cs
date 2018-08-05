@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace RestaurantReviews.API.Controllers
+namespace RestaurantReviews.WebServices.Controllers
 {
     public class HomeController : Controller
     {
@@ -12,7 +8,7 @@ namespace RestaurantReviews.API.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View();
+            return RedirectToAction("Index", "Help");
         }
     }
 }
