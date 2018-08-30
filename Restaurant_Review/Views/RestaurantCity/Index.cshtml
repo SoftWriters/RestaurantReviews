@@ -1,0 +1,56 @@
+﻿@using Restaurant_Review
+@using Restaurant_Review.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Grid<RestaurantViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.RestaurantName);
+        columns.Bound(p => p.RestaurantDescription);
+        columns.Bound(p => p.City).Width(220).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains))); ;
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model => model.Id(p => p.IDRestaurant))
+        .Create(update => update.Action("EditingPopup_Create", "RestaurantCity"))
+        .Read(read => read.Action("EditingPopup_Read", "RestaurantCity"))
+        .Update(update => update.Action("EditingPopup_Update", "RestaurantCity"))
+        .Destroy(update => update.Action("EditingPopup_Destroy", "RestaurantCity"))
+    )
+    )
+<script type="text/javascript">
+    function SortByCompanyId() {
+        var cId = 25;
+        return {
+            companyId: cId
+        }
+    }
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>

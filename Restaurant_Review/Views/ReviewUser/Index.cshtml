@@ -1,0 +1,69 @@
+﻿@using Restaurant_Review
+@using Restaurant_Review.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Grid<ReviewViewModel>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.ReviewText);
+          columns.Bound(p => p.RestaurantName);
+          columns.Bound(p => p.City);
+          columns.Bound(p => p.UserName).Width(220).Filterable(ftb => ftb.Cell(cell => cell.Operator("contains").SuggestionOperator(FilterType.Contains))); ;
+          columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
+      })
+      .ToolBar(toolbar => toolbar.Create())
+      .Editable(editable => editable.Mode(GridEditMode.PopUp).Window(w => w.Width(450)))
+      .Pageable()
+      .Sortable()
+      .Scrollable()
+      .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+      .HtmlAttributes(new { style = "height:550px;" })
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(20)
+          .Events(events => { events.Error("error_handler");})
+          .Model(model => { model.Id(p => p.IDReview);})
+          .Create(update => update.Action("EditingPopup_Create", "ReviewUser"))
+          .Read(read => read.Action("EditingPopup_Read", "ReviewUser"))
+          .Update(update => update.Action("EditingPopup_Update", "ReviewUser"))
+          .Destroy(update => update.Action("EditingPopup_Destroy", "ReviewUser"))
+      )
+      )
+<script type="text/javascript">
+    function SortByCompanyId() {
+        var cId = 25;
+        return {
+            companyId: cId
+        }
+    }
+  
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    (function(){
+        $("#grid").kendoGrid({
+            edit: function(e) {
+                e.container.find(".k-edit-label:first").hide();
+                e.container.find(".k-edit-field:first").hide();
+            }
+        });
+    })();
+
+
+</script>

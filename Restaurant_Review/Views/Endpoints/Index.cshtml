@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Endpoints</h2>
+
+<table class="table" style="width: 100%; border: 1px solid silver;border-collapse: collapse;">
+    <tr>
+        <th>Name</th>
+        <th>Route</th> 
+        <th>Parameters</th>
+        <th>Body</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td>GetRestaurants</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/restaurant</td> 
+        <td>none</td>
+        <td>none</td>
+        <td>Get</td>
+    </tr>
+    <tr>
+        <td>GetRestaurantsByCity</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/restaurant/GetByCity/Pittsburgh</td>
+        <td>City name (Pittsburgh, New York)</td>
+        <td>none</td>
+        <td>Get</td>
+    </tr>
+    <tr>
+        <td>GetReviewsByUserName</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/review/GetReviewsByUserName</td>
+        <td>none</td>
+        <td>
+            {
+            "username":"mdayconsulting@gmail.com"
+            }
+        </td>
+        <td>Post</td>
+    </tr>
+    <tr>
+        <td>CreateRestaurant</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/restaurant</td> 
+        <td>none</td>
+        <td>
+            {
+            "RestaurantName": "Fried Chicken and More",
+            "RestaurantDescription": "Chicken and More",
+            "DateCreated": "2018-08-13 02:47:20.947",
+            "IDUserCreated": "8eed9a4f-a555-4aa7-bf73-cd2241a84b85",
+            "Line1": "1234 Chicken St",
+            "City": "Pittsburgh",
+            "StateCode": "PA",
+            "ZipCode": "15235",
+            "Country": "USA"
+            }
+        </td>
+        <td>Post</td>
+    </tr>
+    <tr>
+        <td>CreateReview</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/review</td> 
+        <td>none</td>
+        <td>
+            {
+            "ReviewText": "Will go back. Great food.",
+            "IDRestaurant": 2,
+            "DateCreated": "2018-08-13 02:47:20.947",
+            "IDUser": "8eed9a4f-a555-4aa7-bf73-cd2241a84b85"
+            }
+        </td>
+        <td>Post</td>
+    </tr>
+    <tr>
+        <td>UpdateReview</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/review/1</td> 
+        <td>1</td>
+        <td>
+            {
+            "IDReview": 1,
+            "ReviewText": "Will go back. Great food.",
+            "IDRestaurant": 2,
+            "DateCreated": "2018-08-13 02:47:20.947",
+            "IDUser": "8eed9a4f-a555-4aa7-bf73-cd2241a84b85"
+            }
+        </td>
+        <td>Put</td>
+    </tr>
+    <tr>
+        <td>UpdateRestaurant</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/restaurant/1</td>
+        <td>1</td>
+        <td>
+            {
+            "IDRestaurant": 1,
+            "RestaurantName": "Fried Chicken and More",
+            "RestaurantDescription": "Chicken and More",
+            "DateCreated": "2018-08-13 02:47:20.947",
+            "IDUserCreated": "8eed9a4f-a555-4aa7-bf73-cd2241a84b85",
+            "Line1": "1234 Chicken St",
+            "City": "Pittsburgh",
+            "StateCode": "PA",
+            "ZipCode": "15235",
+            "Country": "USA"
+            }
+        </td>
+        <td>Post</td>
+    </tr>
+    <tr>
+        <td>DeleteRestaurant</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/restaurant/1</td>
+        <td>1</td>
+        <td>
+            none
+        </td>
+        <td>Delete</td>
+    </tr>
+    <tr>
+        <td>DeleteReview</td>
+        <td>https://restaurantreviewmldst58.azurewebsites.net/review/1</td>
+        <td>1</td>
+        <td>
+            none
+        </td>
+        <td>Delete</td>
+    </tr>
+</table>

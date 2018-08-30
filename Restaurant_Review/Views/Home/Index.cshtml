@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Restaurant Review</h1>
+    <p class="lead">Restaurant Review Application</p>
+    <p>This is a very simple web app / MVC API that does the following:
+        <br/>
+        <ul>
+            <li>
+                CRUD operations for restaurant
+            </li>
+            <li>
+                CRUD operations for review
+            </li>
+            <li>
+                Gets a review by Username
+            </li>
+            <li>
+                Gets a restaurant by City Name
+            </li>
+        </ul>
+    </p>
+    <p style="font-size:small">
+        This Asp.Net MVC Web app is connected to my azure sql instance.  I have a data.tt file that I created to generate the POCOs for my Dapper ORM usage.
+        There are 2 repositories - reviews/restaurants.  There is a primitive UI that can be used to see restaurants and reviews as well as add / edit them.
+        This is a very simple demonstration.  This app also uses ASP.Net Identity so you can register a new user and login.  The identity user is used throughout the application and is necessary for some of the endpoints.
+    </p>
+    <p><a href="https://github.com/mldst58/RestaurantReviews" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>API Endpoints</h2>
+        <p>
+           List of API Endpoints
+        </p>
+        <p><a class="btn btn-default" href="/Endpoints">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Restaurant List</h2>
+        <p>List of available restaurants</p>
+        <p><a class="btn btn-default" href="/RestaurantCity">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Review List</h2>
+        <p>List of available restaurant reviews</p>
+        <p><a class="btn btn-default" href="/ReviewUser">Learn more &raquo;</a></p>
+    </div>
+</div>
