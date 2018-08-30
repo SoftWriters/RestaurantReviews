@@ -319,6 +319,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Postman\Restaurant_Review.postman_collection.json" />
+    <None Include="Properties\PublishProfiles\restaurantreviewmldst58 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\restaurantreviewmldst58 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

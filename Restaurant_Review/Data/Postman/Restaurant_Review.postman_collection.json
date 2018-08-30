@@ -1,0 +1,273 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Restaurant_Review",
+		"_postman_id": "45e07a59-e2b0-96ff-04f2-659a323187ef",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetRestaurants",
+			"request": {
+				"url": "http://localhost:55771/restaurant",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRestaurant",
+			"request": {
+				"url": "http://localhost:55771/restaurant/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 1bNX4OG-3qnttDFgjuamlAU7CTxGqW-fV478uaJDpfoQ0XvHNjeUmfOxzD3obvNI9nYgixqXVjpMpRrS7x82DBSljg6atmhod2LKWVHOSdZ8u9bElLVKwKPXIUncGbV8kJ8yJjGDVih02AN2ZeZ_mT-d7fBW9x0GeU0afIZl820um4s59NuygbYOZcyv2ZVmJBbzBWc12DOOL3wG7Zm0UcthOrko0-EOWJwh4QJVjMC85kmw0WZXhJmjXx7mlFldIyQMtoAcEei-sKEjM6amxJnsb0qU9aKBYok2Vhn84Efvuel_Uojayet6mE9eg0hvUKAyFh04s76L6KkS7MOzzEfqNBGkq0wTUYlF94B_xYq9XpFdF9ADM8_LLiPZPw6c",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "519",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "pinnacle",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"IDRestaurant\": 1,\n    \"RestaurantName\": \"Fried Chicken and More\",\n    \"RestaurantDescription\": \"Chicken and More\",\n    \"IsActive\": true,\n    \"Deleted\": false,\n    \"DateCreated\": \"2018-08-13 02:47:20.947\",\n    \"IDUserCreated\": \"8eed9a4f-a555-4aa7-bf73-cd2241a84b85\",\n    \"DateUpdated\": \"2018-08-13 02:47:20.947\",\n    \"IDUserUpdated\": \"8eed9a4f-a555-4aa7-bf73-cd2241a84b85\",\n    \"Line1\": \"1234 Chicken St\",\n    \"Line2\": \"\",\n    \"Line3\": \"\",\n    \"City\": \"Pittsburgh\",\n    \"ZipCode\": \"15235\",\n    \"Country\": \"USA\"\n    \"StateCode\": \"PA\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRestaurant",
+			"request": {
+				"url": "http://localhost:55771/restaurant/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteReview",
+			"request": {
+				"url": "http://localhost:55771/review/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity",
+			"request": {
+				"url": "http://localhost:55771/restaurant/GetByCity/Pittsburgh",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllReviews",
+			"request": {
+				"url": "http://localhost:55771/review",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetReviewsByUserName",
+			"request": {
+				"url": "http://localhost:55771/review/GetReviewsByUserName",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer oGGc35FGOU4FeKhOqFnikoUhJ_jbe5_D9-G3asHqpczpOSSBAStMJ7oT0ndFCVm1li_TJvtWJL_qoAtqsVLxZeGa53pkjtqNkOJOY82EjLAbUxugsHKbsE-Isi76tjgJHuYO525WJx1uM7tq9iS3hV7YyGA4-rs6Uw8gvWd8NqRLbEoR8woRDkDAPiGiuljygXzxwlEtatHcaCLKa0TFR-A3aXueYrQJy0WhnFMhbGKMtxRPmBpGovDgddq8uXf_6iJ4Wx6LfovT1xFudnpzh3DqbkfM1xuhklAfjs0dDGDOVGp44LaWYtPARtfTpWqwew4IC0UAfo96_-mHcTutyUKDHEt9Z6w_-MmYD13n3bc",
+						"description": ""
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "14",
+						"description": ""
+					},
+					{
+						"key": "CmsApp",
+						"value": "Cms",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"mdayconsulting@gmail.com\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRestaurant",
+			"request": {
+				"url": "http://localhost:61974/restaurant",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"RestaurantName\": \"Fried Chicken and More\",\n    \"RestaurantDescription\": \"Chicken and More\",\n    \"DateCreated\": \"2018-08-13 02:47:20.947\",\n    \"IDUserCreated\": \"8eed9a4f-a555-4aa7-bf73-cd2241a84b85\",\n    \"Line1\": \"1234 Chicken St\",\n    \"City\": \"Pittsburgh\",\n    \"StateCode\": \"PA\",\n    \"ZipCode\": \"15235\",\n\t\"Country\": \"USA\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateReview",
+			"request": {
+				"url": "http://localhost:55771/review",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"description": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ReviewText\": \"Really enjoyed this place\",\n    \"IDRestaurant\": 2,\n    \"DateCreated\": \"2018-08-13 02:47:20.947\",\n    \"IDUser\": \"8eed9a4f-a555-4aa7-bf73-cd2241a84b85\"\n    \n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
