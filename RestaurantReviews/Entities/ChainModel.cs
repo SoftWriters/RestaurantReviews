@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Models
+﻿namespace Models
 {
     public class ChainModel : IChainModel
     {
-        public ChainModel(int id, string name)
+        public ChainModel(string name)
         {
-            Id = id;
             Name = name;
         }
 

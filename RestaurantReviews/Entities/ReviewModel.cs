@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Models
+﻿namespace Models
 {
     public class ReviewModel : IReviewModel
     {
+        public ReviewModel(IUserModel submittingUser, RestaurantModel restaurant, int foodRating, int cleanRating, int serviceRating, int ambianceRating, int overallRating, string reviewText)
+        {
+            SubmittingUser = submittingUser;
+            Restaurant = restaurant;
+            FoodRating = foodRating;
+            CleanlinessRating = cleanRating;
+            ServiceRating = serviceRating;
+            AmbianceRating = ambianceRating;
+            OverallRating = overallRating;
+            Review = reviewText;
+        }
+
         public int Id
         { get; set; }
 

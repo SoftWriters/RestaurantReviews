@@ -1,40 +1,55 @@
-﻿using System;
+﻿using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Models;
-using Newtonsoft.Json;
 
 namespace Repositories
 {
     // There's no DB backing this up, so I'm skipping any Unit of Work calls such as '_context.Commit();'
     public class RestaurantRepository : IRestaurantRepository
     {
-        ICityRepository _cityRepository;
-        IChainRepository _chainRepository;
-
         IEnumerable<IRestaurantModel> _restaurants = new List<IRestaurantModel>();
 
-        public RestaurantRepository(ICityRepository cityRepo, IChainRepository chainRepo)
-        {
-            _cityRepository = cityRepo;
-            _chainRepository = chainRepo;
-        }
-
+        int _maxId = 0;
+        
         public IEnumerable<IRestaurantModel> AddRestaurant(IRestaurantModel restaurant)
         {
-            List<IRestaurantModel> rests = _restaurants.ToList();
-            rests.Add(restaurant);
-            _restaurants = rests;
+            // Do not allow duplicates - spec says 'Post a restaurant that is not in the database'
+            // I would probably do this duplicate check in the javascript prior to sending it down here.  Though
+            // there's something to be said for doing the check in the SQL INSERT stored procedure to minimize 
+            // the risk of race conditions.
+            bool isDuplicate = false; 
+            foreach (var rest in _restaurants)
+            {
+                if (restaurant.Name == rest.Name && 
+                    restaurant.City == rest.City &&
+                    restaurant.Chain == rest.Chain &&
+                    restaurant.Address == rest.Address)
+                {
+                    isDuplicate = true;
+                }
+            }
+
+            if (!isDuplicate)
+            {
+                restaurant.Id = ++_maxId;
+                List<IRestaurantModel> rests = _restaurants.ToList();
+                rests.Add(restaurant);
+                _restaurants = rests;
+                // send to Entity Framework or other ORM.
+            }
+
+            // Return the array instead of a boolean to save a call.  Issue is there's no way to tell if
+            // it actually succeeded, unless the DB code causes an exception which will float up.  There
+            // is no error checking in this sample, but there should be.
             return _restaurants;
         }
-
-        public IRestaurantModel GetRestaurant(int id)
+        
+        public IRestaurantModel GetRestaurantById(int id)
         {
             return _restaurants.FirstOrDefault(r => r.Id == id);
         }
 
-        public IEnumerable<IRestaurantModel> GetAllRestaurants()
+        public IEnumerable<IRestaurantModel> GetRestaurants()
         {
             return _restaurants;
         }
@@ -48,7 +63,7 @@ namespace Repositories
 
         public bool HasData()
         {
-            return _restaurants.Count() > 0;
+            return _restaurants.Any();
         }
     }
 }

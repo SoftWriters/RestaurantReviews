@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Models;
 
 namespace Repositories
 {
@@ -11,19 +9,26 @@ namespace Repositories
     {
         IEnumerable<IChainModel> _chains = new List<IChainModel>();
 
-        public bool HasData()
-        {
-            return _chains.Count() > 0;
-        }
+        int _maxId;
 
         public IEnumerable<IChainModel> AddChain(IChainModel chain)
         {
             List<IChainModel> chains = _chains.ToList();
+            chain.Id = ++_maxId;
             chains.Add(chain);
             _chains = chains;
             return _chains;
         }
 
+        public IChainModel GetChainById(int id)
+        {
+            return _chains.FirstOrDefault(r => r.Id == id);
+        }
+
+        public bool HasData()
+        {
+            return _chains.Any();
+        }
         // TODO: Read, Update, Delete
     }
 }

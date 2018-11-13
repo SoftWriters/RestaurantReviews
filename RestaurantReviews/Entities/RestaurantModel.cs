@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Models
+﻿namespace Models
 {
     public class RestaurantModel : IRestaurantModel
     {
-        public RestaurantModel(int id, string name, CityModel city, ChainModel chain, string address)
+        public RestaurantModel(string name, CityModel city, ChainModel chain, string address)
         {
             // Error checking goes here.  We could also be a little smarter about mapping
-            Id = id;
             Name = name;
             City = city;
             Chain = chain;

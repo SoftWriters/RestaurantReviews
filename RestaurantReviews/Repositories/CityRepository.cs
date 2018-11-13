@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Models;
 
 namespace Repositories
 {
@@ -11,20 +9,23 @@ namespace Repositories
     {
         IEnumerable<ICityModel> _cities = new List<ICityModel>();
 
+        int _maxId;
+
         public bool HasData()
         {
-            return _cities.Count() > 0;
+            return _cities.Any();
         }
 
         public IEnumerable<ICityModel> AddCity(ICityModel city)
         {
             List<ICityModel> cities = _cities.ToList();
+            city.Id = ++_maxId;
             cities.Add(city);
             _cities = cities;
             return _cities;
         }
 
-        public ICityModel FindCityById(int id)
+        public ICityModel GetCityById(int id)
         {
             return _cities.FirstOrDefault(r => r.Id == id);
         }

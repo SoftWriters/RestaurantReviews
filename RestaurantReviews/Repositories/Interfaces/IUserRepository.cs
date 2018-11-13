@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Models;
 
 namespace Repositories
 {
     public interface IUserRepository
     {
-        bool HasData();
-
         IEnumerable<IUserModel> AddUser(IUserModel user);
+
+        IUserModel GetUserById(int id);
+
+        bool HasData();
     }
 }
