@@ -1,3 +1,22 @@
+This Pull Request constitutes my submission for the Restaurant Review 
+functionality described as the programming task.
+
+It targets .NET Framework 4.6.2 and WebAPI 2.  I did not include any 
+back-end functionality, as the requirements called for an API, not a
+complete package.
+
+There are areas for improvement.  
+    There is no error checking anywhere, which is something that is 
+    essential for robust software.
+    Testing is incomplete.  The ReviewController has no tests, and
+    the RestaurantController tests are pretty much happy path only.
+    Reading the POST values is using a low-effort method, instead of
+    a more robust and flexible method.
+    Mapping the POST values relies on properly formed JSON, which
+    SHOULD be OK, but since there is no error checking, there could
+    be concerns there.
+
+
 RestaurantReviews
 =================
 
