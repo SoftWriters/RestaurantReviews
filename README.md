@@ -19,6 +19,7 @@ Improvements:
 -------------
 Design choices leave open the opportunity to make improvements. I addition to the comments above, I'd add the following to make the API more robust:
 
+- Implement PATCH for partial updates.
 - Logging - logging should be added for try/catches and other places where we'd like to capture information (i.e. startup, shutdown, data updates, etc.) Logs should go to something like ElasticStack.
 - Unit testing
 - Adding geodata (i.e. longitude and longitude). so you could do searches by distance/radius from a city.
