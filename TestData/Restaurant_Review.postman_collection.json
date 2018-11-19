@@ -1,0 +1,715 @@
+{
+	"info": {
+		"_postman_id": "4f913089-458b-48fd-8a9e-3412e6f7e381",
+		"name": "Restaurant_Review",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllRestaurants",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity Akron",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/GetByCity/?City=Akron",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"GetByCity",
+						""
+					],
+					"query": [
+						{
+							"key": "City",
+							"value": "Akron"
+						},
+						{
+							"key": "State",
+							"value": "West Virginia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity Lebo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/GetByCity/?City=Mt. Lebanon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"GetByCity",
+						""
+					],
+					"query": [
+						{
+							"key": "City",
+							"value": "Mt. Lebanon"
+						},
+						{
+							"key": "State",
+							"value": "West Virginia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRestaurant",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 1bNX4OG-3qnttDFgjuamlAU7CTxGqW-fV478uaJDpfoQ0XvHNjeUmfOxzD3obvNI9nYgixqXVjpMpRrS7x82DBSljg6atmhod2LKWVHOSdZ8u9bElLVKwKPXIUncGbV8kJ8yJjGDVih02AN2ZeZ_mT-d7fBW9x0GeU0afIZl820um4s59NuygbYOZcyv2ZVmJBbzBWc12DOOL3wG7Zm0UcthOrko0-EOWJwh4QJVjMC85kmw0WZXhJmjXx7mlFldIyQMtoAcEei-sKEjM6amxJnsb0qU9aKBYok2Vhn84Efvuel_Uojayet6mE9eg0hvUKAyFh04s76L6KkS7MOzzEfqNBGkq0wTUYlF94B_xYq9XpFdF9ADM8_LLiPZPw6c",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "519",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "pinnacle",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"e3136824-78bb-493e-8431-296626a48251\",\n    \"name\": \"The New Garden\",\n    \"url\": \"https://TheNewGarden-Pittsburgh.com\",\n    \"category\": \"Hainan\",\n    \"address1\": \"323 Southridge Parkway\",\n    \"address2\": \"\",\n    \"address3\": \"\",\n    \"city\": \"Mt. Lebanon\",\n    \"state\": \"Pennsylvania\",\n    \"zipCode\": \"15228\",\n    \"phone\": \"831-146-0239\",\n    \"price\": \"5\",\n    \"rating\": 5\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/e3136824-78bb-493e-8431-296626a48251",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"e3136824-78bb-493e-8431-296626a48251"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity Chk Update",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/GetByCity/?City=Mt. Lebanon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"GetByCity",
+						""
+					],
+					"query": [
+						{
+							"key": "City",
+							"value": "Mt. Lebanon"
+						},
+						{
+							"key": "State",
+							"value": "West Virginia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRestaurant",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/e3136824-78bb-493e-8431-296626a48251",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"e3136824-78bb-493e-8431-296626a48251"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity Chk Delete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/GetByCity/?City=Mt. Lebanon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"GetByCity",
+						""
+					],
+					"query": [
+						{
+							"key": "City",
+							"value": "Mt. Lebanon"
+						},
+						{
+							"key": "State",
+							"value": "West Virginia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRestaurant",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"e3136824-78bb-493e-8431-296626a48251\",\n    \"name\": \"The New Garden\",\n    \"url\": \"https://TheNewGarden-Pittsburgh.com\",\n    \"category\": \"Hainan\",\n    \"address1\": \"323 Southridge Parkway\",\n    \"address2\": \"\",\n    \"address3\": \"\",\n    \"city\": \"Mt. Lebanon\",\n    \"state\": \"Pennsylvania\",\n    \"zipCode\": \"15228\",\n    \"phone\": \"831-146-0239\",\n    \"price\": \"5\",\n    \"rating\": 5\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRestaurantsByCity Chk Create",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/restaurants/GetByCity/?City=Mt. Lebanon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"restaurants",
+						"GetByCity",
+						""
+					],
+					"query": [
+						{
+							"key": "City",
+							"value": "Mt. Lebanon"
+						},
+						{
+							"key": "State",
+							"value": "West Virginia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllReviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReviewsByUserName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer oGGc35FGOU4FeKhOqFnikoUhJ_jbe5_D9-G3asHqpczpOSSBAStMJ7oT0ndFCVm1li_TJvtWJL_qoAtqsVLxZeGa53pkjtqNkOJOY82EjLAbUxugsHKbsE-Isi76tjgJHuYO525WJx1uM7tq9iS3hV7YyGA4-rs6Uw8gvWd8NqRLbEoR8woRDkDAPiGiuljygXzxwlEtatHcaCLKa0TFR-A3aXueYrQJy0WhnFMhbGKMtxRPmBpGovDgddq8uXf_6iJ4Wx6LfovT1xFudnpzh3DqbkfM1xuhklAfjs0dDGDOVGp44LaWYtPARtfTpWqwew4IC0UAfo96_-mHcTutyUKDHEt9Z6w_-MmYD13n3bc"
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "14"
+					},
+					{
+						"key": "CmsApp",
+						"value": "Cms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"mdayconsulting@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/GetReviewsByUserName?user=bewitchedchapter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"GetReviewsByUserName"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "bewitchedchapter"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateReview",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"11a54c10-e9f5-11e8-9f32-f2801f1b9fd1\",\n    \"restaurantId\": \"14f86c63-f239-40de-b262-cb8f52edd5f8\",\n    \"user\": \"bewitchedchapter\",\n    \"text\": \"Decentish place. There were a lot of interesting decorations on the walls. The menu didn't match the one on their website. Overall, this place is just okay. I might come back.\",\n    \"whenCreated\": \"2018-11-16T21:39:34.3799543-05:00\",\n    \"url\": \"https://MissLibertyCoffeeShop-Akron.com\",\n    \"rating\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/11a54c10-e9f5-11e8-9f32-f2801f1b9fd1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"11a54c10-e9f5-11e8-9f32-f2801f1b9fd1"
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		},
+		{
+			"name": "GetReviewsByUserName Chk Update",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer oGGc35FGOU4FeKhOqFnikoUhJ_jbe5_D9-G3asHqpczpOSSBAStMJ7oT0ndFCVm1li_TJvtWJL_qoAtqsVLxZeGa53pkjtqNkOJOY82EjLAbUxugsHKbsE-Isi76tjgJHuYO525WJx1uM7tq9iS3hV7YyGA4-rs6Uw8gvWd8NqRLbEoR8woRDkDAPiGiuljygXzxwlEtatHcaCLKa0TFR-A3aXueYrQJy0WhnFMhbGKMtxRPmBpGovDgddq8uXf_6iJ4Wx6LfovT1xFudnpzh3DqbkfM1xuhklAfjs0dDGDOVGp44LaWYtPARtfTpWqwew4IC0UAfo96_-mHcTutyUKDHEt9Z6w_-MmYD13n3bc"
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "14"
+					},
+					{
+						"key": "CmsApp",
+						"value": "Cms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"mdayconsulting@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/GetReviewsByUserName?user=bewitchedchapter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"GetReviewsByUserName"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "bewitchedchapter"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteReview",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/11a54c10-e9f5-11e8-9f32-f2801f1b9fd1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"11a54c10-e9f5-11e8-9f32-f2801f1b9fd1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReviewsByUserName Chk Delete",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer oGGc35FGOU4FeKhOqFnikoUhJ_jbe5_D9-G3asHqpczpOSSBAStMJ7oT0ndFCVm1li_TJvtWJL_qoAtqsVLxZeGa53pkjtqNkOJOY82EjLAbUxugsHKbsE-Isi76tjgJHuYO525WJx1uM7tq9iS3hV7YyGA4-rs6Uw8gvWd8NqRLbEoR8woRDkDAPiGiuljygXzxwlEtatHcaCLKa0TFR-A3aXueYrQJy0WhnFMhbGKMtxRPmBpGovDgddq8uXf_6iJ4Wx6LfovT1xFudnpzh3DqbkfM1xuhklAfjs0dDGDOVGp44LaWYtPARtfTpWqwew4IC0UAfo96_-mHcTutyUKDHEt9Z6w_-MmYD13n3bc"
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "14"
+					},
+					{
+						"key": "CmsApp",
+						"value": "Cms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"mdayconsulting@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/GetReviewsByUserName?user=bewitchedchapter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"GetReviewsByUserName"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "bewitchedchapter"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateReview",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Site",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"11a54c10-e9f5-11e8-9f32-f2801f1b9fd1\",\n    \"restaurantId\": \"14f86c63-f239-40de-b262-cb8f52edd5f8\",\n    \"user\": \"bewitchedchapter\",\n    \"text\": \"Decent place. There were a lot of interesting decorations on the walls. The menu didn't match the one on their website. Overall, this place is just okay. I might come back.\",\n    \"url\": \"https://MissLibertyCoffeeShop-Akron.com\",\n    \"rating\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReviewsByUserName Chk Create",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer oGGc35FGOU4FeKhOqFnikoUhJ_jbe5_D9-G3asHqpczpOSSBAStMJ7oT0ndFCVm1li_TJvtWJL_qoAtqsVLxZeGa53pkjtqNkOJOY82EjLAbUxugsHKbsE-Isi76tjgJHuYO525WJx1uM7tq9iS3hV7YyGA4-rs6Uw8gvWd8NqRLbEoR8woRDkDAPiGiuljygXzxwlEtatHcaCLKa0TFR-A3aXueYrQJy0WhnFMhbGKMtxRPmBpGovDgddq8uXf_6iJ4Wx6LfovT1xFudnpzh3DqbkfM1xuhklAfjs0dDGDOVGp44LaWYtPARtfTpWqwew4IC0UAfo96_-mHcTutyUKDHEt9Z6w_-MmYD13n3bc"
+					},
+					{
+						"key": "CmsSegmentId",
+						"value": "14"
+					},
+					{
+						"key": "CmsApp",
+						"value": "Cms"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\":\"mdayconsulting@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:6262/api/reviews/GetReviewsByUserName?user=bewitchedchapter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6262",
+					"path": [
+						"api",
+						"reviews",
+						"GetReviewsByUserName"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "bewitchedchapter"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
