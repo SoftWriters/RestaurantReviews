@@ -151,13 +151,23 @@ namespace RestaurantReviews.Data.IntegrationTests
 
 
         [TestMethod]
-        public void DeleteReviewAsync_Success()
+        public void DeleteReviewAsync_UserIdMatch_Success()
         {
             var ids = FillReviews();
             var sut = new ReviewDataManager(DbContext);
-            sut.DeleteReviewAsync(ids.First()).Wait();
+            sut.DeleteReviewAsync(ids[0], userIds[0]).Wait();
             var count = this.ExecuteScalar<int>(string.Format("select count(*) from Review where Id={0}", ids.First()));
             Assert.AreEqual(count, 0);
+        }
+
+        [TestMethod]
+        public void DeleteReviewAsync_UserIdMisMatch_NotDeleted()
+        {
+            var ids = FillReviews();
+            var sut = new ReviewDataManager(DbContext);
+            sut.DeleteReviewAsync(ids[0], userIds[1]).Wait();
+            var count = this.ExecuteScalar<int>(string.Format("select count(*) from Review where Id={0}", ids[0]));
+            Assert.AreEqual(count, 1);
         }
 
 

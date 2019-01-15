@@ -9,7 +9,7 @@ namespace RestaurantReviews.Data
     public interface IReviewDataManager
     {
         Task<Review> CreateReviewAsync(Review review);
-        Task DeleteReviewAsync(int id);
+        Task DeleteReviewAsync(int id, int userId);
         Task<Review> GetReviewAsync(int id);
         Task<IEnumerable<Review>> GetReviewsAsync(int page, int pagesize, DbFilter<Review> filter);
     }
@@ -68,13 +68,13 @@ namespace RestaurantReviews.Data
             }
         }
 
-        public async Task DeleteReviewAsync(int id)
+        public async Task DeleteReviewAsync(int id, int userId)
         {
             using (var db = GetConnection())
             {
-                string query = @"DELETE from [dbo].[Review] where id = @id";
+                string query = @"DELETE from [dbo].[Review] where id = @id and user_id = @userId";
 
-                var result = await db.QueryAsync<Review>(query, new { id });
+                var result = await db.QueryAsync<Review>(query, new { id, userId});
             }
         }
 

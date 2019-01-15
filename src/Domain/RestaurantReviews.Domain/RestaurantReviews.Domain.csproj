@@ -69,13 +69,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestaurantRepository.cs" />
+    <Compile Include="ReviewRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\RestaurantReviews.Common\RestaurantReviews.Common.csproj">
+      <Project>{33EC5C12-6160-4782-B31A-2B8A8C23541C}</Project>
+      <Name>RestaurantReviews.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\RestaurantReviews.Entity\RestaurantReviews.Entity.csproj">
       <Project>{6635A49C-D087-48F8-9244-E0AD16F9F8DF}</Project>
       <Name>RestaurantReviews.Entity</Name>

@@ -46,6 +46,8 @@
     <Compile Include="DbFilter.cs" />
     <Compile Include="Exceptions\InvalidFilterFieldException.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="UserInfo.cs" />
+    <Compile Include="UserInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
