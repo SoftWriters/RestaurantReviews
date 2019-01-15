@@ -72,8 +72,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonDataManager.cs" />
+    <Compile Include="DataManagerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestaurantDataManager.cs" />
+    <Compile Include="ReviewDataManager.cs" />
+    <Compile Include="UserDataManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
