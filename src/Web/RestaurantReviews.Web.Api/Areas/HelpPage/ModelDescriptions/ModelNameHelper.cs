@@ -25,7 +25,8 @@ namespace RestaurantReviews.Web.Api.Areas.HelpPage.ModelDescriptions
                 string genericTypeName = genericType.Name;
 
                 // Trim the generic parameter counts from the name
-                genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
+                var idx = genericTypeName.IndexOf('`') == -1 ? genericTypeName.Length : genericTypeName.IndexOf('`');
+                genericTypeName = genericTypeName.Substring(0, idx);
                 string[] argumentTypeNames = genericArguments.Select(t => GetModelName(t)).ToArray();
                 modelName = String.Format(CultureInfo.InvariantCulture, "{0}Of{1}", genericTypeName, String.Join("And", argumentTypeNames));
             }

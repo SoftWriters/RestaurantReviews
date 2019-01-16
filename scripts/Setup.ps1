@@ -1,14 +1,16 @@
-﻿
+﻿Param (
+  [String]$dbName = "RestaurantReviews"
+)
 $scriptPath = Split-Path -parent $PSCommandPath
 $config = Get-Content -Raw -Path $scriptPath\config.json |
     ConvertFrom-Json 
 
 $dbServer = $config.dbServer
 $connString = "Data Source=$dbServer;Initial Catalog=master;Integrated Security=True;"; 
-Invoke-Expression "& `"$scriptPath\util\CreateDb.ps1`" -connString `"$connString`" -dbName `"RestaurantReviews`""
+Invoke-Expression "& `"$scriptPath\util\CreateDb.ps1`" -connString `"$connString`" -dbName `"$dbname`""
 
 
-$connString = "Data Source=$dbServer;Initial Catalog=RestaurantReviews;Integrated Security=True;";
+$connString = "Data Source=$dbServer;Initial Catalog=$dbName;Integrated Security=True;";
 
 $tablesToReCreate = @();
 Get-ChildItem "$scriptPath\table" -Filter *.sql | 

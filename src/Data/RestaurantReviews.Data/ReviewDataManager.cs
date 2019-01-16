@@ -36,12 +36,12 @@ namespace RestaurantReviews.Data
                 if (filter != null)
                 {
                     query = query.Replace("<<whereclause>>", string.Format("where {0}", filter.GetFilterSql("filterparam")));
-                    param = new { start = start, end = end, filterparam = filter.Value };
+                    param = new { start, end, filterparam = filter.Value };
                 }
                 else
                 {
                     query = query.Replace("<<whereclause>>", "");
-                    param = new { start = start, end = end };
+                    param = new { start, end };
                 }
                 result = await db.QueryAsync<Review>(query, param);
                 return result;

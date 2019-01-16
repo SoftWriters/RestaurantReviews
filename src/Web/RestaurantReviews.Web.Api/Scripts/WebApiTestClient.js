@@ -15,10 +15,12 @@ var emptyTestClientModel =
             var parameter = uriParameters[i];
             if (parameter.enabled()) {
                 var parameterValue = parameter.value();
-                //if (parameterValue != "") {
-                    var variableName = '{' + parameter.name + '}';
+                var variableName = '{' + parameter.name + '}';
+                //changed to remove the placeholder if the varible has a value
+                //or if the placeholder is in the query string
+                if (parameterValue != "" || path.indexOf(variableName) > path.indexOf('?')) {
                     path = path.replace(variableName, parameterValue);
-                //}
+                }
             }
             else {
                 path = RemoveUriParameter(path, parameter.name)
@@ -61,6 +63,7 @@ var emptyTestClientModel =
             var uriParameter = data.UriParameters[i];
             var uriParameterValue = ko.observable(uriParameter.value);
             var parameterEnabled = ko.observable(true);
+            self.UriParameters.push({ name: uriParameter.name, value: uriParameterValue, enabled: parameterEnabled });
             self.UriPath(BuildUriPath(self.UriPathTemplate, self.UriParameters));
             uriParameterValue.subscribe(function () {
                 self.UriPath(BuildUriPath(self.UriPathTemplate, self.UriParameters));
@@ -68,7 +71,6 @@ var emptyTestClientModel =
             parameterEnabled.subscribe(function () {
                 self.UriPath(BuildUriPath(self.UriPathTemplate, self.UriParameters));
             });
-            self.UriParameters.push({ name: uriParameter.name, value: uriParameterValue, enabled: parameterEnabled });
         }
 
         self.RequestHeaders = ko.observableArray();
@@ -151,12 +153,12 @@ var emptyTestClientModel =
             autoOpen: false,
             height: "auto",
             width: "550",
-            modal: true,
-            open: function () {
-                jQuery('.ui-widget-overlay').bind('click', function () {
-                    jQuery('#testClientResponseDialog').dialog('close');
-                })
-            }
+            modal: false//,
+            //open: function () {
+            //    jQuery('.ui-widget-overlay').bind('click', function () {
+            //        jQuery('#testClientResponseDialog').dialog('close');
+            //    })
+            //}
         });
 
         $("#testClientButton").click(function () {

@@ -12,16 +12,18 @@ namespace RestaurantReviews.Domain.UnitTests
     [TestClass]
     public class ReviewRepositoryTest
     {
-        //fake userinfo provider for resolving userid
-        IUserInfoProvider _userInfoProvider = new UserInfoProvider(new UserInfo { Id = 1234 });
+        
 
         [TestMethod]
         public void CreateReviewAsync_Test()
         {
+            //fake userinfo provider for resolving userid
+            var userInfoProvider = new Mock<IUserInfoProvider>();
+            userInfoProvider.Setup(x => x.GetCurrentUserInfo()).Returns(new UserInfo { Id = 123 });
             var expected = new Review()
             {
                 Id = 789,
-                UserId = _userInfoProvider.GetCurrentUserInfo().Id,
+                UserId = 123,
                 RestaurantId = 22,
                 Heading = "awesome!!",
                 Content = "super food",
@@ -33,7 +35,7 @@ namespace RestaurantReviews.Domain.UnitTests
 
 
 
-            var reviewRepo = new ReviewRepository(reviewDataManager.Object, _userInfoProvider);
+            var reviewRepo = new ReviewRepository(reviewDataManager.Object, userInfoProvider.Object);
             var result = reviewRepo.CreateReviewAsync(expected.RestaurantId, expected.Heading, expected.Content, expected.Rating).Result;
             reviewDataManager.VerifyAll();
             Assert.IsNotNull(actual);
@@ -42,23 +44,31 @@ namespace RestaurantReviews.Domain.UnitTests
             Assert.AreEqual(expected.Heading, actual.Heading);
             Assert.AreEqual(expected.Content, actual.Content);
             Assert.AreEqual(expected.Rating, actual.Rating);
+            userInfoProvider.VerifyAll();
         }
 
         [TestMethod]
         public void DeleteReviewAsync_Test()
         {
-            var reviewDataManager = new Mock<IReviewDataManager>();
-            var userId = _userInfoProvider.GetCurrentUserInfo().Id;
-            reviewDataManager.Setup(x => x.DeleteReviewAsync(123, userId)).Returns(Task.CompletedTask);
+            //fake userinfo provider for resolving userid
+            var userInfoProvider = new Mock<IUserInfoProvider>();
+            userInfoProvider.Setup(x => x.GetCurrentUserInfo()).Returns(new UserInfo { Id = 123 });
 
-            var reviewRepo = new ReviewRepository(reviewDataManager.Object, _userInfoProvider);
-            reviewRepo.DeleteReviewAsync(123).Wait();
+            var reviewDataManager = new Mock<IReviewDataManager>();
+            reviewDataManager.Setup(x => x.DeleteReviewAsync(555, 123)).Returns(Task.CompletedTask);
+
+            var reviewRepo = new ReviewRepository(reviewDataManager.Object, userInfoProvider.Object);
+            reviewRepo.DeleteReviewAsync(555).Wait();
             reviewDataManager.VerifyAll();
+            userInfoProvider.VerifyAll();
         }
 
         [TestMethod]
         public void GetReviewAsync_Test()
         {
+            //fake userinfo provider for resolving userid
+            var userInfoProvider = new Mock<IUserInfoProvider>();
+            
             var reviewDataManager = new Mock<IReviewDataManager>();
             var expected = new Review()
             {
@@ -70,7 +80,7 @@ namespace RestaurantReviews.Domain.UnitTests
             };
             reviewDataManager.Setup(x => x.GetReviewAsync(expected.Id)).Returns(Task.FromResult<Review>(expected));
 
-            var reviewRepo = new ReviewRepository(reviewDataManager.Object, _userInfoProvider);
+            var reviewRepo = new ReviewRepository(reviewDataManager.Object, userInfoProvider.Object);
             var actual = reviewRepo.GetReviewAsync(expected.Id).Result;
             reviewDataManager.VerifyAll();
             Assert.IsNotNull(actual);
@@ -80,12 +90,14 @@ namespace RestaurantReviews.Domain.UnitTests
         [TestMethod]
         public void GetReviewsAsync_Test()
         {
+            //fake userinfo provider for resolving userid
+            var userInfoProvider = new Mock<IUserInfoProvider>();
+            
             var reviewDataManager = new Mock<IReviewDataManager>();
-            var userId = _userInfoProvider.GetCurrentUserInfo().Id;
             var expected = new Review[]{
                 new Review{
                     Id = 789,
-                    UserId = userId,
+                    UserId = 123,
                     RestaurantId = 22,
                     Heading = "awesome!!",
                     Content = "super food",
@@ -94,10 +106,10 @@ namespace RestaurantReviews.Domain.UnitTests
                 }}.ToList();
             var expectedPage = 1;
             var expectedPageSize = 20;
-            var expectedDbFilter = new DbFilter<Review> { Field = "UserId", Operator = OperatorEnum.Equal, Value = userId.ToString() };
+            var expectedDbFilter = new DbFilter<Review> { Field = "UserId", Operator = OperatorEnum.Equal, Value = 123 };
             reviewDataManager.Setup(x => x.GetReviewsAsync(expectedPage, expectedPageSize, expectedDbFilter)).Returns(Task.FromResult<IEnumerable<Review>>(expected));
 
-            var reviewRepo = new ReviewRepository(reviewDataManager.Object, _userInfoProvider);
+            var reviewRepo = new ReviewRepository(reviewDataManager.Object, userInfoProvider.Object);
             var actual = reviewRepo.GetReviewsAsync(expectedPage, expectedPageSize, expectedDbFilter).Result;
             reviewDataManager.VerifyAll();
             Assert.IsNotNull(actual);

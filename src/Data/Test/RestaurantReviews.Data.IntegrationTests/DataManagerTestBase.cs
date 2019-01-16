@@ -10,7 +10,7 @@ using System.Transactions;
 namespace RestaurantReviews.Data.Tests
 {
     [TestClass]
-    public class DataManagerTestBase
+    public class DataManagerTestBase : IDisposable
     {
         private TransactionScope _transactionScope;
         public DbContext DbContext;
@@ -74,6 +74,12 @@ namespace RestaurantReviews.Data.Tests
             }
         }
 
-
+        public void Dispose()
+        {
+            if(_transactionScope != null)
+            {
+                _transactionScope.Dispose();
+            }
+        }
     }
 }

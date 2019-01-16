@@ -18,27 +18,33 @@ namespace RestaurantReviews.Data.IntegrationTests
         {
             userIds = FillUsers();
             restaurantIds = FillRestaurants();
-            ids = new List<int>();
-            ids.Add(InsertReview(userIds[0], restaurantIds[0], "yum", "great service", 9));
-            ids.Add(InsertReview(userIds[0], restaurantIds[1], "good but...", "I think they sauce was stale", 5));
-            ids.Add(InsertReview(userIds[1], restaurantIds[0], "slow service", null, 1));
-            ids.Add(InsertReview(userIds[1], restaurantIds[2], "love it", "everything was great", 10));
+            ids = new List<int>
+            {
+                InsertReview(userIds[0], restaurantIds[0], "yum", "great service", 9),
+                InsertReview(userIds[0], restaurantIds[1], "good but...", "I think they sauce was stale", 5),
+                InsertReview(userIds[1], restaurantIds[0], "slow service", null, 1),
+                InsertReview(userIds[1], restaurantIds[2], "love it", "everything was great", 10)
+            };
             return ids;
         }
         private List<int> FillUsers()
         {
-            var ids = new List<int>();
-            ids.Add(InsertUser("Don"));
-            ids.Add(InsertUser("Frederick"));
+            var ids = new List<int>
+            {
+                InsertUser("Don"),
+                InsertUser("Frederick")
+            };
             return ids;
         }
         private List<int> FillRestaurants()
         {
-            var ids = new List<int>();
-            ids.Add(InsertRestaurant("cool cones", "123 milky way", "ChocoCity"));
-            ids.Add(InsertRestaurant("burgatory", "456 beef alley", "Burgertown"));
-            ids.Add(InsertRestaurant("candy R us", "222 cavity street", "ChocoCity"));
-            ids.Add(InsertRestaurant("cupcakes for everyone", "300 pound highway", "ChocoCity"));
+            var ids = new List<int>
+            {
+                InsertRestaurant("cool cones", "123 milky way", "ChocoCity"),
+                InsertRestaurant("burgatory", "456 beef alley", "Burgertown"),
+                InsertRestaurant("candy R us", "222 cavity street", "ChocoCity"),
+                InsertRestaurant("cupcakes for everyone", "300 pound highway", "ChocoCity")
+            };
             return ids;
         }
         private int InsertUser(string username)

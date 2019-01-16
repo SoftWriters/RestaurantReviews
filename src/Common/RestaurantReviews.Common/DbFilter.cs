@@ -14,7 +14,7 @@ namespace RestaurantReviews.Common
         Type _type;
         public string Field { get; set; }
         public OperatorEnum Operator { get; set; }
-        public string Value { get; set; }
+        public object Value { get; set; }
         public DbFilter()
         {
             _type = typeof(T);
@@ -65,7 +65,7 @@ namespace RestaurantReviews.Common
             if (member == null) return null;
 
             var attrib = (DescriptionAttribute)Attribute.GetCustomAttribute(member, typeof(DescriptionAttribute), false);
-            return attrib == null ? null : attrib.Description;
+            return attrib?.Description;
         }
 
     }

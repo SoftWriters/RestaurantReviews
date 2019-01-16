@@ -1,13 +1,13 @@
 ﻿using RestaurantReviews.Common;
 using RestaurantReviews.Web.Api.App_Start;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web.Http;
 using Unity;
-using Unity.Injection;
+using Unity.AspNet.WebApi;
 using Unity.Lifetime;
-using Unity.Registration;
 using Unity.RegistrationByConvention;
 
 namespace RestaurantReviews.Web.Api
@@ -18,15 +18,38 @@ namespace RestaurantReviews.Web.Api
         {
             // Web API configuration and services
             var container = new UnityContainer();
-            //container.RegisterTypes(
-            //    AllClasses.FromLoadedAssemblies(),
-            //    WithMappings.FromAllInterfaces,
-            //    WithName.Default,
-            //    WithLifetime.Transient,
-            //    type =>
-            //    {
-            //        return new InjectionMember[0];
-            //    });
+
+            // auto map interfaces to classes in Unity container by convention
+            RegisterUnityAutoResolutionMappings(container);
+
+            //register dbcontext instance in Unity container for use by DAL
+            RegisterDbContext(container);
+
+            //register Unity container as WebAPI dependency resolver for injection into controllers
+            config.DependencyResolver = new UnityHierarchicalDependencyResolver(container);
+
+            // Web API routes
+            config.MapHttpAttributeRoutes();
+            
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+        }
+
+        private static void RegisterDbContext(IUnityContainer container)
+        {
+            var configProvider = container.Resolve<IConfigurationProvider>();
+            var dbContext = new DbContext() { ConnnectionString = configProvider.ConnnectionString };
+            container.RegisterInstance(typeof(IDbContext), dbContext, new ContainerControlledLifetimeManager());
+        }
+
+        private static void RegisterUnityAutoResolutionMappings(IUnityContainer container)
+        {
+            ForceLoadAssemblies();
+
             AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("RestaurantReviews")).ToList().ForEach(asm =>
             {
                 container.RegisterTypes(asm.GetTypes(),
@@ -34,36 +57,17 @@ namespace RestaurantReviews.Web.Api
                 WithName.Default,
                 WithLifetime.PerResolve);
             });
-
-            var configProvider = container.Resolve<IConfigurationProvider>();
-            var dbContext = new DbContext() { ConnnectionString = configProvider.ConnnectionString };
-            container.RegisterInstance(typeof(IDbContext), dbContext, new ContainerControlledLifetimeManager());
-
-            config.DependencyResolver = new UnityDependencyResolver(container);
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
         }
-
-        //public static void RegisterComponents()
-        //{
-        //    var container = new UnityContainer();
-        //    var repositoryAssembly = AppDomain.CurrentDomain.GetAssemblies()
-        //        .First(a => a.FullName == "CManager.Repository, Version=X.X.X.X, Culture=neutral, PublicKeyToken=null");
-
-        //    container.RegisterTypes(repositoryAssembly.GetTypes(),
-        //        WithMappings.FromMatchingInterface,
-        //        WithName.Default,
-        //        WithLifetime.ContainerControlled);
-
-        //    container.RegisterType<ApplicationDbContext>(new PerResolveLifetimeManager());
-        //    // ................ register other things is needed
-        //    DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-        //}
+        private static void ForceLoadAssemblies()
+        {
+            foreach (var fileName in Directory.GetFiles(AppDomain.CurrentDomain.RelativeSearchPath, "RestaurantReviews*.dll"))
+            {
+                string assemblyName = Path.GetFileNameWithoutExtension(fileName);
+                if (assemblyName != null)
+                {
+                    Assembly.Load(assemblyName);
+                }
+            }
+        }
     }
 }

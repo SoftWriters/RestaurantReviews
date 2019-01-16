@@ -1,4 +1,6 @@
-﻿namespace RestaurantReviews.Common
+﻿using System.Web;
+
+namespace RestaurantReviews.Common
 {
     public interface IUserInfoProvider
     {
@@ -7,16 +9,10 @@
 
     public class UserInfoProvider : IUserInfoProvider
     {
-        UserInfo _userInfo;
-
-        public UserInfoProvider(UserInfo userInfo)
-        {
-            _userInfo = userInfo;
-        }
-
         public UserInfo GetCurrentUserInfo()
         {
-            return _userInfo;
+            int.TryParse(HttpContext.Current.User.Identity.Name, out int id);
+            return new UserInfo() { Id =  id};
         }
     }
 }
