@@ -12,11 +12,13 @@ namespace RestaurantReviews.Data.IntegrationTests
     {
         private List<int> FillRestaurants()
         {
-            var ids = new List<int>();
-            ids.Add(InsertRestaurant("cool cones", "123 milky way", "ChocoCity"));
-            ids.Add(InsertRestaurant("burgatory", "456 beef alley", "Burgertown"));
-            ids.Add(InsertRestaurant("candy R us", "222 cavity street", "ChocoCity"));
-            ids.Add(InsertRestaurant("cupcakes for everyone", "300 pound highway", "ChocoCity"));
+            var ids = new List<int>
+            {
+                InsertRestaurant("cool cones", "123 milky way", "ChocoCity"),
+                InsertRestaurant("burgatory", "456 beef alley", "Burgertown"),
+                InsertRestaurant("candy R us", "222 cavity street", "ChocoCity"),
+                InsertRestaurant("cupcakes for everyone", "300 pound highway", "ChocoCity")
+            };
             return ids;
         }
         private int InsertRestaurant(string name, string address, string city)

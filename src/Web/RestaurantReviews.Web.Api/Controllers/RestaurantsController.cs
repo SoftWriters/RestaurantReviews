@@ -2,15 +2,13 @@
 using RestaurantReviews.Domain;
 using RestaurantReviews.Entity;
 using RestaurantReviews.Web.Api.Models;
-using RestaurantReviews.Web.Api.Security;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace RestaurantReviews.Web.Api.Controllers
 {
-    [SimpleBearerTokenAuthFilterAttribute]
-    public class RestaurantsController : ApiController
+    public class RestaurantsController : AuthorizedBaseController
     {
         private IRestaurantRepository _restaurantRepository;
 

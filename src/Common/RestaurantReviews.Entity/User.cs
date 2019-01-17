@@ -10,6 +10,7 @@ namespace RestaurantReviews.Entity
 {
     public class User : IEntity
     {
+        [Range(0,0)]
         public int Id { get; set; }
         [Required]
         [MaxLength(25)]

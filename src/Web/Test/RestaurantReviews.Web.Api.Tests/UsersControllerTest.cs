@@ -22,7 +22,7 @@ namespace RestaurantReviews.Web.Api.Tests
             var userRepository = new Mock<IUserRepository>();
             userRepository.Setup(x => x.CreateUserAsync(expected.UserName)).Returns(Task.FromResult<User>(expected));
             var sut = new UsersController(userRepository.Object);
-            var actual = sut.Post(expected.UserName).Result;
+            var actual = sut.Post(expected).Result;
             Assert.AreEqual(expected, actual);
             userRepository.VerifyAll();
         }

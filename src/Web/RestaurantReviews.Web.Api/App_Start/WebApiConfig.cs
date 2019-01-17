@@ -1,10 +1,12 @@
 ﻿using RestaurantReviews.Common;
 using RestaurantReviews.Web.Api.App_Start;
+using RestaurantReviews.Web.Api.Logging;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Unity;
 using Unity.AspNet.WebApi;
 using Unity.Lifetime;
@@ -36,6 +38,9 @@ namespace RestaurantReviews.Web.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //global exception logging
+            config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
 
         }
 

@@ -15,7 +15,7 @@ namespace RestaurantReviews.Web.Api.Security
     /// models such as JWT.  For simplicity in using/testing this API project, I have done away with the nearly all of it
     /// including the header, claims, signature, and base64 encoding
     /// it simply takes the auth parameter at face value as the userid of the acting user
-    /// for example, to mimic an authenticated and authorized user, simply pass Bearer <userId> in the Authentication header
+    /// for example, to mimic an authenticated and authorized user, simply pass Bearer [userId] in the Authentication header
     /// sample header: Authentication: Bearer 1
     /// </summary>
     public class SimpleBearerTokenAuthFilterAttribute : ActionFilterAttribute, IAuthenticationFilter

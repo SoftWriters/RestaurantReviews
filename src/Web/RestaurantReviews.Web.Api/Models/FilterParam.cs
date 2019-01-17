@@ -7,7 +7,7 @@ using System.Web;
 namespace RestaurantReviews.Web.Api.Models
 {
     /// <summary>
-    /// proxy class for DbFilter<T> to facilitate model binding
+    /// proxy class for generic DbFilter to facilitate model binding
     /// </summary>
     public class FilterParam
     {
