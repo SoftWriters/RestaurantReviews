@@ -5,6 +5,7 @@ using RestaurantReviews.Web.Api.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.ModelBinding.Binders;
 
 namespace RestaurantReviews.Web.Api.Controllers
 {
@@ -26,7 +27,11 @@ namespace RestaurantReviews.Web.Api.Controllers
         /// <param name="cityname"></param>
         /// <returns></returns>
         // GET: api/Restaurants
-        public Task<IEnumerable<Restaurant>> Get(int? page, int? pagesize, string cityname)
+        //[Route("api/Restaurants/page={page?}/pagesize={pagesize?}/cityname={cityname?}")]
+        public Task<IEnumerable<Restaurant>> Get(
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))]int? page,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))]int? pagesize,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))]string cityname = null)
         {
             var filter =  string.IsNullOrWhiteSpace(cityname) ? null : new FilterParam() { Field = "City", Operator = OperatorEnum.Equal, Value = cityname }.ToDbFilter<Restaurant>();
             return _restaurantRepository.GetRestaurantsAsync(page??1, pagesize??1000,  filter);
@@ -41,7 +46,9 @@ namespace RestaurantReviews.Web.Api.Controllers
         /// <returns></returns>
         // POST: api/Restaurants/Searches?page=1&pagesize=20   body-{Field:"Name", Operator:"Like", Value:"Pitts%"}
         [Route("api/Restaurants/Searches")]
-        public Task<IEnumerable<Restaurant>> Post([FromBody]FilterParam filter, int? page, int? pagesize )
+        public Task<IEnumerable<Restaurant>> Post([FromBody]FilterParam filter,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? page,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? pagesize )
         {
             return _restaurantRepository.GetRestaurantsAsync(page??1, pagesize??1000, filter?.ToDbFilter<Restaurant>());
         }

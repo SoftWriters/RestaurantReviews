@@ -6,6 +6,7 @@ using RestaurantReviews.Web.Api.Validation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.ModelBinding.Binders;
 
 namespace RestaurantReviews.Web.Api.Controllers
 {
@@ -39,7 +40,9 @@ namespace RestaurantReviews.Web.Api.Controllers
         /// <returns></returns>
         // GET: api/User
         [SimpleBearerTokenAuthFilter]
-        public Task<IEnumerable<User>> Get(int? page, int? pagesize)
+        public Task<IEnumerable<User>> Get(
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? page,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))]int? pagesize)
         {
             return _userRepository.GetUsersAsync(page ?? 1, pagesize ?? 1000);
         }

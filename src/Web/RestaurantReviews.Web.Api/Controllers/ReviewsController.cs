@@ -5,6 +5,7 @@ using RestaurantReviews.Web.Api.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.ModelBinding.Binders;
 
 namespace RestaurantReviews.Web.Api.Controllers
 {
@@ -26,7 +27,9 @@ namespace RestaurantReviews.Web.Api.Controllers
         /// <returns></returns>
         // POST: api/Reviews
         [Route("api/Reviews/Searches")]
-        public Task<IEnumerable<Review>> Post([FromBody]FilterParam filter, int? page = 1, int? pagesize = 2)
+        public Task<IEnumerable<Review>> Post([FromBody]FilterParam filter,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? page,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? pagesize)
         {
             return _reviewRepository.GetReviewsAsync(page??1, pagesize??1000, filter?.ToDbFilter<Review>());
         }
@@ -72,7 +75,9 @@ namespace RestaurantReviews.Web.Api.Controllers
         /// <param name="pagesize"></param>
         /// <returns></returns>
         [Route("api/Users/{userId}/Reviews")]
-        public Task<IEnumerable<Review>> Get(int userId, int? page, int? pagesize)
+        public Task<IEnumerable<Review>> Get(int userId,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))] int? page,
+            [FromUri(BinderType = typeof(TypeConverterModelBinder))]int? pagesize)
         {
             var filter = new DbFilter<Review>() { Field = "UserId", Operator = OperatorEnum.Equal, Value = userId };
             return _reviewRepository.GetReviewsAsync(page ?? 1, pagesize ?? 1000, filter);
