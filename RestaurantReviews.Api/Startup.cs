@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using NJsonSchema;
+using NSwag.AspNetCore;
 using RestaurantReviews.Api.DataAccess;
 
 namespace RestaurantReviews.Api
@@ -15,6 +16,28 @@ namespace RestaurantReviews.Api
             services.AddTransient<IRestaurantQuery, RestaurantQuery>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Restaurant Reviews";
+                    document.Info.Description = "A simple API for managing restaurant reviews";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.SwaggerContact
+                    {
+                        Name = "Eric Kepes",
+                        Email = "eric@kepes.net",
+                        Url = "https://erickepes.com/"
+                    };
+                    document.Info.License = new NSwag.SwaggerLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = "https://example.com/license"
+                    };
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -23,6 +46,9 @@ namespace RestaurantReviews.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseSwagger();
+            app.UseSwaggerUi3();
 
             app.UseMvc();
         }

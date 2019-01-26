@@ -17,7 +17,18 @@ namespace RestaurantReviews.Api.Controllers
             _restaurantQuery = restaurantQuery;
         }
         
+        /// <summary>
+        /// Returns a list of restaurants for the given city and state. If not provided,
+        /// gives the entire list of restaurants we have reviews for.
+        /// </summary>
+        /// <param name="city">The City where the Restaurant is located</param>
+        /// <param name="state">The State where the Restaurant is located</param>
+        /// <returns>
+        /// A collection of Restaurant objects matching the given city and state.
+        /// </returns>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<List<Restaurant>>> GetListAsync(string city=null, 
             string state=null)
         {
