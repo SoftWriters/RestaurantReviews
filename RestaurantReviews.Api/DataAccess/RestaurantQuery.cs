@@ -36,5 +36,23 @@ namespace RestaurantReviews.Api.DataAccess
             var result = await _unitOfWork.Connection.QueryAsync<Restaurant>(query, parameters);
             return result.ToList();
         }
+
+        public async Task<Restaurant> GetRestaurant(long id)
+        {
+            var result = await _unitOfWork.Connection.QueryAsync<Restaurant>(
+                BaseQuery + " WHERE Id=@Id",
+                new { Id = id });
+            return result.FirstOrDefault();
+        }
+
+        public async Task<Restaurant> GetRestaurant(string name, string city, string state)
+        {
+            var result = await _unitOfWork.Connection.QueryAsync<Restaurant>(
+                BaseQuery + " WHERE Name=@Name AND City = @City AND State = @State",
+                new { Name = name, City = city, State = state });
+            var resultList = result.ToList();
+            
+            return resultList.Count() == 1 ? resultList.First() : null;
+        }
     }
 }

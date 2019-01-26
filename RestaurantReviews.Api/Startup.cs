@@ -14,6 +14,7 @@ namespace RestaurantReviews.Api
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRestaurantQuery, RestaurantQuery>();
+            services.AddTransient<IInsertRestaurant, InsertRestaurant>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
