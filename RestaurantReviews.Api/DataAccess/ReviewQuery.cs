@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -22,6 +23,14 @@ namespace RestaurantReviews.Api.DataAccess
                 BaseQuery + " WHERE Id=@Id",
                 new { Id = id });
             return result.FirstOrDefault();
+        }
+        
+        public async Task<List<Review>> GetReviews(string reviewerEmail)
+        {
+            var result = await _unitOfWork.Connection.QueryAsync<Review>(
+                BaseQuery + " WHERE ReviewerEmail=@ReviewerEmail",
+                new { ReviewerEmail = reviewerEmail });
+            return result.ToList();
         }
     }
 }

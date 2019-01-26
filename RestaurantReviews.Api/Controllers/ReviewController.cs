@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.Api.DataAccess;
@@ -45,6 +46,24 @@ namespace RestaurantReviews.Api.Controllers
             }
 
             return review;
+        }
+        
+        /// <summary>
+        /// Returns all of the reviews for a particular user.
+        /// </summary>
+        /// <param name="reviewerEmail">The email address of the user who's reviews are requested.</param>
+        /// <returns>A collection of Reviews.</returns>
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<List<Review>>> GetListAsync(string reviewerEmail)
+        {
+            if (string.IsNullOrWhiteSpace(reviewerEmail))
+            {
+                return BadRequest("ReviewerEmail is required.");
+            }
+            
+            return await _reviewQuery.GetReviews(reviewerEmail);
         }
 
         /// <summary>
