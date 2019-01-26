@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using RestaurantReviews.Api.DataAccess;
+using RestaurantReviews.Api.Models;
 
 namespace RestaurantReviews.Api
 {
@@ -15,6 +16,9 @@ namespace RestaurantReviews.Api
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IRestaurantQuery, RestaurantQuery>();
             services.AddTransient<IInsertRestaurant, InsertRestaurant>();
+            services.AddTransient<IReviewValidator, ReviewValidator>();
+            services.AddTransient<IReviewQuery, ReviewQuery>();
+            services.AddTransient<IInsertReview, InsertReview>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             

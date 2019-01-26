@@ -9,7 +9,7 @@ namespace RestaurantReviews.Api.Models
     public class Restaurant : NewRestaurant
     {
         /// <summary>
-        /// The internal identifier for this Restaurant
+        /// The internal identifier for this Restaurant.
         /// </summary>
         public long Id { get; set; }
 

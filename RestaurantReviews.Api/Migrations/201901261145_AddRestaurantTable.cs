@@ -2,7 +2,7 @@ using FluentMigrator;
 
 namespace RestaurantReviews.Api.Migrations
 {
-    [Migration(20180430121800)]
+    [Migration(201901261145)]
     public class AddRestaurantTable : Migration
     {
         public override void Up()
