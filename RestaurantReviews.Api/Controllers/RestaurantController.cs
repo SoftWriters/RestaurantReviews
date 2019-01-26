@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantReviews.Api.DataAccess;
 using RestaurantReviews.Api.Models;
 
 namespace RestaurantReviews.Api.Controllers
@@ -9,14 +10,23 @@ namespace RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<Restaurant>>> GetAllAsync()
+        private readonly IRestaurantQuery _restaurantQuery;
+
+        public RestaurantController(IRestaurantQuery restaurantQuery)
         {
-            return new List<Restaurant> {
-                new Restaurant { Name = "McDonald's" },
-                new Restaurant { Name = "Wendy's" },
-                new Restaurant { Name = "Arby's" }
-            };
+            _restaurantQuery = restaurantQuery;
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<List<Restaurant>>> GetListAsync(string city=null, 
+            string state=null)
+        {
+            if ((city == null || state == null ) && city != state)
+            {
+                return BadRequest("If city or state is provided, both must be given.");
+            }
+            
+            return await _restaurantQuery.GetRestaurants(city, state);
         }
     }
 }

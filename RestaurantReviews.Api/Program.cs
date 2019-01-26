@@ -8,13 +8,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace RestauranyReviews.Api
+namespace RestaurantReviews.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            if (args != null && args.Any() && args[0] == "migrate")
+            {
+                MigrationHandler.RunMigrations();
+            }
+            else
+            {
+                CreateWebHostBuilder(args).Build().Run();
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
