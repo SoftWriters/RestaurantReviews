@@ -75,9 +75,9 @@ namespace RestaurantReviews.Api.Controllers
         /// </summary>
         /// <param name="restaurant">The restaurant to add.</param>
         /// <returns>The restaurant, with the internal Id added.</returns>
+        [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(409)]
-        [HttpPost]
         public async Task<ActionResult<Restaurant>> PostAsync(NewRestaurant restaurant)
         {
             var existing = await _restaurantQuery.GetRestaurant(restaurant.Name,

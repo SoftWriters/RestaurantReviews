@@ -19,6 +19,7 @@ namespace RestaurantReviews.Api
             services.AddTransient<IReviewValidator, ReviewValidator>();
             services.AddTransient<IReviewQuery, ReviewQuery>();
             services.AddTransient<IInsertReview, InsertReview>();
+            services.AddTransient<IDeleteReview, DeleteReview>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             

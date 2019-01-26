@@ -13,13 +13,17 @@ namespace RestaurantReviews.Api.Controllers
         private readonly IReviewValidator _reviewValidator;
         private readonly IReviewQuery _reviewQuery;
         private readonly IInsertReview _insertReview;
+        private readonly IDeleteReview _deleteReview;
 
         public ReviewController(IReviewValidator reviewValidator, 
-            IReviewQuery reviewQuery, IInsertReview insertReview)
+            IReviewQuery reviewQuery, 
+            IInsertReview insertReview, 
+            IDeleteReview deleteReview)
         {
             _reviewValidator = reviewValidator;
-            _insertReview = insertReview;
             _reviewQuery = reviewQuery;
+            _insertReview = insertReview;
+            _deleteReview = deleteReview;
         }
         
         /// <summary>
@@ -71,9 +75,9 @@ namespace RestaurantReviews.Api.Controllers
         /// </summary>
         /// <param name="review">A review to add to the system.</param>
         /// <returns>The restaurant, with the internal Id added.</returns>
+        [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        [HttpPost]
         public async Task<ActionResult<bool>> PostAsync(NewReview review)
         {
             if (!_reviewValidator.IsReviewValid(review))
@@ -84,6 +88,27 @@ namespace RestaurantReviews.Api.Controllers
             var id = await _insertReview.Insert(review);
 
             return Created(nameof(GetAsync), id != 0);
+        }
+
+        
+        [HttpDelete]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<bool>> DeleteAsync(long reviewId)
+        {
+            if (reviewId <= 0)
+            {
+                return BadRequest("ReviewId is required.");
+            }
+
+            var rowsAffected = await _deleteReview.Delete(reviewId);
+            if (rowsAffected != 1)
+            {
+                return NotFound(false);
+            }
+
+            return Ok(true);
         }
     }
 }
