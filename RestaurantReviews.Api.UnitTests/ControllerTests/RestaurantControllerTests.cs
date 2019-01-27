@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -12,24 +11,6 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
 {
     public class RestaurantControllerTests
     {
-        private static readonly Restaurant McDonalds = new Restaurant
-        {
-            Id = 123,
-            Name = "McDonald's",
-            Description = "The Golden Arches",
-            City = "Pittsburgh",
-            State = "PA"
-        };
-        private static readonly Restaurant Wendys = new Restaurant
-        {
-            Id = 456,
-            Name = "Wendy's",
-            Description = "Dave's Place",
-            City = "Pittsburgh",
-            State = "PA"
-        };
-        
-        
         [Fact]
         public async Task GetListWithNoParamsReturnsList()
         {
@@ -72,7 +53,7 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
             var mockRestaurantQuery = new Mock<IRestaurantQuery>();
             mockRestaurantQuery.Setup(q => 
                     q.GetRestaurants(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(Task.FromResult(new List<Restaurant> { McDonalds }));
+                .Returns(Task.FromResult(new List<Restaurant> {TestData.McDonalds }));
             var controller = new RestaurantController(mockRestaurantQuery.Object, null);
 
             var result = await controller.GetListAsync("Pittsburgh", "PA");
@@ -87,27 +68,27 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
         public async Task GetSingleWithValidIdReturnsRestaurant()
         {
             var mockRestaurantQuery = new Mock<IRestaurantQuery>();
-            mockRestaurantQuery.Setup(q => q.GetRestaurant(McDonalds.Id))
-                .Returns(Task.FromResult(McDonalds));
+            mockRestaurantQuery.Setup(q => q.GetRestaurant(TestData.McDonalds.Id))
+                .Returns(Task.FromResult(TestData.McDonalds));
             var controller = new RestaurantController(mockRestaurantQuery.Object, null);
 
-            var result = await controller.GetAsync(McDonalds.Id);
+            var result = await controller.GetAsync(TestData.McDonalds.Id);
 
             Assert.IsType<OkObjectResult>(result.Result);
             Assert.IsType<Restaurant>(((OkObjectResult)result.Result).Value);
             var restaurant = (Restaurant)((OkObjectResult) result.Result).Value;
-            Assert.Equal(McDonalds.Name, restaurant.Name);
+            Assert.Equal(TestData.McDonalds.Name, restaurant.Name);
         }
         
         [Fact]
         public async Task GetSingleWithNonexistentIdReturnsNotFound()
         {
             var mockRestaurantQuery = new Mock<IRestaurantQuery>();
-            mockRestaurantQuery.Setup(q => q.GetRestaurant(McDonalds.Id))
-                .Returns(Task.FromResult(McDonalds));
+            mockRestaurantQuery.Setup(q => q.GetRestaurant(TestData.McDonalds.Id))
+                .Returns(Task.FromResult(TestData.McDonalds));
             var controller = new RestaurantController(mockRestaurantQuery.Object, null);
 
-            var result = await controller.GetAsync(Wendys.Id);
+            var result = await controller.GetAsync(TestData.Wendys.Id);
 
             Assert.IsType<NotFoundResult>(result.Result);
         }
@@ -126,14 +107,13 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
         public async Task PostNewRestaurantThatDoesNotExistReturnsCreated()
         {
             var mockRestaurantQuery = new Mock<IRestaurantQuery>();
-            mockRestaurantQuery.Setup(q => q.GetRestaurant(McDonalds.Name, 
-                    McDonalds.City, McDonalds.State))
-                .Returns(Task.FromResult(McDonalds));
+            mockRestaurantQuery.Setup(q => q.GetRestaurant(TestData.McDonalds.Name, TestData.McDonalds.City, TestData.McDonalds.State))
+                .Returns(Task.FromResult(TestData.McDonalds));
             var mockInsertRestaurant = new Mock<IInsertRestaurant>();
             var controller = new RestaurantController(mockRestaurantQuery.Object, 
                 mockInsertRestaurant.Object);
 
-            var result = await controller.PostAsync(Wendys);
+            var result = await controller.PostAsync(TestData.Wendys);
 
             Assert.IsType<CreatedResult>(result.Result);
             mockInsertRestaurant.Verify(i => i.Insert(It.IsAny<NewRestaurant>()),
@@ -144,14 +124,13 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
         public async Task PostNewRestaurantThatExistsReturnsConflict()
         {
             var mockRestaurantQuery = new Mock<IRestaurantQuery>();
-            mockRestaurantQuery.Setup(q => q.GetRestaurant(McDonalds.Name, 
-                    McDonalds.City, McDonalds.State))
-                .Returns(Task.FromResult(McDonalds));
+            mockRestaurantQuery.Setup(q => q.GetRestaurant(TestData.McDonalds.Name, TestData.McDonalds.City, TestData.McDonalds.State))
+                .Returns(Task.FromResult(TestData.McDonalds));
             var mockInsertRestaurant = new Mock<IInsertRestaurant>();
             var controller = new RestaurantController(mockRestaurantQuery.Object, 
                 mockInsertRestaurant.Object);
 
-            var result = await controller.PostAsync(McDonalds);
+            var result = await controller.PostAsync(TestData.McDonalds);
 
             Assert.IsType<ConflictObjectResult>(result.Result);
         }

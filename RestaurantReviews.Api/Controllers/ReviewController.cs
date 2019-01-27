@@ -49,7 +49,7 @@ namespace RestaurantReviews.Api.Controllers
                 return NotFound();
             }
 
-            return review;
+            return Ok(review);
         }
         
         /// <summary>
@@ -67,7 +67,7 @@ namespace RestaurantReviews.Api.Controllers
                 return BadRequest("ReviewerEmail is required.");
             }
             
-            return await _reviewQuery.GetReviews(reviewerEmail);
+            return Ok(await _reviewQuery.GetReviews(reviewerEmail));
         }
 
         /// <summary>
