@@ -9,6 +9,8 @@ namespace RestaurantReviews.Api.UnitTests.ValidatorTests
         private const string ValidDescription = "A place.";
         private const string ValidCity = "Pittsburgh";
         private const string ValidState = "PA";
+        private const string TooShortState = "P";
+        private const string TooLongState = "PEN";
         
         [Fact]
         public void NoNameFailsValidation()
@@ -80,6 +82,42 @@ namespace RestaurantReviews.Api.UnitTests.ValidatorTests
             Assert.False(result);
         }
         
+        [Fact]
+        public void ShortStateFailsValidation()
+        {
+            var validator = new RestaurantValidator();
+            var restaurant = new Restaurant
+            {
+                Name = ValidName,
+                Description = ValidDescription,
+                City = ValidCity,
+                State = TooShortState
+
+            };
+
+            var result = validator.IsRestaurantValid(restaurant);
+            
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void LongStateFailsValidation()
+        {
+            var validator = new RestaurantValidator();
+            var restaurant = new Restaurant
+            {
+                Name = ValidName,
+                Description = ValidDescription,
+                City = ValidCity,
+                State = TooLongState
+
+            };
+
+            var result = validator.IsRestaurantValid(restaurant);
+            
+            Assert.False(result);
+        }
+
         [Fact]
         public void NoAnythingFailsValidation()
         {

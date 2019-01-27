@@ -6,7 +6,7 @@ namespace RestaurantReviews.Api.Models
         {
             return !string.IsNullOrWhiteSpace(restaurant.Name) &&
                    !string.IsNullOrWhiteSpace(restaurant.City) &&
-                   !string.IsNullOrWhiteSpace(restaurant.State) &&
+                   restaurant.State?.Length == 2 &&
                    !string.IsNullOrWhiteSpace(restaurant.Description);
         }
     }
