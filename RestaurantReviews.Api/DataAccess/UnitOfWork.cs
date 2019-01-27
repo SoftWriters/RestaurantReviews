@@ -1,10 +1,11 @@
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace RestaurantReviews.Api.DataAccess
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly IConfiguration _configuration;
         private IDbConnection _connection;
@@ -20,5 +21,10 @@ namespace RestaurantReviews.Api.DataAccess
         }
 
         public IDbConnection Connection => GetOpenConnection();
+
+        public void Dispose()
+        {
+            _connection?.Dispose();
+        }
     }
 }

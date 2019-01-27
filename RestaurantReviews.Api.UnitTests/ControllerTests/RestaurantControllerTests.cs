@@ -42,7 +42,7 @@ namespace RestaurantReviews.Api.UnitTests.ControllerTests
         {
             var controller = new RestaurantController(null, null);
 
-            var result = await controller.GetListAsync("Pittsburgh", null);
+            var result = await controller.GetListAsync("Pittsburgh");
 
             Assert.IsType<BadRequestObjectResult>(result.Result);
         }

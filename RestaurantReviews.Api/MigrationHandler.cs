@@ -18,7 +18,7 @@ namespace RestaurantReviews.Api
             }
         }
 
-        public static string GetConnectionString()
+        private static string GetConnectionString()
         {
             var root = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

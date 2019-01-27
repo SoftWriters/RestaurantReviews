@@ -2,6 +2,7 @@ using System;
 
 namespace RestaurantReviews.Api.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// A review of a restaurant.
     /// </summary>

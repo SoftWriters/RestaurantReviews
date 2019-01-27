@@ -3,6 +3,7 @@ using Remotion.Linq.Clauses;
 
 namespace RestaurantReviews.Api.Models
 {
+    /// <inheritdoc />
     /// <summary>
     /// A Restaurant you can see the reviews for, if we have any.
     /// </summary>
