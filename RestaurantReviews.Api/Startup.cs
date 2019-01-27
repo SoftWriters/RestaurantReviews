@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using NJsonSchema;
-using NSwag.AspNetCore;
+//using NJsonSchema;
+//using NSwag.AspNetCore;
 using RestaurantReviews.Api.DataAccess;
 using RestaurantReviews.Api.Models;
 
@@ -14,6 +14,7 @@ namespace RestaurantReviews.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IRestaurantValidator, RestaurantValidator>();
             services.AddTransient<IRestaurantQuery, RestaurantQuery>();
             services.AddTransient<IInsertRestaurant, InsertRestaurant>();
             services.AddTransient<IReviewValidator, ReviewValidator>();
@@ -35,7 +36,7 @@ namespace RestaurantReviews.Api
                     {
                         Name = "Eric Kepes",
                         Email = "eric@kepes.net",
-                        Url = "https://erickepes.com/"
+                        Url = "https://github.com/ekepes"
                     };
                     document.Info.License = new NSwag.SwaggerLicense
                     {

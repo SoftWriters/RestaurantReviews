@@ -10,12 +10,15 @@ namespace RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantController : ControllerBase
     {
+        private readonly IRestaurantValidator _restaurantValidator;
         private readonly IRestaurantQuery _restaurantQuery;
         private readonly IInsertRestaurant _insertRestaurant;
 
-        public RestaurantController(IRestaurantQuery restaurantQuery,
+        public RestaurantController(IRestaurantValidator restaurantValidator,
+            IRestaurantQuery restaurantQuery,
             IInsertRestaurant insertRestaurant)
         {
+            _restaurantValidator = restaurantValidator;
             _restaurantQuery = restaurantQuery;
             _insertRestaurant = insertRestaurant;
         }
@@ -76,9 +79,15 @@ namespace RestaurantReviews.Api.Controllers
         /// <returns>The restaurant, with the internal Id added.</returns>
         [HttpPost]
         [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         [ProducesResponseType(409)]
         public async Task<ActionResult<Restaurant>> PostAsync(NewRestaurant restaurant)
         {
+            if (!_restaurantValidator.IsRestaurantValid(restaurant))
+            {
+                return BadRequest("Restaurants require a valid Name, Description, City, and State.");
+            }
+            
             var existing = await _restaurantQuery.GetRestaurant(restaurant.Name,
                 restaurant.City, restaurant.State);
             if (existing != null)
