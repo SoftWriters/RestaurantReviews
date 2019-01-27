@@ -41,7 +41,7 @@ namespace RestaurantReviews.Api.Controllers
                 return BadRequest("If city or state is provided, both must be given.");
             }
             
-            return await _restaurantQuery.GetRestaurants(city, state);
+            return Ok(await _restaurantQuery.GetRestaurants(city, state));
         }
         
         /// <summary>
@@ -67,7 +67,7 @@ namespace RestaurantReviews.Api.Controllers
                 return NotFound();
             }
 
-            return restaurant;
+            return Ok(restaurant);
         }
         
         /// <summary>
