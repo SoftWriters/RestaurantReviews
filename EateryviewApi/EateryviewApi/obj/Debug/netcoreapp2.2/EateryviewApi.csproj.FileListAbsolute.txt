@@ -1,0 +1,14 @@
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\bin\Debug\netcoreapp2.2\EateryviewApi.deps.json
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\bin\Debug\netcoreapp2.2\EateryviewApi.runtimeconfig.json
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\bin\Debug\netcoreapp2.2\EateryviewApi.runtimeconfig.dev.json
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\bin\Debug\netcoreapp2.2\EateryviewApi.dll
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\bin\Debug\netcoreapp2.2\EateryviewApi.pdb
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.csprojAssemblyReference.cache
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.csproj.CoreCompileInputs.cache
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.RazorAssemblyInfo.cache
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.RazorAssemblyInfo.cs
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.AssemblyInfoInputs.cache
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.AssemblyInfo.cs
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.RazorTargetAssemblyInfo.cache
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.dll
+C:\Users\Michael\Documents\Visual Studio 2017\Projects\EateryviewApi\EateryviewApi\obj\Debug\netcoreapp2.2\EateryviewApi.pdb

@@ -1,0 +1,17 @@
+The Eateryview API is written using Visual Studio Community v15.9.6, .Net Core v2.2, and ASP.Net
+
+All project files in the Controllers and Models sub-directories were manually created.  All other project files were largely generated, with some minor tweaks.  The manually created source files in the Controllers and Models directories will be duplicated in the "ManuallyCreatedFiles" folder in the repository for convenience.
+
+It was tested using Postman v6.7.3
+
+--Post new Restaurants to https://host:port/api/Eateryview
+--Post new Reviews to https://host:port/api/Eateryview/review
+
+--Get all Restaurants from https://host:port/api/Eateryview
+--Get all Restaurants by City from https://host:port/api/Eateryview/city/{CityName}
+
+--Get all Reviews from https://host:port/api/Eateryview/review
+--Get all Reviews by User from https://host:port/api/Eateryview/review/user/{UserName}
+--Get all Reviews by Restaurant from https://host:port/api/Eateryview/review/eatery/{EateryId}
+
+--Delete a Review at https://host:port/api/Eateryview/review/{ReviewId}
