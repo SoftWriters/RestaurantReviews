@@ -1,0 +1,393 @@
+# Jay Palat
+# Restaurant Reviews
+swagger: '2.0'
+info:
+  title: Restaurants Review API
+  description: Sample Restaurante Review API
+  version: "1.0.0"
+# the domain of the service
+host: 45.55.241.174:8080
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api/v1
+produces:
+  - application/json
+paths:
+  /restaurants:
+    get:
+      summary: Restaurants in the system.
+      description: |
+        The Restaurants endpoint returns the restaurants.
+      parameters:
+        - name: lat
+          in: query
+          description: Latitude component of location.
+          required: false
+          type: number
+          format: double
+        - name: lng
+          in: query
+          description: Longitude component of location.
+          required: false
+          type: number
+          format: double
+        - name: page
+          in: query
+          description: Page of results (sets of 20).
+          required: false
+          type: number
+      tags:
+        - Restaurant
+      responses:
+        200:
+          description: An array of restaurants
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Restaurant'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new restaurant.
+      description: |
+        The Restaurants endpoint to create restaurants.
+      parameters:
+        - name: restaurant
+          in: body
+          description: review details.
+          required: true
+          schema:
+            $ref: '#/definitions/NewRestaurant'
+      tags:
+        - Restaurant
+      responses:
+        200:
+          description: An array of restaurants
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Restaurant'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /restaurants/{id}:
+    get:
+      summary: A restaurant in the system.
+      description: |
+        The Restaurants endpoint returns a specific restaurant.
+      parameters:
+        - name: id
+          in: path
+          description: resteraunt identifier.
+          required: true
+          type: number
+  
+      tags:
+        - Restaurant
+      responses:
+        200:
+          description: A restaurant
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Restaurant'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /restaurants/{id}/reviews:
+    get:
+      summary: A restaurant in the system.
+      description: |
+        Returns the reviews for a specific restaurant.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+
+      tags:
+        - Review
+        - Restaurant
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: A restaurant in the system.
+      description: |
+        Returns the reviews for a specific restaurant.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+        - name: review
+          in: body
+          description: review details.
+          required: true
+          schema:
+            $ref: '#/definitions/NewReview'
+      tags:
+        - Review
+        - Restaurant
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /reviews:
+    get:
+      summary: All reviews.
+      description: |
+        Returns the reviews for all restaurants.
+      tags:
+        - Review
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReviewView'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /reviews/{id}:
+    get:
+      summary: Get a review.
+      description: |
+        Returns a specified review.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+  
+      tags:
+        - Review
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReviewView'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      summary: Delete review.
+      description: |
+        Delete a specified review.
+      parameters:
+        - name: id
+          in: path
+          description: restaurant identifier.
+          required: true
+          type: number
+  
+      tags:
+        - Review
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReviewView'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /users:
+    get:
+      summary: All users.
+      description: |
+        Returns the users.
+      tags:
+        - User
+      responses:
+        200:
+          description: Users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /users/{id}/reviews:
+    get:
+      summary: All reviews by user.
+      description: |
+        Returns a specified review.
+      parameters:
+        - name: id
+          in: path
+          description: User identifier.
+          required: true
+          type: number
+  
+      tags:
+        - Review
+        - User
+      responses:
+        200:
+          description: Reviews
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReviewView'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    # v1.POST("/restaurants", PostRestaurant)
+  
+
+
+  
+
+
+definitions:
+  Restaurant:
+    type: object
+    properties:
+      Id:
+        type: string
+        description: Unique identifier for a restaurant.
+      Name:
+        type: string
+        description: Name of restaurant.
+      Address:
+        type: string
+        description: Street Address.
+      Latitude:
+        type: number
+        format: double
+        description: Latitude.
+      Longitude:
+        type: number
+        format: double
+        description: Longitude.
+
+  NewRestaurant:
+    type: object
+    properties:
+      Name:
+        type: string
+        description: Name of restaurant.
+      Address:
+        type: string
+        description: Street Address.
+      Latitude:
+        type: number
+        format: double
+        description: Latitude.
+      Longitude:
+        type: number
+        format: double
+        description: Longitude.
+
+  Review:
+    type: object
+    properties:
+      Id:
+        type: number
+        description: GID.
+      RestaurantId:
+        type: number
+        description: Restaurant id.
+      UserId:
+        type: number
+        description: User id number.
+      Title:
+        type: string
+        description: Review Title.
+      Content:
+        type: string
+        description: Text of the review.
+      Rating:
+        type: number
+        description: Star rating (1-5).
+  NewReview:
+    type: object
+    properties:
+      UserId:
+        type: number
+        description: User id number.
+      Title:
+        type: string
+        description: Review Title.
+      Content:
+        type: string
+        description: Text of the review.
+      Rating:
+        type: number
+        description: Star rating (1-5).
+  ReviewView:
+    type: object
+    properties:
+      Id:
+        type: number
+        description: GID.
+      RestaurantName:
+        type: string
+        description: Restaurant Name.
+      UserName:
+        type: string
+        description: Review author's username.
+      ReviewTitle:
+        type: string
+        description: Review Title.
+      ReviewContent:
+        type: string
+        description: Text of the review.
+      ReviewRating:
+        type: number
+        description: Star rating (1-5).
+  User:
+    type: object
+    properties:
+      id:
+        type: number
+        description: User id.
+      username:
+        type: string
+        description: Username
+
+
+
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+
