@@ -20,7 +20,7 @@ namespace RestaurantReviews.Data.Repositories.Entities
 
         public async Task<IEnumerable<Restaurant>> GetAllRestaurants()
         {
-            return await this.RepositoryContext.Set<Restaurant>().OrderBy(ow => ow.Name).ToListAsync();
+            return (await FindAll()).OrderBy(ow => ow.Name);
         }
 
         public async Task<IEnumerable<Restaurant>> GetRestaurantsByCity(string city, string state, string country)

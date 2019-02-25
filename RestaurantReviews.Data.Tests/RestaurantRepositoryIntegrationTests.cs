@@ -33,11 +33,11 @@ namespace RestaurantReviews.Data.Tests
             RestaurantReviewsContext.Database.Migrate();
 
             // Test Assertions
-            Assert.IsTrue(RestaurantReviewsContext.Users.Count() == DataSeeder.Users.Count()
+            Assert.IsTrue(RestaurantReviewsContext.Users.Count() >= DataSeeder.Users.Count()
                 , string.Format("Database has {0} Users and Seeder has {1}", RestaurantReviewsContext.Users.Count(), DataSeeder.Users.Count()));
-            Assert.IsTrue(RestaurantReviewsContext.Restaurants.Count() == DataSeeder.Restaurants.Count()
+            Assert.IsTrue(RestaurantReviewsContext.Restaurants.Count() >= DataSeeder.Restaurants.Count()
                 , string.Format("Database has {0} Restaurants and Seeder has {1}", RestaurantReviewsContext.Restaurants.Count(), DataSeeder.Restaurants.Count()));
-            Assert.IsTrue(RestaurantReviewsContext.Reviews.Count() == DataSeeder.Reviews.Count()
+            Assert.IsTrue(RestaurantReviewsContext.Reviews.Count() >= DataSeeder.Reviews.Count()
                 , string.Format("Database has {0} Reviews and Seeder has {1}", RestaurantReviewsContext.Reviews.Count(), DataSeeder.Reviews.Count()));
         }
 
