@@ -89,6 +89,30 @@ namespace RestaurantReviews.API.Tests
         [TestMethod]
         public void PostANewRestaurant()
         {
+            // Arrange
+            var restaurantDto = new RestaurantDto
+            {
+                Address = "1 Avely Rd.",
+                City = "Girard",
+                Country = "USA",
+                EmailAddress = "NewRestaurant@email.com",
+                Name = "New Restaurant",
+                Phone = "(330) 454-4543",
+                PostalCode = "44420",
+                State = "OH",
+                WebsiteUrl = "http://www.NewRestaurant.com"
+            };
+            var restaurant = _mapper.Map<Restaurant>(restaurantDto);
+            restaurant.IsConfirmed = true;
+            restaurant.Id = Guid.NewGuid();
+            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => (x.CreateRestaurant(restaurant)));
+            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => (x.GetRestaurantById(restaurant.Id))).ReturnsAsync(restaurant);
+            var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
+            // Act
+            var actionResult = controller.PostANewRestaurant(restaurantDto).Result;
+            // Assert 
+            var okObjectResult = actionResult as OkObjectResult;
+            Assert.IsNotNull(okObjectResult);
         }
 
         [TestMethod]

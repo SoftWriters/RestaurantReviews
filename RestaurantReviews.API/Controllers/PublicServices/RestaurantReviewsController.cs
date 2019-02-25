@@ -90,7 +90,9 @@ namespace RestaurantReviews.API.Controllers.PublicServices
                 }
                 var restaurant = _mapper.Map<Restaurant>(restaurantDto);
                 await _repositoryWrapper.Restaurant.CreateRestaurant(restaurant);
-                return CreatedAtRoute("GetRestaurantById", new { id = restaurant.Id }, restaurant);
+                var dbRestaurant = await _repositoryWrapper.Restaurant.GetRestaurantById(restaurant.Id);
+                return Ok(dbRestaurant);
+                //return CreatedAtRoute("GetRestaurantById", new { id = restaurant.Id }, restaurant);
             }
             catch (Exception ex)
             {
