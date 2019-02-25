@@ -12,23 +12,13 @@ namespace RestaurantReviews.API.Controllers.CRUD
 {
     [Route("api/review")]
     [ApiController]
-    public class ReviewController : ControllerBase
+    public class ReviewController : ControllerBaseRestaurantReviews
     {
-        #region Private Variables
-
-        private ILoggerManager _loggerManager;
-        private IMapper _mapper;
-        private IRepositoryWrapper _repositoryWrapper;
-
-        #endregion Private Variables
-
         #region Constructors
 
         public ReviewController(ILoggerManager loggerManager, IMapper mapper, IRepositoryWrapper repositoryWrapper)
+            : base(loggerManager, mapper, repositoryWrapper)
         {
-            _loggerManager = loggerManager;
-            _mapper = mapper;
-            _repositoryWrapper = repositoryWrapper;
         }
 
         #endregion Constructors
