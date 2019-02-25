@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestaurantReviews.API.Controllers.PublicServices;
@@ -35,7 +36,8 @@ namespace RestaurantReviews.API.Tests
             _mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<AutoMapperProfile>(); });
             _mapper = _mapperConfiguration.CreateMapper();
             _mapper = new Mapper(_mapperConfiguration);
-            _repositoryWrapper = Mock.Of<RepositoryWrapper>();
+            _repositoryWrapper = Mock.Of<IRepositoryWrapper>();
+            _repositoryWrapper.Review = Mock.Of<IReviewRepository>();
         }
 
         [TestMethod]
@@ -44,13 +46,18 @@ namespace RestaurantReviews.API.Tests
             // Arrange
             var user = DataSeeder.Users.FirstOrDefault();
             Assert.IsNotNull(user, string.Format("No users were setup in the DataSeeder"));
-            var reviewMock = new Mock<IReviewRepository>();
             var reviewList = DataSeeder.Reviews.Where(r => r.UserId == user.Id);
-            reviewMock.Setup(x => (x.GetReviewsByUser(user.Id))).ReturnsAsync(reviewList);
+
+            Mock.Get(_repositoryWrapper.Review).Setup(x => (x.GetReviewsByUser(user.Id))).ReturnsAsync(reviewList);
+
             var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
             // Act
-            var reviews = controller.GetReviewsByUser(user.Id);
+            var actionResult = controller.GetReviewsByUser(user.Id).Result;
             // Assert 
+            var okObjectResult = actionResult as OkObjectResult;
+            Assert.IsNotNull(okObjectResult);
+            var reviews = okObjectResult.Value as IEnumerable<Review>;
+            Assert.IsTrue(reviews.Count() == reviewList.Count());
         }
 
         [TestMethod]

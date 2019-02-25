@@ -26,7 +26,7 @@ namespace RestaurantReviews.Data.Repositories
 
         #region Repository Properties
 
-        public IRestaurantRepository Restaurant
+        public virtual IRestaurantRepository Restaurant
         {
             get
             {
@@ -39,7 +39,7 @@ namespace RestaurantReviews.Data.Repositories
             set { _restaurant = value; }
         }
 
-        public IReviewRepository Review
+        public virtual IReviewRepository Review
         {
             get
             {
@@ -52,7 +52,7 @@ namespace RestaurantReviews.Data.Repositories
             set { _review = value; }
         }
 
-        public IUserRepository User
+        public virtual IUserRepository User
         {
             get
             {
