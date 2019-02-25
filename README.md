@@ -31,9 +31,9 @@ The RestaurantReviews project is a .net core web API 2 solution built upon EF Co
 
 ## Discussion
 
-    This project was developed in my spare time over the course of a week.  I had a few questions about what is meant to capture sundry data, so for now I have not added anything to the model and controllers to support that functionality.  If desired, I can add that later.  I have reached a point with this solution where it reveals my strategy for product development.  Please feel free to ask for more specific programming if desired.
-    
-    In addition, I would address the following known deficiencies in this solution:
+This project was developed in my spare time over the course of a week. I had a few questions about what is meant to capture sundry data, so for now I have not added anything to the model and controllers to support that functionality.  If desired, I can add that later.  I have reached a point with this solution where it reveals my strategy for product development.  Please feel free to ask for more specific programming if desired.
+
+In addition, I would address the following known deficiencies in this solution:
 
 * Add foregin constraint(s) on the model entities in the database context.
 * Add cascading deletes perhaps.  (Needs discussion)
