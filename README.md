@@ -59,6 +59,7 @@ In addition, I would address the following known deficiencies in this solution:
 * PostgresSQL (MSSQL is also included but not activated)
 * AutoMapper
 * MSTest
+* Moq
 
 ## Setup
 
