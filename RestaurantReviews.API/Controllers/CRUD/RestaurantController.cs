@@ -46,9 +46,7 @@ namespace RestaurantReviews.API.Controllers.CRUD
             try
             {
                 var schools = await _repositoryWrapper.Restaurant.GetAllRestaurants();
-
                 _loggerManager.LogInfo($"Returned all schools from database.");
-
                 return Ok(schools);
             }
             catch (Exception ex)
