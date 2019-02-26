@@ -139,7 +139,7 @@ namespace RestaurantReviews.API.Tests
             Assert.IsNotNull(okObjectResult);
         }
 
-        // ToDo: Figure out why the mock setup for ReviewRepository.DeleteReview is not being mocked correctly 
+        // ToDo: Figure out why the mock setup for ReviewRepository.DeleteReview() is not being mocked correctly 
         //[TestMethod]
         public void DeleteAReview()
         {

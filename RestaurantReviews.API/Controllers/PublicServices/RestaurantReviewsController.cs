@@ -92,7 +92,6 @@ namespace RestaurantReviews.API.Controllers.PublicServices
                 await _repositoryWrapper.Restaurant.CreateRestaurant(restaurant);
                 var dbRestaurant = await _repositoryWrapper.Restaurant.GetRestaurantById(restaurant.Id);
                 return Ok(dbRestaurant);
-                //return CreatedAtRoute("GetRestaurantById", new { id = restaurant.Id }, restaurant);
             }
             catch (Exception ex)
             {
