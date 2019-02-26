@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RestaurantReviews.API.Dtos;
 using RestaurantReviews.Data.Entities;
+using System;
 
 namespace RestaurantReviews.API.Helpers
 {
@@ -9,9 +10,9 @@ namespace RestaurantReviews.API.Helpers
         public AutoMapperProfile()
         {
             CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
-            CreateMap<RestaurantDto, Restaurant>();
-            CreateMap<ReviewDto, Review>();
+            CreateMap<UserDto, User>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
+            CreateMap<RestaurantDto, Restaurant>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
+            CreateMap<ReviewDto, Review>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
         }
     }
 }

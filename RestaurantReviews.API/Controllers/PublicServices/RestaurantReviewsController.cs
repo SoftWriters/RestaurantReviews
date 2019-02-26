@@ -90,6 +90,11 @@ namespace RestaurantReviews.API.Controllers.PublicServices
                 }
                 var restaurant = _mapper.Map<Restaurant>(restaurantDto);
                 await _repositoryWrapper.Restaurant.CreateRestaurant(restaurant);
+                if (restaurant.IsEmptyObject())
+                {
+                    _loggerManager.LogError($"Save operation failed inside PostANewRestaurant action");
+                    return StatusCode(500, "Internal server error while saving ");
+                }
                 var dbRestaurant = await _repositoryWrapper.Restaurant.GetRestaurantById(restaurant.Id);
                 return Ok(dbRestaurant);
             }
@@ -123,6 +128,11 @@ namespace RestaurantReviews.API.Controllers.PublicServices
                 var review = _mapper.Map<Review>(reviewDto);
                 review.SubmissionDate = DateTime.UtcNow;
                 await _repositoryWrapper.Review.CreateReview(review);
+                if (review.IsEmptyObject())
+                {
+                    _loggerManager.LogError($"Save operation failed inside PostAReview action");
+                    return StatusCode(500, "Internal server error while saving ");
+                }
                 var dbReview = await _repositoryWrapper.Review.GetReviewById(review.Id);
                 return Ok(dbReview);
             }

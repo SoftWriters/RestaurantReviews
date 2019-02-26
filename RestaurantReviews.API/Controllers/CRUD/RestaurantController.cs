@@ -97,7 +97,13 @@ namespace RestaurantReviews.API.Controllers.CRUD
                 }
                 var restaurant = _mapper.Map<Restaurant>(restaurantDto);
                 await _repositoryWrapper.Restaurant.CreateRestaurant(restaurant);
-                return CreatedAtRoute("GetRestaurantById", new { id = restaurant.Id }, restaurant);
+                if (restaurant.IsEmptyObject())
+                {
+                    _loggerManager.LogError($"Save operation failed inside CreateRestaurant action");
+                    return StatusCode(500, "Internal server error while saving ");
+                }
+                var dbRestaurant = await _repositoryWrapper.Restaurant.GetRestaurantById(restaurant.Id);
+                return Ok(dbRestaurant);
             }
             catch (Exception ex)
             {
@@ -150,7 +156,7 @@ namespace RestaurantReviews.API.Controllers.CRUD
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRestauruant(Guid id)
+        public async Task<IActionResult> DeleteRestaurant(Guid id)
         {
             try
             {

@@ -103,10 +103,8 @@ namespace RestaurantReviews.API.Tests
                 WebsiteUrl = "http://www.NewRestaurant.com"
             };
             var restaurant = _mapper.Map<Restaurant>(restaurantDto);
-            restaurant.IsConfirmed = true;
-            restaurant.Id = Guid.NewGuid();
-            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.CreateRestaurant(restaurant));
             Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.GetRestaurantById(restaurant.Id)).ReturnsAsync(restaurant);
+            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.CreateRestaurant(restaurant));
             var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
             // Act
             var actionResult = controller.PostANewRestaurant(restaurantDto).Result;
