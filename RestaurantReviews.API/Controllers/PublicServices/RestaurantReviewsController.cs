@@ -124,7 +124,8 @@ namespace RestaurantReviews.API.Controllers.PublicServices
                 var review = _mapper.Map<Review>(reviewDto);
                 review.SubmissionDate = DateTime.UtcNow;
                 await _repositoryWrapper.Review.CreateReview(review);
-                return CreatedAtRoute("GetReviewById", new { id = review.Id }, review);
+                var dbReview = await _repositoryWrapper.Review.GetReviewById(review.Id);
+                return Ok(dbReview);
             }
             catch (Exception ex)
             {

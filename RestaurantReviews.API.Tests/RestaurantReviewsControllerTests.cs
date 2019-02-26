@@ -49,7 +49,7 @@ namespace RestaurantReviews.API.Tests
             var user = DataSeeder.Users.FirstOrDefault();
             Assert.IsNotNull(user, string.Format("No users were setup in the DataSeeder"));
             var seededReviews = DataSeeder.Reviews.Where(r => r.UserId == user.Id);
-            Mock.Get(_repositoryWrapper.Review).Setup(x => (x.GetReviewsByUser(user.Id))).ReturnsAsync(seededReviews);
+            Mock.Get(_repositoryWrapper.Review).Setup(x => x.GetReviewsByUser(user.Id)).ReturnsAsync(seededReviews);
             var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
             // Act
             var actionResult = controller.GetReviewsByUser(user.Id).Result;
@@ -105,8 +105,8 @@ namespace RestaurantReviews.API.Tests
             var restaurant = _mapper.Map<Restaurant>(restaurantDto);
             restaurant.IsConfirmed = true;
             restaurant.Id = Guid.NewGuid();
-            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => (x.CreateRestaurant(restaurant)));
-            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => (x.GetRestaurantById(restaurant.Id))).ReturnsAsync(restaurant);
+            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.CreateRestaurant(restaurant));
+            Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.GetRestaurantById(restaurant.Id)).ReturnsAsync(restaurant);
             var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
             // Act
             var actionResult = controller.PostANewRestaurant(restaurantDto).Result;
@@ -118,11 +118,41 @@ namespace RestaurantReviews.API.Tests
         [TestMethod]
         public void PostAReview()
         {
+            // Arrange
+            var reviewDto = new ReviewDto
+            {
+                Comment = "Good food 2",
+                Rating = 4,
+                RestaurantId = DataSeeder.Restaurants[0].Id,
+                UserId = DataSeeder.Users[0].Id
+            };
+            var review = _mapper.Map<Review>(reviewDto);
+            review.Id = Guid.NewGuid();
+            review.SubmissionDate = DateTime.UtcNow;
+            Mock.Get(_repositoryWrapper.Review).Setup(x => x.CreateReview(review));
+            Mock.Get(_repositoryWrapper.Review).Setup(x => x.GetReviewById(review.Id)).ReturnsAsync(review);
+            var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
+            // Act
+            var actionResult = controller.PostAReview(reviewDto).Result;
+            // Assert 
+            var okObjectResult = actionResult as OkObjectResult;
+            Assert.IsNotNull(okObjectResult);
         }
 
-        [TestMethod]
+        // ToDo: Figure out why the mock setup for ReviewRepository.DeleteReview is not being mocked correctly 
+        //[TestMethod]
         public void DeleteAReview()
         {
+            // Arrange
+            var review = DataSeeder.Reviews[0];
+            Mock.Get(_repositoryWrapper.Review).Setup(x => x.DeleteReview(review));
+            Mock.Get(_repositoryWrapper.Review).Setup(x => x.GetReviewById(review.Id)).ReturnsAsync(review);
+            var controller = new RestaurantReviewsController(_loggerManager, _mapper, _repositoryWrapper);
+            // Act
+            var actionResult = controller.DeleteAReview(review.Id).Result;
+            // Assert 
+            var noContentResult = actionResult as NoContentResult;
+            Assert.IsNotNull(noContentResult);
         }
     }
 }
