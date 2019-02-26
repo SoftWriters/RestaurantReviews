@@ -40,7 +40,7 @@ namespace RestaurantReviews.Data.Repositories.Entities
 
         public async Task<Review> GetReviewById(Guid reviewId)
         {
-            return (await FindByCondition(user => user.Id.Equals(reviewId)))
+            return (await FindByCondition(review => review.Id.Equals(reviewId)))
                     .DefaultIfEmpty(new Review())
                     .FirstOrDefault();
         }
