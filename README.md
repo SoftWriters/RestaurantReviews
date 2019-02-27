@@ -37,7 +37,7 @@ In addition, I would address the following known deficiencies in this solution:
 
 * Add foregin constraint(s) on the model entities in the database context.
 * Add cascading deletes perhaps.  (Needs discussion)
-* Add more controller action method unit tests.
+* Add more controller action method unit tests for edge cases.
 * Add automated and self hosted controller action integration tests.
 * Add more coverage on the data repository integration tests project.
 * Add a secret for the database conneciton string, or at least factor it into the appsettings.json file.
@@ -46,8 +46,6 @@ In addition, I would address the following known deficiencies in this solution:
 * Toughen up the TestInitialize method of the repository data integration tests
 * Add CORS restricitons perhaps to the controllers
 * Add user authenitcation and authorization to the controller actions
-* Add a base test class to factor duplicated behavior
-
 
 ## Tools  
 

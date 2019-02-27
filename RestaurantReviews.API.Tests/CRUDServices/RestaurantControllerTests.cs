@@ -1,17 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RestaurantReviews.API.Controllers.CRUD;
 using RestaurantReviews.API.Dtos;
-using RestaurantReviews.API.Helpers;
-using RestaurantReviews.API.Tests.Mocks;
-using RestaurantReviews.Data.Contracts.Logging;
-using RestaurantReviews.Data.Contracts.Repositories;
-using RestaurantReviews.Data.Contracts.Repositories.Entities;
+using RestaurantReviews.API.Tests.Base;
 using RestaurantReviews.Data.DataSeeding;
 using RestaurantReviews.Data.Entities;
-using RestaurantReviews.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,28 +13,8 @@ using System.Linq;
 namespace RestaurantReviews.API.Tests
 {
     [TestClass]
-    public class RestaurantControllerTests
+    public class RestaurantControllerTests : BaseControllerUnitTests
     {
-        #region Private Variables
-
-        private ILoggerManager _loggerManager = new MockLoggerManager();
-        private IMapper _mapper;
-        private MapperConfiguration _mapperConfiguration;
-        private IRepositoryWrapper _repositoryWrapper;
-
-        #endregion Private Variables
-
-        [TestInitialize]
-        public void TestInitialization()
-        {
-            _mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<AutoMapperProfile>(); });
-            _mapper = _mapperConfiguration.CreateMapper();
-            _mapper = new Mapper(_mapperConfiguration);
-            _repositoryWrapper = Mock.Of<RepositoryWrapper>();
-            _repositoryWrapper.Restaurant = Mock.Of<IRestaurantRepository>();
-            _repositoryWrapper.Review = Mock.Of<IReviewRepository>();
-        }
-
         [TestMethod]
         public void GetAllRestaurants()
         {
@@ -119,7 +93,6 @@ namespace RestaurantReviews.API.Tests
                 WebsiteUrl = "http://www.NewRestaurant.com"
             };
             var restaurant = _mapper.Map<Restaurant>(restaurantDto);
-            restaurant.Id = Guid.NewGuid();
             Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.UpdateRestaurant(restaurant, restaurant));
             Mock.Get(_repositoryWrapper.Restaurant).Setup(x => x.GetRestaurantById(restaurant.Id)).ReturnsAsync(restaurant);
             var controller = new RestaurantController(_loggerManager, _mapper, _repositoryWrapper);
@@ -131,7 +104,7 @@ namespace RestaurantReviews.API.Tests
         }
 
         // ToDo: Figure out why the mock setup for ReviewRepository.DeleteReview() is not being mocked correctly 
-        //[TestMethod]
+        [TestMethod]
         public void DeleteRestaurant()
         {
             // Arrange

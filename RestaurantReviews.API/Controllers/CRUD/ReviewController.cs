@@ -97,7 +97,13 @@ namespace RestaurantReviews.API.Controllers.CRUD
                 var review = _mapper.Map<Review>(reviewDto);
                 review.SubmissionDate = DateTime.UtcNow;
                 await _repositoryWrapper.Review.CreateReview(review);
-                return CreatedAtRoute("GetReviewById", new { id = review.Id }, review);
+                if (review.IsEmptyObject())
+                {
+                    _loggerManager.LogError($"Save operation failed inside CreateReview action");
+                    return StatusCode(500, "Internal server error while saving review");
+                }
+                var dbObject = await _repositoryWrapper.Review.GetReviewById(review.Id);
+                return Ok(dbObject);
             }
             catch (Exception ex)
             {

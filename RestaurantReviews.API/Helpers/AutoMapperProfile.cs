@@ -11,7 +11,9 @@ namespace RestaurantReviews.API.Helpers
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
+            CreateMap<Restaurant, RestaurantDto>();
             CreateMap<RestaurantDto, Restaurant>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
+            CreateMap<Review, ReviewDto>();
             CreateMap<ReviewDto, Review>().BeforeMap((s, d) => d.Id = Guid.NewGuid());
         }
     }
