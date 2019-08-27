@@ -3,17 +3,17 @@ using RestaurantReviews.Interfaces.Repository;
 
 namespace RestaurantReviews.JsonData
 {
-    public class Context : IContext
+    internal class Context
     {
         private const string restaurantPath = "Data/restaurants.json";
         private const string userPath = "Data/users.json";
         private const string reviewPath = "Data/reviews.json";
 
-        public IDataSet<IRestaurant> RestaurantDataSet { get; }
-        public IDataSet<IUser> UserDataSet { get; }
-        public IDataSet<IReview> ReviewDataSet { get; }
+        internal DataSet<IRestaurant> RestaurantDataSet { get; }
+        internal DataSet<IUser> UserDataSet { get; }
+        internal DataSet<IReview> ReviewDataSet { get; }
 
-        public Context()
+        internal Context()
         {
             RestaurantDataSet = new DataSet<IRestaurant>(restaurantPath);
             UserDataSet = new DataSet<IUser>(userPath);

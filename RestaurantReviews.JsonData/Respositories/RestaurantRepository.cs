@@ -2,13 +2,13 @@ using System.Linq;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repository;
 
-namespace RestaurantReviews.JsonData
+namespace RestaurantReviews.JsonData.Repositories
 {
     public class RestaurantRepository : RepositoryBase<IRestaurant>, IRestaurantRepository
     {
-        public RestaurantRepository(IContext context) : base(context) { }
+        internal RestaurantRepository(Context context) : base(context) { }
 
-        public override IDataSet<IRestaurant> GetDataSet()
+        internal override DataSet<IRestaurant> GetDataSet()
         {
             return context.RestaurantDataSet;
         }

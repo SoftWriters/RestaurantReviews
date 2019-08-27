@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.API.Models;
+using RestaurantReviews.Interfaces.Factories;
 using RestaurantReviews.Interfaces.Repository;
 
 namespace RestaurantReviews.API.Controllers
@@ -11,9 +12,9 @@ namespace RestaurantReviews.API.Controllers
     {
         private readonly IRestaurantRepository _repository;
 
-        public RestaurantController(IRestaurantRepository repository)
+        public RestaurantController(IDataFactory factory)
         {
-            _repository = repository;
+            _repository = factory.RestaurantRepo;
         }
 
         // GET api/restaurants

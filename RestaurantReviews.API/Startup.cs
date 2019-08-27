@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestaurantReviews.Interfaces.Repository;
-using RestaurantReviews.JsonData;
+using RestaurantReviews.Interfaces.Factories;
+using RestaurantReviews.JsonData.Factories;
 
 namespace RestaurantReviews.API
 {
@@ -23,9 +23,7 @@ namespace RestaurantReviews.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Setup dependency injection
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
-            services.AddScoped<IReviewRepository, ReviewRepository>();
-            services.AddScoped<IContext, Context>();
+            services.AddScoped<IDataFactory, DataFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

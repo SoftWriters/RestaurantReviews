@@ -1,22 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
 
-namespace RestaurantReviews.JsonData
+namespace RestaurantReviews.JsonData.Repositories
 {
     public abstract class RepositoryBase<T> where T : IModel
     {
-        protected readonly IContext context;
-        private readonly IDataSet<T> dataSet;
+        internal readonly Context context;
+        private readonly DataSet<T> dataSet;
 
-        public RepositoryBase(IContext context)
+        internal RepositoryBase(Context context)
         {
             this.context = context;
             dataSet = GetDataSet();
         }
 
-        public abstract IDataSet<T> GetDataSet();
+        internal abstract DataSet<T> GetDataSet();
         public abstract void Update(long id, T t);
 
         public ICollection<T> GetAll()
