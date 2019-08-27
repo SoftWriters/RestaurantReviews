@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RestaurantReviews.API.Models;
 using RestaurantReviews.API.Repository;
+using RestaurantReviews.Interfaces.Models;
+using RestaurantReviews.Interfaces.Repository;
 
 namespace RestaurantReviews.API
 {

@@ -1,1 +1,17 @@
-[{"Id":0,"City":"Pittsburgh"},{"Id":1,"City":"Cleveland"},{"Id":2,"City":"Phoenix"},{"Id":3,"City":"Juno"},{"Id":4,"City":"Portland"}]
+[
+  {
+    "$type": "RestaurantReviews.API.Models.Restaurant, RestaurantReviews.API",
+    "Id": 0,
+    "City": "Las Vegas"
+  },
+  {
+    "$type": "RestaurantReviews.API.Models.Restaurant, RestaurantReviews.API",
+    "Id": 1,
+    "City": "Pittsburgh"
+  },
+  {
+    "$type": "RestaurantReviews.API.Models.Restaurant, RestaurantReviews.API",
+    "Id": 2,
+    "City": "Cleveland"
+  }
+]

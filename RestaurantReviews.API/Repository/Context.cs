@@ -1,4 +1,6 @@
 using RestaurantReviews.API.Models;
+using RestaurantReviews.Interfaces.Models;
+using RestaurantReviews.Interfaces.Repository;
 
 namespace RestaurantReviews.API.Repository
 {
@@ -8,15 +10,15 @@ namespace RestaurantReviews.API.Repository
         private const string userPath = "Data/users.json";
         private const string reviewPath = "Data/reviews.json";
 
-        public IDataSet<Restaurant> RestaurantDataSet { get; }
-        public IDataSet<User> UserDataSet { get; }
-        public IDataSet<Review> ReviewDataSet { get; }
+        public IDataSet<IRestaurant> RestaurantDataSet { get; }
+        public IDataSet<IUser> UserDataSet { get; }
+        public IDataSet<IReview> ReviewDataSet { get; }
 
         public Context()
         {
-            RestaurantDataSet = new DataSet<Restaurant>(restaurantPath);
-            UserDataSet = new DataSet<User>(userPath);
-            ReviewDataSet = new DataSet<Review>(reviewPath);
+            RestaurantDataSet = new DataSet<IRestaurant>(restaurantPath);
+            UserDataSet = new DataSet<IUser>(userPath);
+            ReviewDataSet = new DataSet<IReview>(reviewPath);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace RestaurantReviews.API.Models
+﻿using RestaurantReviews.Interfaces.Models;
+
+namespace RestaurantReviews.API.Models
 {
     public class Review : IReview
     {

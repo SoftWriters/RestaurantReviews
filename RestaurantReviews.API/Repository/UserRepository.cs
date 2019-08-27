@@ -1,18 +1,20 @@
 using RestaurantReviews.API.Models;
+using RestaurantReviews.Interfaces.Models;
+using RestaurantReviews.Interfaces.Repository;
 using System.Linq;
 
 namespace RestaurantReviews.API.Repository
 {
-    public class UserRepository : RepositoryBase<User>
+    public class UserRepository : RepositoryBase<IUser>
     {
         public UserRepository(IContext context) : base(context) { }
 
-        public override IDataSet<User> GetDataSet()
+        public override IDataSet<IUser> GetDataSet()
         {
             return context.UserDataSet;
         }
 
-        public override void Update(long id, User q)
+        public override void Update(long id, IUser q)
         {
             var contents = GetAll();
             var found = contents.FirstOrDefault(x => x.Id == id);

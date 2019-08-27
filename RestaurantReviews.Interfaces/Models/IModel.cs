@@ -1,4 +1,4 @@
-namespace RestaurantReviews.API.Models
+namespace RestaurantReviews.Interfaces.Models
 {
     public interface IModel
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RestaurantReviews.API.Repository
+namespace RestaurantReviews.Interfaces.Repository
 {
     public interface IDataSet<T>
     {
