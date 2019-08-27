@@ -3,7 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using RestaurantReviews.Interfaces.Repository;
 
-namespace RestaurantReviews.API.Repository
+namespace RestaurantReviews.JsonData
 {
     public class DataSet<T> : IDataSet<T>
     {

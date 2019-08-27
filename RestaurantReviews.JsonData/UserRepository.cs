@@ -1,9 +1,8 @@
-using RestaurantReviews.API.Models;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repository;
 using System.Linq;
 
-namespace RestaurantReviews.API.Repository
+namespace RestaurantReviews.JsonData
 {
     public class UserRepository : RepositoryBase<IUser>
     {

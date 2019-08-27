@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using RestaurantReviews.API.Models;
-using RestaurantReviews.API.Repository;
-using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.JsonData;
 
 namespace RestaurantReviews.API
 {
@@ -31,6 +22,7 @@ namespace RestaurantReviews.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            // Setup dependency injection
             services.AddScoped<IRestaurantRepository, RestaurantRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IContext, Context>();

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestaurantReviews.Interfaces\RestaurantReviews.Interfaces.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.JsonData\RestaurantReviews.JsonData.csproj" />
   </ItemGroup>
 
 </Project>
