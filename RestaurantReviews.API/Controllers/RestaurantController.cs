@@ -37,17 +37,5 @@ namespace RestaurantReviews.API.Controllers
         {
             _repository.Create(restaurant);
         }
-
-        // PUT api/restaurants/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Review restaurant)
-        {
-        }
-
-        // DELETE api/restaurants/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
