@@ -38,7 +38,7 @@ namespace RestaurantReviews.Business.Managers
             return _reviewRepository.GetByUserId(userId);
         }
 
-        public void CreateReview(IReview review)
+        public void Create(IReview review)
         {
             if (review == null)
                 throw new ArgumentNullException("review");

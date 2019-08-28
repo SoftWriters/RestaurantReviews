@@ -1,8 +1,7 @@
 using Moq;
+using RestaurantRestaurants.Interfaces.Business;
 using RestaurantReviews.API.Controllers;
-using RestaurantReviews.Interfaces.Factories;
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
 using RestaurantReviews.Models;
 using System.Collections.Generic;
 using Xunit;
@@ -12,12 +11,12 @@ namespace RestaurantReviews.API.Tests
     public class RestaurantControllerTests
     {
         [Fact]
-        public void Get_ShouldReturnResultsOfRepoGetAll()
+        public void Get_ShouldReturnResultsOfManagerGetAll()
         {
             // Setup
-            (var mockRepo, var mockDataFactory, var controller) = SetupMocksAndController();
+            (var mockManager, var controller) = SetupMocksAndController();
             var expected = new List<IRestaurant>();
-            mockRepo.Setup(y => y.GetAll()).Returns(expected);
+            mockManager.Setup(y => y.GetAll()).Returns(expected);
 
             // Execute
             var actionResult = controller.Get();
@@ -28,12 +27,12 @@ namespace RestaurantReviews.API.Tests
         }
 
         [Fact]
-        public void GetById_ShouldReturnResultOfRepoGetById()
+        public void GetById_ShouldReturnResultOfManagerGetById()
         {
             // Setup
-            (var mockRepo, var mockDataFactory, var controller) = SetupMocksAndController();
+            (var mockManager, var controller) = SetupMocksAndController();
             var expected = new Restaurant();
-            mockRepo.Setup(y => y.GetById(It.IsAny<long>())).Returns(expected);
+            mockManager.Setup(y => y.GetById(It.IsAny<long>())).Returns(expected);
 
             // Execute
             var actionResult = controller.Get(0);
@@ -44,30 +43,24 @@ namespace RestaurantReviews.API.Tests
         }
 
         [Fact]
-        public void Post_ShouldCallRepoCreateWithCorrectModel()
+        public void Post_ShouldCallManagerCreateWithCorrectModel()
         {
             // Setup
-            (var mockRepo, var mockDataFactory, var controller) = SetupMocksAndController();
+            (var mockManager, var controller) = SetupMocksAndController();
             var newModel = new Restaurant();
-            mockDataFactory.Setup(y => y.RestaurantRepo).Returns(mockRepo.Object);
 
             // Execute
             controller.Post(newModel);
 
             // Assert
-            mockRepo.Verify(c => c.Create(newModel), Times.Once());
+            mockManager.Verify(c => c.Create(newModel), Times.Once());
         }
 
-        (Mock<IRestaurantRepository>, Mock<IDataFactory>, RestaurantController) SetupMocksAndController()
+        (Mock<IRestaurantManager>, RestaurantController) SetupMocksAndController()
         {
-            // Mock repository that will be returned from mock data factory
-            var mockRepo = new Mock<IRestaurantRepository>();
-
             // Mock data factory
-            var mockDataFactory = new Mock<IDataFactory>();
-            mockDataFactory.Setup(y => y.RestaurantRepo).Returns(mockRepo.Object);
-
-            return (mockRepo, mockDataFactory, new RestaurantController(mockDataFactory.Object));
+            var mockManager = new Mock<IRestaurantManager>();
+            return (mockManager, new RestaurantController(mockManager.Object));
         }
     }
 }

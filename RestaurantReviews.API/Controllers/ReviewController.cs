@@ -41,19 +41,7 @@ namespace RestaurantReviews.API.Controllers
         [HttpPost]
         public void Post([FromBody] Review review)
         {
-            _reviewManager.CreateReview(review);
-        }
-
-        // PUT api/restaurants/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Review review)
-        {
-        }
-
-        // DELETE api/restaurants/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _reviewManager.Create(review);
         }
     }
 }

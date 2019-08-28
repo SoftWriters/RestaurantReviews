@@ -3,15 +3,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantRestaurants.Business.Managers;
+using RestaurantRestaurants.Interfaces.Business;
 using RestaurantReviews.Business.Managers;
 using RestaurantReviews.Business.Validators;
 using RestaurantReviews.Interfaces.Business;
-using RestaurantReviews.Interfaces.Factories;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repository;
 using RestaurantReviews.JsonData;
-using RestaurantReviews.JsonData.Factories;
 using RestaurantReviews.JsonData.Repositories;
+using RestaurantUsers.Business.Managers;
+using RestaurantUsers.Interfaces.Business;
 
 namespace RestaurantReviews.API
 {
@@ -30,13 +32,14 @@ namespace RestaurantReviews.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Setup dependency injection
-            services.AddScoped<IDataFactory, DataFactory>();
-            services.AddScoped<IModelValidator<IReview>, ReviewModelValidator>();
             services.AddScoped<IContext, Context>();
+            services.AddScoped<IModelValidator<IReview>, ReviewModelValidator>();
             services.AddScoped<IRestaurantRepository, RestaurantRepository>();
-            services.AddScoped<IReviewRepository, ReviewRepository>(); 
-            services.AddScoped<IReviewManager, ReviewManager>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRestaurantManager, RestaurantManager>();
+            services.AddScoped<IReviewManager, ReviewManager>();
+            services.AddScoped<IUserManager, UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

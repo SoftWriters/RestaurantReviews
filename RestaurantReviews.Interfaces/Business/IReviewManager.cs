@@ -8,6 +8,6 @@ namespace RestaurantReviews.Interfaces.Business
         ICollection<IReview> GetAll();
         IReview GetById(long id);
         ICollection<IReview> GetByUserId(int userId);
-        void CreateReview(IReview review);
+        void Create(IReview review);
     }
 }

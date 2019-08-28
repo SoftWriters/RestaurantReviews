@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantReviews.Interfaces.Factories;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantRestaurants.Interfaces.Business;
 using RestaurantReviews.Models;
 
 namespace RestaurantReviews.API.Controllers
@@ -10,32 +9,32 @@ namespace RestaurantReviews.API.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private readonly IRestaurantRepository _repository;
+        private readonly IRestaurantManager _restaurantManager;
 
-        public RestaurantController(IDataFactory factory)
+        public RestaurantController(IRestaurantManager restaurantManager)
         {
-            _repository = factory.RestaurantRepo;
+            _restaurantManager = restaurantManager;
         }
 
         // GET api/restaurants
         [HttpGet]
         public ActionResult<IEnumerable<Restaurant>> Get()
         {
-            return Ok(_repository.GetAll());
+            return Ok(_restaurantManager.GetAll());
         }
 
         // GET api/restaurants/5
         [HttpGet("{id}")]
         public ActionResult<Restaurant> Get(int id)
         {
-            return Ok(_repository.GetById(id));
+            return Ok(_restaurantManager.GetById(id));
         }
 
         // POST api/restaurants
         [HttpPost]
         public void Post([FromBody] Restaurant restaurant)
         {
-            _repository.Create(restaurant);
+            _restaurantManager.Create(restaurant);
         }
     }
 }
