@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantReviews.API.Models;
 using RestaurantReviews.Interfaces.Factories;
 using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Models;
 
 namespace RestaurantReviews.API.Controllers
 {

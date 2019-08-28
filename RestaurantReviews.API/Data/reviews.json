@@ -1,20 +1,20 @@
 [
   {
-    "$type": "RestaurantReviews.API.Models.Review, RestaurantReviews.API",
+    "$type": "RestaurantReviews.Models.Review, RestaurantReviews.Models",
     "Id": 0,
     "RestaurantId": 1,
     "UserId": 1,
     "Content": "User 1 things R1 is pretty good"
   },
   {
-    "$type": "RestaurantReviews.API.Models.Review, RestaurantReviews.API",
+    "$type": "RestaurantReviews.Models.Review, RestaurantReviews.Models",
     "Id": 1,
     "RestaurantId": 1,
     "UserId": 2,
     "Content": "User 2 things R1 is amazing"
   },
   {
-    "$type": "RestaurantReviews.API.Models.Review, RestaurantReviews.API",
+    "$type": "RestaurantReviews.Models.Review, RestaurantReviews.Models",
     "Id": 2,
     "RestaurantId": 2,
     "UserId": 2,

@@ -1,6 +1,6 @@
 ﻿using RestaurantReviews.Interfaces.Models;
 
-namespace RestaurantReviews.API.Models
+namespace RestaurantReviews.Models
 {
     public class Review : IReview
     {

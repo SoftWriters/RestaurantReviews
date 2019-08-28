@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReviews.JsonData"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReviews.API.Tests", "RestaurantReviews.API.Tests\RestaurantReviews.API.Tests.csproj", "{79018B48-3CFC-4621-BDD9-0CCD9326FC77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReviews.Models", "RestaurantReviews.Models\RestaurantReviews.Models.csproj", "{F03EB321-4875-4271-90B8-DB80A1ADD0A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{79018B48-3CFC-4621-BDD9-0CCD9326FC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79018B48-3CFC-4621-BDD9-0CCD9326FC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79018B48-3CFC-4621-BDD9-0CCD9326FC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F03EB321-4875-4271-90B8-DB80A1ADD0A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03EB321-4875-4271-90B8-DB80A1ADD0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03EB321-4875-4271-90B8-DB80A1ADD0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03EB321-4875-4271-90B8-DB80A1ADD0A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

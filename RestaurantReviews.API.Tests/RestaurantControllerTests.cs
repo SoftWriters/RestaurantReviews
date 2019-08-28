@@ -1,9 +1,9 @@
 using Moq;
 using RestaurantReviews.API.Controllers;
-using RestaurantReviews.API.Models;
 using RestaurantReviews.Interfaces.Factories;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Models;
 using System.Collections.Generic;
 using Xunit;
 
