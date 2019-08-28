@@ -1,6 +1,6 @@
 using RestaurantReviews.Interfaces.Models;
 
-namespace RestaurantReviews.Interfaces.Repository
+namespace RestaurantReviews.Interfaces.Repositories
 {
     public interface IContext
     {

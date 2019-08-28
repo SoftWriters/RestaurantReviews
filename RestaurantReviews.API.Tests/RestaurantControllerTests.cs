@@ -1,5 +1,5 @@
 using Moq;
-using RestaurantRestaurants.Interfaces.Business;
+using RestaurantReviews.Interfaces.Business;
 using RestaurantReviews.API.Controllers;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Models;
@@ -58,7 +58,6 @@ namespace RestaurantReviews.API.Tests
 
         (Mock<IRestaurantManager>, RestaurantController) SetupMocksAndController()
         {
-            // Mock data factory
             var mockManager = new Mock<IRestaurantManager>();
             return (mockManager, new RestaurantController(mockManager.Object));
         }

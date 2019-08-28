@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Interfaces.Repositories;
 
 namespace RestaurantReviews.Business.Validators
 {

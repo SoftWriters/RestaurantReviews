@@ -1,10 +1,10 @@
 ﻿using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
-using RestaurantUsers.Interfaces.Business;
+using RestaurantReviews.Interfaces.Repositories;
+using RestaurantReviews.Interfaces.Business;
 using System;
 using System.Collections.Generic;
 
-namespace RestaurantUsers.Business.Managers
+namespace RestaurantReviews.Business.Managers
 {
     public class UserManager : IUserManager
     {

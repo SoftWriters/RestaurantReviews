@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace RestaurantReviews.Interfaces.Business
 {
-    public interface IReviewManager : IManager<IReview>
+    public interface IManager<T> where T: IModel
     {
-        ICollection<IReview> GetByUserId(int userId);
+        ICollection<T> GetAll();
+        T GetById(long id);
+        void Create(T item);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using RestaurantReviews.Interfaces.Business;
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

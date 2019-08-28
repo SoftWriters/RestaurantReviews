@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Interfaces.Repositories;
 
 namespace RestaurantReviews.Business.Validators
 {

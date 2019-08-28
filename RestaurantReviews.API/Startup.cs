@@ -3,17 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RestaurantRestaurants.Business.Managers;
-using RestaurantRestaurants.Interfaces.Business;
 using RestaurantReviews.Business.Managers;
 using RestaurantReviews.Business.Validators;
 using RestaurantReviews.Interfaces.Business;
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Interfaces.Repositories;
 using RestaurantReviews.JsonData;
 using RestaurantReviews.JsonData.Repositories;
-using RestaurantUsers.Business.Managers;
-using RestaurantUsers.Interfaces.Business;
 
 namespace RestaurantReviews.API
 {

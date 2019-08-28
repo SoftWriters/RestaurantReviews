@@ -1,12 +1,6 @@
 ﻿using RestaurantReviews.Interfaces.Models;
-using System.Collections.Generic;
 
-namespace RestaurantReviews.Interfaces.Repository
+namespace RestaurantReviews.Interfaces.Repositories
 {
-    public interface IUserRepository
-    {
-        ICollection<IUser> GetAll();
-        IUser GetById(long id);
-        long Create(IUser user);
-    }
+    public interface IUserRepository : IRepository<IUser> { }
 }

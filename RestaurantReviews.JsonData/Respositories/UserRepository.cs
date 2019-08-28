@@ -1,5 +1,5 @@
 using RestaurantReviews.Interfaces.Models;
-using RestaurantReviews.Interfaces.Repository;
+using RestaurantReviews.Interfaces.Repositories;
 using System.Linq;
 
 namespace RestaurantReviews.JsonData.Repositories

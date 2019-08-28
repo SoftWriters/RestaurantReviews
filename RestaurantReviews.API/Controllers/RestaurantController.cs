@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantRestaurants.Interfaces.Business;
+using RestaurantReviews.Interfaces.Business;
 using RestaurantReviews.Models;
 
 namespace RestaurantReviews.API.Controllers
