@@ -49,5 +49,10 @@ namespace RestaurantReviews.Business.Managers
 
             _reviewRepository.Create(review);
         }
+
+        public void Delete(long id)
+        {
+            _reviewRepository.Delete(id);
+        }
     }
 }
