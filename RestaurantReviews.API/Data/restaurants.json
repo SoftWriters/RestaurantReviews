@@ -1,0 +1,17 @@
+[
+  {
+    "$type": "RestaurantReviews.Models.Restaurant, RestaurantReviews.Models",
+    "Id": 0,
+    "City": "Las Vegas"
+  },
+  {
+    "$type": "RestaurantReviews.Models.Restaurant, RestaurantReviews.Models",
+    "Id": 1,
+    "City": "Pittsburgh"
+  },
+  {
+    "$type": "RestaurantReviews.Models.Restaurant, RestaurantReviews.Models",
+    "Id": 2,
+    "City": "Cleveland"
+  }
+]

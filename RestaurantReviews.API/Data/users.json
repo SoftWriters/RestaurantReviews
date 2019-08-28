@@ -1,0 +1,14 @@
+[
+  {
+    "$type": "RestaurantReviews.Models.User, RestaurantReviews.Models",
+    "Id": 0
+  },
+  {
+    "$type": "RestaurantReviews.Models.User, RestaurantReviews.Models",
+    "Id": 1
+  },
+  {
+    "$type": "RestaurantReviews.Models.User, RestaurantReviews.Models",
+    "Id": 2
+  }
+]
