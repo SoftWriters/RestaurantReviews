@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using RestaurantReviews.Interfaces.Repository;
 
 namespace RestaurantReviews.JsonData
 {
-    internal class DataSet<T>
+    public class DataSet<T> : IDataSet<T>
     {
         private string path;
 
-        internal DataSet(string path)
+        public DataSet(string path)
         {
             this.path = path;
         }
 
-        internal ICollection<T> GetAll()
+        public ICollection<T> GetAll()
         {
             if (!File.Exists(path))
                 return new List<T>();
@@ -27,7 +28,7 @@ namespace RestaurantReviews.JsonData
                 );
         }
 
-        internal void Save(ICollection<T> contents)
+        public void Save(ICollection<T> contents)
         {
             File.WriteAllText(path,
                 JsonConvert.SerializeObject(contents,

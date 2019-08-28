@@ -6,9 +6,9 @@ namespace RestaurantReviews.JsonData.Repositories
 {
     public class UserRepository : RepositoryBase<IUser>, IUserRepository
     {
-        internal UserRepository(Context context) : base(context) { }
+        public UserRepository(IContext context) : base(context) { }
 
-        internal override DataSet<IUser> GetDataSet()
+        public override IDataSet<IUser> GetDataSet()
         {
             return context.UserDataSet;
         }

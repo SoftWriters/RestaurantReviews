@@ -8,6 +8,6 @@ namespace RestaurantReviews.Interfaces.Repository
         ICollection<IReview> GetAll();
         IReview GetById(long id);
         long Create(IReview review);
-        IList<IReview> GetByUserId(int userId);
+        ICollection<IReview> GetByUserId(int userId);
     }
 }

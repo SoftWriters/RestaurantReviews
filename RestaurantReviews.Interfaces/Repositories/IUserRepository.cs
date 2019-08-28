@@ -1,10 +1,12 @@
-﻿using System;
+﻿using RestaurantReviews.Interfaces.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RestaurantReviews.Interfaces.Repository
 {
     public interface IUserRepository
     {
+        ICollection<IUser> GetAll();
+        IUser GetById(long id);
+        long Create(IUser user);
     }
 }

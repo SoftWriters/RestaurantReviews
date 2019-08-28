@@ -3,7 +3,7 @@
     public interface IReview : IModel
     {
         string Content { get; set; }
-        int RestaurantId { get; set; }
-        int UserId { get; set; }
+        long RestaurantId { get; set; }
+        long UserId { get; set; }
     }
 }

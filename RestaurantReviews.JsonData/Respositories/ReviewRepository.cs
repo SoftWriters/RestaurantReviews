@@ -7,9 +7,9 @@ namespace RestaurantReviews.JsonData.Repositories
 {
     public class ReviewRepository : RepositoryBase<IReview>, IReviewRepository
     {
-        internal ReviewRepository(Context context) : base(context) { }
+        public ReviewRepository(IContext context) : base(context) { }
 
-        internal override DataSet<IReview> GetDataSet()
+        public override IDataSet<IReview> GetDataSet()
         {
             return context.ReviewDataSet;
         }
@@ -26,7 +26,7 @@ namespace RestaurantReviews.JsonData.Repositories
             context.ReviewDataSet.Save(contents);
         }
 
-        public IList<IReview> GetByUserId(int userId)
+        public ICollection<IReview> GetByUserId(int userId)
         {
             var contents = GetAll();
             return contents.Where(p => p.UserId == userId).ToList();
