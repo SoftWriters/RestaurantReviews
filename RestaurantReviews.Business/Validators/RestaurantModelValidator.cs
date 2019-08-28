@@ -1,5 +1,5 @@
-﻿using RestaurantReviews.Interfaces.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using RestaurantReviews.Interfaces.Models;
 
 namespace RestaurantReviews.Business.Validators
 {

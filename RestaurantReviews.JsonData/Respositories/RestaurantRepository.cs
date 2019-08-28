@@ -1,6 +1,6 @@
-using System.Linq;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repositories;
+using System.Linq;
 
 namespace RestaurantReviews.JsonData.Repositories
 {

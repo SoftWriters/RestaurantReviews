@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.IO;
 using Newtonsoft.Json;
 using RestaurantReviews.Interfaces.Repositories;
+using System.Collections.Generic;
+using System.IO;
 
 namespace RestaurantReviews.JsonData
 {

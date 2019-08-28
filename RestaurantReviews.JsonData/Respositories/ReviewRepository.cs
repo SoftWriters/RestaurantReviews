@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using RestaurantReviews.Interfaces.Models;
 using RestaurantReviews.Interfaces.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RestaurantReviews.JsonData.Repositories
 {
