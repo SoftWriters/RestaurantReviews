@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReview.DAL;
 using RestaurantReview.Models;
+using RestaurantReview.Services;
 
 namespace RestaurantReview.Controllers
 {
@@ -12,11 +13,16 @@ namespace RestaurantReview.Controllers
     [ApiController]
     public class RestaurantsController : ControllerBase
     {
+        public IConn connection;
+        public RestaurantsController(IConn conn)
+        {
+            this.connection = conn;
+        }
         // GET api/values
         [HttpGet("{city}")]
         public ActionResult<List<Restaurant>> Get(string city)
         {
-            return new RestaurantsDAL().GetRestaurants()
+            return new RestaurantsDAL(connection.connstring()).GetRestaurants()
                                        .FindAll(restaurant => restaurant.City.Equals(city));
         }
 
@@ -24,7 +30,7 @@ namespace RestaurantReview.Controllers
         [HttpPost]
         public void Post([FromBody] Restaurant restaurant)
         {
-            new RestaurantsDAL().PostRestaurant(restaurant);
+            new RestaurantsDAL(connection.connstring()).PostRestaurant(restaurant);
         }
     }
 }

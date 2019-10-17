@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RestaurantReview.Controllers;
+using RestaurantReview.DAL;
+using RestaurantReview.Services;
 
 namespace RestaurantReview
 {
@@ -26,6 +29,7 @@ namespace RestaurantReview
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IConn, Conn>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

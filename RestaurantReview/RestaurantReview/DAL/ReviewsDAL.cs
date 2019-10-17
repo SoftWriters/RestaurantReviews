@@ -1,4 +1,5 @@
 ﻿using RestaurantReview.Models;
+using RestaurantReview.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,12 +10,15 @@ namespace RestaurantReview.DAL
 {
     public class ReviewsDAL
     {
+        private readonly string connectionstring;
+        public ReviewsDAL(string connString)
+        {
+            this.connectionstring = new Conn().connstring();
+        }
         public List<Review> GetAllReviews()
         {
             List<Review> reviews = new List<Review>();
-            string connData;
-            connData = @"Data Source=DESKTOP-B54NHFS ; Initial Catalog=RestaurantReviewManager; Integrated Security=SSPI;";
-            using (SqlConnection conn = new SqlConnection(connData))
+            using (SqlConnection conn = new SqlConnection(connectionstring))
             {
                 conn.Open();
                 SqlCommand SelectAll = new SqlCommand("SELECT * FROM Reviews " +
@@ -45,9 +49,7 @@ namespace RestaurantReview.DAL
         }
         public void PostReview(Review review)
         {
-            string connData;
-            connData = @"Data Source=DESKTOP-B54NHFS ; Initial Catalog=RestaurantReviewManager; Integrated Security=SSPI;";
-            using (SqlConnection conn = new SqlConnection(connData))
+            using (SqlConnection conn = new SqlConnection(connectionstring))
             {
                 conn.Open();
                 SqlCommand SelectAll = new SqlCommand($"INSERT INTO Reviews VALUES(@RestaurantId, @UserId, @ReviewText);", conn);
@@ -59,9 +61,7 @@ namespace RestaurantReview.DAL
         }
         public void DeleteReview(int id)
         {
-            string connData;
-            connData = @"Data Source=DESKTOP-B54NHFS ; Initial Catalog=RestaurantReviewManager; Integrated Security=SSPI;";
-            using (SqlConnection conn = new SqlConnection(connData))
+            using (SqlConnection conn = new SqlConnection(connectionstring))
             {
                 conn.Open();
                 SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
