@@ -13,7 +13,7 @@ namespace RestaurantReview.DAL
         private readonly string connectionstring;
         public ReviewsDAL(string connString)
         {
-            this.connectionstring = new Conn().connstring();
+            this.connectionstring = new Conn().AWSconnstring();
         }
         public List<Review> GetAllReviews()
         {
