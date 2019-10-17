@@ -9,6 +9,7 @@ namespace RestaurantReview.Models
     {
         public int ReviewId { get; set; }
         public Restaurant Restaurant { get; set; }
-        public string User { get; set; }
+        public User User { get; set; }
+        public string ReviewText { get; set; }
     }
 }

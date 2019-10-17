@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantReview.DAL;
+using RestaurantReview.Models;
 
 namespace RestaurantReview.Controllers
 {
@@ -12,11 +14,11 @@ namespace RestaurantReview.Controllers
     public class ReviewsController : ControllerBase
     {
         // GET api/values
-        [HttpGet]
-        [Route("api/{id}")]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("{user}")]
+        
+        public ActionResult<List<Review>> Get(string user)
         {
-            return new string[] { "value1", "value2" };
+            return new ReviewsDAL().GetAllReviews().FindAll(review => review.User.UserName.Equals(user));
         }
 
         // POST api/values
