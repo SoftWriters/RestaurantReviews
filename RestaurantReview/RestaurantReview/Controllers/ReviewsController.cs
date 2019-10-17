@@ -23,20 +23,16 @@ namespace RestaurantReview.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Review review)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            new ReviewsDAL().PostReview(review);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            new ReviewsDAL().DeleteReview(id);
         }
     }
 }

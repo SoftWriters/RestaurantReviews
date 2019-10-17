@@ -43,13 +43,32 @@ namespace RestaurantReview.DAL
             }
             return reviews;
         }
-        public void PostReview()
+        public void PostReview(Review review)
         {
-
+            string connData;
+            connData = @"Data Source=DESKTOP-B54NHFS ; Initial Catalog=RestaurantReviewManager; Integrated Security=SSPI;";
+            using (SqlConnection conn = new SqlConnection(connData))
+            {
+                conn.Open();
+                SqlCommand SelectAll = new SqlCommand($"INSERT INTO Reviews VALUES(@RestaurantId, @UserId, @ReviewText);", conn);
+                SelectAll.Parameters.AddWithValue("@RestaurantId", review.Restaurant.RestaurantId);
+                SelectAll.Parameters.AddWithValue("@UserId", review.User.UserId);
+                SelectAll.Parameters.AddWithValue("@ReviewText", review.ReviewText);
+                SelectAll.ExecuteNonQuery();
+            }
         }
-        public void DeleteReview()
+        public void DeleteReview(int id)
         {
-
+            string connData;
+            connData = @"Data Source=DESKTOP-B54NHFS ; Initial Catalog=RestaurantReviewManager; Integrated Security=SSPI;";
+            using (SqlConnection conn = new SqlConnection(connData))
+            {
+                conn.Open();
+                SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
+                SelectAll.Parameters.AddWithValue("@ReviewId", id);
+             
+                SelectAll.ExecuteNonQuery();
+            }
         }
 
 
