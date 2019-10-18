@@ -30,7 +30,27 @@ Have fun.
 }
   ```
  - GET -    api/Restaurants/{city}
-  
+     example 
+     https://localhost:44353/api/Restaurants/Boston
+    ```javascript
+[
+    {
+        "restaurantId": 1,
+        "name": "Tonys",
+        "city": "Boston"
+    },
+    {
+        "restaurantId": 2,
+        "name": "Max",
+        "city": "Boston"
+    },
+    {
+        "restaurantId": 11,
+        "name": "Sams",
+        "city": "Boston"
+    }
+]
+```
  - DELETE - api/Reviews/{id}
  - GET -    api/Reviews/{username}
  - POST -   api/Reviews  - Send JSON object in request body - for example: 
