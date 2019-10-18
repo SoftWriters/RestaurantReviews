@@ -23,6 +23,12 @@ Have fun.
 
 
  - POST -   api/Restaurants - send JSON object in request body
+  ```javascript
+{
+	"Name": {"Restaurant Name"},
+	"City": "Boston"
+}
+  ```
  - GET -    api/Restaurants/{city}
   
  - DELETE - api/Reviews/{id}
