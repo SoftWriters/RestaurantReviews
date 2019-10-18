@@ -30,16 +30,15 @@ Have fun.
  - POST -   api/Reviews  - Send JSON object in request body   
   
   ```json
-  {
-	  "Restaurant":{
-		  "RestaurantId": 1	
-	}, 
-	  "User": {
-		  "UserId": 2	
-	},
-	  "ReviewText": "It was ok not excellent"
-  }
-
-```
+{
+  "Restaurant": {
+    "RestaurantId": 1
+  },
+  "User": {
+    "UserId": 2
+  },
+  "ReviewText": "It was ok not excellent"
+}
+  ```
     
   
