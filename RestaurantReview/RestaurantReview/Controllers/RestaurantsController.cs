@@ -18,19 +18,19 @@ namespace RestaurantReview.Controllers
         {
             this.connection = conn;
         }
-        // GET api/values
+        // GET api/Restaurants
         [HttpGet("{city}")]
         public ActionResult<List<Restaurant>> Get(string city)
         {
-            return new RestaurantsDAL(connection.connstring()).GetRestaurants()
-                                       .FindAll(restaurant => restaurant.City.Equals(city));
+            return new RestaurantsDAL(connection.AWSconnstring()).GetRestaurants()
+                                                              .FindAll(restaurant => restaurant.City.Equals(city));
         }
 
-        // POST api/values
+        // POST api/Restaurants - must send in a restaurant body with it
         [HttpPost]
         public void Post([FromBody] Restaurant restaurant)
         {
-            new RestaurantsDAL(connection.connstring()).PostRestaurant(restaurant);
+            new RestaurantsDAL(connection.AWSconnstring()).PostRestaurant(restaurant);
         }
     }
 }

@@ -59,6 +59,19 @@ namespace RestaurantReview.DAL
                 SelectAll.ExecuteNonQuery();
             }
         }
+        public void UpdateReview(UpdateReview updateReview)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionstring))
+            {
+                conn.Open();
+                SqlCommand updateReviewCmd = new SqlCommand($"UPDATE Reviews SET ReviewText = @reviewText WHERE ReviewId = @id;", conn);
+                updateReviewCmd.Parameters.AddWithValue("@id", updateReview.ReviewId);
+                updateReviewCmd.Parameters.AddWithValue("@reviewText", updateReview.ReviewText);
+                updateReviewCmd.ExecuteNonQuery();
+            }
+                
+        }
+
         public void DeleteReview(int id)
         {
             using (SqlConnection conn = new SqlConnection(connectionstring))
@@ -66,11 +79,8 @@ namespace RestaurantReview.DAL
                 conn.Open();
                 SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
                 SelectAll.Parameters.AddWithValue("@ReviewId", id);
-             
                 SelectAll.ExecuteNonQuery();
             }
         }
-
-
     }
 }

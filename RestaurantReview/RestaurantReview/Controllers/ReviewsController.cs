@@ -19,26 +19,32 @@ namespace RestaurantReview.Controllers
         {
             this.connection = conn;
         }
-        // GET api/values
+        // GET api/Reviews/{username}
         [HttpGet("{user}")]
 
         public ActionResult<List<Review>> Get(string user)
         {
-            return new ReviewsDAL(connection.connstring()).GetAllReviews().FindAll(review => review.User.UserName.Equals(user));
+            return new ReviewsDAL(connection.AWSconnstring()).GetAllReviews()
+                                                          .FindAll(review => review.User.UserName.Equals(user));
         }
 
-        // POST api/values
+        // POST api/Reviews - must send in a Review Json object
         [HttpPost]
         public void Post([FromBody] Review review)
         {
-            new ReviewsDAL(connection.connstring()).PostReview(review);
+            new ReviewsDAL(connection.AWSconnstring()).PostReview(review);
+        }
+        [HttpPut]
+        public void Put([FromBody] UpdateReview updateReview)
+        {
+            new ReviewsDAL(connection.AWSconnstring()).UpdateReview(updateReview);
         }
 
-        // DELETE api/values/5
+        // DELETE api/Reviews/{id}
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            new ReviewsDAL(connection.connstring()).DeleteReview(id);
+            new ReviewsDAL(connection.AWSconnstring()).DeleteReview(id);
         }
     }
 }

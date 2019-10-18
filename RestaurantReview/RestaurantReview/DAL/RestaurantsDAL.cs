@@ -19,7 +19,7 @@ namespace RestaurantReview.DAL
         public List<Restaurant> GetRestaurants()
         {
             List<Restaurant> restaurants = new List<Restaurant>();
-            
+
             using (SqlConnection conn = new SqlConnection(connectionstring))
             {
                 conn.Open();
