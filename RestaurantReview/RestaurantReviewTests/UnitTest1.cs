@@ -1,3 +1,4 @@
+using RestaurantReview.Models;
 using System;
 using Xunit;
 
@@ -8,7 +9,7 @@ namespace RestaurantReviewTests
         [Fact]
         public void Test1()
         {
-            //var c = new Controller();
+            var sut = new Review();
         }
     }
 }
