@@ -31,7 +31,7 @@ Have fun.
   ```
  - GET -    api/Restaurants/{city}
      example 
-     https://localhost:44353/api/Restaurants/Boston
+     `https://localhost:44353/api/Restaurants/Boston`
     ```javascript
 [
     {
