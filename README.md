@@ -29,7 +29,7 @@ Have fun.
  - GET -    api/Reviews/{username}
  - POST -   api/Reviews  - Send JSON object in request body   
   
-  ```json
+  ```javascript
 {
   "Restaurant": {
     "RestaurantId": 1
