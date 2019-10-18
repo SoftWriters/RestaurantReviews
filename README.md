@@ -28,5 +28,13 @@ Have fun.
   DELETE - api/Reviews/{id}
   GET -    api/Reviews/{username}
   POST -   api/Reviews  - Send JSON object in request body   
+  
+  ```json
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25
+}
+```
     
   
