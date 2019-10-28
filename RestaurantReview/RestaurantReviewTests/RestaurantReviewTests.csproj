@@ -19,7 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="DAL\RestaurantsDALTests\" />
+=======
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
     <Folder Include="DAL\ReviewsDALTests\" />
   </ItemGroup>
 

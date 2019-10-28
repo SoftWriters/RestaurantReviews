@@ -3,6 +3,11 @@ using RestaurantReview.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+<<<<<<< HEAD
+=======
+using System.Net;
+using System.Web.Http;
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
 
 namespace RestaurantReview.DAL
 {
@@ -47,7 +52,10 @@ namespace RestaurantReview.DAL
             }
             return reviews;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
         //public (bool IsSuccessful, Restaurant toreturn) PostRestaurant(Restaurant restaurant)
         //{
         //    bool IsSuccessful;

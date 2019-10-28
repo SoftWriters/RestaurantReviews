@@ -1,9 +1,17 @@
 ﻿using RestaurantReview.Models;
 using RestaurantReview.Services;
 using System;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+=======
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Net;
+using System.Web.Http;
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
 
 namespace RestaurantReview.DAL
 {
@@ -54,7 +62,10 @@ namespace RestaurantReview.DAL
             }
             return (IsSuccessful, usermatch);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
         //public (bool IsSuccessful, Restaurant toreturn) PostRestaurant(Restaurant restaurant)
         //{
         //    bool IsSuccessful;
@@ -114,5 +125,11 @@ namespace RestaurantReview.DAL
         //    }
 
         //}
+<<<<<<< HEAD
+=======
+
+       
+
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
     }
 }

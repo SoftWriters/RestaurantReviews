@@ -2,6 +2,10 @@
 using RestaurantReview.DAL;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
 
 namespace RestaurantReview.Controllers
 {
@@ -21,10 +25,17 @@ namespace RestaurantReview.Controllers
         public IActionResult Get(string username)
         {
             var usermatch = new UserDAL(connection.AWSconnstring()).GetUser(username);
+<<<<<<< HEAD
             if (!usermatch.IsSuccessful) return StatusCode(404, "User was not found");
             var list = new ReviewsDAL(connection.AWSconnstring()).GetAllReviews()
                                                           .FindAll(review => review.User.UserName.ToLower().Equals(username.ToLower()));
 
+=======
+            if(!usermatch.IsSuccessful) return StatusCode(404, "User was not found");
+            var list = new ReviewsDAL(connection.AWSconnstring()).GetAllReviews()
+                                                          .FindAll(review => review.User.UserName.ToLower().Equals(username.ToLower()));
+            
+>>>>>>> 0e003586d4895633c82957f8d50d4fc4e29eed18
             if (list.Count >= 1) { return Ok(list); } else { return StatusCode(404, "There are no results for this user"); }
         }
 
