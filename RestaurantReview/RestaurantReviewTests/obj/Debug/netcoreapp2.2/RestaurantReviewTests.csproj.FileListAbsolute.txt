@@ -1,0 +1,17 @@
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.csprojAssemblyReference.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.csproj.CoreCompileInputs.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.AssemblyInfoInputs.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.AssemblyInfo.cs
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReviewTests.deps.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReviewTests.runtimeconfig.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReviewTests.runtimeconfig.dev.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReviewTests.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReviewTests.pdb
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReview.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\bin\Debug\netcoreapp2.2\RestaurantReview.pdb
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.csproj.CopyComplete
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReviewTests\obj\Debug\netcoreapp2.2\RestaurantReviewTests.pdb
