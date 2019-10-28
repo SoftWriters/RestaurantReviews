@@ -3,18 +3,20 @@ using RestaurantReview.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
+using System.Web.Http;
 
 namespace RestaurantReview.DAL
 {
     public class ReviewsDAL
     {
         private readonly string connectionstring;
+
         public ReviewsDAL(string connString)
         {
             this.connectionstring = new Conn().AWSconnstring();
         }
+
         public List<Review> GetAllReviews()
         {
             List<Review> reviews = new List<Review>();
@@ -47,18 +49,68 @@ namespace RestaurantReview.DAL
             }
             return reviews;
         }
-        public void PostReview(Review review)
+        //public (bool IsSuccessful, Restaurant toreturn) PostRestaurant(Restaurant restaurant)
+        //{
+        //    bool IsSuccessful;
+        //    Restaurant toreturn = new Restaurant();
+        //    using (SqlConnection conn = new SqlConnection(connectionstring))
+        //    {
+        //        conn.Open();
+        //        SqlCommand SelectAll = new SqlCommand($"INSERT INTO RESTAURANTS VALUES(@Name, @City);", conn);
+        //        try
+        //        {
+        //            if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new HttpResponseException(HttpStatusCode.NotModified);
+        //            SelectAll.Parameters.AddWithValue("@Name", restaurant.Name);
+        //            SelectAll.Parameters.AddWithValue("@City", restaurant.City);
+        //            toreturn.Name = restaurant.Name;
+        //            toreturn.City = restaurant.City;
+        //            SelectAll.ExecuteNonQuery();
+        //            IsSuccessful = true;
+        //        }
+        //        catch (HttpResponseException e)
+        //        {
+        //            if (!restaurant.ValidateCity())
+        //            {
+        //                toreturn.City = "City is incorrect " + e.Message;
+        //            }
+
+        //            IsSuccessful = false;
+        //            if (!restaurant.ValidateName())
+        //            {
+        //                toreturn.Name = "Name is too short " + e.Message + " name must be at least 1 character";
+        //            }
+
+        //            if (toreturn.Name is null) toreturn.Name = restaurant.Name;
+        //            if (toreturn.City is null) toreturn.City = restaurant.City;
+        //        }
+        //    }
+        //    return (IsSuccessful, toreturn);
+        //}
+        public (bool IsSuccesssful, Review toreturn) PostReview(Review review)
         {
-            using (SqlConnection conn = new SqlConnection(connectionstring))
+            Review toreturn = new Review();
+            bool IsSuccessful;
+            try
             {
-                conn.Open();
-                SqlCommand SelectAll = new SqlCommand($"INSERT INTO Reviews VALUES(@RestaurantId, @UserId, @ReviewText);", conn);
-                SelectAll.Parameters.AddWithValue("@RestaurantId", review.Restaurant.RestaurantId);
-                SelectAll.Parameters.AddWithValue("@UserId", review.User.UserId);
-                SelectAll.Parameters.AddWithValue("@ReviewText", review.ReviewText);
-                SelectAll.ExecuteNonQuery();
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    //if (!review.ValidateUserNameFormat()) throw new HttpResponseException(HttpStatusCode.NotModified);
+                    conn.Open();
+                    SqlCommand SelectAll = new SqlCommand($"INSERT INTO Reviews VALUES(@RestaurantId, @UserId, @ReviewText);", conn);
+                    SelectAll.Parameters.AddWithValue("@RestaurantId", review.Restaurant.RestaurantId);
+                    SelectAll.Parameters.AddWithValue("@UserId", review.User.UserId);
+                    SelectAll.Parameters.AddWithValue("@ReviewText", review.ReviewText);
+                    SelectAll.ExecuteNonQuery();
+                    IsSuccessful = true;
+                }
             }
+            catch
+            {
+                IsSuccessful = false;
+            }
+            return (IsSuccessful, toreturn);
         }
+
         public void UpdateReview(UpdateReview updateReview)
         {
             using (SqlConnection conn = new SqlConnection(connectionstring))
@@ -69,7 +121,6 @@ namespace RestaurantReview.DAL
                 updateReviewCmd.Parameters.AddWithValue("@reviewText", updateReview.ReviewText);
                 updateReviewCmd.ExecuteNonQuery();
             }
-                
         }
 
         public void DeleteReview(int id)
