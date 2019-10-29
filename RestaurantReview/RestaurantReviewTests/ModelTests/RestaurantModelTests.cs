@@ -11,11 +11,17 @@ namespace RestaurantReviewTests.ModelTests
         [Fact]
         public void RestaurantModel_CityWithSpaceValid()
         {
+            //Arrange
             var sut = new Restaurant
             {
                 City = "Sau Paulo"
             };
-            Assert.True(sut.ValidateCity(), "should return 1 match");
+
+            //Act
+            var testCity = sut.ValidateCity();
+
+            //Assert
+            Assert.True(testCity, "should return 1 match");
         }
 
         [Fact]

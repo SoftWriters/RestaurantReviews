@@ -3,8 +3,6 @@ using RestaurantReview.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Net;
-using System.Web.Http;
 
 namespace RestaurantReview.DAL
 {
@@ -45,48 +43,12 @@ namespace RestaurantReview.DAL
                             UserName = Convert.ToString(reader["UserName"])
                         }
                     });
+
                 }
             }
             return reviews;
         }
 
-        //public (bool IsSuccessful, Restaurant toreturn) PostRestaurant(Restaurant restaurant)
-        //{
-        //    bool IsSuccessful;
-        //    Restaurant toreturn = new Restaurant();
-        //    using (SqlConnection conn = new SqlConnection(connectionstring))
-        //    {
-        //        conn.Open();
-        //        SqlCommand SelectAll = new SqlCommand($"INSERT INTO RESTAURANTS VALUES(@Name, @City);", conn);
-        //        try
-        //        {
-        //            if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new HttpResponseException(HttpStatusCode.NotModified);
-        //            SelectAll.Parameters.AddWithValue("@Name", restaurant.Name);
-        //            SelectAll.Parameters.AddWithValue("@City", restaurant.City);
-        //            toreturn.Name = restaurant.Name;
-        //            toreturn.City = restaurant.City;
-        //            SelectAll.ExecuteNonQuery();
-        //            IsSuccessful = true;
-        //        }
-        //        catch (HttpResponseException e)
-        //        {
-        //            if (!restaurant.ValidateCity())
-        //            {
-        //                toreturn.City = "City is incorrect " + e.Message;
-        //            }
-
-        //            IsSuccessful = false;
-        //            if (!restaurant.ValidateName())
-        //            {
-        //                toreturn.Name = "Name is too short " + e.Message + " name must be at least 1 character";
-        //            }
-
-        //            if (toreturn.Name is null) toreturn.Name = restaurant.Name;
-        //            if (toreturn.City is null) toreturn.City = restaurant.City;
-        //        }
-        //    }
-        //    return (IsSuccessful, toreturn);
-        //}
         public (bool IsSuccesssful, Review toreturn) PostReview(Review review)
         {
             Review toreturn = new Review();
