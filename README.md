@@ -6,7 +6,18 @@ The Problem
 We are in the midst of building a mobile application that will let restaurant patrons rate the restaurant in which they are eating. As part of the build, we need to develop a web API that will accept and store the ratings and other sundry data from a publicly accessible interface. 
 
 *Project Tracking is at https://trello.com/b/y0AEDhOj/softwriters-restaurantreviews*
+***For the Purpose of API Testing, there are 4 users that currently exist.***
+-user1
+-user2
+-user3
+-user4
 
+***There are Restaurants in the database in the following Locations:***
+-Boston
+-Pittsburgh
+-New York
+-Chicago
+-Los Angeles
 **Restaurants API**
  - POST -   `https://localhost:44353/api/Restaurants` - send JSON object in request body - for example: 
   ```json
