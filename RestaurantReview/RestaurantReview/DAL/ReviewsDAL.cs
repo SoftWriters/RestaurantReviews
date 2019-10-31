@@ -14,9 +14,9 @@ namespace RestaurantReview.DAL
             this.connectionstring = new Conn().AWSconnstring();
         }
 
-        public List<Review> GetAllReviews()
+        public List<GetReview> GetAllReviews()
         {
-            List<Review> reviews = new List<Review>();
+            List<GetReview> reviews = new List<GetReview>();
             using (SqlConnection conn = new SqlConnection(connectionstring))
             {
                 conn.Open();
@@ -26,7 +26,7 @@ namespace RestaurantReview.DAL
                 SqlDataReader reader = SelectAll.ExecuteReader();
                 while (reader.Read())
                 {
-                    reviews.Add(new Review
+                    reviews.Add(new GetReview
                     {
                         Restaurant = new Restaurant
                         {
@@ -47,20 +47,25 @@ namespace RestaurantReview.DAL
             return reviews;
         }
 
-        public (bool IsSuccessful, Review toreturn) PostReview(Review review)
+        public (bool IsSuccessful, PostReview toreturn) PostReview(PostReview review)
         {
-            Review toreturn = new Review();
+            PostReview toreturn = new PostReview();
             bool IsSuccessful;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionstring))
                 {
+                    toreturn.RestaurantId = review.RestaurantId;
+                    toreturn.ReviewId = review.ReviewId;
+                    toreturn.ReviewText = review.ReviewText;
+
                     //if (!review.ValidateUserNameFormat()) throw new HttpResponseException(HttpStatusCode.NotModified);
                     conn.Open();
                     SqlCommand SelectAll = new SqlCommand($"INSERT INTO Reviews VALUES(@RestaurantId, @UserId, @ReviewText);", conn);
-                    SelectAll.Parameters.AddWithValue("@RestaurantId", review.Restaurant.RestaurantId);
-                    SelectAll.Parameters.AddWithValue("@UserId", review.User.UserId);
+                    SelectAll.Parameters.AddWithValue("@RestaurantId", review.RestaurantId);
+                    SelectAll.Parameters.AddWithValue("@UserId", review.UserId);
                     SelectAll.Parameters.AddWithValue("@ReviewText", review.ReviewText);
+
                     SelectAll.ExecuteNonQuery();
                     IsSuccessful = true;
                 }
@@ -87,12 +92,13 @@ namespace RestaurantReview.DAL
                     updateReviewCmd.ExecuteNonQuery();
                     IsSuccessful = true;
                 }
-            } catch
+            }
+            catch
             {
                 IsSuccessful = false;
             }
             return (IsSuccessful, toreturn);
-       
+
         }
 
         public bool DeleteReview(int id)

@@ -31,7 +31,7 @@ namespace RestaurantReview.Controllers
 
         // POST api/Reviews - must send in a Review Json object
         [HttpPost]
-        public IActionResult Post([FromBody] Review review)
+        public IActionResult Post([FromBody] PostReview review)
         {
             var dal = new ReviewsDAL(connection.AWSconnstring()).PostReview(review);
             if (dal.IsSuccessful) { return (Ok(dal.toreturn)); } else { return StatusCode(304, dal.toreturn); }

@@ -1,11 +1,17 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace RestaurantReview.Models
 {
     public class Restaurant
     {
+        [Required]
         public int RestaurantId { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string City { get; set; }
 
         public bool ValidateCity()

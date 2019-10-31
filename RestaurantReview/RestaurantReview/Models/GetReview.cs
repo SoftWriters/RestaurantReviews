@@ -1,12 +1,17 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace RestaurantReview.Models
 {
-    public class Review
+    public class GetReview
     {
+        [Required]
         public int ReviewId { get; set; }
+        [Required]
         public Restaurant Restaurant { get; set; }
+        [Required]
         public User User { get; set; }
+        [Required]
         public string ReviewText { get; set; }
 
         public bool ValidateUserNameFormat()

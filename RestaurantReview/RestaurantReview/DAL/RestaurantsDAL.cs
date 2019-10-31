@@ -51,11 +51,14 @@ namespace RestaurantReview.DAL
                 SqlCommand SelectAll = new SqlCommand($"INSERT INTO RESTAURANTS VALUES(@Name, @City);", conn);
                 try
                 {
-                    if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new HttpResponseException(HttpStatusCode.NotModified);
-                    SelectAll.Parameters.AddWithValue("@Name", restaurant.Name);
-                    SelectAll.Parameters.AddWithValue("@City", restaurant.City);
                     toreturn.Name = restaurant.Name;
                     toreturn.City = restaurant.City;
+
+                    if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new HttpResponseException(HttpStatusCode.NotModified);
+
+                    SelectAll.Parameters.AddWithValue("@Name", restaurant.Name);
+                    SelectAll.Parameters.AddWithValue("@City", restaurant.City);
+
                     SelectAll.ExecuteNonQuery();
                     IsSuccessful = true;
                 }
@@ -71,9 +74,6 @@ namespace RestaurantReview.DAL
                     {
                         toreturn.Name = "Name is too short " + e.Message + " name must be at least 1 character";
                     }
-
-                    if (toreturn.Name is null) toreturn.Name = restaurant.Name;
-                    if (toreturn.City is null) toreturn.City = restaurant.City;
                 }
             }
             return (IsSuccessful, toreturn);
