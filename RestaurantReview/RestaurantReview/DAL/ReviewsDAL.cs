@@ -9,7 +9,6 @@ namespace RestaurantReview.DAL
     public class ReviewsDAL
     {
         private readonly string connectionstring;
-
         public ReviewsDAL(string connString)
         {
             this.connectionstring = new Conn().AWSconnstring();
@@ -43,13 +42,12 @@ namespace RestaurantReview.DAL
                             UserName = Convert.ToString(reader["UserName"])
                         }
                     });
-
                 }
             }
             return reviews;
         }
 
-        public (bool IsSuccesssful, Review toreturn) PostReview(Review review)
+        public (bool IsSuccessful, Review toreturn) PostReview(Review review)
         {
             Review toreturn = new Review();
             bool IsSuccessful;
@@ -74,27 +72,46 @@ namespace RestaurantReview.DAL
             return (IsSuccessful, toreturn);
         }
 
-        public void UpdateReview(UpdateReview updateReview)
+        public (bool IsSuccessful, UpdateReview toreturn) UpdateReview(UpdateReview updateReview)
         {
-            using (SqlConnection conn = new SqlConnection(connectionstring))
+            UpdateReview toreturn = new UpdateReview();
+            bool IsSuccessful;
+            try
             {
-                conn.Open();
-                SqlCommand updateReviewCmd = new SqlCommand($"UPDATE Reviews SET ReviewText = @reviewText WHERE ReviewId = @id;", conn);
-                updateReviewCmd.Parameters.AddWithValue("@id", updateReview.ReviewId);
-                updateReviewCmd.Parameters.AddWithValue("@reviewText", updateReview.ReviewText);
-                updateReviewCmd.ExecuteNonQuery();
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    conn.Open();
+                    SqlCommand updateReviewCmd = new SqlCommand($"UPDATE Reviews SET ReviewText = @reviewText WHERE ReviewId = @id;", conn);
+                    updateReviewCmd.Parameters.AddWithValue("@id", updateReview.ReviewId);
+                    updateReviewCmd.Parameters.AddWithValue("@reviewText", updateReview.ReviewText);
+                    updateReviewCmd.ExecuteNonQuery();
+                    IsSuccessful = true;
+                }
+            } catch
+            {
+                IsSuccessful = false;
             }
+            return (IsSuccessful, toreturn);
+       
         }
 
-        public void DeleteReview(int id)
+        public bool DeleteReview(int id)
         {
-            using (SqlConnection conn = new SqlConnection(connectionstring))
+            try
             {
-                conn.Open();
-                SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
-                SelectAll.Parameters.AddWithValue("@ReviewId", id);
-                SelectAll.ExecuteNonQuery();
+                using (SqlConnection conn = new SqlConnection(connectionstring))
+                {
+                    conn.Open();
+                    SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
+                    SelectAll.Parameters.AddWithValue("@ReviewId", id);
+                    SelectAll.ExecuteNonQuery();
+                }
             }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

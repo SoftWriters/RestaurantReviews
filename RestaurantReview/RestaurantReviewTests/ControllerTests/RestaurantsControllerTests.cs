@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReview.Controllers;
 using RestaurantReview.Services;
-using RestaurantReview.Models;
-using RestaurantReview.Services;
-using System.Collections.Generic;
 using Xunit;
 
 namespace RestaurantReviewTests

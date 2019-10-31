@@ -1,7 +1,4 @@
 ﻿using RestaurantReview.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RestaurantReviewTests.ModelTests
@@ -45,4 +42,3 @@ namespace RestaurantReviewTests.ModelTests
         }
     }
 }
-

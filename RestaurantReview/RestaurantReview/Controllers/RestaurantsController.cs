@@ -25,7 +25,6 @@ namespace RestaurantReview.Controllers
             var dal = new RestaurantsDAL(connection.AWSconnstring()).GetRestaurants()
                                                               .FindAll(restaurant => restaurant.City.ToLower().Equals(city.ToLower()));
             if (dal.Count >= 1) { return Ok(dal); } else { return StatusCode(404, "There are no results for this city"); }
-
         }
 
         // POST api/Restaurants - must send in a restaurant body with it
