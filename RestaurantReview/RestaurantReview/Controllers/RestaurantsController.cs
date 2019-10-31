@@ -18,6 +18,7 @@ namespace RestaurantReview.Controllers
         {
             this.connection = conn;
         }
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -27,7 +28,6 @@ namespace RestaurantReview.Controllers
             }
             catch
             {
-
             }
             var dal = new RestaurantsDAL(connection.AWSconnstring()).GetRestaurants();
             if (dal.Count >= 1) { return Ok(dal); } else { return NotFound("There are no results for this city"); }
@@ -43,7 +43,6 @@ namespace RestaurantReview.Controllers
             }
             catch
             {
-
             }
             var dal = new RestaurantsDAL(connection.AWSconnstring()).GetRestaurants()
                                                             .FindAll(restaurant => restaurant.City.ToLower().Equals(city.ToLower()));
@@ -60,7 +59,6 @@ namespace RestaurantReview.Controllers
             }
             catch
             {
-
             }
             var dal = new RestaurantsDAL(connection.AWSconnstring()).PostRestaurant(restaurant);
             if (dal.IsSuccessful) { return (Ok(dal.toreturn)); } else { return StatusCode(404, dal.toreturn); }

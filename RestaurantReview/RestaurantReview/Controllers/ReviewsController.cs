@@ -42,7 +42,6 @@ namespace RestaurantReview.Controllers
         {
             var dal = new ReviewsDAL(connection.AWSconnstring()).UpdateReview(updateReview);
             if (dal.IsSuccessful) { return (Ok(dal.toreturn)); } else { return StatusCode(304, dal.toreturn); }
-
         }
 
         // DELETE api/Reviews/{id}
@@ -52,7 +51,5 @@ namespace RestaurantReview.Controllers
             bool IsSuccessful = new ReviewsDAL(connection.AWSconnstring()).DeleteReview(id);
             if (IsSuccessful) { return (Ok()); } else { return StatusCode(404); }
         }
-
-
     }
 }

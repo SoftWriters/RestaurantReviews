@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace RestaurantReview.Models
@@ -8,10 +7,13 @@ namespace RestaurantReview.Models
     {
         [Required]
         public int ReviewId { get; set; }
+
         [Required]
         public Restaurant Restaurant { get; set; }
+
         [Required]
         public User User { get; set; }
+
         [Required]
         public string ReviewText { get; set; }
 
@@ -23,6 +25,7 @@ namespace RestaurantReview.Models
 
             return matches.Count == 1;
         }
+
         public bool IsValidId()
         {
             return this.ReviewId > 0;

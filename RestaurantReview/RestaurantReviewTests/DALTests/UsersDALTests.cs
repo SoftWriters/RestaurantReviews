@@ -1,17 +1,13 @@
 ﻿using RestaurantReview.DAL;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace RestaurantReviewTests.DALTests
 {
     public class UsersDALTests
     {
-
         [Fact]
         public void GetUsers_ReturnsList()
         {

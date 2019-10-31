@@ -3,8 +3,6 @@ using RestaurantReview.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Net;
-using System.Web.Http;
 
 namespace RestaurantReview.DAL
 {

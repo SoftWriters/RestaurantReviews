@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestaurantReview.Services
 {
@@ -25,8 +21,10 @@ namespace RestaurantReview.Services
             {
                 case 404:
                     return "Resource not found";
+
                 case 500:
                     return "An unhandled error occurred";
+
                 default:
                     return null;
             }

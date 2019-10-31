@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantReview.Controllers;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
-using System.Net;
 using Xunit;
 
 namespace RestaurantReviewTests.ControllerTests
@@ -29,7 +28,7 @@ namespace RestaurantReviewTests.ControllerTests
         {
             //Arrange
             var RC = new RestaurantsController(connection);
-            
+
             //Act
             var result = RC.Get("HocusPocus");
 
@@ -66,4 +65,3 @@ namespace RestaurantReviewTests.ControllerTests
         }
     }
 }
-

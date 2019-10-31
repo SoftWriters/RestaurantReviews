@@ -1,7 +1,4 @@
 ﻿using RestaurantReview.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RestaurantReviewTests.ModelTests
@@ -37,7 +34,7 @@ namespace RestaurantReviewTests.ModelTests
             var testText = sut.IsValidReviewText();
 
             //Assert
-            Assert. False(testText, "should be false");
+            Assert.False(testText, "should be false");
         }
     }
 }

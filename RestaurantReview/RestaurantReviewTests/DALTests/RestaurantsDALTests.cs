@@ -1,17 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RestaurantReview.Controllers;
-using RestaurantReview.DAL;
+﻿using RestaurantReview.DAL;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
-using System.Collections.Generic;
-using System.Net;
 using Xunit;
 
 namespace RestaurantReviewTests.DALTests
 {
     public class RestaurantsDALTests
     {
-
         [Fact]
         public void PostRestaurant_AddsNewRestaurant()
         {

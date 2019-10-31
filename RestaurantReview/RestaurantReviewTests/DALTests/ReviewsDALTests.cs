@@ -1,10 +1,7 @@
 ﻿using RestaurantReview.DAL;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace RestaurantReviewTests.DALTests
@@ -48,6 +45,7 @@ namespace RestaurantReviewTests.DALTests
             bool updated = dal.UpdateReview(updatedReview).IsSuccessful;
             Assert.True(updated);
         }
+
         [Fact]
         public void DeletesReview_LastIdChangedAfterDeletion()
         {

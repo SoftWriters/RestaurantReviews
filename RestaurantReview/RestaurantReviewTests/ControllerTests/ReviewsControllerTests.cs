@@ -4,7 +4,6 @@ using RestaurantReview.DAL;
 using RestaurantReview.Models;
 using RestaurantReview.Services;
 using System.Linq;
-using System.Net;
 using Xunit;
 
 namespace RestaurantReviewTests.ControllerTests
@@ -53,6 +52,7 @@ namespace RestaurantReviewTests.ControllerTests
 
             Assert.IsType<OkObjectResult>(result);
         }
+
         [Fact]
         public void PostTest_FailureReturnsObject()
         {
@@ -80,6 +80,7 @@ namespace RestaurantReviewTests.ControllerTests
 
             Assert.IsType<OkObjectResult>(result);
         }
+
         [Fact]
         public void UpdateTest_FailureReturnsObject()
         {
@@ -93,6 +94,7 @@ namespace RestaurantReviewTests.ControllerTests
 
             Assert.IsType<ObjectResult>(result);
         }
+
         [Fact]
         public void DeleteTest_SuccessReturnsOK()
         {
@@ -105,7 +107,6 @@ namespace RestaurantReviewTests.ControllerTests
         [Fact]
         public void DeleteTest_FailureReturnsObject()
         {
-
             var RC = new ReviewsController(connection);
             var review = new ReviewsDAL(connection.AWSconnstring()).GetAllReviews().LastOrDefault();
             var result = RC.Delete(review.ReviewId + 100);

@@ -6,6 +6,7 @@ namespace RestaurantReview.Models
     {
         [Required]
         public int ReviewId { get; set; }
+
         [Required]
         public string ReviewText { get; set; }
 

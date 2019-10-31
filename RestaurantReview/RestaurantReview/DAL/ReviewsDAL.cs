@@ -9,6 +9,7 @@ namespace RestaurantReview.DAL
     public class ReviewsDAL
     {
         private readonly string connectionstring;
+
         public ReviewsDAL(string connString)
         {
             this.connectionstring = new Conn().AWSconnstring();
@@ -98,7 +99,6 @@ namespace RestaurantReview.DAL
                 IsSuccessful = false;
             }
             return (IsSuccessful, toreturn);
-
         }
 
         public bool DeleteReview(int id)
