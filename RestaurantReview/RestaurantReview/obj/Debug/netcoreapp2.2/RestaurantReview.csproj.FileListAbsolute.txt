@@ -1,0 +1,16 @@
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\RestaurantReview.deps.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\RestaurantReview.runtimeconfig.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\RestaurantReview.runtimeconfig.dev.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\RestaurantReview.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\RestaurantReview.pdb
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.RazorAssemblyInfo.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.RazorAssemblyInfo.cs
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.AssemblyInfoInputs.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.AssemblyInfo.cs
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.RazorTargetAssemblyInfo.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.dll
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.pdb
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\obj\Debug\netcoreapp2.2\RestaurantReview.csprojAssemblyReference.cache
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\Raizel Seliger\source\repos\RestaurantReviews\RestaurantReview\RestaurantReview\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
