@@ -45,16 +45,17 @@ namespace RestaurantReview.DAL
         {
             bool IsSuccessful;
             Restaurant toreturn = new Restaurant();
-            using (SqlConnection conn = new SqlConnection(connectionstring))
+            try
             {
-                conn.Open();
-                SqlCommand SelectAll = new SqlCommand($"INSERT INTO RESTAURANTS VALUES(@Name, @City);", conn);
-                try
+                using (SqlConnection conn = new SqlConnection(connectionstring))
                 {
+                    conn.Open();
+                    SqlCommand SelectAll = new SqlCommand($"INSERT INTO RESTAURANTS VALUES(@Name, @City);", conn);
+
                     toreturn.Name = restaurant.Name;
                     toreturn.City = restaurant.City;
 
-                    if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new HttpResponseException(HttpStatusCode.NotModified);
+                    if (!(restaurant.ValidateName() && restaurant.ValidateCity())) throw new Exception();
 
                     SelectAll.Parameters.AddWithValue("@Name", restaurant.Name);
                     SelectAll.Parameters.AddWithValue("@City", restaurant.City);
@@ -62,18 +63,18 @@ namespace RestaurantReview.DAL
                     SelectAll.ExecuteNonQuery();
                     IsSuccessful = true;
                 }
-                catch (HttpResponseException e)
+            }
+            catch (Exception e)
+            {
+                if (!restaurant.ValidateCity())
                 {
-                    if (!restaurant.ValidateCity())
-                    {
-                        toreturn.City = "City is incorrect " + e.Message;
-                    }
+                    toreturn.City = "City is incorrect " + e.Message;
+                }
 
-                    IsSuccessful = false;
-                    if (!restaurant.ValidateName())
-                    {
-                        toreturn.Name = "Name is too short " + e.Message + " name must be at least 1 character";
-                    }
+                IsSuccessful = false;
+                if (!restaurant.ValidateName())
+                {
+                    toreturn.Name = "Name is too short " + e.Message + " name must be at least 1 character";
                 }
             }
             return (IsSuccessful, toreturn);

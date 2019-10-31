@@ -110,7 +110,15 @@ namespace RestaurantReview.DAL
                     conn.Open();
                     SqlCommand SelectAll = new SqlCommand($"Delete FROM Reviews WHERE Reviews.ReviewId = @ReviewId", conn);
                     SelectAll.Parameters.AddWithValue("@ReviewId", id);
-                    SelectAll.ExecuteNonQuery();
+                    try
+                    {
+                        var num = SelectAll.ExecuteNonQuery();
+                        if (!num.Equals(1)) throw new Exception();
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
             }
             catch

@@ -26,7 +26,7 @@ namespace RestaurantReview.Controllers
             var list = new ReviewsDAL(connection.AWSconnstring()).GetAllReviews()
                                                           .FindAll(review => review.User.UserName.ToLower().Equals(username.ToLower()));
 
-            if (list.Count >= 1) { return Ok(list); } else { return StatusCode(404, "There are no results for this user"); }
+            if (list.Count > 0) { return Ok(list); } else { return StatusCode(404, "There are no results for this user"); }
         }
 
         // POST api/Reviews - must send in a Review Json object
@@ -50,7 +50,7 @@ namespace RestaurantReview.Controllers
         public IActionResult Delete(int id)
         {
             bool IsSuccessful = new ReviewsDAL(connection.AWSconnstring()).DeleteReview(id);
-            if (IsSuccessful) { return (Ok()); } else { return StatusCode(304); }
+            if (IsSuccessful) { return (Ok()); } else { return StatusCode(404); }
         }
 
 

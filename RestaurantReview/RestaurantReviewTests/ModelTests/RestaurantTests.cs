@@ -3,7 +3,7 @@ using Xunit;
 
 namespace RestaurantReviewTests.ModelTests
 {
-    public class RestaurantModelTests
+    public class RestaurantTests
     {
         [Fact]
         public void RestaurantModel_CityWithSpaceValid()

@@ -16,14 +16,16 @@ namespace RestaurantReview.Models
 
         [Required]
         public string ReviewText { get; set; }
+        
+        public bool IsValidId()
+        {
+            return this.RestaurantId > 0;
+        }
 
-        //public bool ValidateUserNameFormat()
-        //{
-        //    MatchCollection matches;
-        //    Regex defaultRegex = new Regex(@"^[A-Za-z]{4, 15}+$");
-        //    matches = defaultRegex.Matches(this.UserName);
+        public bool IsValidReviewText()
+        {
+            return this.ReviewText.Split(" ").Length > 1;
+        }
 
-        //    return matches.Count == 1;
-        //}
     }
 }
