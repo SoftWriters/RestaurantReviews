@@ -18,6 +18,20 @@ namespace RestaurantReview.Controllers
         {
             this.connection = conn;
         }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                if (!ModelState.IsValid) throw new Exception();
+            }
+            catch
+            {
+
+            }
+            var dal = new RestaurantsDAL(connection.AWSconnstring()).GetRestaurants();
+            if (dal.Count >= 1) { return Ok(dal); } else { return NotFound("There are no results for this city"); }
+        }
 
         // GET api/Restaurants
         [HttpGet("{city}")]
