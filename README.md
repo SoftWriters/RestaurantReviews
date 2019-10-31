@@ -1,3 +1,4 @@
+
 RestaurantReviews
 =================
 
@@ -7,17 +8,19 @@ We are in the midst of building a mobile application that will let restaurant pa
 
 *Project Tracking is at https://trello.com/b/y0AEDhOj/softwriters-restaurantreviews*
 ***For the Purpose of API Testing, there are 4 users that currently exist.***
--user1
--user2
--user3
--user4
+- user1
+- user2
+- user3
+- user4
 
 ***There are Restaurants in the database in the following Locations:***
--Boston
--Pittsburgh
--New York
--Chicago
--Los Angeles
+
+ - Boston 
+ - Pittsburgh
+ - New York 
+- Chicago
+- Los Angeles
+
 **Restaurants API**
  - POST -   `https://localhost:44353/api/Restaurants` - send JSON object in request body - for example: 
   ```json
@@ -26,9 +29,33 @@ We are in the midst of building a mobile application that will let restaurant pa
 	"City": "Boston"
 }
   ```
- - GET -    `https://localhost:44353/api/Restaurants/{city}`
+ - GET -    `https://localhost:44353/api/Restaurants/{city}` 
      example 
      `https://localhost:44353/api/Restaurants/Boston`
+      - Response:
+```json
+[
+    {
+        "restaurantId": 1,
+        "name": "Tonys",
+        "city": "Boston"
+    },
+    {
+        "restaurantId": 2,
+        "name": "Max",
+        "city": "Boston"
+    },
+    {
+        "restaurantId": 11,
+        "name": "Sams",
+        "city": "Boston"
+    }
+]
+```
+ - GET -    `https://localhost:44353/api/Restaurants` 
+     example 
+     `https://localhost:44353/api/Restaurants`
+     This endpoint will return an unfiltered set of Restaurants.
       - Response:
 ```json
 [
