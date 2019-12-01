@@ -1,0 +1,32 @@
+EXAMPLE_CALLS:
+
+1.Get a list of restaurants by city:
+	
+	End-point --> (GET) http://localhost:8150/restaurants/search/findByCity?city=dc
+	
+2.Post a restaurant that is not in the database:
+
+	End-point --> (POST) http://localhost:8150/restaurants
+	
+	Request Body -->    {
+			                "name": "olive branch",
+			                "city": "pittsburgh"
+            			}
+            			
+3.Post a review for a restaurant:
+
+	End-point --> (POST) http://localhost:8150/restaurants
+	
+	Request Body -->    {
+			                "review": "I like it",
+			                "restaurant": "olive branch",
+			                "user": "okan"
+            			}
+
+4.Get of a list of reviews by user:
+
+	End-point --> (GET) http://localhost:8150/reviews/search/findByUser?user=brad
+	
+5.Delete a review
+
+	End-point --> (DELETE) http://localhost:8150/reviews/1
