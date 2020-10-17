@@ -1,0 +1,4 @@
+﻿// This command needs to be run in the package manager console
+// Update connection to point to published database
+
+Scaffold-DbContext -Context DbContext -Connection "Server=localhost\sqlserver;Database=RestaurantReviews;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -DataAnnotations -Force -Project RestaurantReviewsApi.Entities -StartupProject RestaurantReviewsApi
