@@ -1,0 +1,50 @@
+Id	Abbreviation	Name
+1	PA	Pennsylvania
+2	OH	Ohio
+3	MA	Massachusetts
+4	MT	Montana
+5	WA	Washington
+6	NV	Nevada
+
+SELECT RR.*, ST.Name FROM Restaurants RR INNER JOIN STATES ST ON RR.StateREF = ST.Id ORDER BY RR.NAME ASC
+
+SELECT UR.*, ST.Name FROM Users UR INNER JOIN STATES ST ON UR.StateREF = ST.Id ORDER BY UR.LastName ASC;
+
+
+
+INSERT INTO States(Abbreviation,Name)Values('PA', 'Pennsylvania')
+INSERT INTO States(Abbreviation,Name)Values('OH', 'Ohio')
+INSERT INTO States(Abbreviation,Name)Values('MA', 'Massachusetts')
+INSERT INTO States(Abbreviation,Name)Values('MT', 'Montana')
+INSERT INTO States(Abbreviation,Name)Values('NV', 'Nevada')
+
+INSERT INTO Restaurants(Name,StreetAddress,Overview,City,StateREF)
+VALUES('Mama Rosa', '123 Old Butler Plank Road', 'Homemade Italian Cuisine from Zia Rosas recipes', 'Butler', 1);
+
+INSERT INTO Restaurants(Name,StreetAddress,Overview,City,StateREF)
+VALUES('La Paloma', '123 Newport Avenue', 'The very best Tex-Mex in Town!', 'Wollaston', 3);
+
+INSERT INTO Restaurants(Name,StreetAddress,Overview,City,StateREF)
+VALUES('Double R Diner', '4100 Route 21', 'Damn good cherry pie care of Norma', 'Twin Peaks', 5);
+
+
+
+INSERT INTO Users(FirstName,LastName,Alias,City,StateRef)VALUES('Vivian','Smythe','MT Wence','Missoula',4)
+
+INSERT INTO Users(FirstName,LastName,Alias,City,StateRef)VALUES('Dale','Cooper','Agent Cooper','Philadelphia',1)
+
+INSERT INTO Users(FirstName,LastName,Alias,City,StateRef)VALUES('Douglas','Jones','Dougie','Las Vegas',6)
+
+
+INSERT INTO Ratings(Level,Description)VALUES('Excellent', 5);
+INSERT INTO Ratings(Level,Description)VALUES('Very Good', 4);
+INSERT INTO Ratings(Level,Description)VALUES('Average', 3);
+INSERT INTO Ratings(Level,Description)VALUES('Below Average', 2);
+INSERT INTO Ratings(Level,Description)VALUES('Poor', 1);
+
+INSERT INTO UserReviews(UserIdREF, RestaurantIdREF, Title, Comments, RatingsREF)VALUES(2,3,'The Huckleberry Pie is Aces', 'Norma runs a friendly place with good simple food', 2);
+
+
+
+
+

@@ -1,0 +1,18 @@
+POST /api/userreviews/ HTTP/1.1
+Host: localhost:44362
+Content-Type: application/json
+cache-control: no-cache
+Postman-Token: 029976ad-3147-4be6-924e-cd3c185fcd0b
+
+{
+    "RatingsRef": "3",
+    "UserIdRef": "1",
+    "Title": "Best local greens and beans",
+    "Comments": "Just got a new parking lot",
+    "RestaurantIdRef": "7"
+}
+
+
+
+
+url in postman <baseaddress>/api/userreviews/

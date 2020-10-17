@@ -1,0 +1,28 @@
+ //RestaurantDM nonDuplicateRestaurant = new RestaurantDM
+            //{
+            //    City = "Columbus",
+            //    Name = "A Common Table",
+            //    Overview = "Gourment Sandwiches",
+            //    StateId = 2,
+            //    StreetAddress = "1455 High Street"
+            //};
+
+
+POST /api/restaurantreview/PostNewRestaurant HTTP/1.1
+Host: localhost:44362
+Content-Type: application/json
+cache-control: no-cache
+Postman-Token: 029976ad-3147-4be6-924e-cd3c185fcd0b
+
+{
+    "City": "Plum",
+    "Name": "John Anthony",
+    "Overview": "Best place for greens and beans Italian style",
+    "StateId": " D’Acierno Family has owned and operated John Anthony’s since 1985",
+    "StreetAddress": "115 Center-New Texas Road"
+}
+
+
+
+
+url in postman <baseaddress>/api/restaurantreview/PostNewRestaurant
