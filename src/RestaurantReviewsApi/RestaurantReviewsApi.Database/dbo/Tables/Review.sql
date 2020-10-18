@@ -4,7 +4,8 @@ CREATE TABLE [dbo].[Review] (
 	[RestaurantId] UNIQUEIDENTIFIER NOT NULL,
 	[UserName] NVARCHAR(100) NOT NULL,
 	[Rating] INT NOT NULL,
-	[Details] NVARCHAR(4000) NULL
+	[Details] NVARCHAR(4000) NULL,
+	[IsDeleted] BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Review_ReviewId] PRIMARY KEY NONCLUSTERED ([ReviewId] ASC));
 
 GO;

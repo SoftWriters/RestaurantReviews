@@ -11,6 +11,7 @@ CREATE TABLE [dbo].[Restaurant] (
 	[Website] NVARCHAR(100) NULL,
 	[Email] NVARCHAR(100) NULL,
 	[Description] NVARCHAR(500) NULL,
+	[IsDeleted] BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Restaurant_RestaurantId] PRIMARY KEY NONCLUSTERED ([RestaurantId] ASC));
 
 GO;
