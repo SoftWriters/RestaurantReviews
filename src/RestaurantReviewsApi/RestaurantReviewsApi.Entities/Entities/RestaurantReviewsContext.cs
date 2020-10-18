@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace RestaurantReviewsApi.Entities
+namespace RestaurantReviewsApi.Entities.Entities
 {
     public partial class RestaurantReviewsContext : DbContext
     {

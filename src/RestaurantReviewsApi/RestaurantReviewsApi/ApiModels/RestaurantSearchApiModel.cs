@@ -20,6 +20,5 @@ namespace RestaurantReviewsApi.ApiModels
         public string State { get; set; }
         [JsonProperty("ZipCode")]
         public string ZipCode { get; set; }
-        [JsonProperty("phone")]
     }
 }
