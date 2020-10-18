@@ -8,10 +8,10 @@ namespace RestaurantReviewsApi.Bll.Managers
 {
     public interface IRestaurantManager
     {
-        public Task<RestaurantApiModel> GetRestaurant(Guid restaurantId);
-        public Task<bool> PostRestaurant(RestaurantApiModel model);
-        public Task<bool> DeleteRestaurant(Guid restaurantId);
-        public Task<bool> PatchRestaurant(RestaurantApiModel model);
-        public IAsyncEnumerable<RestaurantApiModel> SearchRestaurants(RestaurantSearchApiModel model);
+        public Task<RestaurantApiModel> GetRestaurantAsync(Guid restaurantId);
+        public Task<bool> PostRestaurantAsync(RestaurantApiModel model);
+        public Task<bool> DeleteRestaurantAsync(Guid restaurantId);
+        public Task<bool> PatchRestaurantAsync(RestaurantApiModel model);
+        public Task<ICollection<RestaurantApiModel>> SearchRestaurantsAsync(RestaurantSearchApiModel model);
     }
 }

@@ -24,7 +24,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             _translator = translator;
         }
 
-        public async Task<bool> DeleteReview(Guid reviewId)
+        public async Task<bool> DeleteReviewAsync(Guid reviewId)
         {
             var review = await _dbContext.Review.FirstOrDefaultAsync(x =>
                 x.ReviewId == reviewId &&
@@ -39,7 +39,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
-        public async Task<ReviewApiModel> GetReview(Guid reviewId)
+        public async Task<ReviewApiModel> GetReviewAsync(Guid reviewId)
         {
             var review = await _dbContext.Review.FirstOrDefaultAsync(x =>
                 x.ReviewId == reviewId &&
@@ -48,7 +48,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             return _translator.ToReviewApiModel(review);
         }
 
-        public async Task<bool> PostReview(ReviewApiModel model)
+        public async Task<bool> PostReviewAsync(ReviewApiModel model)
         {
             var review = _translator.ToReviewModel(model);
             _dbContext.Review.Add(review);
@@ -56,21 +56,25 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
-        public async IAsyncEnumerable<ReviewApiModel> SearchReviews(ReviewSearchApiModel model)
+        public async Task<ICollection<ReviewApiModel>> SearchReviewsAsync(ReviewSearchApiModel model)
         {
-            var reviews = _dbContext.Review.AsNoTracking().Where(x => !x.IsDeleted);
+            var reviews = _dbContext.Review.Include(r => r.Restaurant).AsNoTracking().Where(x => !x.IsDeleted);
 
             if (model.UserName != null)
                 reviews = reviews.Where(x => x.UserName == model.UserName);
             if (model.RestaurantId != null)
-                reviews = reviews.Where(x => x.RestaurantId == model.RestaurantId);
+                reviews = reviews.Where(x => x.Restaurant.RestaurantId == model.RestaurantId);
            
-            var ret = await reviews.ToListAsync();
+            var reviewList = await reviews.ToListAsync();
 
-            foreach (var r in ret)
+            List<ReviewApiModel> returnList = new List<ReviewApiModel>();
+
+            reviewList.ForEach(x =>
             {
-                yield return _translator.ToReviewApiModel(r);
-            }
+                returnList.Add(_translator.ToReviewApiModel(x));
+            });
+
+            return returnList;
         }
     }
 }

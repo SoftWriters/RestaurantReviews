@@ -26,39 +26,93 @@ namespace RestaurantReviewsApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(RestaurantApiModel), 200)]
         [ProducesResponseType(404)]
-        public IActionResult GetRestaurant(Guid restaurantId)
+        public async Task<IActionResult> GetRestaurantAsync(Guid restaurantId)
         {
-            return Ok();
+            try
+            {
+                var model = await _manager.GetRestaurantAsync(restaurantId);
+
+                if (model != null)
+                    return Ok(model);
+
+                return NotFound();
+            }
+            catch(Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("search")]
         [ProducesResponseType(typeof(ICollection<RestaurantApiModel>), 200)]
-        public IActionResult SearchRestaurants([FromBody] RestaurantSearchApiModel model)
+        public async Task<IActionResult> SearchRestaurantsAsync([FromBody] RestaurantSearchApiModel model)
         {
-            return Ok();
+            try
+            {
+                var searchResult = await _manager.SearchRestaurantsAsync(model);
+                return Ok(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
         [ProducesResponseType(200)]
-        [ProducesResponseType(201)]
-        public IActionResult PostRestaurant([FromBody] RestaurantApiModel model)
+        public async Task<IActionResult> PostRestaurantAsync([FromBody] RestaurantApiModel model)
         {
-            return Ok();
+            try
+            {
+                var result = await _manager.PostRestaurantAsync(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpPatch]
         [ProducesResponseType(200)]
-        public IActionResult PatchRestaurant([FromBody] RestaurantApiModel model)
+        public async Task<IActionResult> PatchRestaurantAsync([FromBody] RestaurantApiModel model)
         {
-            return Ok();
+            try
+            {
+                var result = await _manager.PatchRestaurantAsync(model);
+                if(result)
+                    return Ok();
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteRestaurant(Guid restaurantId)
+        public async Task<IActionResult> DeleteRestaurantAsync(Guid restaurantId)
         {
-            return Ok();
+            try
+            {
+                var result = await _manager.DeleteRestaurantAsync(restaurantId);
+                if (result)
+                    return Ok();
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
     }
 }

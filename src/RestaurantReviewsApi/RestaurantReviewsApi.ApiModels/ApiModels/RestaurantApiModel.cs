@@ -30,5 +30,7 @@ namespace RestaurantReviewsApi.ApiModels
         public string Email { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
+        [JsonProperty("average_rating")]
+        public float? AverageRating { get; set; }
     }
 }

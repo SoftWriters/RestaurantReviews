@@ -8,9 +8,9 @@ namespace RestaurantReviewsApi.Bll.Managers
 {
     public interface IReviewManager
     {
-        public Task<ReviewApiModel> GetReview(Guid reviewId);
-        public Task<bool> PostReview(ReviewApiModel model);
-        public Task<bool> DeleteReview(Guid reviewId);
-        public IAsyncEnumerable<ReviewApiModel> SearchReviews(ReviewSearchApiModel model);
+        public Task<ReviewApiModel> GetReviewAsync(Guid reviewId);
+        public Task<bool> PostReviewAsync(ReviewApiModel model);
+        public Task<bool> DeleteReviewAsync(Guid reviewId);
+        public Task<ICollection<ReviewApiModel>> SearchReviewsAsync(ReviewSearchApiModel model);
     }
 }

@@ -8,9 +8,9 @@ namespace RestaurantReviewsApi.Entities
     public partial class Review
     {
         public int SystemId { get; set; }
+        public Guid RestaurantId { get; set; }
         [Key]
         public Guid ReviewId { get; set; }
-        public Guid RestaurantId { get; set; }
         [Required]
         [StringLength(100)]
         public string UserName { get; set; }
@@ -18,5 +18,9 @@ namespace RestaurantReviewsApi.Entities
         [StringLength(4000)]
         public string Details { get; set; }
         public bool IsDeleted { get; set; }
+
+        [ForeignKey(nameof(RestaurantId))]
+        [InverseProperty("Review")]
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

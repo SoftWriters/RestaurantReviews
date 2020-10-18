@@ -59,6 +59,12 @@ namespace RestaurantReviewsApi.Entities
                 entity.Property(e => e.ReviewId).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.SystemId).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.Restaurant)
+                    .WithMany(p => p.Review)
+                    .HasForeignKey(d => d.RestaurantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Review_RestaurantId");
             });
 
             OnModelCreatingPartial(modelBuilder);

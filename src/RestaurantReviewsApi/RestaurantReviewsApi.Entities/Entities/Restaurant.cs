@@ -7,6 +7,11 @@ namespace RestaurantReviewsApi.Entities
 {
     public partial class Restaurant
     {
+        public Restaurant()
+        {
+            Review = new HashSet<Review>();
+        }
+
         public int SystemId { get; set; }
         [Key]
         public Guid RestaurantId { get; set; }
@@ -32,5 +37,8 @@ namespace RestaurantReviewsApi.Entities
         [StringLength(500)]
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
+
+        [InverseProperty("Restaurant")]
+        public virtual ICollection<Review> Review { get; set; }
     }
 }

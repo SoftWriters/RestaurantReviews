@@ -26,31 +26,74 @@ namespace RestaurantReviewsApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ReviewApiModel), 200)]
         [ProducesResponseType(404)]
-        public IActionResult GetReview(Guid reviewId)
+        public async Task<IActionResult> GetReviewAsync(Guid reviewId)
         {
-            return Ok();
+            try
+            {
+                var model = await _manager.GetReviewAsync(reviewId);
+
+                if (model != null)
+                    return Ok(model);
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         [ProducesResponseType(typeof(ICollection<ReviewApiModel>), 200)]
-        public IActionResult GetReviews(ReviewSearchApiModel model)
+        public async Task<IActionResult> SearchReviewsAsync(ReviewSearchApiModel model)
         {
-            return Ok();
+            try
+            {
+                var searchResult = await _manager.SearchReviewsAsync(model);
+                return Ok(model);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        public IActionResult PostReview([FromBody] ReviewApiModel model)
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> PostReviewAsync([FromBody] ReviewApiModel model)
         {
-            return Ok();
+            try
+            {
+                var result = await _manager.PostReviewAsync(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
 
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteReview(Guid reviewId)
+        public async Task<IActionResult> DeleteReviewAsync(Guid reviewId)
         {
-            return Ok();
+            try
+            {
+                var result = await _manager.DeleteReviewAsync(reviewId);
+                if (result)
+                    return Ok();
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(default, e);
+                return StatusCode(500);
+            }
         }
     }
 }

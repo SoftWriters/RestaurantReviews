@@ -24,7 +24,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             _translator = translator;
         }
 
-        public async Task<bool> DeleteRestaurant(Guid restaurantId)
+        public async Task<bool> DeleteRestaurantAsync(Guid restaurantId)
         {
             var restaurant = await _dbContext.Restaurant.FirstOrDefaultAsync(x =>
                 x.RestaurantId == restaurantId &&
@@ -39,7 +39,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
-        public async Task<RestaurantApiModel> GetRestaurant(Guid restaurantId)
+        public async Task<RestaurantApiModel> GetRestaurantAsync(Guid restaurantId)
         {
             var restaurant =  await _dbContext.Restaurant.FirstOrDefaultAsync(x =>
                 x.RestaurantId == restaurantId &&
@@ -48,11 +48,10 @@ namespace RestaurantReviewsApi.Bll.Managers
             return _translator.ToRestaurantApiModel(restaurant);
         }
 
-        public async Task<bool> PatchRestaurant(RestaurantApiModel model)
+        public async Task<bool> PatchRestaurantAsync(RestaurantApiModel model)
         {
             var restaurant = await _dbContext.Restaurant.FirstOrDefaultAsync(x =>
-               x.RestaurantId == model.RestaurantId &&
-               !x.IsDeleted);
+               x.RestaurantId == model.RestaurantId);
 
             if (restaurant == null)
                 return false;
@@ -63,7 +62,7 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
-        public async Task<bool> PostRestaurant(RestaurantApiModel model)
+        public async Task<bool> PostRestaurantAsync(RestaurantApiModel model)
         {
             var restaurant = _translator.ToRestaurantModel(model);
             _dbContext.Restaurant.Add(restaurant);
@@ -71,9 +70,9 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
-        public async IAsyncEnumerable<RestaurantApiModel> SearchRestaurants(RestaurantSearchApiModel model)
+        public async Task<ICollection<RestaurantApiModel>> SearchRestaurantsAsync(RestaurantSearchApiModel model)
         {
-            var restaurants = _dbContext.Restaurant.AsNoTracking().Where(x => !x.IsDeleted);
+            var restaurants = _dbContext.Restaurant.Include(x => x.Review.Where(r =>!r.IsDeleted)).AsNoTracking().Where(x => !x.IsDeleted);
 
             if (model.Name != null)
                 restaurants = restaurants.Where(x => x.Name.StartsWith(model.Name));
@@ -86,12 +85,16 @@ namespace RestaurantReviewsApi.Bll.Managers
             if (model.ZipCode != null)
                 restaurants = restaurants.Where(x => x.ZipCode.StartsWith(model.ZipCode));
 
-            var ret =  await restaurants.ToListAsync();
+            var restaurantList =  await restaurants.ToListAsync();
 
-            foreach(var r in ret)
+            List<RestaurantApiModel> returnList = new List<RestaurantApiModel>();
+
+            restaurantList.ForEach(x =>
             {
-                yield return _translator.ToRestaurantApiModel(r);
-            }
+                returnList.Add(_translator.ToRestaurantApiModel(x));
+            });
+
+            return returnList;      
         }
     }
 }
