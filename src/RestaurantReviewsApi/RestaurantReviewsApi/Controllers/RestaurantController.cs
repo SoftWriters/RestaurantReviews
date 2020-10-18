@@ -31,9 +31,9 @@ namespace RestaurantReviewsApi.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         [ProducesResponseType(typeof(ICollection<RestaurantApiModel>), 200)]
-        public IActionResult GetRestaurants([FromBody] RestaurantSearchApiModel model)
+        public IActionResult SearchRestaurants([FromBody] RestaurantSearchApiModel model)
         {
             return Ok();
         }

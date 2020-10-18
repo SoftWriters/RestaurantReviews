@@ -12,6 +12,6 @@ namespace RestaurantReviewsApi.Bll.Managers
         public Task<bool> PostRestaurant(RestaurantApiModel model);
         public Task<bool> DeleteRestaurant(Guid restaurantId);
         public Task<bool> PatchRestaurant(RestaurantApiModel model);
-        public Task<ICollection<RestaurantApiModel>> SearchRestaurants(RestaurantSearchApiModel model);
+        public IAsyncEnumerable<RestaurantApiModel> SearchRestaurants(RestaurantSearchApiModel model);
     }
 }

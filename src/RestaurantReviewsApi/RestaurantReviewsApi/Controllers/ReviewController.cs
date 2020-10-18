@@ -31,9 +31,9 @@ namespace RestaurantReviewsApi.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("search")]
         [ProducesResponseType(typeof(ICollection<ReviewApiModel>), 200)]
-        public IActionResult GetReviews(Guid? restaurantId, string userName)
+        public IActionResult GetReviews(ReviewSearchApiModel model)
         {
             return Ok();
         }

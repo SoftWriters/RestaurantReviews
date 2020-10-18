@@ -13,12 +13,12 @@ namespace RestaurantReviewsApi.Bll.Translators
             throw new NotImplementedException();
         }
 
-        public Restaurant ToRestaurantModel(RestaurantApiModel restaurantApiModel)
+        public Restaurant ToRestaurantModel(RestaurantApiModel restaurantApiModel, Restaurant restaurantModel = null)
         {
             throw new NotImplementedException();
         }
 
-        public Review ToReview(ReviewApiModel reviewApiModel)
+        public Review ToReviewModel(ReviewApiModel reviewApiModel, Review reviewModel = null)
         {
             throw new NotImplementedException();
         }

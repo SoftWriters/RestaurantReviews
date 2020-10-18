@@ -8,12 +8,10 @@ namespace RestaurantReviewsApi.ApiModels
 {
     public class RestaurantSearchApiModel
     {
-        [JsonProperty("restaurant_id")]
-        public Guid? RestaurantId { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("address_line_1")]
-        public string AddressLine2 { get; set; }
+        public string AddressLine1 { get; set; }
         [JsonProperty("city")]
         public string City { get; set; }
         [JsonProperty("state")]
