@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
+using RestaurantReviewsApi.Bll.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace RestaurantReviewsApi.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly ILogger<RestaurantController> _logger;
+        private readonly IRestaurantManager _manager;
 
-        public RestaurantController(ILogger<RestaurantController> logger)
+        public RestaurantController(ILogger<RestaurantController> logger, IRestaurantManager manager)
         {
             _logger = logger;
+            _manager = manager;
         }
 
         [HttpGet]

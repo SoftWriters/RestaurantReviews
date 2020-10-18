@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestaurantReviewsApi.Entities.Entities
+namespace RestaurantReviewsApi.Entities
 {
     public partial class Restaurant
     {

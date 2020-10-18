@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NSwag;
+using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Translators;
 using RestaurantReviewsApi.Entities;
 
 namespace RestaurantReviewsApi
@@ -48,6 +50,9 @@ namespace RestaurantReviewsApi
             });
 
             services.AddDbContext<RestaurantReviewsContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddSingleton<IApiModelTranslator, ApiModelTranslator>();
+            services.AddScoped<IRestaurantManager, RestaurantManager>();
+            services.AddScoped<IReviewManager, ReviewManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

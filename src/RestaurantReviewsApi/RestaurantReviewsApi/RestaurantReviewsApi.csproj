@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RestaurantReviewsApi.Entities\RestaurantReviewsApi.Entities.csproj" />
+    <ProjectReference Include="..\RestaurantReviewsApi.Bll\RestaurantReviewsApi.Bll.csproj" />
   </ItemGroup>
 
 
