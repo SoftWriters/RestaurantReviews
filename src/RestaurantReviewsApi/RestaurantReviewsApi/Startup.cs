@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NSwag;
+using RestaurantReviewsApi.Entities;
 
 namespace RestaurantReviewsApi
 {
@@ -44,6 +46,8 @@ namespace RestaurantReviewsApi
                     document.Schemes = new List<OpenApiSchema>() { OpenApiSchema.Http, OpenApiSchema.Https };
                 };
             });
+
+            services.AddDbContext<RestaurantReviewsContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

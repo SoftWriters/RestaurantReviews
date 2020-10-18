@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace RestaurantReviewsApi.Entities.Entities
+namespace RestaurantReviewsApi.Entities
 {
-    public partial class RestaurantReviewsDBContext : DbContext
+    public partial class RestaurantReviewsContext : DbContext
     {
-        public RestaurantReviewsDBContext()
+        public RestaurantReviewsContext()
         {
         }
 
-        public RestaurantReviewsDBContext(DbContextOptions<RestaurantReviewsDBContext> options)
+        public RestaurantReviewsContext(DbContextOptions<RestaurantReviewsContext> options)
             : base(options)
         {
         }
