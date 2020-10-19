@@ -121,7 +121,7 @@ namespace RestaurantReviewsApi.Controllers
         /// <param name="model"></param>
         /// <returns>Id of created Review</returns>
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(Guid?), 200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
         [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> PostReviewAsync([FromBody] ReviewApiModel model)

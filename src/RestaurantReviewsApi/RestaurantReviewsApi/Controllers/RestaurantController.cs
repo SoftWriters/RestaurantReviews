@@ -116,7 +116,7 @@ namespace RestaurantReviewsApi.Controllers
         /// <param name="model"></param>
         /// <returns>Id of created Restaurant</returns>
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(Guid?), 200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
         [Authorize(Policy = Policy.Admin)]
         public async Task<IActionResult> PostRestaurantAsync([FromBody] RestaurantApiModel model)
@@ -156,7 +156,7 @@ namespace RestaurantReviewsApi.Controllers
         /// <param name="model"></param>
         /// <returns>Id of patched Restaurant</returns>
         [HttpPatch]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(Guid?), 200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
         [Authorize(Policy = Policy.Admin)]
         public async Task<IActionResult> PatchRestaurantAsync([FromBody] RestaurantApiModel model)
