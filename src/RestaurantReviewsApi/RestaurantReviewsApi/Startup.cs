@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,9 +16,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NSwag;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Providers;
 using RestaurantReviewsApi.Bll.Translators;
 using RestaurantReviewsApi.Bll.Validators;
 using RestaurantReviewsApi.Entities;
@@ -41,15 +47,35 @@ namespace RestaurantReviewsApi
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
 
-            services.AddOpenApiDocument(config =>
+            services.AddSwaggerGen(c =>
             {
-                config.DocumentName = "v1";
-                config.PostProcess = document =>
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    document.Info.Version = "v1";
-                    document.Info.Title = "Restaurant Reviews Api";
-                    document.Schemes = new List<OpenApiSchema>() { OpenApiSchema.Http, OpenApiSchema.Https };
-                };
+                    Title = "Restaurant Reviews Api",
+                    Version = "v1"
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+               {
+                 new OpenApiSecurityScheme
+                 {
+                   Reference = new OpenApiReference
+                   {
+                     Type = ReferenceType.SecurityScheme,
+                     Id = "Bearer"
+                   }
+                  },
+                  new string[] { }
+                }
+              });
             });
 
             services.AddDbContext<RestaurantReviewsContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
@@ -57,6 +83,7 @@ namespace RestaurantReviewsApi
             services.AddScoped<IRestaurantManager, RestaurantManager>();
             services.AddScoped<IReviewManager, ReviewManager>();
             ConfigureValidators(services);
+            ConfigureAuth(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,13 +96,14 @@ namespace RestaurantReviewsApi
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseOpenApi();
-            app.UseSwaggerUi3();
-            app.UseEndpoints(endpoints =>
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                endpoints.MapControllers();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Reviews Api v1");
             });
+
         }
 
         private void ConfigureValidators(IServiceCollection services)
@@ -84,7 +112,39 @@ namespace RestaurantReviewsApi
             services.AddSingleton<IValidator<ReviewApiModel>, ReviewApiModelValidator>();
             services.AddSingleton<IValidator<RestaurantSearchApiModel>, RestaurantSearchApiModelValidator>();
             services.AddSingleton<IValidator<ReviewSearchApiModel>, ReviewSearchApiModelValidator>();
+        }
 
+        private void ConfigureAuth(IServiceCollection services)
+        {
+            string issuer = Configuration["Jwt:Issuer"];
+            string audience = Configuration["Jwt:Audience"];
+            string key = Configuration["Jwt:Key"];
+
+            if (string.IsNullOrEmpty(issuer))
+                throw new Exception($"Missing config value for [Jwt:Issuer]");
+            if (string.IsNullOrEmpty(audience))
+                throw new Exception($"Missing config value for [Jwt:Audience]");
+
+            services.AddScoped<IAuthProvider, AuthProvider>(x =>
+            {
+                return new AuthProvider(issuer, key);
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+            {
+                options.Authority = issuer;
+                options.RequireHttpsMetadata = false;
+                options.Audience = audience;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    ValidateIssuerSigningKey = true,
+                    //Ensure the token hasn't expired:
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true
+                };
+            });
         }
     }
 }
