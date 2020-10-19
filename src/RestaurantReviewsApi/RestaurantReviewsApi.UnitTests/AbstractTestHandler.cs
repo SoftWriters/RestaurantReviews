@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.Bll.Utility;
 using RestaurantReviewsApi.Entities;
 using System;
@@ -12,11 +13,20 @@ namespace RestaurantReviewsApi.UnitTests
     {
         private const string InMemoryConnectionString = "DataSource=:memory:";
         private readonly SqliteConnection _connection;
+        private readonly ILoggerFactory _loggerFactory;
 
+        protected ILogger<T> Logger<T>() => new Logger<T>(_loggerFactory);
         protected readonly RestaurantReviewsContext DbContext;
 
         protected AbstractTestHandler()
         {
+            _loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddFilter("Microsoft", LogLevel.Warning)
+                       .AddFilter("System", LogLevel.Warning)
+                       .AddConsole();
+            });
+
             _connection = new SqliteConnection(InMemoryConnectionString);
 
             _connection.CreateFunction("newid", () => Guid.NewGuid());
@@ -35,7 +45,7 @@ namespace RestaurantReviewsApi.UnitTests
             _connection.Close();
         }
 
-        public Guid AddRestaurant(
+        protected Guid AddRestaurant(
             string name = null,
             string city = null,
             string state = null,
@@ -78,7 +88,7 @@ namespace RestaurantReviewsApi.UnitTests
             return restaurant.RestaurantId;
         }
 
-        public Guid AddReview(Guid restaurantId, string userId = "TestUser1")
+        protected Guid AddReview(Guid restaurantId, string userId = "TestUser1")
         {
             var review = new Review()
             {
@@ -92,5 +102,6 @@ namespace RestaurantReviewsApi.UnitTests
 
             return review.ReviewId;
         }
+
     }
 }

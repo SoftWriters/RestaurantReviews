@@ -41,6 +41,7 @@ namespace RestaurantReviewsApi.Bll.Managers
 
         public async Task<RestaurantApiModel> GetRestaurantAsync(Guid restaurantId)
         {
+            _logger.LogTrace("ya",null);
             var restaurant =  await _dbContext.Restaurant.FirstOrDefaultAsync(x =>
                 x.RestaurantId == restaurantId &&
                 !x.IsDeleted);
