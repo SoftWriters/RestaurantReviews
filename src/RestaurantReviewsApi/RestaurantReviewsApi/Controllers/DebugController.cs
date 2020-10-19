@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpGet]
         [Route("ping")]
+        [AllowAnonymous]
         public string Ping()
         {
             return "pong";

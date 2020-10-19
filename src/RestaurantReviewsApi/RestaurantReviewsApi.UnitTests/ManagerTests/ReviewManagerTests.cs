@@ -1,5 +1,6 @@
 ﻿using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Models;
 using RestaurantReviewsApi.Bll.Translators;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
         [Fact]
         public async void CanDeleteReview()
         {
+            var userId = HelperFunctions.RandomString(20);
             var guid = AddRestaurant();
-            var reviewGuid = AddReview(guid);
+            var reviewGuid = AddReview(guid, userId);
+            var userModel = new UserModel() { UserName = userId };
             var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
-            var delete = await manager.DeleteReviewAsync(reviewGuid);
+            var delete = await manager.DeleteReviewAsync(reviewGuid, userModel);
             Assert.True(delete);
 
             var review = DbContext.Review.FirstOrDefault(x => x.ReviewId == reviewGuid);
@@ -41,9 +44,10 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
         {
             var guid = AddRestaurant();
             var model = ApiModelHelperFunctions.RandomReviewApiModel(guid);
+            var userModel = new UserModel() { UserName = HelperFunctions.RandomString(20) };
             var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
-            var post = await manager.PostReviewAsync(model);
-            Assert.True(post);
+            var post = await manager.PostReviewAsync(model, userModel);
+            Assert.NotNull(post);
         }
 
         [Fact]

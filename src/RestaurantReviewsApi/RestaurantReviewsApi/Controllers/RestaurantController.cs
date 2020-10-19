@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
 using RestaurantReviewsApi.Bll.Utility;
+using RestaurantReviewsApi.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +32,15 @@ namespace RestaurantReviewsApi.Controllers
             _restaurantSearchApiModelValidator = restaurantSearchApiModelValidator;
         }
 
+        /// <summary>
+        /// Gets a restaurant.
+        /// </summary>
+        /// <param name="restaurantId"></param>
+        /// <returns>RestaurantApiModel</returns>
         [HttpGet]
         [ProducesResponseType(typeof(RestaurantApiModel), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> GetRestaurantAsync(Guid restaurantId)
         {
             try
@@ -51,9 +59,26 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Searches for Restaurants based on parameters.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     
+        ///     {
+        ///        "name": "Fioris",
+        ///        "city": "Pittsburgh",
+        ///        "state": "PA"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>A list of restaurants</returns>
         [HttpPost("search")]
         [ProducesResponseType(typeof(ICollection<RestaurantApiModel>), 200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> SearchRestaurantsAsync([FromBody] RestaurantSearchApiModel model)
         {
             try
@@ -63,7 +88,7 @@ namespace RestaurantReviewsApi.Controllers
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
                 var searchResult = await _manager.SearchRestaurantsAsync(model);
-                return Ok(model);
+                return Ok(searchResult);
             }
             catch (Exception e)
             {
@@ -72,9 +97,28 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a Restaurant.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     
+        ///     {
+        ///        "name": "Fioris",
+        ///        "city": "Pittsburgh",
+        ///        "state": "PA",
+        ///        "zipCode": "15216",
+        ///        "description": "Delicious Pizza"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>Id of created Restaurant</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
+        [Authorize(Policy = Policy.Admin)]
         public async Task<IActionResult> PostRestaurantAsync([FromBody] RestaurantApiModel model)
         {
             try
@@ -83,8 +127,7 @@ namespace RestaurantReviewsApi.Controllers
                 if (!validations.IsValid)
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
-                var result = await _manager.PostRestaurantAsync(model);
-                return Ok();
+                return Ok(await _manager.PostRestaurantAsync(model));
             }
             catch (Exception e)
             {
@@ -93,9 +136,29 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Patches a Restaurant.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     
+        ///     {
+        ///        "restaurant_id": "7FFC0A18-03CB-4C55-98EC-7D1E42D714D0""
+        ///        "name": "Fioris",
+        ///        "city": "Pittsburgh",
+        ///        "state": "PA",
+        ///        "zipcode": "15216",
+        ///        "description": "Delicious Pizza"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>Id of patched Restaurant</returns>
         [HttpPatch]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
+        [Authorize(Policy = Policy.Admin)]
         public async Task<IActionResult> PatchRestaurantAsync([FromBody] RestaurantApiModel model)
         {
             try
@@ -105,8 +168,8 @@ namespace RestaurantReviewsApi.Controllers
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
                 var result = await _manager.PatchRestaurantAsync(model);
-                if(result)
-                    return Ok();
+                if(result != null)
+                    return Ok(result);
 
                 return NotFound();
             }
@@ -117,9 +180,15 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a Restaurant.
+        /// </summary>
+        /// <param name="restaurantId"></param>
+        /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize(Policy = Policy.Admin)]
         public async Task<IActionResult> DeleteRestaurantAsync(Guid restaurantId)
         {
             try

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
+using RestaurantReviewsApi.Bll.Models;
 using RestaurantReviewsApi.Bll.Translators;
 using RestaurantReviewsApi.Entities;
 using System;
@@ -24,11 +25,13 @@ namespace RestaurantReviewsApi.Bll.Managers
             _translator = translator;
         }
 
-        public async Task<bool> DeleteReviewAsync(Guid reviewId)
+        public async Task<bool> DeleteReviewAsync(Guid reviewId, UserModel userModel)
         {
+            //Only allowing users to delete reviews that they created.
             var review = await _dbContext.Review.FirstOrDefaultAsync(x =>
                 x.ReviewId == reviewId &&
-                !x.IsDeleted);
+                !x.IsDeleted && 
+                x.UserName == userModel.UserName);
 
             if (review == null)
                 return false;
@@ -51,12 +54,12 @@ namespace RestaurantReviewsApi.Bll.Managers
             return _translator.ToReviewApiModel(review);
         }
 
-        public async Task<bool> PostReviewAsync(ReviewApiModel model)
+        public async Task<Guid?> PostReviewAsync(ReviewApiModel model, UserModel userModel)
         {
-            var review = _translator.ToReviewModel(model);
+            var review = _translator.ToReviewModel(model, userModel);
             _dbContext.Review.Add(review);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return review.ReviewId;
         }
 
         public async Task<ICollection<ReviewApiModel>> SearchReviewsAsync(ReviewSearchApiModel model)

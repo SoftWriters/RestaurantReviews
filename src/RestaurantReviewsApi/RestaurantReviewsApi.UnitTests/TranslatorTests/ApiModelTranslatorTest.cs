@@ -1,4 +1,5 @@
-﻿using RestaurantReviewsApi.Bll.Translators;
+﻿using RestaurantReviewsApi.Bll.Models;
+using RestaurantReviewsApi.Bll.Translators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,12 +93,13 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
         {
             var guid = Guid.NewGuid();
             var apiModel = ApiModelHelperFunctions.RandomReviewApiModel(guid);
-            var dbModel = _translator.ToReviewModel(apiModel);
+            var userModel = new UserModel() { UserName = HelperFunctions.RandomString(20) };
+            var dbModel = _translator.ToReviewModel(apiModel, userModel);
 
             Assert.Equal(apiModel.Rating, dbModel.Rating);
             Assert.Equal(apiModel.RestaurantId, dbModel.RestaurantId);
             Assert.Equal(apiModel.Details, dbModel.Details);
-            Assert.Equal(apiModel.UserName, dbModel.UserName);
+            Assert.Equal(userModel.UserName, dbModel.UserName);
         }
     }
 }

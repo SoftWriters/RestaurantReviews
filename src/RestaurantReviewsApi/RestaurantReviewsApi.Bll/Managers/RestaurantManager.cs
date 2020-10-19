@@ -52,26 +52,26 @@ namespace RestaurantReviewsApi.Bll.Managers
             return _translator.ToRestaurantApiModel(restaurant, await RestaurantAverageRating(restaurant.RestaurantId));
         }
 
-        public async Task<bool> PatchRestaurantAsync(RestaurantApiModel model)
+        public async Task<Guid?> PatchRestaurantAsync(RestaurantApiModel model)
         {
             var restaurant = await _dbContext.Restaurant.FirstOrDefaultAsync(x =>
                x.RestaurantId == model.RestaurantId);
 
             if (restaurant == null)
-                return false;
+                return null;
 
             _translator.ToRestaurantModel(model, restaurant);
 
             await _dbContext.SaveChangesAsync();
-            return true;
+            return restaurant.RestaurantId;
         }
 
-        public async Task<bool> PostRestaurantAsync(RestaurantApiModel model)
+        public async Task<Guid?> PostRestaurantAsync(RestaurantApiModel model)
         {
             var restaurant = _translator.ToRestaurantModel(model);
             _dbContext.Restaurant.Add(restaurant);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return restaurant.RestaurantId;
         }
 
         //TODO Expand this search functionality to better handle fuzzy matching and to search for keywords in description

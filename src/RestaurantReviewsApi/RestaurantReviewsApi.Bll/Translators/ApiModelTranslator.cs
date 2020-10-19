@@ -1,4 +1,5 @@
 ﻿using RestaurantReviewsApi.ApiModels;
+using RestaurantReviewsApi.Bll.Models;
 using RestaurantReviewsApi.Entities;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace RestaurantReviewsApi.Bll.Translators
             };
         }
 
-        public Review ToReviewModel(ReviewApiModel reviewApiModel)
+        public Review ToReviewModel(ReviewApiModel reviewApiModel, UserModel userModel)
         {
             if (reviewApiModel == null)
                 throw new ArgumentNullException(nameof(reviewApiModel));
@@ -78,7 +79,7 @@ namespace RestaurantReviewsApi.Bll.Translators
                 RestaurantId = reviewApiModel.RestaurantId.Value,
                 Rating = (int)reviewApiModel.Rating,
                 Details = reviewApiModel.Details,
-                UserName = reviewApiModel.UserName,
+                UserName = userModel.UserName,
             };
         }
     }
