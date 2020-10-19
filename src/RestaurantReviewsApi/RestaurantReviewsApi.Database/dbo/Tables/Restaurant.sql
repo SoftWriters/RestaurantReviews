@@ -1,5 +1,4 @@
 CREATE TABLE [dbo].[Restaurant] (
-	[SystemId] INT IDENTITY (1, 1) NOT NULL ,
 	[RestaurantId] [uniqueidentifier] NOT NULL DEFAULT NEWID(),
 	[Name] NVARCHAR(100) NOT NULL,
 	[AddressLine1] NVARCHAR(100) NULL,
@@ -12,10 +11,10 @@ CREATE TABLE [dbo].[Restaurant] (
 	[Email] NVARCHAR(320) NULL,
 	[Description] NVARCHAR(500) NULL,
 	[IsDeleted] BIT NOT NULL DEFAULT 0,
+	[CreationDate] DATETIME NOT NULL DEFAULT GETUTCDATE(),
     CONSTRAINT [PK_Restaurant_RestaurantId] PRIMARY KEY NONCLUSTERED ([RestaurantId] ASC));
-
 GO;
 
-CREATE UNIQUE CLUSTERED INDEX [CIX_Restaurant_SystemId] ON [dbo].[Restaurant](SystemId);
+CREATE UNIQUE CLUSTERED INDEX [CIX_Restaurant_CreationDate] ON [dbo].[Restaurant]([CreationDate]);
 
 GO;

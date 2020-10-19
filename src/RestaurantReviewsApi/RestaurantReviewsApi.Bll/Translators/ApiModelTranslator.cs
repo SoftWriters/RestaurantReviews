@@ -64,7 +64,7 @@ namespace RestaurantReviewsApi.Bll.Translators
             return new Review()
             {
                 RestaurantId = reviewApiModel.RestaurantId.Value,
-                Rating = reviewApiModel.Rating,
+                Rating = (int)reviewApiModel.Rating,
                 Details = reviewApiModel.Details,
                 UserName = reviewApiModel.UserName,
             };
