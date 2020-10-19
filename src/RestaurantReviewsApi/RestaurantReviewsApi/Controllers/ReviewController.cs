@@ -128,15 +128,14 @@ namespace RestaurantReviewsApi.Controllers
         {
             try
             {
-                var accessToken = Request.Headers[HeaderNames.Authorization];
-                var userModel = _authProvider.GetUserModel(accessToken);
+                var userModel = _authProvider.GetUserModel(Request);
 
                 var validations = _reviewApiModelValidator.Validate(model);
                 if (!validations.IsValid)
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
                 var result = await _manager.PostReviewAsync(model, userModel);
-                return Ok();
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -158,8 +157,7 @@ namespace RestaurantReviewsApi.Controllers
         {
             try
             {
-                var accessToken = Request.Headers[HeaderNames.Authorization];
-                var userModel = _authProvider.GetUserModel(accessToken);
+                var userModel = _authProvider.GetUserModel(Request);
 
                 var result = await _manager.DeleteReviewAsync(reviewId, userModel);
                 if (result)

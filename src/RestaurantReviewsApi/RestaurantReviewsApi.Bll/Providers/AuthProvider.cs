@@ -1,5 +1,7 @@
-﻿using Microsoft.IdentityModel.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using RestaurantReviewsApi.ApiModels.ApiModels;
 using RestaurantReviewsApi.Bll.Models;
 using System;
@@ -52,6 +54,14 @@ namespace RestaurantReviewsApi.Bll.Providers
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 ExpiresIn = 120
             };        
+        }
+
+        public UserModel GetUserModel(HttpRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+
+            return GetUserModel(request.Headers[HeaderNames.Authorization]);
         }
 
         public UserModel GetUserModel(string token)
