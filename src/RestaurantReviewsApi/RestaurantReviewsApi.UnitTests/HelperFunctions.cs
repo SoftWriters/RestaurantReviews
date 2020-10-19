@@ -54,11 +54,6 @@ namespace RestaurantReviewsApi.UnitTests
             return randomEnum;
         }
 
-        public static decimal RandomDecimal()
-        {
-            return new decimal(random.NextDouble());
-        }
-
         public static T RandomElement<T>(ICollection<T> collection)
         {
             return collection.ToList()[random.Next(collection.Count)];

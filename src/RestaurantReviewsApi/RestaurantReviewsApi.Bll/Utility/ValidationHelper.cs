@@ -29,7 +29,7 @@ namespace RestaurantReviewsApi.Bll.Utility
 
         public static class ValidationConstants
         {
-            public const string PhoneRegex = @"^\d{10-12}$";
+            public const string PhoneRegex = @"^\d{10,12}$";
             public const string ZipCodeRegex = @"^((\d{5})|(\d{5}-\d{4}))$";
 
             public static ICollection<string> StateAbbreviations = new HashSet<string>
