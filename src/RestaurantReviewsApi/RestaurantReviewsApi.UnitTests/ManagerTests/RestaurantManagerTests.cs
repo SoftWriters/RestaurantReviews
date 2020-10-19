@@ -46,7 +46,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             model.RestaurantId = guid;
             var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
             var patch = await manager.PatchRestaurantAsync(model);
-            Assert.True(patch);
+            Assert.NotNull(patch);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             model.RestaurantId = guid;
             var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
             var post = await manager.PostRestaurantAsync(model);
-            Assert.True(post);
+            Assert.NotNull(post);
         }
 
         [Fact]

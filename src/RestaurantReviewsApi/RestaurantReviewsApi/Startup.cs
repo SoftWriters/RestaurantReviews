@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -23,6 +25,7 @@ using RestaurantReviewsApi.Bll.Managers;
 using RestaurantReviewsApi.Bll.Providers;
 using RestaurantReviewsApi.Bll.Translators;
 using RestaurantReviewsApi.Bll.Validators;
+using RestaurantReviewsApi.Constants;
 using RestaurantReviewsApi.Entities;
 
 namespace RestaurantReviewsApi
@@ -47,6 +50,49 @@ namespace RestaurantReviewsApi
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
 
+            services.AddDbContext<RestaurantReviewsContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+            services.AddSingleton<IApiModelTranslator, ApiModelTranslator>();
+            services.AddScoped<IRestaurantManager, RestaurantManager>();
+            services.AddScoped<IReviewManager, ReviewManager>();
+            ConfigureValidators(services);
+            ConfigureAuth(services);
+            ConfigureSwagger(services);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Reviews Api v1");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+
+        private void ConfigureValidators(IServiceCollection services)
+        {
+            services.AddSingleton<IValidator<RestaurantApiModel>, RestaurantApiModelValidator>();
+            services.AddSingleton<IValidator<ReviewApiModel>, ReviewApiModelValidator>();
+            services.AddSingleton<IValidator<RestaurantSearchApiModel>, RestaurantSearchApiModelValidator>();
+            services.AddSingleton<IValidator<ReviewSearchApiModel>, ReviewSearchApiModelValidator>();
+        }
+
+        private void ConfigureSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -76,74 +122,47 @@ namespace RestaurantReviewsApi
                   new string[] { }
                 }
               });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
-
-            services.AddDbContext<RestaurantReviewsContext>(options => options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-            services.AddSingleton<IApiModelTranslator, ApiModelTranslator>();
-            services.AddScoped<IRestaurantManager, RestaurantManager>();
-            services.AddScoped<IReviewManager, ReviewManager>();
-            ConfigureValidators(services);
-            ConfigureAuth(services);
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Reviews Api v1");
-            });
-
-        }
-
-        private void ConfigureValidators(IServiceCollection services)
-        {
-            services.AddSingleton<IValidator<RestaurantApiModel>, RestaurantApiModelValidator>();
-            services.AddSingleton<IValidator<ReviewApiModel>, ReviewApiModelValidator>();
-            services.AddSingleton<IValidator<RestaurantSearchApiModel>, RestaurantSearchApiModelValidator>();
-            services.AddSingleton<IValidator<ReviewSearchApiModel>, ReviewSearchApiModelValidator>();
         }
 
         private void ConfigureAuth(IServiceCollection services)
         {
             string issuer = Configuration["Jwt:Issuer"];
-            string audience = Configuration["Jwt:Audience"];
             string key = Configuration["Jwt:Key"];
 
             if (string.IsNullOrEmpty(issuer))
                 throw new Exception($"Missing config value for [Jwt:Issuer]");
-            if (string.IsNullOrEmpty(audience))
-                throw new Exception($"Missing config value for [Jwt:Audience]");
+            if (string.IsNullOrEmpty(key))
+                throw new Exception($"Missing config value for [Jwt:Key]");
 
             services.AddScoped<IAuthProvider, AuthProvider>(x =>
             {
                 return new AuthProvider(issuer, key);
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
-                options.Authority = issuer;
                 options.RequireHttpsMetadata = false;
-                options.Audience = audience;
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    ValidateAudience = false,
+                    ValidIssuer = issuer,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                     ValidateIssuerSigningKey = true,
-                    //Ensure the token hasn't expired:
-                    RequireExpirationTime = true,
                     ValidateLifetime = true
                 };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policy.User, policy => policy.RequireClaim("scope", Scope.User));
+                options.AddPolicy(Policy.Admin, policy => policy.RequireClaim("scope", Scope.Admin));
             });
         }
     }

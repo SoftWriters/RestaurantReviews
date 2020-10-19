@@ -43,7 +43,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             var model = ApiModelHelperFunctions.RandomReviewApiModel(guid);
             var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
             var post = await manager.PostReviewAsync(model);
-            Assert.True(post);
+            Assert.NotNull(post);
         }
 
         [Fact]

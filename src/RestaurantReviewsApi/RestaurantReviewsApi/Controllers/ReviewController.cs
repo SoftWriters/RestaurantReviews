@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
 using RestaurantReviewsApi.Bll.Utility;
+using RestaurantReviewsApi.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace RestaurantReviewsApi.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ReviewController : ControllerBase
     {
         private readonly ILogger<ReviewController> _logger;
@@ -30,9 +33,17 @@ namespace RestaurantReviewsApi.Controllers
             _reviewSearchApiModelValidator = reviewSearchApiModelValidator;
         }
 
+
+        /// <summary>
+        /// Gets a Review.
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns>ReviewApiModel</returns>
+        [HttpDelete]
         [HttpGet]
         [ProducesResponseType(typeof(ReviewApiModel), 200)]
         [ProducesResponseType(404)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> GetReviewAsync(Guid reviewId)
         {
             try
@@ -51,9 +62,25 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Searches for Review based on parameters.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     
+        ///     {
+        ///        "username": "User12",
+        ///        "restaurant_id": "7FFC0A18-03CB-4C55-98EC-7D1E42D714D0"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>A list of reviews</returns>
         [HttpPost("search")]
         [ProducesResponseType(typeof(ICollection<ReviewApiModel>), 200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> SearchReviewsAsync(ReviewSearchApiModel model)
         {
             try
@@ -72,9 +99,26 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a Review.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     
+        ///     {
+        ///        "restaurant_id": "Fioris",
+        ///        "rating": 8,
+        ///        "details": "Was very delicious"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns>Id of created Review</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(IList<string>), 400)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> PostReviewAsync([FromBody] ReviewApiModel model)
         {
             try
@@ -93,9 +137,15 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a review.
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
+        [Authorize(Policy = Policy.User)]
         public async Task<IActionResult> DeleteReviewAsync(Guid reviewId)
         {
             try

@@ -51,12 +51,12 @@ namespace RestaurantReviewsApi.Bll.Managers
             return _translator.ToReviewApiModel(review);
         }
 
-        public async Task<bool> PostReviewAsync(ReviewApiModel model)
+        public async Task<Guid?> PostReviewAsync(ReviewApiModel model)
         {
             var review = _translator.ToReviewModel(model);
             _dbContext.Review.Add(review);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return review.ReviewId;
         }
 
         public async Task<ICollection<ReviewApiModel>> SearchReviewsAsync(ReviewSearchApiModel model)

@@ -20,7 +20,7 @@ namespace RestaurantReviewsApi.ApiModels
         public string City { get; set; }
         [JsonProperty("state")]
         public string State { get; set; }
-        [JsonProperty("ZipCode")]
+        [JsonProperty("zipcode")]
         public string ZipCode { get; set; }
         [JsonProperty("phone")]
         public string Phone { get; set; }

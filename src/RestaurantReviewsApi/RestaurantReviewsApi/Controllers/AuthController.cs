@@ -25,10 +25,15 @@ namespace RestaurantReviewsApi.Controllers
             _authProvider = authProvider;
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// Returns an accesstoken for the given username.
+        /// Using a username containing the word "Admin" will grant Restaurant Post, Patch, and Delete.
+        /// </summary>
+        /// <param name="userName"></param>        
         [HttpPost("{userName}")]
         [ProducesResponseType(typeof(AccessTokenApiModel), 200)]
         [ProducesResponseType(403)]
+        [AllowAnonymous]
         public IActionResult Login(string userName)
         {
             try

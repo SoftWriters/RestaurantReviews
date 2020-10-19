@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestaurantReviewsApi.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace RestaurantReviewsApi.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class DebugController : ControllerBase
     {
         private readonly ILogger<DebugController> _logger;
@@ -24,6 +22,7 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpGet]
         [Route("ping")]
+        [AllowAnonymous]
         public string Ping()
         {
             return "pong";
