@@ -35,14 +35,14 @@ namespace RestaurantReviewsApi.Entities
                     .HasName("PK_Restaurant_RestaurantId")
                     .IsClustered(false);
 
-                entity.HasIndex(e => e.SystemId)
-                    .HasName("CIX_Restaurant_SystemId")
+                entity.HasIndex(e => e.CreationDate)
+                    .HasName("CIX_Restaurant_CreationDate")
                     .IsUnique()
                     .IsClustered();
 
                 entity.Property(e => e.RestaurantId).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.SystemId).ValueGeneratedOnAdd();
+                entity.Property(e => e.CreationDate).HasDefaultValueSql("(getutcdate())");
             });
 
             modelBuilder.Entity<Review>(entity =>
@@ -51,14 +51,14 @@ namespace RestaurantReviewsApi.Entities
                     .HasName("PK_Review_ReviewId")
                     .IsClustered(false);
 
-                entity.HasIndex(e => e.SystemId)
-                    .HasName("CIX_Review_SystemId")
+                entity.HasIndex(e => e.CreationDate)
+                    .HasName("CIX_Review_CreationDate")
                     .IsUnique()
                     .IsClustered();
 
                 entity.Property(e => e.ReviewId).HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.SystemId).ValueGeneratedOnAdd();
+                entity.Property(e => e.CreationDate).HasDefaultValueSql("(getutcdate())");
 
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Review)

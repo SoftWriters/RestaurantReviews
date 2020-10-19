@@ -16,7 +16,6 @@ namespace RestaurantReviewsApi.Bll.Validators
              {
                  bool empty = true;
                  empty = x.Name != null ? false : empty;
-                 empty = x.AddressLine1 != null ? false : empty;
                  empty = x.City != null ? false : empty;
                  empty = x.State != null ? false : empty;
                  empty = x.ZipCode != null ? false : empty;
@@ -26,9 +25,6 @@ namespace RestaurantReviewsApi.Bll.Validators
 
             RuleFor(m => m.Name).MaximumLength(100)
                 .WithMessage("The Name field can only be up to 100 characters long.");
-
-            RuleFor(m => m.AddressLine1).MaximumLength(100)
-                .WithMessage("The AddressLine1 field can only be up to 100 characters long.");
 
             RuleFor(m => m.City).MaximumLength(100)
                 .WithMessage("The City field can only be up to 100 characters long.");

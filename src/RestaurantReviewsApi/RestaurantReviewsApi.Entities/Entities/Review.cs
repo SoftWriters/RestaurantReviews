@@ -7,7 +7,6 @@ namespace RestaurantReviewsApi.Entities
 {
     public partial class Review
     {
-        public int SystemId { get; set; }
         public Guid RestaurantId { get; set; }
         [Key]
         public Guid ReviewId { get; set; }
@@ -18,6 +17,8 @@ namespace RestaurantReviewsApi.Entities
         [StringLength(4000)]
         public string Details { get; set; }
         public bool IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreationDate { get; set; }
 
         [ForeignKey(nameof(RestaurantId))]
         [InverseProperty("Review")]

@@ -45,6 +45,9 @@ namespace RestaurantReviewsApi.Bll.Managers
                 x.ReviewId == reviewId &&
                 !x.IsDeleted);
 
+            if (review == null)
+                return null;
+
             return _translator.ToReviewApiModel(review);
         }
 

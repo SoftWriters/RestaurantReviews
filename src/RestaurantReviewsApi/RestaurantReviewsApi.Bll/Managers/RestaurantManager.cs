@@ -45,7 +45,10 @@ namespace RestaurantReviewsApi.Bll.Managers
                 x.RestaurantId == restaurantId &&
                 !x.IsDeleted);
 
-            return _translator.ToRestaurantApiModel(restaurant);
+            if (restaurant == null)
+                return null;
+
+            return _translator.ToRestaurantApiModel(restaurant, await RestaurantAverageRating(restaurant.RestaurantId));
         }
 
         public async Task<bool> PatchRestaurantAsync(RestaurantApiModel model)
@@ -70,14 +73,14 @@ namespace RestaurantReviewsApi.Bll.Managers
             return true;
         }
 
+        //TODO Expand this search functionality to better handle fuzzy matching and to search for keywords in description
         public async Task<ICollection<RestaurantApiModel>> SearchRestaurantsAsync(RestaurantSearchApiModel model)
         {
-            var restaurants = _dbContext.Restaurant.Include(x => x.Review.Where(r =>!r.IsDeleted)).AsNoTracking().Where(x => !x.IsDeleted);
+            var restaurants = _dbContext.Restaurant.AsNoTracking()
+                .Where(x => !x.IsDeleted);
 
             if (model.Name != null)
                 restaurants = restaurants.Where(x => x.Name.StartsWith(model.Name));
-            if (model.AddressLine1 != null)
-                restaurants = restaurants.Where(x => x.AddressLine1.StartsWith(model.AddressLine1));
             if (model.City != null)
                 restaurants = restaurants.Where(x => x.City == model.City);
             if (model.State != null)
@@ -89,12 +92,22 @@ namespace RestaurantReviewsApi.Bll.Managers
 
             List<RestaurantApiModel> returnList = new List<RestaurantApiModel>();
 
-            restaurantList.ForEach(x =>
+            restaurantList.ForEach(async x =>
             {
-                returnList.Add(_translator.ToRestaurantApiModel(x));
+                returnList.Add(_translator.ToRestaurantApiModel(x, await RestaurantAverageRating(x.RestaurantId)));
             });
 
             return returnList;      
+        }
+
+        private async Task<float?> RestaurantAverageRating(Guid restaurantId)
+        {
+            var reviewList = await _dbContext.Review.AsNoTracking()
+                .Where(r => r.RestaurantId == restaurantId && !r.IsDeleted).ToListAsync();
+            if (reviewList.Count == 0)
+                return null;
+
+            return (float?)reviewList.Average(r => r.Rating);
         }
     }
 }

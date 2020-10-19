@@ -12,7 +12,6 @@ namespace RestaurantReviewsApi.Entities
             Review = new HashSet<Review>();
         }
 
-        public int SystemId { get; set; }
         [Key]
         public Guid RestaurantId { get; set; }
         [Required]
@@ -37,6 +36,8 @@ namespace RestaurantReviewsApi.Entities
         [StringLength(500)]
         public string Description { get; set; }
         public bool IsDeleted { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreationDate { get; set; }
 
         [InverseProperty("Restaurant")]
         public virtual ICollection<Review> Review { get; set; }

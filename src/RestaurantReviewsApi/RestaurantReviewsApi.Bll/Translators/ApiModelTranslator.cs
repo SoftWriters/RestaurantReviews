@@ -10,6 +10,9 @@ namespace RestaurantReviewsApi.Bll.Translators
     {
         public RestaurantApiModel ToRestaurantApiModel(Restaurant restaurantModel, float? averageRating = null)
         {
+            if(restaurantModel == null)
+                throw new ArgumentNullException(nameof(restaurantModel));
+
             return new RestaurantApiModel()
             {
                 RestaurantId = restaurantModel.RestaurantId,
@@ -29,6 +32,9 @@ namespace RestaurantReviewsApi.Bll.Translators
 
         public Restaurant ToRestaurantModel(RestaurantApiModel restaurantApiModel, Restaurant restaurantModel = null)
         {
+            if (restaurantApiModel == null)
+                throw new ArgumentNullException(nameof(restaurantApiModel));
+
             if (restaurantModel == null)
                 restaurantModel = new Restaurant();
 
@@ -49,6 +55,9 @@ namespace RestaurantReviewsApi.Bll.Translators
 
         public ReviewApiModel ToReviewApiModel(Review reviewModel)
         {
+            if (reviewModel == null)
+                throw new ArgumentNullException(nameof(reviewModel));
+
             return new ReviewApiModel()
             {
                 RestaurantId = reviewModel.RestaurantId,
@@ -61,6 +70,9 @@ namespace RestaurantReviewsApi.Bll.Translators
 
         public Review ToReviewModel(ReviewApiModel reviewApiModel)
         {
+            if (reviewApiModel == null)
+                throw new ArgumentNullException(nameof(reviewApiModel));
+
             return new Review()
             {
                 RestaurantId = reviewApiModel.RestaurantId.Value,

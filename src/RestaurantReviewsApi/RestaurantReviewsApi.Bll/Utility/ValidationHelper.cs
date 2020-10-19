@@ -27,12 +27,12 @@ namespace RestaurantReviewsApi.Bll.Utility
 
         public static bool ValidState(string state) => state == null ? false : ValidationConstants.StateAbbreviations.Contains(state);
 
-        private static class ValidationConstants
+        public static class ValidationConstants
         {
             public const string PhoneRegex = @"^\d{10-12}$";
             public const string ZipCodeRegex = @"^((\d{5})|(\d{5}-\d{4}))$";
 
-            public static IReadOnlyCollection<string> StateAbbreviations = new HashSet<string>
+            public static ICollection<string> StateAbbreviations = new HashSet<string>
             {
                 "AL",
                 "AS",

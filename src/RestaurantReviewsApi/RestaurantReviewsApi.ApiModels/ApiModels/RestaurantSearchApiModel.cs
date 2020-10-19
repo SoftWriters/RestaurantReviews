@@ -10,8 +10,6 @@ namespace RestaurantReviewsApi.ApiModels
     {
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("address_line_1")]
-        public string AddressLine1 { get; set; }
         [JsonProperty("city")]
         public string City { get; set; }
         [JsonProperty("state")]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using RestaurantReviewsApi.Bll.Utility;
 using RestaurantReviewsApi.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace RestaurantReviewsApi.UnitTests
             _connection = new SqliteConnection(InMemoryConnectionString);
 
             _connection.CreateFunction("newid", () => Guid.NewGuid());
+            _connection.CreateFunction("getutcdate", () => DateTime.UtcNow);
 
             _connection.Open();
             var options = new DbContextOptionsBuilder<RestaurantReviewsContext>()
@@ -26,7 +28,6 @@ namespace RestaurantReviewsApi.UnitTests
                     .Options;
             DbContext = new RestaurantReviewsContext(options);
             DbContext.Database.EnsureCreated();
-            Seed();
         }
 
         public void Dispose()
@@ -34,62 +35,62 @@ namespace RestaurantReviewsApi.UnitTests
             _connection.Close();
         }
 
-        public virtual void Seed()
+        public Guid AddRestaurant(
+            string name = null,
+            string city = null,
+            string state = null,
+            string zipCode = null,
+            bool includeReviews = false,
+            int reviewCount = 10)
         {
-            var rest1 = new Restaurant()
+            var restaurant = new Restaurant()
             {
-                Name = "Fiori's Pizzaria",
-                State = "PA",
-                AddressLine1 = "103 Capital Ave",
-                ZipCode = "15226",
-                City = "Pittsburgh",
-                Description = "The best Pizzaria around",
-                Phone = "4121231234",
-                Website = "www.fioris.com",
-                Email = "fioris@gmail.com"
+                Name = name ?? HelperFunctions.RandomString(20),
+                City = city ?? HelperFunctions.RandomString(20),
+                State = state ?? HelperFunctions.RandomElement<string>(ValidationHelper.ValidationConstants.StateAbbreviations),
+                ZipCode = zipCode ?? "12345",
+                AddressLine1 = HelperFunctions.RandomString(20),
+                Description = HelperFunctions.RandomString(100),
+                Email = HelperFunctions.RandomEmail(),
+                Phone = HelperFunctions.RandomPhone(),
+                AddressLine2 = HelperFunctions.RandomString(20),
+                Website = HelperFunctions.RandomString(20)
             };
 
-            DbContext.Add(rest1);
+            DbContext.Add(restaurant);
             DbContext.SaveChanges();
 
-            var review1 = new Review()
+            if (includeReviews)
             {
-                Restaurant = rest1,
-                UserName = "TestUser1",
-                Details = "The best pizza in pittsburgh",
-                Rating = 10
-            };
+                for(int i = 0; i <= reviewCount; i++)
+                {
+                    var review = new Review()
+                    {
+                        UserName = $"User{i}",
+                        Details = HelperFunctions.RandomString(200),
+                        Rating = HelperFunctions.RandomNumber(10),
+                        Restaurant = restaurant
+                    };
+                    DbContext.Add(review);
+                }
+                DbContext.SaveChanges();
+            }
+            return restaurant.RestaurantId;
+        }
 
-            var review2 = new Review()
+        public Guid AddReview(Guid restaurantId, string userId = "TestUser1")
+        {
+            var review = new Review()
             {
-                Restaurant = rest1,
-                UserName = "TestUser1",
-                Details = "The okayest pizza in pittsburgh",
-                Rating = 5
+                UserName = userId,
+                Details = HelperFunctions.RandomString(200),
+                Rating = HelperFunctions.RandomNumber(10),
+                RestaurantId = restaurantId
             };
-
-            var review3 = new Review()
-            {
-                Restaurant = rest1,
-                UserName = "TestUser2",
-                Details = "Its pizza",
-                Rating = 8
-            };
-
-            var review4 = new Review()
-            {
-                Restaurant = rest1,
-                UserName = "TestUser1",
-                Details = "Worst Pizza",
-                Rating = 2,
-                IsDeleted = true
-            };
-
-            DbContext.Add(review1);
-            DbContext.Add(review2);
-            DbContext.Add(review3);
-            DbContext.Add(review4);
+            DbContext.Add(review);
             DbContext.SaveChanges();
+
+            return review.ReviewId;
         }
     }
 }
