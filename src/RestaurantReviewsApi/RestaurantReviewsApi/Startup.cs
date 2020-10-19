@@ -74,7 +74,7 @@ namespace RestaurantReviewsApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Reviews Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant Reviews Api");
             });
 
             app.UseEndpoints(endpoints =>
@@ -109,7 +109,7 @@ namespace RestaurantReviewsApi
                     Type = SecuritySchemeType.ApiKey
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+               c.AddSecurityRequirement(new OpenApiSecurityRequirement {
                {
                  new OpenApiSecurityScheme
                  {
@@ -122,6 +122,9 @@ namespace RestaurantReviewsApi
                   new string[] { }
                 }
               });
+
+                //This line fixes a bug with how comments are parsed.
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

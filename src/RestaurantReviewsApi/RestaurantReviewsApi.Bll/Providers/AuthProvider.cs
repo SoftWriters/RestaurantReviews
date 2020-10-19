@@ -12,9 +12,9 @@ namespace RestaurantReviewsApi.Bll.Providers
 {
     public class AuthProvider : IAuthProvider
     {
-
         private readonly string _jwtIssuer;
         private readonly string _jwtKey;
+
         public AuthProvider(string jwtIssuer, string jwtKey)
         {
             _jwtIssuer = jwtIssuer;
@@ -68,7 +68,7 @@ namespace RestaurantReviewsApi.Bll.Providers
 
             validationParameters.ValidateLifetime = true;
             validationParameters.ValidIssuer = _jwtIssuer;
-
+            validationParameters.ValidateAudience = false;
             validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
 
             ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
