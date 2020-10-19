@@ -18,11 +18,11 @@ namespace RestaurantReviewsApi.Bll.Validators
                  empty = x.UserName != null ? false : empty;
                  empty = x.RestaurantId != null ? false : empty;
                  if (empty)
-                     context.AddFailure("At least one of the following fields must have a value: UserName, RestaurantId");
+                     context.AddFailure("At least one of the following fields must have a value: UserName, RestaurantId.");
              });
 
             RuleFor(m => m.UserName).MaximumLength(100)
-                .WithMessage("UserName Name field can only be up to 100 characters long.");         
+                .WithMessage("The UserName field can only be up to 100 characters long.");         
         }
     }
 }

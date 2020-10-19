@@ -49,7 +49,7 @@ namespace RestaurantReviewsApi.Bll.Validators
                 .WithMessage("The Website field can only be up to 100 characters long.");
 
             RuleFor(m => m.Email).EmailAddress()
-                .When(m => !string.IsNullOrEmpty(m.ZipCode))
+                .When(m => !string.IsNullOrEmpty(m.Email))
             .WithMessage("The Email field be a valid value.");
 
             RuleFor(m => m.Description).MaximumLength(500)

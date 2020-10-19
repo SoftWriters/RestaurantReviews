@@ -20,7 +20,7 @@ namespace RestaurantReviewsApi.Bll.Validators
                  empty = x.State != null ? false : empty;
                  empty = x.ZipCode != null ? false : empty;
                  if (empty)
-                     context.AddFailure("At least one of the following fields must have a value: Name, AddressLine1, City, State, ZipCode");
+                     context.AddFailure("At least one of the following fields must have a value: Name, AddressLine1, City, State, ZipCode.");
              });
 
             RuleFor(m => m.Name).MaximumLength(100)
