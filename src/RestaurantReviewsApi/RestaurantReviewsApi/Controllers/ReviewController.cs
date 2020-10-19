@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Providers;
 using RestaurantReviewsApi.Bll.Utility;
 using RestaurantReviewsApi.Constants;
 using System;
@@ -23,14 +25,17 @@ namespace RestaurantReviewsApi.Controllers
         private readonly IReviewManager _manager;
         private readonly IValidator<ReviewApiModel> _reviewApiModelValidator;
         private readonly IValidator<ReviewSearchApiModel> _reviewSearchApiModelValidator;
+        private readonly IAuthProvider _authProvider;
 
         public ReviewController(ILogger<ReviewController> logger, IReviewManager manager,
-            IValidator<ReviewApiModel> reviewApiModelValidator, IValidator<ReviewSearchApiModel> reviewSearchApiModelValidator)
+            IValidator<ReviewApiModel> reviewApiModelValidator, IValidator<ReviewSearchApiModel> reviewSearchApiModelValidator,
+            IAuthProvider authProvider)
         {
             _logger = logger;
             _manager = manager;
             _reviewApiModelValidator = reviewApiModelValidator;
             _reviewSearchApiModelValidator = reviewSearchApiModelValidator;
+            _authProvider = authProvider;
         }
 
 
@@ -123,11 +128,14 @@ namespace RestaurantReviewsApi.Controllers
         {
             try
             {
+                var accessToken = Request.Headers[HeaderNames.Authorization];
+                var userModel = _authProvider.GetUserModel(accessToken);
+
                 var validations = _reviewApiModelValidator.Validate(model);
                 if (!validations.IsValid)
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
-                var result = await _manager.PostReviewAsync(model);
+                var result = await _manager.PostReviewAsync(model, userModel);
                 return Ok();
             }
             catch (Exception e)
@@ -150,7 +158,10 @@ namespace RestaurantReviewsApi.Controllers
         {
             try
             {
-                var result = await _manager.DeleteReviewAsync(reviewId);
+                var accessToken = Request.Headers[HeaderNames.Authorization];
+                var userModel = _authProvider.GetUserModel(accessToken);
+
+                var result = await _manager.DeleteReviewAsync(reviewId, userModel);
                 if (result)
                     return Ok();
 

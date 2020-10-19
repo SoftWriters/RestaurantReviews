@@ -1,5 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using RestaurantReviewsApi.ApiModels.ApiModels;
+using RestaurantReviewsApi.Bll.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -47,6 +49,30 @@ namespace RestaurantReviewsApi.Bll.Providers
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 ExpiresIn = 120
             };        
+        }
+
+        public UserModel GetUserModel(string token)
+        {
+            if (token.StartsWith("Bearer ", StringComparison.CurrentCultureIgnoreCase))
+                token = token.Substring(7);
+
+            return new UserModel(){
+                UserName = ValidateToken(token)?.FindFirst("UserName")?.Value
+            };
+        }
+
+        private ClaimsPrincipal ValidateToken(string jwtToken)
+        {
+            SecurityToken validatedToken;
+            TokenValidationParameters validationParameters = new TokenValidationParameters();
+
+            validationParameters.ValidateLifetime = true;
+            validationParameters.ValidIssuer = _jwtIssuer;
+
+            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
+
+            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
+            return principal;
         }
     }
 }
