@@ -32,7 +32,7 @@ namespace RestaurantReviewsApi.Entities
         public string Phone { get; set; }
         [StringLength(100)]
         public string Website { get; set; }
-        [StringLength(100)]
+        [StringLength(320)]
         public string Email { get; set; }
         [StringLength(500)]
         public string Description { get; set; }

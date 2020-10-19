@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,8 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NSwag;
+using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
 using RestaurantReviewsApi.Bll.Translators;
+using RestaurantReviewsApi.Bll.Validators;
 using RestaurantReviewsApi.Entities;
 
 namespace RestaurantReviewsApi
@@ -53,6 +56,7 @@ namespace RestaurantReviewsApi
             services.AddSingleton<IApiModelTranslator, ApiModelTranslator>();
             services.AddScoped<IRestaurantManager, RestaurantManager>();
             services.AddScoped<IReviewManager, ReviewManager>();
+            ConfigureValidators(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +76,15 @@ namespace RestaurantReviewsApi
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void ConfigureValidators(IServiceCollection services)
+        {
+            services.AddSingleton<IValidator<RestaurantApiModel>, RestaurantApiModelValidator>();
+            services.AddSingleton<IValidator<ReviewApiModel>, ReviewApiModelValidator>();
+            services.AddSingleton<IValidator<RestaurantSearchApiModel>, RestaurantSearchApiModelValidator>();
+            services.AddSingleton<IValidator<ReviewSearchApiModel>, ReviewSearchApiModelValidator>();
+
         }
     }
 }

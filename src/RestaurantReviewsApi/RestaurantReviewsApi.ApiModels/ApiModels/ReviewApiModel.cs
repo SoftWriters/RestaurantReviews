@@ -15,7 +15,7 @@ namespace RestaurantReviewsApi.ApiModels
         [JsonProperty("user_name")]
         public string UserName { get; set; }
         [JsonProperty("rating")]
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
         [JsonProperty("details")]
         public string Details { get; set; }
     }

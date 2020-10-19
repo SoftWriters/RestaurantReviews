@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,16 @@ namespace RestaurantReviewsApi.Controllers
     {
         private readonly ILogger<RestaurantController> _logger;
         private readonly IRestaurantManager _manager;
+        private readonly IValidator<RestaurantApiModel> _restaurantApiModelValidator;
+        private readonly IValidator<RestaurantSearchApiModel> _restaurantSearchApiModelValidator;
 
-        public RestaurantController(ILogger<RestaurantController> logger, IRestaurantManager manager)
+        public RestaurantController(ILogger<RestaurantController> logger, IRestaurantManager manager,
+            IValidator<RestaurantApiModel> restaurantApiModelValidator, IValidator<RestaurantSearchApiModel> restaurantSearchApiModelValidator)
         {
             _logger = logger;
             _manager = manager;
+            _restaurantApiModelValidator = restaurantApiModelValidator;
+            _restaurantSearchApiModelValidator = restaurantSearchApiModelValidator;
         }
 
         [HttpGet]
@@ -44,12 +51,17 @@ namespace RestaurantReviewsApi.Controllers
             }
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         [ProducesResponseType(typeof(ICollection<RestaurantApiModel>), 200)]
+        [ProducesResponseType(typeof(IList<string>), 400)]
         public async Task<IActionResult> SearchRestaurantsAsync([FromBody] RestaurantSearchApiModel model)
         {
             try
             {
+                var validations = _restaurantSearchApiModelValidator.Validate(model);
+                if (!validations.IsValid)
+                    return BadRequest(ValidationHelper.FormatValidations(validations));
+
                 var searchResult = await _manager.SearchRestaurantsAsync(model);
                 return Ok(model);
             }
@@ -62,10 +74,15 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(IList<string>), 400)]
         public async Task<IActionResult> PostRestaurantAsync([FromBody] RestaurantApiModel model)
         {
             try
             {
+                var validations = _restaurantApiModelValidator.Validate(model);
+                if (!validations.IsValid)
+                    return BadRequest(ValidationHelper.FormatValidations(validations));
+
                 var result = await _manager.PostRestaurantAsync(model);
                 return Ok();
             }
@@ -78,10 +95,15 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpPatch]
         [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(IList<string>), 400)]
         public async Task<IActionResult> PatchRestaurantAsync([FromBody] RestaurantApiModel model)
         {
             try
             {
+                var validations = _restaurantApiModelValidator.Validate(model);
+                if (!validations.IsValid)
+                    return BadRequest(ValidationHelper.FormatValidations(validations));
+
                 var result = await _manager.PatchRestaurantAsync(model);
                 if(result)
                     return Ok();

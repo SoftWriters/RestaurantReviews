@@ -9,7 +9,7 @@ CREATE TABLE [dbo].[Restaurant] (
     [ZipCode] NVARCHAR(10) NULL,
     [Phone] NVARCHAR(12) NULL,
 	[Website] NVARCHAR(100) NULL,
-	[Email] NVARCHAR(100) NULL,
+	[Email] NVARCHAR(320) NULL,
 	[Description] NVARCHAR(500) NULL,
 	[IsDeleted] BIT NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Restaurant_RestaurantId] PRIMARY KEY NONCLUSTERED ([RestaurantId] ASC));

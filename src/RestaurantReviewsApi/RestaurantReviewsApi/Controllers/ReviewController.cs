@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestaurantReviewsApi.ApiModels;
 using RestaurantReviewsApi.Bll.Managers;
+using RestaurantReviewsApi.Bll.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,16 @@ namespace RestaurantReviewsApi.Controllers
     {
         private readonly ILogger<ReviewController> _logger;
         private readonly IReviewManager _manager;
+        private readonly IValidator<ReviewApiModel> _reviewApiModelValidator;
+        private readonly IValidator<ReviewSearchApiModel> _reviewSearchApiModelValidator;
 
-        public ReviewController(ILogger<ReviewController> logger, IReviewManager manager)
+        public ReviewController(ILogger<ReviewController> logger, IReviewManager manager,
+            IValidator<ReviewApiModel> reviewApiModelValidator, IValidator<ReviewSearchApiModel> reviewSearchApiModelValidator)
         {
             _logger = logger;
             _manager = manager;
+            _reviewApiModelValidator = reviewApiModelValidator;
+            _reviewSearchApiModelValidator = reviewSearchApiModelValidator;
         }
 
         [HttpGet]
@@ -46,10 +53,15 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpPost("search")]
         [ProducesResponseType(typeof(ICollection<ReviewApiModel>), 200)]
+        [ProducesResponseType(typeof(IList<string>), 400)]
         public async Task<IActionResult> SearchReviewsAsync(ReviewSearchApiModel model)
         {
             try
             {
+                var validations = _reviewSearchApiModelValidator.Validate(model);
+                if (!validations.IsValid)
+                    return BadRequest(ValidationHelper.FormatValidations(validations));
+
                 var searchResult = await _manager.SearchReviewsAsync(model);
                 return Ok(model);
             }
@@ -62,10 +74,15 @@ namespace RestaurantReviewsApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(IList<string>), 400)]
         public async Task<IActionResult> PostReviewAsync([FromBody] ReviewApiModel model)
         {
             try
             {
+                var validations = _reviewApiModelValidator.Validate(model);
+                if (!validations.IsValid)
+                    return BadRequest(ValidationHelper.FormatValidations(validations));
+
                 var result = await _manager.PostReviewAsync(model);
                 return Ok();
             }
