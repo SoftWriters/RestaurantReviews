@@ -104,7 +104,7 @@ namespace RestaurantReviewsApi
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Please insert JWT with Bearer into field",
+                    Description = "Insert bearer token in the following format: 'Bearer {access_token}'",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });

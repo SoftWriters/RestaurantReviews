@@ -112,7 +112,7 @@ namespace RestaurantReviewsApi.Controllers
         ///
         ///     
         ///     {
-        ///        "restaurant_id": "Fioris",
+        ///        "restaurant_id": "7FFC0A18-03CB-4C55-98EC-7D1E42D714D0",
         ///        "rating": 8,
         ///        "details": "Was very delicious"
         ///     }

@@ -35,8 +35,11 @@ namespace RestaurantReviewsApi.Bll.Providers
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("UserName", username),
-                new Claim("scope", username.Contains("admin",StringComparison.CurrentCultureIgnoreCase) ? "ADMIN" : "USER")
+                new Claim("scope", "USER")               
             };
+
+            if (username.Contains("admin", StringComparison.InvariantCultureIgnoreCase))
+                claims.Add(new Claim("scope", "ADMIN"));
 
             var token = new JwtSecurityToken(_jwtIssuer,
                 claims: claims,
