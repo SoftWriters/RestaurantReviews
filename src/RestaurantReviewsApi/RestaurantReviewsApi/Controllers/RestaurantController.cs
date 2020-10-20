@@ -33,7 +33,7 @@ namespace RestaurantReviewsApi.Controllers
         }
 
         /// <summary>
-        /// Gets a restaurant.
+        /// Gets a Restaurant.
         /// </summary>
         /// <param name="restaurantId"></param>
         /// <returns>RestaurantApiModel</returns>

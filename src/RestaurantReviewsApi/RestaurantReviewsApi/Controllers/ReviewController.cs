@@ -44,7 +44,6 @@ namespace RestaurantReviewsApi.Controllers
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns>ReviewApiModel</returns>
-        [HttpDelete]
         [HttpGet]
         [ProducesResponseType(typeof(ReviewApiModel), 200)]
         [ProducesResponseType(404)]
@@ -145,7 +144,7 @@ namespace RestaurantReviewsApi.Controllers
         }
 
         /// <summary>
-        /// Deletes a review.
+        /// Deletes a Review.
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
