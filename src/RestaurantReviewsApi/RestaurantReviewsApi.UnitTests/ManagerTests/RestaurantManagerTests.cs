@@ -15,13 +15,13 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
 {
     public class RestaurantManagerTests : AbstractTestHandler
     {
-        private IApiModelTranslator _translator => new ApiModelTranslator();
+        private IApiModelTranslator Translator => new ApiModelTranslator();
 
         [Fact]
         public async void CanDeleteRestaurant()
         {
             var guid = AddRestaurant();
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var delete = await manager.DeleteRestaurantAsync(guid);
             Assert.True(delete);
 
@@ -33,7 +33,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
         public async void CanGetRestaurant()
         {
             var guid = AddRestaurant();
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var restaurant = await manager.GetRestaurantAsync(guid);
             Assert.NotNull(restaurant);
         }
@@ -44,7 +44,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             var model = ApiModelHelperFunctions.RandomRestaurantApiModel();
             var guid = AddRestaurant();
             model.RestaurantId = guid;
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var patch = await manager.PatchRestaurantAsync(model);
             Assert.NotNull(patch);
         }
@@ -55,7 +55,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             var model = ApiModelHelperFunctions.RandomRestaurantApiModel();
             var guid = AddRestaurant();
             model.RestaurantId = guid;
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var post = await manager.PostRestaurantAsync(model);
             Assert.NotNull(post);
         }
@@ -71,7 +71,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 Name = name
             };
 
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var resultSet = await manager.SearchRestaurantsAsync(searchModel);
             var result = resultSet.First();
 
@@ -89,10 +89,10 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
 
             RestaurantSearchApiModel searchModel = new RestaurantSearchApiModel()
             {
-                Name = name.Substring(0, name.Length - 5)
+                Name = name[0..^5]
             };
 
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var resultSet = await manager.SearchRestaurantsAsync(searchModel);
             var result = resultSet.First();
 
@@ -112,7 +112,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 City = city
             };
 
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var resultSet = await manager.SearchRestaurantsAsync(searchModel);
             var result = resultSet.First();
 
@@ -132,7 +132,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 State = state
             };
 
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var resultSet = await manager.SearchRestaurantsAsync(searchModel);
             var result = resultSet.FirstOrDefault(x => x.RestaurantId == guid);
 
@@ -151,7 +151,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 ZipCode = zipCode
             };
 
-            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, _translator);
+            var manager = new RestaurantManager(Logger<RestaurantManager>(), DbContext, Translator);
             var resultSet = await manager.SearchRestaurantsAsync(searchModel);
             var result = resultSet.FirstOrDefault(x => x.RestaurantId == guid);
 

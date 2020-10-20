@@ -76,15 +76,14 @@ namespace RestaurantReviewsApi.Bll.Providers
 
         private ClaimsPrincipal ValidateToken(string jwtToken)
         {
-            SecurityToken validatedToken;
-            TokenValidationParameters validationParameters = new TokenValidationParameters();
-
-            validationParameters.ValidateLifetime = true;
-            validationParameters.ValidIssuer = _jwtIssuer;
-            validationParameters.ValidateAudience = false;
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
-
-            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
+            TokenValidationParameters validationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                ValidIssuer = _jwtIssuer,
+                ValidateAudience = false,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey))
+            };
+            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out _);
             return principal;
         }
     }

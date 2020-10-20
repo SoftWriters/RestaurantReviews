@@ -12,7 +12,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
 {
     public class ReviewManagerTests : AbstractTestHandler
     {
-        private IApiModelTranslator _translator => new ApiModelTranslator();
+        private IApiModelTranslator Translator => new ApiModelTranslator();
 
         [Fact]
         public async void CanDeleteReview()
@@ -21,7 +21,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             var guid = AddRestaurant();
             var reviewGuid = AddReview(guid, userId);
             var userModel = new UserModel() { UserName = userId };
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var delete = await manager.DeleteReviewAsync(reviewGuid, userModel);
             Assert.True(delete);
 
@@ -34,7 +34,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
         {
             var guid = AddRestaurant();
             var reviewGuid = AddReview(guid);
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var review = await manager.GetReviewAsync(reviewGuid);
             Assert.NotNull(review);
         }
@@ -45,7 +45,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
             var guid = AddRestaurant();
             var model = ApiModelHelperFunctions.RandomReviewApiModel(guid);
             var userModel = new UserModel() { UserName = HelperFunctions.RandomString(20) };
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var post = await manager.PostReviewAsync(model, userModel);
             Assert.NotNull(post);
         }
@@ -61,7 +61,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 RestaurantId = guid
             };
 
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var resultSet = await manager.SearchReviewsAsync(searchModel);
             var result = resultSet.First();
 
@@ -82,7 +82,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 UserName = userName
             };
 
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var resultSet = await manager.SearchReviewsAsync(searchModel);
             var result = resultSet.First();
 
@@ -104,7 +104,7 @@ namespace RestaurantReviewsApi.UnitTests.ManagerTests
                 RestaurantId = guid
             };
 
-            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, _translator);
+            var manager = new ReviewManager(Logger<ReviewManager>(), DbContext, Translator);
             var resultSet = await manager.SearchReviewsAsync(searchModel);
             var result = resultSet.First();
 

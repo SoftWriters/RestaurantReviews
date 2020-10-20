@@ -10,7 +10,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
 {
     public class ApiModelTranslatorTest : AbstractTestHandler
     {
-        private IApiModelTranslator _translator => new ApiModelTranslator();
+        private IApiModelTranslator Translator => new ApiModelTranslator();
 
         [Fact]
         public void RestaurantApiModel()
@@ -18,7 +18,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
             var guid = AddRestaurant();
             var dbModel = DbContext.Restaurant.First(x => x.RestaurantId == guid);
             var average = 4.5f;
-            var apiModel = _translator.ToRestaurantApiModel(dbModel, average);
+            var apiModel = Translator.ToRestaurantApiModel(dbModel, average);
 
             Assert.Equal(dbModel.Name, apiModel.Name);
             Assert.Equal(dbModel.AddressLine1, apiModel.AddressLine1);
@@ -37,7 +37,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
         public void RestaurantModel()
         {
             var apiModel = ApiModelHelperFunctions.RandomRestaurantApiModel();
-            var dbModel = _translator.ToRestaurantModel(apiModel);
+            var dbModel = Translator.ToRestaurantModel(apiModel);
 
             Assert.Equal(Guid.Empty, dbModel.RestaurantId);
             Assert.Equal(apiModel.Name, dbModel.Name);
@@ -58,7 +58,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
             var guid = AddRestaurant();
             var dbModel = DbContext.Restaurant.First(x => x.RestaurantId == guid);
             var apiModel = ApiModelHelperFunctions.RandomRestaurantApiModel();
-            var newDbModel = _translator.ToRestaurantModel(apiModel,dbModel);
+            var newDbModel = Translator.ToRestaurantModel(apiModel,dbModel);
 
             Assert.Equal(guid, dbModel.RestaurantId);
             Assert.Equal(apiModel.Name, dbModel.Name);
@@ -79,7 +79,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
             var guid = AddRestaurant();
             var reviewGuid = AddReview(guid);
             var dbModel = DbContext.Review.First(x => x.ReviewId == reviewGuid);
-            var apiModel = _translator.ToReviewApiModel(dbModel);
+            var apiModel = Translator.ToReviewApiModel(dbModel);
 
             Assert.Equal(dbModel.Rating, apiModel.Rating);
             Assert.Equal(dbModel.RestaurantId, apiModel.RestaurantId);
@@ -94,7 +94,7 @@ namespace RestaurantReviewsApi.UnitTests.TranslatorTests
             var guid = Guid.NewGuid();
             var apiModel = ApiModelHelperFunctions.RandomReviewApiModel(guid);
             var userModel = new UserModel() { UserName = HelperFunctions.RandomString(20) };
-            var dbModel = _translator.ToReviewModel(apiModel, userModel);
+            var dbModel = Translator.ToReviewModel(apiModel, userModel);
 
             Assert.Equal(apiModel.Rating, dbModel.Rating);
             Assert.Equal(apiModel.RestaurantId, dbModel.RestaurantId);

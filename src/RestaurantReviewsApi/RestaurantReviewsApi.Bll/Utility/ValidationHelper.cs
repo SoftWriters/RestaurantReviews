@@ -21,11 +21,11 @@ namespace RestaurantReviewsApi.Bll.Utility
             return ret;
         }
 
-        public static bool ValidZipCode(string zipCode) => zipCode == null ? false : Regex.IsMatch(zipCode, ValidationConstants.ZipCodeRegex);
+        public static bool ValidZipCode(string zipCode) => zipCode != null && Regex.IsMatch(zipCode, ValidationConstants.ZipCodeRegex);
 
-        public static bool ValidPhoneNumber(string phoneNumber) => phoneNumber == null ? false : Regex.IsMatch(phoneNumber, ValidationConstants.PhoneRegex);
+        public static bool ValidPhoneNumber(string phoneNumber) => phoneNumber != null && Regex.IsMatch(phoneNumber, ValidationConstants.PhoneRegex);
 
-        public static bool ValidState(string state) => state == null ? false : ValidationConstants.StateAbbreviations.Contains(state);
+        public static bool ValidState(string state) => state != null && ValidationConstants.StateAbbreviations.Contains(state);
 
         public static class ValidationConstants
         {

@@ -14,12 +14,6 @@ namespace RestaurantReviewsApi.Bll.Validators
             RuleFor(m => m.RestaurantId).NotNull()
                 .WithMessage("RestaurantId is required.");
 
-            RuleFor(m => m.UserName).NotEmpty()
-                .DependentRules(() => RuleFor(m => m.UserName)
-                .MaximumLength(100)
-                .WithMessage("The UserName field can only be up to 100 characters long."))
-            .WithMessage("UserName is required.");
-
             RuleFor(m => m.Rating).NotNull()
                 .DependentRules(() => RuleFor(m => m.Rating)
                 .InclusiveBetween(1, 10)

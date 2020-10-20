@@ -95,7 +95,7 @@ namespace RestaurantReviewsApi.Controllers
                     return BadRequest(ValidationHelper.FormatValidations(validations));
 
                 var searchResult = await _manager.SearchReviewsAsync(model);
-                return Ok(model);
+                return Ok(searchResult);
             }
             catch (Exception e)
             {

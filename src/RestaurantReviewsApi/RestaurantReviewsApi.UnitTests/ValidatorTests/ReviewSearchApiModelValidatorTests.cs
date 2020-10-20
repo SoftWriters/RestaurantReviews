@@ -12,24 +12,24 @@ namespace RestaurantReviewsApi.UnitTests.ValidatorTests
 {
     public class ReviewSearchApiModelValidatorTests
     {
-        private IValidator<ReviewSearchApiModel> _reviewSearchApiModelValidator => new ReviewSearchApiModelValidator();
+        private IValidator<ReviewSearchApiModel> ReviewSearchApiModelValidator => new ReviewSearchApiModelValidator();
 
         [Fact]
         public void RestaurantSearchApiModelNullValidation()
         {
             var apiModel = new ReviewSearchApiModel() { };
-            var validation = _reviewSearchApiModelValidator.Validate(apiModel).Errors
+            var validation = ReviewSearchApiModelValidator.Validate(apiModel).Errors
                 .FirstOrDefault(x => x.ErrorMessage == "At least one of the following fields must have a value: UserName, RestaurantId.");
             Assert.NotNull(validation);
 
 
             apiModel = new ReviewSearchApiModel() { UserName = HelperFunctions.RandomString(20) };
-            validation = _reviewSearchApiModelValidator.Validate(apiModel).Errors
+            validation = ReviewSearchApiModelValidator.Validate(apiModel).Errors
                 .FirstOrDefault(x => x.ErrorMessage == "At least one of the following fields must have a value: UserName, RestaurantId.");
             Assert.Null(validation);
 
             apiModel = new ReviewSearchApiModel() { RestaurantId = Guid.NewGuid() };
-            validation = _reviewSearchApiModelValidator.Validate(apiModel).Errors
+            validation = ReviewSearchApiModelValidator.Validate(apiModel).Errors
                 .FirstOrDefault(x => x.ErrorMessage == "At least one of the following fields must have a value: UserName, RestaurantId.");
             Assert.Null(validation);
         }
@@ -38,12 +38,12 @@ namespace RestaurantReviewsApi.UnitTests.ValidatorTests
         public void RestaurantSearchApiModelUserNameValidation()
         {
             var apiModel = new ReviewSearchApiModel() { UserName = HelperFunctions.RandomString(101) };
-            var validation = _reviewSearchApiModelValidator.Validate(apiModel).Errors.FirstOrDefault(x => x.PropertyName == "UserName");
+            var validation = ReviewSearchApiModelValidator.Validate(apiModel).Errors.FirstOrDefault(x => x.PropertyName == "UserName");
             Assert.NotNull(validation);
             Assert.Equal("The UserName field can only be up to 100 characters long.", validation.ErrorMessage);
 
             apiModel = new ReviewSearchApiModel() { UserName = HelperFunctions.RandomString(100) };
-            validation = _reviewSearchApiModelValidator.Validate(apiModel).Errors.FirstOrDefault(x => x.PropertyName == "UserName");
+            validation = ReviewSearchApiModelValidator.Validate(apiModel).Errors.FirstOrDefault(x => x.PropertyName == "UserName");
             Assert.Null(validation);
         }
     }
