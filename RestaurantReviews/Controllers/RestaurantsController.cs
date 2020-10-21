@@ -45,7 +45,7 @@ namespace RestaurantReviews.Controllers
         [HttpGet("bycity/{city}")]
         public async Task<ActionResult<IEnumerable<Restaurant>>> GetRestaurantByCity(string city)
         {
-            return Ok(_restaurantService.GetAllByCity(city));
+            return Ok(await _restaurantService.GetAllByCity(city));
         }
 
         // PUT: api/Restaurants/5
