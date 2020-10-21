@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "7f474b70-13c4-411f-a0cc-02c961ac8c8b",
+		"name": "RestaurantReview",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Get Restaurants",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88dcfe34-9aaa-4e50-adbc-a18aaadd347d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ee14bb5-b063-4a6c-9f2b-01486c2bae66",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.globals.set(\"restaurantId\", jsonData.id);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Zach's Diner\",\r\n    \"City\": \"Pittsburgh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d42452f7-7e60-4ab4-9743-c48c2315efbf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.globals.set(\"reviewId\", jsonData.id);\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Text\": \"Great food, great feel\",\r\n    \"Rating\": 4,\r\n    \"UserId\": \"1234\",\r\n    \"RestaurantId\": {{restaurantId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44326/api/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f0cde35d-9374-4484-9744-7e3231236719",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurants By City",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0d1c65ad-16ca-49af-b39c-11e59b7b4b0c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants/bycity/pittsburgh",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants",
+								"bycity",
+								"pittsburgh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "56732bc4-d7c0-4366-b53b-67fd503a7059",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4534999c-5135-414e-9c13-a118f75d9ae4",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": {{reviewId}},\r\n    \"Text\": \"Great food, great feel\",\r\n    \"Rating\": 5,\r\n    \"UserId\": \"1234\",\r\n    \"RestaurantId\": {{restaurantId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44326/api/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e063b268-05be-4465-89c5-46abbe906f63",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Restaurant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5400f701-337f-49a6-b4d1-2a906a07d65c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "32dc6b81-b983-4aaa-941a-024fb979d623",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\":{{restaurantId}},\r\n    \"Name\": \"Zach's Diner Updated\",\r\n    \"City\": \"Pittsburgh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants/{{restaurantId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants",
+								"{{restaurantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review By UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b40ab6d1-9c20-4986-a102-02bfb01b2913",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/reviews/byuser/1234",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews",
+								"byuser",
+								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review By restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "893e5493-fefa-4886-b2bd-1dcbe9dded84",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/reviews/byrestaurant/{{restaurantId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews",
+								"byrestaurant",
+								"{{restaurantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ead6aadf-8796-4b39-8d81-3c7334ec9a50",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants/{{restaurantId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants",
+								"{{restaurantId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "376ee148-871a-480d-9f27-505964aa59be",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7d948aa6-52ee-4a0e-af4c-b81771ac88d4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44326/api/restaurants/{{restaurantId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44326",
+							"path": [
+								"api",
+								"restaurants",
+								"{{restaurantId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
