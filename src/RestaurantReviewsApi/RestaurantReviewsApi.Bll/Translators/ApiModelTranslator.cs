@@ -1,0 +1,86 @@
+﻿using RestaurantReviewsApi.ApiModels;
+using RestaurantReviewsApi.Bll.Models;
+using RestaurantReviewsApi.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace RestaurantReviewsApi.Bll.Translators
+{
+    public class ApiModelTranslator : IApiModelTranslator
+    {
+        public RestaurantApiModel ToRestaurantApiModel(Restaurant restaurantModel, float? averageRating = null)
+        {
+            if(restaurantModel == null)
+                throw new ArgumentNullException(nameof(restaurantModel));
+
+            return new RestaurantApiModel()
+            {
+                RestaurantId = restaurantModel.RestaurantId,
+                Name = restaurantModel.Name,
+                AddressLine1 = restaurantModel.AddressLine1,
+                AddressLine2 = restaurantModel.AddressLine2,
+                City = restaurantModel.City,
+                ZipCode = restaurantModel.ZipCode,
+                State = restaurantModel.State,
+                Description = restaurantModel.Description,
+                Email = restaurantModel.Email,
+                Phone = restaurantModel.Phone,
+                Website = restaurantModel.Website,
+                AverageRating = averageRating
+            };
+        }
+
+        public Restaurant ToRestaurantModel(RestaurantApiModel restaurantApiModel, Restaurant restaurantModel = null)
+        {
+            if (restaurantApiModel == null)
+                throw new ArgumentNullException(nameof(restaurantApiModel));
+
+            if (restaurantModel == null)
+                restaurantModel = new Restaurant();
+
+            restaurantModel.Name = restaurantApiModel.Name;
+            restaurantModel.AddressLine1 = restaurantApiModel.AddressLine1;
+            restaurantModel.AddressLine2 = restaurantApiModel.AddressLine2;
+            restaurantModel.City = restaurantApiModel.City;
+            restaurantModel.ZipCode = restaurantApiModel.ZipCode;
+            restaurantModel.State = restaurantApiModel.State;
+            restaurantModel.Description = restaurantApiModel.Description;
+            restaurantModel.Email = restaurantApiModel.Email;
+            restaurantModel.Phone = restaurantApiModel.Phone;
+            restaurantModel.Website = restaurantApiModel.Website;
+            restaurantModel.IsDeleted = false;
+
+            return restaurantModel;
+        }
+
+        public ReviewApiModel ToReviewApiModel(Review reviewModel)
+        {
+            if (reviewModel == null)
+                throw new ArgumentNullException(nameof(reviewModel));
+
+            return new ReviewApiModel()
+            {
+                RestaurantId = reviewModel.RestaurantId,
+                Rating = reviewModel.Rating,
+                ReviewId = reviewModel.ReviewId,
+                Details = reviewModel.Details,
+                UserName = reviewModel.UserName
+            };
+        }
+
+        public Review ToReviewModel(ReviewApiModel reviewApiModel, UserModel userModel)
+        {
+            if (reviewApiModel == null)
+                throw new ArgumentNullException(nameof(reviewApiModel));
+
+            return new Review()
+            {
+                RestaurantId = reviewApiModel.RestaurantId.Value,
+                Rating = (int)reviewApiModel.Rating,
+                Details = reviewApiModel.Details,
+                UserName = userModel.UserName,
+            };
+        }
+    }
+}
