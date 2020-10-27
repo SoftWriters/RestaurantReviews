@@ -37,18 +37,18 @@ type User = {
     Id: Id
     FirstName: NonEmptyString
     LastName: string
-    Reviews: Review seq
 }
-and Review = {
-    Id: Id
-    User: User
-    RestaurantName: NonEmptyString
-}
-
 
 type Restaurant = {
     Id: Id
     Name: NonEmptyString
     City: NonEmptyString
-    Reviews: Review seq
+}
+
+type Review = {
+    Id: Id
+    User: User
+    Restaurant: Restaurant
+    Rating: Rating
+    ReviewText: string
 }
