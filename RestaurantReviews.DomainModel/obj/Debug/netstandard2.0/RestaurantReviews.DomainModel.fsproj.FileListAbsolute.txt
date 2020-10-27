@@ -1,0 +1,8 @@
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\bin\Debug\netstandard2.0\RestaurantReviews.DomainModel.deps.json
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\bin\Debug\netstandard2.0\RestaurantReviews.DomainModel.dll
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\bin\Debug\netstandard2.0\RestaurantReviews.DomainModel.pdb
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\obj\Debug\netstandard2.0\RestaurantReviews.DomainModel.fsprojAssemblyReference.cache
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\obj\Debug\netstandard2.0\RestaurantReviews.DomainModel.AssemblyInfoInputs.cache
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\obj\Debug\netstandard2.0\RestaurantReviews.DomainModel.AssemblyInfo.fs
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\obj\Debug\netstandard2.0\RestaurantReviews.DomainModel.dll
+C:\Users\jmfal\Desktop\Softwriters\RestaurantReviews.DomainModel\obj\Debug\netstandard2.0\RestaurantReviews.DomainModel.pdb
