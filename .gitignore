@@ -1,0 +1,8 @@
+# Ignore Visual Studio files
+.vs/
+
+# Ignore bin and obj folders of projects
+RestaurantReviews/obj/*
+RestaurantReviews/bin/*
+RestaurantReviews.DomainModel/obj/*
+RestaurantReviews.DomainModel/bin/*
