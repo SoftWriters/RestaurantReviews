@@ -8,3 +8,5 @@ RestaurantReviews/.vs/*
 RestaurantReviews.DomainModel/obj/*
 RestaurantReviews.DomainModel/bin/*
 RestaurantReviews.DomainModel/.vs/*
+RestaurantReviews.SQLServer/obj/*
+RestaurantReviews.SQLServer/bin/*
