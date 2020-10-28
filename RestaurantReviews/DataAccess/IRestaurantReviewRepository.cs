@@ -20,5 +20,8 @@ namespace RestaurantReviews.DataAccess
 
         void DeleteReview(Review review);
         Task DeleteReviewAsync(Review review);
+
+        void AddUser(User user);
+        Task AddUserAsync(User user);
     }
 }
