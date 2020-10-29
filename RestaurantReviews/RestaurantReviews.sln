@@ -5,9 +5,20 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews", "RestaurantReviews.csproj", "{993BA795-57B5-4A04-8A08-2C68C10FFBE5}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RestaurantReviews.DomainModel", "..\RestaurantReviews.DomainModel\RestaurantReviews.DomainModel.fsproj", "{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RestaurantReviews.DomainModel", "..\RestaurantReviews.DomainModel\RestaurantReviews.DomainModel.fsproj", "{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RestaurantReviews.SQLServer", "..\RestaurantReviews.SQLServer\RestaurantReviews.SQLServer.sqlproj", "{DEA74D45-778E-40B1-B153-4C2FC053F18D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts", "{37CDAAC8-6347-4DD5-BE87-C5A6BDE97269}"
+	ProjectSection(SolutionItems) = preProject
+		001_CreateDatabase.sql = 001_CreateDatabase.sql
+		..\SQL Scripts\002_InsertLocation.sql = ..\SQL Scripts\002_InsertLocation.sql
+		..\SQL Scripts\003_InsertUser.sql = ..\SQL Scripts\003_InsertUser.sql
+		..\SQL Scripts\004_InsertRestaurant.sql = ..\SQL Scripts\004_InsertRestaurant.sql
+		..\SQL Scripts\005_InsertReview.sql = ..\SQL Scripts\005_InsertReview.sql
+		..\SQL Scripts\006_InitialData.sql = ..\SQL Scripts\006_InitialData.sql
+		007_SelectRestaurantByCity.sql = 007_SelectRestaurantByCity.sql
+		..\SQL Scripts\008_SelectReviewsByUser.sql = ..\SQL Scripts\008_SelectReviewsByUser.sql
+		..\SQL Scripts\009_DeleteReview.sql = ..\SQL Scripts\009_DeleteReview.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +34,6 @@ Global
 		{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEA74D45-778E-40B1-B153-4C2FC053F18D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,33 @@
+CREATE DATABASE [RestaurantReviews];
+USE RestaurantReviews;
+GO
+
+CREATE TABLE [dbo].[Location]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[City] NVARCHAR(100) NOT NULL
+)
+CREATE TABLE [dbo].[Restaurant]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[LocationId] UNIQUEIDENTIFIER NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
+	CONSTRAINT FK_Restaurant_Location FOREIGN KEY (LocationId) REFERENCES [dbo].[Location]
+)
+CREATE TABLE [dbo].[User]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[FirstName] NVARCHAR(20),
+	[LastName] NVARCHAR(20)
+)
+CREATE TABLE [dbo].[Review]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[UserId] UNIQUEIDENTIFIER NOT NULL,
+	[RestaurantId] UNIQUEIDENTIFIER NOT NULL,
+	[Rating] INT NOT NULL,
+	[ReviewText] NVARCHAR(500),
+	[IsDeleted] BIT,
+	CONSTRAINT FK_Review_User FOREIGN KEY (UserId) REFERENCES [dbo].[User],
+	CONSTRAINT FK_Review_Restaurant FOREIGN KEY (RestaurantId) REFERENCES [dbo].[Restaurant]
+)

@@ -1,6 +1,9 @@
 ﻿using RestaurantReviews.DomainModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,7 +53,14 @@ namespace RestaurantReviews.DataAccess
 
         public IEnumerable<Restaurant> GetRestaurantsByCity(string city)
         {
-            throw new NotImplementedException();
+            using var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServerConnection"].ConnectionString);
+            using (var command = new SqlCommand("SelectRestaurantByCity", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+
+                SqlDataReader response = command.ExecuteReader();
+            }
         }
 
         public Task<IEnumerable<Restaurant>> GetRestaurantsByCityAsync(string city)

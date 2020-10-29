@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Restaurant]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-	[LocationId] UNIQUEIDENTIFIER NOT NULL,
-	[Name] NVARCHAR(100) NOT NULL,
-	CONSTRAINT FK_Restaurant_Location FOREIGN KEY (LocationId) REFERENCES [dbo].[Location]
-)
