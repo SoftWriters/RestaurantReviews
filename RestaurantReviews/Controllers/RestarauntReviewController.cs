@@ -19,25 +19,26 @@ namespace RestaurantReviews.Controllers
         {
             _restaurantReviewRepository = repository;
         }
+        private Id CreateNewId() =>
+            // this will always have a valid value, no need to check IsError
+            // since the NewGuid() method always returns a non-empty guid
+            IdModule.create(Guid.NewGuid()).ResultValue;
 
-        private FSharpResult<NonEmptyString, string> ValidateCity(string city)
-        {
-            return NonEmptyStringModule.create(city);
-        }
+        private FSharpResult<NonEmptyString, string> ValidateNonEmptyString(string str) =>
+            NonEmptyStringModule.create(str);
 
         [HttpPut]
         [Route("restaurants")]
         public IActionResult PutRestaurant(string name, string city)
         {
-            var tryId = IdModule.create(Guid.NewGuid());
-            var tryName = NonEmptyStringModule.create(name);
-            var tryCity = ValidateCity(city);
+            var tryName = ValidateNonEmptyString(name);
+            var tryCity = ValidateNonEmptyString(city);
 
             if (tryName.IsError) return BadRequest(tryName.ErrorValue);
             if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
 
-            var restaurant = new Restaurant(tryId.ResultValue, tryName.ResultValue, tryCity.ResultValue);
-            _restaurantReviewRepository.AddRestaurant(restaurant);
+            _restaurantReviewRepository.AddRestaurant(
+                new Restaurant(CreateNewId(), tryName.ResultValue, tryCity.ResultValue));
 
             return Ok("Restaurant added.");
         }
