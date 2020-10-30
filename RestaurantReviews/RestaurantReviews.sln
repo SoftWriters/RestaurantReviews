@@ -7,19 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews", "Restau
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RestaurantReviews.DomainModel", "..\RestaurantReviews.DomainModel\RestaurantReviews.DomainModel.fsproj", "{E593DEBF-EB6D-4A15-A2B6-8FD0580FF21E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts", "{37CDAAC8-6347-4DD5-BE87-C5A6BDE97269}"
-	ProjectSection(SolutionItems) = preProject
-		001_CreateDatabase.sql = 001_CreateDatabase.sql
-		..\SQL Scripts\002_InsertLocation.sql = ..\SQL Scripts\002_InsertLocation.sql
-		..\SQL Scripts\003_InsertUser.sql = ..\SQL Scripts\003_InsertUser.sql
-		..\SQL Scripts\004_InsertRestaurant.sql = ..\SQL Scripts\004_InsertRestaurant.sql
-		..\SQL Scripts\005_InsertReview.sql = ..\SQL Scripts\005_InsertReview.sql
-		..\SQL Scripts\006_InitialData.sql = ..\SQL Scripts\006_InitialData.sql
-		007_SelectRestaurantByCity.sql = 007_SelectRestaurantByCity.sql
-		..\SQL Scripts\008_SelectReviewsByUser.sql = ..\SQL Scripts\008_SelectReviewsByUser.sql
-		..\SQL Scripts\009_DeleteReview.sql = ..\SQL Scripts\009_DeleteReview.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

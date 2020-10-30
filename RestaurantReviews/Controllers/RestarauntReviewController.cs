@@ -9,7 +9,7 @@ using RestaurantReviews.DomainModel;
 
 namespace RestaurantReviews.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/reviews")]
     [ApiController]
     public class RestarauntReviewController : ControllerBase
     {
@@ -19,7 +19,25 @@ namespace RestaurantReviews.Controllers
             _restaurantReviewRepository = repository;
         }
 
+        [HttpPut]
+        [Route("restaurants")]
+        public IActionResult PutRestaurant(string name, string city)
+        {
+            var tryId = IdModule.create(Guid.NewGuid());
+            var tryName = NonEmptyStringModule.create(name);
+            var tryCity = NonEmptyStringModule.create(city);
+
+            if (tryName.IsError) return BadRequest(tryName.ErrorValue);
+            if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
+
+            var restaurant = new Restaurant(tryId.ResultValue, tryName.ResultValue, tryCity.ResultValue);
+            _restaurantReviewRepository.AddRestaurant(restaurant);
+
+            return Ok("Restaurant added.");
+        }
+
         [HttpGet]
+        [Route("restaurants")]
         public IEnumerable<Restaurant> GetRestaurants(string city)
         {
             return _restaurantReviewRepository.GetRestaurantsByCity(city);
