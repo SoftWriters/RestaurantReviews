@@ -16,6 +16,7 @@ module NonEmptyString =
 
 type Id = private Id of Guid
 module Id = 
+    open System.Text.RegularExpressions
     let create id = 
         if id = Guid.Empty then
             "Id may not be an empty Guid." |> Error

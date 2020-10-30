@@ -11,21 +11,21 @@ namespace RestaurantReviews.DataAccess
 {
     public class SqlServerRestaurantReviewRepository : IRestaurantReviewRepository
     {
+        private string _connectionString = @"Server=(localdb)\MSSqlLocalDb;Database=RestaurantReviews;Trusted_Connection=True;";
         private const string INSERT_RESTAURANT_SPROC = "InsertRestaurant";
 
         public void AddRestaurant(Restaurant restaurant)
         {
-            using (var conn = new SqlConnection(@"Server=(localdb)\MSSqlLocalDb;Database=RestaurantReviews;Trusted_Connection=True;"))
+            using (var conn = new SqlConnection(_connectionString))
             using (var command = new SqlCommand(INSERT_RESTAURANT_SPROC, conn))
             {
-                conn.Open();
-
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@id", IdModule.unwrap(restaurant.Id));
                 command.Parameters.AddWithValue("@name", NonEmptyStringModule.unwrap(restaurant.Name));
                 command.Parameters.AddWithValue("@city", NonEmptyStringModule.unwrap(restaurant.City));
-
+                
+                conn.Open();
                 command.ExecuteNonQuery();
             }
         }
@@ -35,17 +35,7 @@ namespace RestaurantReviews.DataAccess
             throw new NotImplementedException();
         }
 
-        public Task AddReviewAsync(Review review)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddUserAsync(User user)
         {
             throw new NotImplementedException();
         }
@@ -55,35 +45,39 @@ namespace RestaurantReviews.DataAccess
             throw new NotImplementedException();
         }
 
-        public Task DeleteReviewAsync(Review review)
+        public IEnumerable<Restaurant> GetRestaurantsByCity(NonEmptyString city)
         {
-            throw new NotImplementedException();
-        }
+            var restaurants = new List<Restaurant>();
 
-        public IEnumerable<Restaurant> GetRestaurantsByCity(string city)
-        {
-            throw new NotImplementedException();
-            //using var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServerConnection"].ConnectionString);
-            //using (var command = new SqlCommand("SelectRestaurantByCity", connection))
-            //{
-            //    command.CommandType = CommandType.StoredProcedure;
-            //    connection.Open();
+            using var connection = new SqlConnection(_connectionString);
+            using (var command = new SqlCommand("SelectRestaurantsByCity", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@city", NonEmptyStringModule.unwrap(city));
 
-            //    SqlDataReader response = command.ExecuteReader();
-            //}
-        }
+                connection.Open();
 
-        public Task<IEnumerable<Restaurant>> GetRestaurantsByCityAsync(string city)
-        {
-            throw new NotImplementedException();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var dbId = reader.GetGuid("Id");
+                    var dbName = reader.GetString("Name");
+
+                    var idResult = IdModule.create(dbId);
+                    var nameResult = NonEmptyStringModule.create(dbName);
+
+                    if (idResult.IsError || nameResult.IsError)
+                        continue;
+                    else
+                        restaurants.Add(
+                            new Restaurant(idResult.ResultValue, nameResult.ResultValue, city));
+                }
+            }
+
+            return restaurants;
         }
 
         public IEnumerable<Review> GetReviewsByUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Review>> GetReviewsByUsersAsync(User user)
         {
             throw new NotImplementedException();
         }

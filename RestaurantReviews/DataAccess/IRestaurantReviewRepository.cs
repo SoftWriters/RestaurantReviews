@@ -6,7 +6,7 @@ namespace RestaurantReviews.DataAccess
 {
     public interface IRestaurantReviewRepository
     {
-        IEnumerable<Restaurant> GetRestaurantsByCity(string city);
+        IEnumerable<Restaurant> GetRestaurantsByCity(NonEmptyString city);
 
         void AddRestaurant(Restaurant restaurant);
 
