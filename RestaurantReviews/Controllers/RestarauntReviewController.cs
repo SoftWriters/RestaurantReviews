@@ -50,9 +50,9 @@ namespace RestaurantReviews.Controllers
 
             if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
 
-            var results = _restaurantReviewRepository.GetRestaurantsByCity(tryCity.ResultValue);
+            var restaurants = _restaurantReviewRepository.GetRestaurantsByCity(tryCity.ResultValue);
 
-            return Ok(results);
+            return Ok(RestaurantModule.unwrapMany(restaurants));
         }
     }
 }

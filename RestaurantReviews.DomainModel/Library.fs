@@ -2,7 +2,6 @@
 
 open System
 
-
 type NonEmptyString = private NonEmptyString of string
 module NonEmptyString =
     let create str = 
@@ -16,7 +15,6 @@ module NonEmptyString =
 
 type Id = private Id of Guid
 module Id = 
-    open System.Text.RegularExpressions
     let create id = 
         if id = Guid.Empty then
             "Id may not be an empty Guid." |> Error
@@ -45,12 +43,28 @@ type User = {
     FirstName: NonEmptyString
     LastName: string
 }
+module User =
+    let unwrap user = {|
+        Id = Id.unwrap user.Id
+        FirstName = NonEmptyString.unwrap user.FirstName
+        LastName = user.LastName
+    |}
+
 
 type Restaurant = {
     Id: Id
     Name: NonEmptyString
     City: NonEmptyString
 }
+module Restaurant =
+    let unwrap restaurant = {| 
+        Id = Id.unwrap restaurant.Id
+        Name = NonEmptyString.unwrap restaurant.Name 
+        City = NonEmptyString.unwrap restaurant.City 
+    |}
+
+    let unwrapMany restaurants = Seq.map unwrap restaurants
+
 
 type Review = {
     Id: Id
@@ -59,3 +73,11 @@ type Review = {
     Rating: Rating
     ReviewText: string
 }
+module Review = 
+    let unwrap review = {|
+        Id = Id.unwrap review.Id
+        User = User.unwrap review.User
+        Restaurant = Restaurant.unwrap review.Restaurant
+        Rating = Rating.unwrap review.Rating
+        ReviewText = review.ReviewText
+    |}
