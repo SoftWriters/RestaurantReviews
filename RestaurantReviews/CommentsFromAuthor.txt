@@ -1,0 +1,9 @@
+Assumptions made:
+
+1.  Upon logging into the application, the client has the UserId. This may be through a login API or something similar.
+    (Passing database IDs around is silly, though, and I would much prefer using a token of some sort to validate instead.)
+
+2.  Probably, we should inquire whether a single user can create multiple reviews for a restaurant, but I'm going off the explicit requirements given.
+    Thus, a user can submit multiple reviews for the same restaurant with this API for now. (Future enhancement? Should just be a change to the sproc)
+    
+

@@ -14,8 +14,10 @@ namespace RestaurantReviews.DataAccess
 
         IEnumerable<Review> GetReviewsByUser(User user);
 
-        void DeleteReview(Review review);
+        Restaurant GetRestaurant(Id id);
 
-        void AddUser(User user);
+        User GetUser(Id id);
+
+        void DeleteReview(Review review);
     }
 }

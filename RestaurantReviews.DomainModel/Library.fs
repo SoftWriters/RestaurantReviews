@@ -40,7 +40,7 @@ module Rating =
 
 type User = {
     Id: Id
-    FirstName: NonEmptyString
+    FirstName: NonEmptyString // require first name?
     LastName: string
 }
 module User =
