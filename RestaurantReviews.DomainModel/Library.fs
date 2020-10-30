@@ -11,6 +11,8 @@ module NonEmptyString =
         else
             NonEmptyString str |> Ok
 
+    let unwrap (NonEmptyString str) = str
+
 
 type Id = private Id of Guid
 module Id = 
@@ -19,6 +21,8 @@ module Id =
             "Id may not be an empty Guid." |> Error
         else
             Id id |> Ok
+
+    let unwrap (Id id) = id
 
 
 type Rating = private Rating of int
@@ -31,6 +35,8 @@ module Rating =
             String.Format("Rating must be between {0} and {1}", lower, upper) |> Error
         else
             Rating rating |> Ok
+
+    let unwrap (Rating rating) = rating
 
 
 type User = {
