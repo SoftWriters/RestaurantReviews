@@ -1,15 +1,16 @@
 USE [RestaurantReviews]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SelectRestaurantsByCity]    Script Date: 10/30/2020 10:52:12 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SelectUser]
-	@id UNIQUEIDENTIFIER
+CREATE PROCEDURE [dbo].[InsertUser]
+	@id UNIQUEIDENTIFIER,
+	@firstName NVARCHAR(20),
+	@lastName NVARCHAR(20)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -17,8 +18,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [FirstName], [LastName]
-	FROM [dbo].[User]
-	WHERE Id = @id
+	INSERT INTO [dbo].[User] (Id, FirstName, LastName)
+	VALUES (@id, @firstName, @lastName)
 END
 GO

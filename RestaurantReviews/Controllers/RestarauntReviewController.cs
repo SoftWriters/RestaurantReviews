@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.FSharp.Core;
 using RestaurantReviews.DataAccess;
 using RestaurantReviews.DomainModel;
@@ -19,6 +21,7 @@ namespace RestaurantReviews.Controllers
         {
             _restaurantReviewRepository = repository;
         }
+
         private Id CreateNewId() =>
             // this will always have a valid value, no need to check IsError
             // since the NewGuid() method always returns a non-empty guid
@@ -53,7 +56,7 @@ namespace RestaurantReviews.Controllers
         [Route("restaurants")]
         public IActionResult GetRestaurants(string city)
         {
-            var tryCity = ValidateCity(city);
+            var tryCity = ValidateNonEmptyString(city);
 
             if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
 
@@ -74,16 +77,45 @@ namespace RestaurantReviews.Controllers
             if (tryRestaurantId.IsError) return BadRequest(tryRestaurantId.ErrorValue);
             if (tryRating.IsError) return BadRequest(tryRating.ErrorValue);
 
-            var restaurant = _restaurantReviewRepository.GetRestaurant(tryRestaurantId.ResultValue);
-            if (restaurant is null) return BadRequest("Restaurant does not exist. We were unable to submit this review.");
-
-            var user = _restaurantReviewRepository.GetUser(tryUserId.ResultValue);
-            if (user is null) return BadRequest("User does not exist. We were unable to submit this review.");
-
             _restaurantReviewRepository.AddReview(
-                new Review(CreateNewId(), user, restaurant, tryRating.ResultValue, reviewText));
+                new Review(CreateNewId(), tryUserId.ResultValue, tryRestaurantId.ResultValue, tryRating.ResultValue, reviewText));
 
             return Ok("Review submitted.");
         }        
+
+        [HttpDelete]
+        public IActionResult DeleteReview(Guid id)
+        {
+            var tryGuid = ValidateId(id);
+            if (tryGuid.IsError) return BadRequest(tryGuid.ErrorValue);
+
+            _restaurantReviewRepository.DeleteReview(tryGuid.ResultValue);
+
+            return Ok("Review deleted.");
+        }
+
+        [HttpPost]
+        [Route("user/add")]
+        public IActionResult AddUser(string firstName, string lastName)
+        {
+            var tryFirst = ValidateNonEmptyString(firstName);
+
+            if (tryFirst.IsError) return BadRequest(tryFirst.ErrorValue);
+
+            var user = new User(CreateNewId(), tryFirst.ResultValue, lastName ?? string.Empty);
+            return Ok("User created.");
+        }
+
+        [HttpGet]
+        [Route("user")]
+        public IActionResult GetReviewsByUser(Guid id)
+        {
+            var tryId = ValidateId(id);
+            if (tryId.IsError) return BadRequest(tryId.ErrorValue);
+
+            var reviews = _restaurantReviewRepository.GetReviewsByUser(tryId.ResultValue);
+
+            return Ok(ReviewModule.unwrapMany(reviews));
+        }
     }
 }

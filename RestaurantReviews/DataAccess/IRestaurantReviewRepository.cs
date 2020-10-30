@@ -12,12 +12,14 @@ namespace RestaurantReviews.DataAccess
 
         void AddReview(Review review);
 
-        IEnumerable<Review> GetReviewsByUser(User user);
+        IEnumerable<Review> GetReviewsByUser(Id id);
 
         Restaurant GetRestaurant(Id id);
 
         User GetUser(Id id);
 
-        void DeleteReview(Review review);
+        void DeleteReview(Id id);
+
+        void AddUser(User user);
     }
 }

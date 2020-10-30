@@ -7,8 +7,10 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SelectRestaurantsByCity]
-	@city NVARCHAR(100)
+
+
+CREATE PROCEDURE [dbo].[SelectReviewsByUser]
+	@id UNIQUEIDENTIFIER
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -16,9 +18,9 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [Id], [Name]
-	FROM Restaurant
-	WHERE City = @city
+	SELECT review.[Id], review.[RestaurantId], [Rating], [ReviewText]
+	FROM [dbo].[Review] review
+	WHERE UserId = @id AND IsDeleted = 0
 END
 GO
 

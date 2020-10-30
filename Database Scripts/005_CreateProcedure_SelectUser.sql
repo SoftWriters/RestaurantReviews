@@ -1,14 +1,13 @@
 USE [RestaurantReviews]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SelectRestaurantsByCity]    Script Date: 10/30/2020 10:52:12 AM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SelectRestaurant]
+CREATE PROCEDURE [dbo].[SelectUser]
 	@id UNIQUEIDENTIFIER
 AS
 BEGIN
@@ -17,8 +16,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [Name], [City]
-	FROM Restaurant
+	SELECT [FirstName], [LastName]
+	FROM [dbo].[User]
 	WHERE Id = @id
 END
 GO

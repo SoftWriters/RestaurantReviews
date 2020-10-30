@@ -12,11 +12,15 @@ namespace RestaurantReviews.DataAccess
     public class SqlServerRestaurantReviewRepository : IRestaurantReviewRepository
     {
         private string _connectionString = @"Server=(localdb)\MSSqlLocalDb;Database=RestaurantReviews;Trusted_Connection=True;";
+        
+        private const string DELETE_REVIEW_SPROC = "DeleteReview";
         private const string INSERT_RESTAURANT_SPROC = "InsertRestaurant";
-        private const string SELECT_RESTAURANTS_BY_CITY_SPROC = "SelectRestaurantsByCity";
-        private const string SELECT_RESTAURANT_SPROC = "SelectRestaurant";
-        private const string SELECT_USER_SPROC = "SelectUser";
         private const string INSERT_REVIEW_SPROC = "InsertReview";
+        private const string INSERT_USER_SPROC = "InsertUser";
+        private const string SELECT_RESTAURANT_SPROC = "SelectRestaurant";
+        private const string SELECT_RESTAURANTS_BY_CITY_SPROC = "SelectRestaurantsByCity";
+        private const string SELECT_REVIEWS_BY_USER_SPROC = "SelectReviewsByUser";
+        private const string SELECT_USER_SPROC = "SelectUser";
 
         public void AddRestaurant(Restaurant restaurant)
         {
@@ -42,8 +46,8 @@ namespace RestaurantReviews.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@id", IdModule.unwrap(review.Id));
-                command.Parameters.AddWithValue("@userId", IdModule.unwrap(review.User.Id));
-                command.Parameters.AddWithValue("@city", IdModule.unwrap(review.Restaurant.Id));
+                command.Parameters.AddWithValue("@userId", IdModule.unwrap(review.User));
+                command.Parameters.AddWithValue("@city", IdModule.unwrap(review.Restaurant));
                 command.Parameters.AddWithValue("@rating", RatingModule.unwrap(review.Rating));
                 command.Parameters.AddWithValue("@reviewText", review.ReviewText);
 
@@ -52,9 +56,18 @@ namespace RestaurantReviews.DataAccess
             }
         }
 
-        public void DeleteReview(Review review)
+        public void DeleteReview(Id id)
         {
-            throw new NotImplementedException();
+            using (var conn = new SqlConnection(_connectionString))
+            using (var command = new SqlCommand(DELETE_REVIEW_SPROC, conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@id", IdModule.unwrap(id));
+
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public IEnumerable<Restaurant> GetRestaurantsByCity(NonEmptyString city)
@@ -89,9 +102,46 @@ namespace RestaurantReviews.DataAccess
             return restaurants;
         }
 
-        public IEnumerable<Review> GetReviewsByUser(User user)
+        public IEnumerable<Review> GetReviewsByUser(Id id)
         {
-            throw new NotImplementedException();
+            var reviews = new List<Review>();
+
+            using var connection = new SqlConnection(_connectionString);
+            using (var command = new SqlCommand(SELECT_REVIEWS_BY_USER_SPROC, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@id", IdModule.unwrap(id));
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var dbId = reader.GetGuid("Id");
+                    var dbRestaurantId = reader.GetGuid("RestaurantId");
+                    var dbRating = reader.GetInt32("Rating");
+
+                    var reviewText = reader.GetString("ReviewText");
+
+                    var idResult = IdModule.create(dbId);
+                    var restaurantIdResult = IdModule.create(dbRestaurantId);
+                    var ratingResult = RatingModule.create(dbRating);
+
+                    bool isDataError = idResult.IsError ||
+                        restaurantIdResult.IsError ||
+                        ratingResult.IsError;
+
+                    if (isDataError)
+                        continue;
+                    else
+                    {
+                        reviews.Add(
+                            new Review(idResult.ResultValue, id, restaurantIdResult.ResultValue, ratingResult.ResultValue, reviewText));
+                    }
+                }
+            }
+
+            return reviews;
         }
 
         public Restaurant GetRestaurant(Id id)
@@ -140,6 +190,22 @@ namespace RestaurantReviews.DataAccess
                 var firstNameResult = NonEmptyStringModule.create(dbFirst);
 
                 return new User(id, firstNameResult.ResultValue, dbLast);
+            }
+        }
+
+        public void AddUser(User user)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            using (var command = new SqlCommand(INSERT_USER_SPROC, conn))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@id", IdModule.unwrap(user.Id));
+                command.Parameters.AddWithValue("@firstName", NonEmptyStringModule.unwrap(user.FirstName));
+                command.Parameters.AddWithValue("@lastName", user.LastName);
+
+                conn.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

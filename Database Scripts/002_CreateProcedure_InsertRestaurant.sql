@@ -1,7 +1,6 @@
 USE [RestaurantReviews]
 GO
 
-/****** Object:  StoredProcedure [dbo].[InsertRestaurant]    Script Date: 10/30/2020 10:02:43 AM ******/
 SET ANSI_NULLS ON
 GO
 

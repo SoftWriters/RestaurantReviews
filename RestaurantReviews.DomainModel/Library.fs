@@ -68,16 +68,18 @@ module Restaurant =
 
 type Review = {
     Id: Id
-    User: User
-    Restaurant: Restaurant
+    User: Id
+    Restaurant: Id
     Rating: Rating
     ReviewText: string
 }
 module Review = 
     let unwrap review = {|
         Id = Id.unwrap review.Id
-        User = User.unwrap review.User
-        Restaurant = Restaurant.unwrap review.Restaurant
+        User = Id.unwrap review.User
+        Restaurant = Id.unwrap review.Restaurant
         Rating = Rating.unwrap review.Rating
         ReviewText = review.ReviewText
     |}
+
+    let unwrapMany reviews = Seq.map unwrap reviews
