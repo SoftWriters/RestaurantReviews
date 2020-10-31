@@ -27,21 +27,12 @@ namespace RestaurantReviews.Controllers
             // since the NewGuid() method always returns a non-empty guid
             IdModule.create(Guid.NewGuid()).ResultValue;
 
-        private FSharpResult<NonEmptyString, string> ValidateNonEmptyString(string str) =>
-            NonEmptyStringModule.create(str);
-
-        private FSharpResult<Id, string> ValidateId(Guid guid) =>
-            IdModule.create(guid);
-
-        private FSharpResult<Rating, string> ValidateRating(int rating) =>
-            RatingModule.create(rating);
-
         [HttpPut]
         [Route("restaurants/new")]
         public IActionResult PutRestaurant(string name, string city)
         {
-            var tryName = ValidateNonEmptyString(name);
-            var tryCity = ValidateNonEmptyString(city);
+            var tryName = NonEmptyStringModule.create(name);
+            var tryCity = NonEmptyStringModule.create(city);
 
             if (tryName.IsError) return BadRequest(tryName.ErrorValue);
             if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
@@ -56,7 +47,7 @@ namespace RestaurantReviews.Controllers
         [Route("restaurants")]
         public IActionResult GetRestaurants(string city)
         {
-            var tryCity = ValidateNonEmptyString(city);
+            var tryCity = NonEmptyStringModule.create(city);
 
             if (tryCity.IsError) return BadRequest(tryCity.ErrorValue);
 
@@ -69,9 +60,9 @@ namespace RestaurantReviews.Controllers
         [Route("new")]
         public IActionResult PostReview(Guid userId, Guid restaurantId, int rating, string reviewText)
         {
-            var tryUserId = ValidateId(userId);
-            var tryRestaurantId = ValidateId(restaurantId);
-            var tryRating = ValidateRating(rating);
+            var tryUserId = IdModule.create(userId);
+            var tryRestaurantId = IdModule.create(restaurantId);
+            var tryRating = RatingModule.create(rating);
 
             if (tryUserId.IsError) return BadRequest(tryUserId.ErrorValue);
             if (tryRestaurantId.IsError) return BadRequest(tryRestaurantId.ErrorValue);
@@ -86,7 +77,7 @@ namespace RestaurantReviews.Controllers
         [HttpDelete]
         public IActionResult DeleteReview(Guid id)
         {
-            var tryGuid = ValidateId(id);
+            var tryGuid = IdModule.create(id);
             if (tryGuid.IsError) return BadRequest(tryGuid.ErrorValue);
 
             _restaurantReviewRepository.DeleteReview(tryGuid.ResultValue);
@@ -98,7 +89,7 @@ namespace RestaurantReviews.Controllers
         [Route("user/add")]
         public IActionResult AddUser(string firstName, string lastName)
         {
-            var tryFirst = ValidateNonEmptyString(firstName);
+            var tryFirst = NonEmptyStringModule.create(firstName);
 
             if (tryFirst.IsError) return BadRequest(tryFirst.ErrorValue);
 
@@ -112,7 +103,7 @@ namespace RestaurantReviews.Controllers
         [Route("user")]
         public IActionResult GetReviewsByUser(Guid id)
         {
-            var tryId = ValidateId(id);
+            var tryId = IdModule.create(id);
             if (tryId.IsError) return BadRequest(tryId.ErrorValue);
 
             var reviews = _restaurantReviewRepository.GetReviewsByUser(tryId.ResultValue);
