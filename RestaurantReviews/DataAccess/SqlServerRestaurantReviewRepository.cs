@@ -47,7 +47,7 @@ namespace RestaurantReviews.DataAccess
 
                 command.Parameters.AddWithValue("@id", IdModule.unwrap(review.Id));
                 command.Parameters.AddWithValue("@userId", IdModule.unwrap(review.User));
-                command.Parameters.AddWithValue("@city", IdModule.unwrap(review.Restaurant));
+                command.Parameters.AddWithValue("@restaurantId", IdModule.unwrap(review.Restaurant));
                 command.Parameters.AddWithValue("@rating", RatingModule.unwrap(review.Rating));
                 command.Parameters.AddWithValue("@reviewText", review.ReviewText);
 

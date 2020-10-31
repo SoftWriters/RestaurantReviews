@@ -103,6 +103,8 @@ namespace RestaurantReviews.Controllers
             if (tryFirst.IsError) return BadRequest(tryFirst.ErrorValue);
 
             var user = new User(CreateNewId(), tryFirst.ResultValue, lastName ?? string.Empty);
+            _restaurantReviewRepository.AddUser(user);
+
             return Ok("User created.");
         }
 
