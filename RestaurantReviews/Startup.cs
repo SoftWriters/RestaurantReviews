@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +29,7 @@ namespace RestaurantReviews
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IDbConnection>(db => new SqlConnection(Configuration.GetConnectionString("SqlServerConnection")));
             services.AddTransient(typeof(IRestaurantReviewRepository), typeof(SqlServerRestaurantReviewRepository));
         }
 

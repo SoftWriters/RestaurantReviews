@@ -11,8 +11,8 @@ namespace RestaurantReviews.DataAccess
 {
     public class SqlServerRestaurantReviewRepository : IRestaurantReviewRepository
     {
-        private string _connectionString = @"Server=(localdb)\MSSqlLocalDb;Database=RestaurantReviews;Trusted_Connection=True;";
-        
+        private readonly SqlConnection _connection;
+
         private const string DELETE_REVIEW_SPROC = "DeleteReview";
         private const string INSERT_RESTAURANT_SPROC = "InsertRestaurant";
         private const string INSERT_REVIEW_SPROC = "InsertReview";
@@ -22,9 +22,14 @@ namespace RestaurantReviews.DataAccess
         private const string SELECT_REVIEWS_BY_USER_SPROC = "SelectReviewsByUser";
         private const string SELECT_USER_SPROC = "SelectUser";
 
+        public SqlServerRestaurantReviewRepository(IDbConnection connection)
+        {
+            _connection = (SqlConnection)connection;
+        }
+
         public void AddRestaurant(Restaurant restaurant)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = _connection)
             using (var command = new SqlCommand(INSERT_RESTAURANT_SPROC, conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -40,7 +45,7 @@ namespace RestaurantReviews.DataAccess
 
         public void AddReview(Review review)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = _connection)
             using (var command = new SqlCommand(INSERT_REVIEW_SPROC, conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -58,7 +63,7 @@ namespace RestaurantReviews.DataAccess
 
         public void DeleteReview(Id id)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = _connection)
             using (var command = new SqlCommand(DELETE_REVIEW_SPROC, conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -74,7 +79,7 @@ namespace RestaurantReviews.DataAccess
         {
             var restaurants = new List<Restaurant>();
 
-            using var connection = new SqlConnection(_connectionString);
+            using (var connection = _connection)
             using (var command = new SqlCommand(SELECT_RESTAURANTS_BY_CITY_SPROC, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -106,7 +111,7 @@ namespace RestaurantReviews.DataAccess
         {
             var reviews = new List<Review>();
 
-            using var connection = new SqlConnection(_connectionString);
+            using (var connection = _connection)
             using (var command = new SqlCommand(SELECT_REVIEWS_BY_USER_SPROC, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -146,7 +151,7 @@ namespace RestaurantReviews.DataAccess
 
         public Restaurant GetRestaurant(Id id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using (var connection = _connection)
             using (var command = new SqlCommand(SELECT_RESTAURANT_SPROC, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -171,7 +176,7 @@ namespace RestaurantReviews.DataAccess
 
         public User GetUser(Id id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using var connection = _connection;
             using (var command = new SqlCommand(SELECT_USER_SPROC, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -195,7 +200,7 @@ namespace RestaurantReviews.DataAccess
 
         public void AddUser(User user)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = _connection)
             using (var command = new SqlCommand(INSERT_USER_SPROC, conn))
             {
                 command.CommandType = CommandType.StoredProcedure;
