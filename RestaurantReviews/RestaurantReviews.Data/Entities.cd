@@ -1,23 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="RestaurantReviews.Data.Restaurant">
-    <Position X="2.5" Y="1.75" Width="1.5" />
+    <Position X="10" Y="1.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAIAAAAAAAAAAAAAAABAAAABAAAAAA=</HashCode>
       <FileName>Restaurant.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RestaurantReviews.Data.Review">
-    <Position X="4.25" Y="3.5" Width="1.5" />
+    <Position X="6.25" Y="1.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>IAABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAABAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Review.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Restaurant" />
+      <Property Name="User" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="RestaurantReviews.Data.User">
-    <Position X="9" Y="3" Width="1.5" />
+    <Position X="2.5" Y="1.75" Width="2.5" />
+    <Members>
+      <Method Name="ToString" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAAAAAQAEAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>

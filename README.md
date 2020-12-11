@@ -1,10 +1,28 @@
 RestaurantReviews
 =================
 
-Luke's Solution
------
-All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some initial users are pre-seeded into the database.
+# Luke's Solution
 
+All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some [initial users](./RestaurantReviews.Data/Users.cs) are pre-seeded into the database.
+## Project Structure
+- Data - Data tier, built with EF Core
+- Model - API Models that support the Logic layer
+- Logic - Core business logic
+- Web - Thin layer to expose the core business logic as a REST API
+![](./diagrams/Entities.png)
+
+## TODO
+- Get a list of restaurants by city
+- Post a restaurant that is not in the database
+- Post a review for a restaurant
+- Get a list of reviews by user
+- Delete a review
+- Swagger
+- Unit tests
+- Sample React app to consume API
+- Authentication?
+
+# Original Requirements
 The Problem
 --------------
 We are in the midst of building a mobile application that will let restaurant patrons rate the restaurant in which they are eating. As part of the build, we need to develop a web API that will accept and store the ratings and other sundry data from a publicly accessible interface. 

@@ -10,7 +10,10 @@ namespace RestaurantReviews.Data
         [StringLength(500)]
         public string ReviewText { get; set; }
 
+        public Guid UserId { get; set; }
         public User User { get; set; }
+
+        public Guid RestaurantId { get; set; }
         public Restaurant Restaurant { get; set; }
     }
 }

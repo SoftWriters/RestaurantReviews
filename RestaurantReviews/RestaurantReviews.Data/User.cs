@@ -10,5 +10,10 @@ namespace RestaurantReviews.Data
         public string Last { get; set; }
         
         public IList<Review> Reviews { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Last}, {First}";
+        }
     }
 }
