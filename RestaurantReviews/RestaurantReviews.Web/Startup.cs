@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestaurantReviews.Config;
 using RestaurantReviews.Data;
+using RestaurantReviews.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,25 +33,33 @@ namespace RestaurantReviews
             {
                 p.UseSqlServer(Configuration.ConnectionStrings.Default);
             });
+
+            services.AddControllers();
+            services.AddSwaggerGen();
+
+            // Application-specific services
+            services.AddTransient<IRestaurantLogic, RestaurantLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger(c =>
+            {
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

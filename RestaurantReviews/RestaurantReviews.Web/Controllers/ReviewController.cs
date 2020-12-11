@@ -12,7 +12,7 @@ namespace RestaurantReviews.Controllers
     public class ReviewController : ControllerBase
     {
         [HttpPost]
-        [Route("/query")]
+        [Route("query")]
         public Task<ActionResult> Query()
         {
             throw new NotImplementedException();

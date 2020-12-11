@@ -21,7 +21,7 @@ namespace RestaurantReviews.Web.Controllers
         }
 
         [HttpPost]
-        [Route("/query")]
+        [Route("query")]
         public async Task<ActionResult<UserQueryResponse>> Query([FromBody]UserQueryRequest request)
         {
             var response = await logic.UserQuery(request);
