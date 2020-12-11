@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestaurantReviews.Model.Review.Query
+namespace RestaurantReviews.Logic.Model.Review.Query
 {
     public class ReviewQueryResponse
     {

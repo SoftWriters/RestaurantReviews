@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestaurantReviews.Data\RestaurantReviews.Data.csproj" />
-    <ProjectReference Include="..\RestaurantReviews.Model\RestaurantReviews.Model.csproj" />
   </ItemGroup>
 
 </Project>

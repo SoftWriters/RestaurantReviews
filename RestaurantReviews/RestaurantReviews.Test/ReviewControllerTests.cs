@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using RestaurantReviews.Data;
-using RestaurantReviews.Model.Review.Query;
+using RestaurantReviews.Logic.Model.Review.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
