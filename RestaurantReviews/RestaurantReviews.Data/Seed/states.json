@@ -1,0 +1,257 @@
+[
+  {
+    "Name": "Alabama",
+    "Abbrev": "Ala.",
+    "Code": "AL"
+  },
+  {
+    "Name": "Alaska",
+    "Abbrev": "Alaska",
+    "Code": "AK"
+  },
+  {
+    "Name": "Arizona",
+    "Abbrev": "Ariz.",
+    "Code": "AZ"
+  },
+  {
+    "Name": "Arkansas",
+    "Abbrev": "Ark.",
+    "Code": "AR"
+  },
+  {
+    "Name": "California",
+    "Abbrev": "Calif.",
+    "Code": "CA"
+  },
+  {
+    "Name": "Colorado",
+    "Abbrev": "Colo.",
+    "Code": "CO"
+  },
+  {
+    "Name": "Connecticut",
+    "Abbrev": "Conn.",
+    "Code": "CT"
+  },
+  {
+    "Name": "Delaware",
+    "Abbrev": "Del.",
+    "Code": "DE"
+  },
+  {
+    "Name": "District of Columbia",
+    "Abbrev": "D.C.",
+    "Code": "DC"
+  },
+  {
+    "Name": "Florida",
+    "Abbrev": "Fla.",
+    "Code": "FL"
+  },
+  {
+    "Name": "Georgia",
+    "Abbrev": "Ga.",
+    "Code": "GA"
+  },
+  {
+    "Name": "Hawaii",
+    "Abbrev": "Hawaii",
+    "Code": "HI"
+  },
+  {
+    "Name": "Idaho",
+    "Abbrev": "Idaho",
+    "Code": "ID"
+  },
+  {
+    "Name": "Illinois",
+    "Abbrev": "Ill.",
+    "Code": "IL"
+  },
+  {
+    "Name": "Indiana",
+    "Abbrev": "Ind.",
+    "Code": "IN"
+  },
+  {
+    "Name": "Iowa",
+    "Abbrev": "Iowa",
+    "Code": "IA"
+  },
+  {
+    "Name": "Kansas",
+    "Abbrev": "Kans.",
+    "Code": "KS"
+  },
+  {
+    "Name": "Kentucky",
+    "Abbrev": "Ky.",
+    "Code": "KY"
+  },
+  {
+    "Name": "Louisiana",
+    "Abbrev": "La.",
+    "Code": "LA"
+  },
+  {
+    "Name": "Maine",
+    "Abbrev": "Maine",
+    "Code": "ME"
+  },
+  {
+    "Name": "Maryland",
+    "Abbrev": "Md.",
+    "Code": "MD"
+  },
+  {
+    "Name": "Massachusetts",
+    "Abbrev": "Mass.",
+    "Code": "MA"
+  },
+  {
+    "Name": "Michigan",
+    "Abbrev": "Mich.",
+    "Code": "MI"
+  },
+  {
+    "Name": "Minnesota",
+    "Abbrev": "Minn.",
+    "Code": "MN"
+  },
+  {
+    "Name": "Mississippi",
+    "Abbrev": "Miss.",
+    "Code": "MS"
+  },
+  {
+    "Name": "Missouri",
+    "Abbrev": "Mo.",
+    "Code": "MO"
+  },
+  {
+    "Name": "Montana",
+    "Abbrev": "Mont.",
+    "Code": "MT"
+  },
+  {
+    "Name": "Nebraska",
+    "Abbrev": "Nebr.",
+    "Code": "NE"
+  },
+  {
+    "Name": "Nevada",
+    "Abbrev": "Nev.",
+    "Code": "NV"
+  },
+  {
+    "Name": "New Hampshire",
+    "Abbrev": "N.H.",
+    "Code": "NH"
+  },
+  {
+    "Name": "New Jersey",
+    "Abbrev": "N.J.",
+    "Code": "NJ"
+  },
+  {
+    "Name": "New Mexico",
+    "Abbrev": "N.M.",
+    "Code": "NM"
+  },
+  {
+    "Name": "New York",
+    "Abbrev": "N.Y.",
+    "Code": "NY"
+  },
+  {
+    "Name": "North Carolina",
+    "Abbrev": "N.C.",
+    "Code": "NC"
+  },
+  {
+    "Name": "North Dakota",
+    "Abbrev": "N.D.",
+    "Code": "ND"
+  },
+  {
+    "Name": "Ohio",
+    "Abbrev": "Ohio",
+    "Code": "OH"
+  },
+  {
+    "Name": "Oklahoma",
+    "Abbrev": "Okla.",
+    "Code": "OK"
+  },
+  {
+    "Name": "Oregon",
+    "Abbrev": "Ore.",
+    "Code": "OR"
+  },
+  {
+    "Name": "Pennsylvania",
+    "Abbrev": "Pa.",
+    "Code": "PA"
+  },
+  {
+    "Name": "Rhode Island",
+    "Abbrev": "R.I.",
+    "Code": "RI"
+  },
+  {
+    "Name": "South Carolina",
+    "Abbrev": "S.C.",
+    "Code": "SC"
+  },
+  {
+    "Name": "South Dakota",
+    "Abbrev": "S.D.",
+    "Code": "SD"
+  },
+  {
+    "Name": "Tennessee",
+    "Abbrev": "Tenn.",
+    "Code": "TN"
+  },
+  {
+    "Name": "Texas",
+    "Abbrev": "Tex.",
+    "Code": "TX"
+  },
+  {
+    "Name": "Utah",
+    "Abbrev": "Utah",
+    "Code": "UT"
+  },
+  {
+    "Name": "Vermont",
+    "Abbrev": "Vt.",
+    "Code": "VT"
+  },
+  {
+    "Name": "Virginia",
+    "Abbrev": "Va.",
+    "Code": "VA"
+  },
+  {
+    "Name": "Washington",
+    "Abbrev": "Wash.",
+    "Code": "WA"
+  },
+  {
+    "Name": "West Virginia",
+    "Abbrev": "W.Va.",
+    "Code": "WV"
+  },
+  {
+    "Name": "Wisconsin",
+    "Abbrev": "Wis.",
+    "Code": "WI"
+  },
+  {
+    "Name": "Wyoming",
+    "Abbrev": "Wyo.",
+    "Code": "WY"
+  }
+]
