@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Platform.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace RestaurantReviews.Data
+namespace RestaurantReviews.Data.Seed
 {
     public static class SeedUsers
     {
@@ -13,13 +14,7 @@ namespace RestaurantReviews.Data
         public static User Lisa { get; } = new User { Id = Guid.Parse("779ab260-7af2-421a-b0cf-4df17164a406"), First = "Lisa", Last = "Simpson" };
         public static User Maggie { get; } = new User { Id = Guid.Parse("292801c5-a3ca-4f35-9224-159ec9667e11"), First = "Maggie", Last = "Simpson" };
 
-        private static readonly Lazy<IEnumerable<User>> _all = new Lazy<IEnumerable<User>>(() =>
-        {
-            return typeof(SeedUsers).GetProperties()
-                .Where(p => typeof(User).IsAssignableFrom(p.PropertyType))
-                .Select(p => p.GetValue(null))
-                .Cast<User>();
-        });
-        public static IEnumerable<User> All => _all.Value;
+        public static IEnumerable<User> All { get; }
+            = new LazyStaticProperties<User>(typeof(SeedUsers));
     }
 }

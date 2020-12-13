@@ -15,12 +15,10 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 - Get a list of restaurants by city
 - Post a restaurant that is not in the database
 - Post a review for a restaurant
-- Get a list of reviews by user
 - Delete a review
 - Swagger
 - Unit tests
 - Sample React app to consume API
-- Authentication?
 
 # Original Requirements
 The Problem

@@ -26,15 +26,8 @@ namespace RestaurantReviews.Logic
 
         public async Task<ReviewQueryResponse> ReviewQuery(ReviewQueryRequest request)
         {
-            IQueryable<Review> query = context.Reviews
-                .Include(p => p.User);
-
-            if (request.UserIds != null)
-            {
-                query = query.Where(p => request.UserIds.Contains(p.UserId));
-            }
-
-            var result = await query.ToListAsync();
+            var result = await request.BuildQuery(context.Reviews)
+                .ToListAsync();
             return new ReviewQueryResponse
             {
                 Reviews = result.Select(p => new ReviewQueryResponseReview
@@ -49,14 +42,8 @@ namespace RestaurantReviews.Logic
 
         public async Task<UserQueryResponse> UserQuery(UserQueryRequest request)
         {
-            IQueryable<User> query = context.Users;
-
-            if (request.UserIds != null)
-            {
-                query = query.Where(p => request.UserIds.Contains(p.Id.ToString()));
-            }
-
-            var result = await query.ToListAsync();
+            var result = await request.BuildQuery(context.Users)
+                .ToListAsync();
             return new UserQueryResponse
             {
                 Users = result.Select(p => new UserQueryResponseUser
