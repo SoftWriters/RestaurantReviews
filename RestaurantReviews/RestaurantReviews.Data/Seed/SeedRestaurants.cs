@@ -16,6 +16,15 @@ namespace RestaurantReviews.Data.Seed
             ZipCode = "15237"
         };
 
+        public static Restaurant WaWa { get; } = new Restaurant()
+        {
+            Id = Guid.Parse("e6460839-2027-4510-9500-db26b9d9025b"),
+            Name = "Wawa",
+            City = "Philadelphia",
+            State = "PA",
+            ZipCode = "19104"
+        };
+
         public static Restaurant Wendys { get; } = new Restaurant()
         {
             Id = Guid.Parse("176f2fdd-4c80-4da5-9fdb-0dcc8ac875fd"),

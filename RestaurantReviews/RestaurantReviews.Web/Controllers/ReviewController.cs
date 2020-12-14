@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantReviews.Logic;
+using RestaurantReviews.Logic.Model.Review.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,19 @@ namespace RestaurantReviews.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
+        private readonly IRestaurantLogic logic;
+
+        public ReviewController(IRestaurantLogic logic)
+        {
+            this.logic = logic ?? throw new ArgumentNullException(nameof(logic));
+        }
+
         [HttpPost]
         [Route("query")]
-        public Task<ActionResult> Query()
+        public async Task<ActionResult<ReviewQueryResponse>> Query(ReviewQueryRequest request)
         {
-            throw new NotImplementedException();
+            var result = await logic.ReviewQuery(request);
+            return Ok(result);
         }
     }
 }

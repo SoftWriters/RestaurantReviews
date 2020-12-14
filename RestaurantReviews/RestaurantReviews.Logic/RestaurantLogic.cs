@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReviews.Data;
+using RestaurantReviews.Logic.Model.Restaurant;
 using RestaurantReviews.Logic.Model.Review.Query;
 using RestaurantReviews.Logic.Model.User.Query;
 using System;
@@ -11,8 +12,9 @@ namespace RestaurantReviews.Logic
 {
     public interface IRestaurantLogic
     {
-        Task<UserQueryResponse> UserQuery(UserQueryRequest request);
+        Task<RestaurantQueryResponse> RestaurantQuery(RestaurantQueryRequest request);
         Task<ReviewQueryResponse> ReviewQuery(ReviewQueryRequest request);
+        Task<UserQueryResponse> UserQuery(UserQueryRequest request);
     }
 
     public class RestaurantLogic : IRestaurantLogic
@@ -22,6 +24,26 @@ namespace RestaurantReviews.Logic
         public RestaurantLogic(RestaurantContext context)
         {
             this.context = context;
+        }
+
+        public async Task<RestaurantQueryResponse> RestaurantQuery(RestaurantQueryRequest request)
+        {
+            var result = await request.BuildQuery(context.Restaurants)
+                .ToListAsync();
+            return new RestaurantQueryResponse()
+            {
+                Restaurants = result.Select(p =>
+                {
+                    return new RestaurantQueryResponseRestaurant()
+                    {
+                        Id = p.Id.ToString(),
+                        Name = p.Name,
+                        City = p.City,
+                        State = p.State,
+                        Zip = p.ZipCode
+                    }
+                })
+            }
         }
 
         public async Task<ReviewQueryResponse> ReviewQuery(ReviewQueryRequest request)

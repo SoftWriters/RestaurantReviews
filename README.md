@@ -12,12 +12,9 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 ![](./diagrams/Entities.png)
 
 ## TODO
-- Get a list of restaurants by city
 - Post a restaurant that is not in the database
 - Post a review for a restaurant
 - Delete a review
-- Swagger
-- Unit tests
 - Sample React app to consume API
 
 # Original Requirements
