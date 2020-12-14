@@ -13,6 +13,7 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 
 ## TODO
 - Post a restaurant that is not in the database
+    - Validation
 - Post a review for a restaurant
 - Delete a review
 - Sample React app to consume API

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReviews.Data;
-using RestaurantReviews.Logic.Model.Restaurant;
+using RestaurantReviews.Logic.Model.Restaurant.Post;
+using RestaurantReviews.Logic.Model.Restaurant.Query;
 using RestaurantReviews.Logic.Model.Review.Query;
 using RestaurantReviews.Logic.Model.User.Query;
 using System;
@@ -12,9 +13,10 @@ namespace RestaurantReviews.Logic
 {
     public interface IRestaurantLogic
     {
-        Task<RestaurantQueryResponse> RestaurantQuery(RestaurantQueryRequest request);
-        Task<ReviewQueryResponse> ReviewQuery(ReviewQueryRequest request);
-        Task<UserQueryResponse> UserQuery(UserQueryRequest request);
+        Task<PostRestaurantResponse> CreateRestaurant(PostRestaurantRequest request);
+        Task<RestaurantQueryResponse> QueryRestaurant(RestaurantQueryRequest request);
+        Task<ReviewQueryResponse> QueryReview(ReviewQueryRequest request);
+        Task<UserQueryResponse> QueryUser(UserQueryRequest request);
     }
 
     public class RestaurantLogic : IRestaurantLogic
@@ -26,7 +28,18 @@ namespace RestaurantReviews.Logic
             this.context = context;
         }
 
-        public async Task<RestaurantQueryResponse> RestaurantQuery(RestaurantQueryRequest request)
+        public async Task<PostRestaurantResponse> CreateRestaurant(PostRestaurantRequest request)
+        {
+            var entity = request.Build();
+            await context.Restaurants.AddAsync(entity);
+            await context.SaveChangesAsync();
+            return new PostRestaurantResponse()
+            {
+                RestaurantId = entity.Id.ToString()
+            };
+        }
+
+        public async Task<RestaurantQueryResponse> QueryRestaurant(RestaurantQueryRequest request)
         {
             var result = await request.BuildQuery(context.Restaurants)
                 .ToListAsync();
@@ -41,12 +54,12 @@ namespace RestaurantReviews.Logic
                         City = p.City,
                         State = p.State,
                         Zip = p.ZipCode
-                    }
+                    };
                 })
-            }
+            };
         }
 
-        public async Task<ReviewQueryResponse> ReviewQuery(ReviewQueryRequest request)
+        public async Task<ReviewQueryResponse> QueryReview(ReviewQueryRequest request)
         {
             var result = await request.BuildQuery(context.Reviews)
                 .ToListAsync();
@@ -62,7 +75,7 @@ namespace RestaurantReviews.Logic
             };
         }
 
-        public async Task<UserQueryResponse> UserQuery(UserQueryRequest request)
+        public async Task<UserQueryResponse> QueryUser(UserQueryRequest request)
         {
             var result = await request.BuildQuery(context.Users)
                 .ToListAsync();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.Logic;
-using RestaurantReviews.Logic.Model.Restaurant;
+using RestaurantReviews.Logic.Model.Restaurant.Post;
+using RestaurantReviews.Logic.Model.Restaurant.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,15 @@ namespace RestaurantReviews.Web.Controllers
         [Route("query")]
         public async Task<ActionResult<RestaurantQueryResponse>> Query(RestaurantQueryRequest request)
         {
-            var result = await logic.RestaurantQuery(request);
+            var result = await logic.QueryRestaurant(request);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<ActionResult<PostRestaurantResponse>> Create(PostRestaurantRequest request)
+        {
+            var result = await logic.CreateRestaurant(request);
             return Ok(result);
         }
     }

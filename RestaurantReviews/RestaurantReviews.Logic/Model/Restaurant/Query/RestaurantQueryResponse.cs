@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestaurantReviews.Logic.Model.Restaurant
+namespace RestaurantReviews.Logic.Model.Restaurant.Query
 {
     public class RestaurantQueryResponse
     {

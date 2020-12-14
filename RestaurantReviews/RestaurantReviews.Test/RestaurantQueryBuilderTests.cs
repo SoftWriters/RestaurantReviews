@@ -1,5 +1,6 @@
 ﻿using RestaurantReviews.Data.Seed;
 using RestaurantReviews.Logic.Model.Restaurant;
+using RestaurantReviews.Logic.Model.Restaurant.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;

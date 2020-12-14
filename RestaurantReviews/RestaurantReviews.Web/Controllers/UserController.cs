@@ -24,7 +24,7 @@ namespace RestaurantReviews.Web.Controllers
         [Route("query")]
         public async Task<ActionResult<UserQueryResponse>> Query([FromBody]UserQueryRequest request)
         {
-            var response = await logic.UserQuery(request);
+            var response = await logic.QueryUser(request);
             return Ok(response);
         }
     }
