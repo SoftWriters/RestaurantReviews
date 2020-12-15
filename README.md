@@ -12,7 +12,6 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 ![](./diagrams/Entities.png)
 
 ## TODO
-- Post a review for a restaurant
 - Delete a review
 - A couple of integration unit tests for controllers
 
@@ -21,6 +20,7 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 
 ## Possible Future Enhancements
 - Authentication/Authorization
+- Creating/Deleting a review ABSOLUTELY needs to be properly authenticated.  Users should only be allowed to create reviews "as themselves" and they should only be allowed to delete their own reviews
 - API Versioning
 - Should also include street address when checking for duplicate restaurants
 - Would be good to use an address standardization service when checking for duplicate restaurants

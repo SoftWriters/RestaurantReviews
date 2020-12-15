@@ -1,6 +1,7 @@
 ﻿using RestaurantReviews.Logic.Model;
 using RestaurantReviews.Logic.Model.Restaurant.Create;
 using RestaurantReviews.Logic.Model.Restaurant.Search;
+using RestaurantReviews.Logic.Model.Review.Create;
 using RestaurantReviews.Logic.Model.Review.Search;
 using RestaurantReviews.Logic.Model.User.Search;
 using System;
@@ -14,7 +15,10 @@ namespace RestaurantReviews.Logic
     {
         Task<CreateResponse> CreateRestaurant(CreateRestaurantRequest request);
         Task<SearchResponse<SearchRestaurant>> SearchRestaurants(SearchRestaurantRequest request);
+
+        Task<CreateResponse> CreateReview(CreateReviewRequest request);
         Task<SearchResponse<SearchReview>> SearchReviews(SearchReviewRequest request);
+
         Task<SearchResponse<SearchUser>> SearchUsers(SearchUserRequest request);
     }
 }

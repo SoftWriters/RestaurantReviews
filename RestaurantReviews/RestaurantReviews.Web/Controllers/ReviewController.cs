@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.Logic;
 using RestaurantReviews.Logic.Model;
+using RestaurantReviews.Logic.Model.Review.Create;
 using RestaurantReviews.Logic.Model.Review.Search;
 using RestaurantReviews.Web.Results;
 using System;
@@ -29,6 +30,17 @@ namespace RestaurantReviews.Controllers
         {
             var result = await logic.SearchReviews(request);
             return new SearchActionResult<SearchReview>(result);
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ProducesResponseType(typeof(CreateResponse), 200)]
+        [ProducesResponseType(typeof(CreateResponse), 400)]
+        [ProducesResponseType(typeof(CreateResponse), 409)]
+        public async Task<CreateActionResult> Create(CreateReviewRequest request)
+        {
+            var result = await logic.CreateReview(request);
+            return new CreateActionResult(result);
         }
     }
 }
