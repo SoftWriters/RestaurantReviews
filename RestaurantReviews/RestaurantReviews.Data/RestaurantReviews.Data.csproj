@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Platform.Core\Platform.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Logic\RestaurantReviews.Logic.csproj" />
   </ItemGroup>
 
 </Project>

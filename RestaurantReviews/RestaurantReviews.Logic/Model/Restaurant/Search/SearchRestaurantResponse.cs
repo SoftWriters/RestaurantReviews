@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestaurantReviews.Logic.Model.Restaurant.Query
+namespace RestaurantReviews.Logic.Model.Restaurant.Search
 {
-    public class RestaurantQueryResponse
-    {
-        public IEnumerable<RestaurantQueryResponseRestaurant> Restaurants { get; set; }
-    }
-
-    public class RestaurantQueryResponseRestaurant
+    public class SearchRestaurant
     {
         public string Id { get; set; }
         public string Name { get; set; }

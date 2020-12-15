@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
-namespace RestaurantReviews.Logic.Model.Restaurant.Post
+namespace RestaurantReviews.Logic.Model.Restaurant.Create
 {
-    public class PostRestaurantRequest : IEntityBuilder<Data.Restaurant>
+    public class CreateRestaurantRequest
     {
         [Required]
         public string Name { get; set; }
@@ -17,17 +18,5 @@ namespace RestaurantReviews.Logic.Model.Restaurant.Post
         [Required]
         [StringLength(9)]
         public string Zip { get; set; }
-
-        public Data.Restaurant Build()
-        {
-            return new Data.Restaurant()
-            {
-                Id = Guid.NewGuid(),
-                Name = Name,
-                City = City,
-                State = State,
-                ZipCode = Zip
-            };
-        }
     }
 }

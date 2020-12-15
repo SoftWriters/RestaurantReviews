@@ -38,7 +38,7 @@ namespace RestaurantReviews
             services.AddSwaggerGen();
 
             // Application-specific services
-            services.AddTransient<IRestaurantLogic, RestaurantLogic>();
+            services.UseRestaurantReviewsEFCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

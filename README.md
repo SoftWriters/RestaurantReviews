@@ -4,19 +4,23 @@ RestaurantReviews
 # Luke's Solution
 
 All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some [initial users](./RestaurantReviews.Data/Users.cs) are pre-seeded into the database.
-## Project Structure
+## Project Structure / Architecture
 - Data - Data tier, built with EF Core
-- Model - API Models that support the Logic layer
-- Logic - Core business logic
+- Logic - Core business logic, and anti-corruption layer so that the database implementation details don't "leak" into the web tier
 - Web - Thin layer to expose the core business logic as a REST API
 ![](./diagrams/Entities.png)
 
 ## TODO
 - Post a restaurant that is not in the database
-    - Validation
+    - Duplicate Validation
+    - Return a 400 response for any validation errors
 - Post a review for a restaurant
 - Delete a review
 - Sample React app to consume API
+
+# Notes and/or Future Enhancements
+- Should also include street address when checking for duplicate restaurants
+- Would be good to use an address standardization service when checking for duplicate restaurants
 
 # Original Requirements
 The Problem
