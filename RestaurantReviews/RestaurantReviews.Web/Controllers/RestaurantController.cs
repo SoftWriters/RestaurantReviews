@@ -24,6 +24,7 @@ namespace RestaurantReviews.Web.Controllers
 
         [HttpPost]
         [Route("search")]
+        [ProducesResponseType(typeof(SearchResponse<SearchRestaurant>), 200)]
         public async Task<SearchActionResult<SearchRestaurant>> Search(SearchRestaurantRequest request)
         {
             var result = await logic.SearchRestaurants(request);
@@ -32,10 +33,13 @@ namespace RestaurantReviews.Web.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<CreateResponse>> Create(CreateRestaurantRequest request)
+        [ProducesResponseType(typeof(CreateResponse), 200)]
+        [ProducesResponseType(typeof(CreateResponse), 400)]
+        [ProducesResponseType(typeof(CreateResponse), 409)]
+        public async Task<CreateActionResult> Create(CreateRestaurantRequest request)
         {
             var result = await logic.CreateRestaurant(request);
-            return Ok(result);
+            return new CreateActionResult(result);
         }
     }
 }

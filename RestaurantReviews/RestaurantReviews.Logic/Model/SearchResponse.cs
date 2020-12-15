@@ -43,7 +43,7 @@ namespace RestaurantReviews.Logic.Model
         {
             var results = new List<ValidationResult>();
             response = Success(Enumerable.Empty<T>());
-            if (Validator.TryValidateObject(request, new ValidationContext(request), results))
+            if (Validator.TryValidateObject(request, new ValidationContext(request), results, true))
             {
                 return false;
             }

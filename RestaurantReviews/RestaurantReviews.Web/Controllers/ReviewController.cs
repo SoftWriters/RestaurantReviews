@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReviews.Logic;
+using RestaurantReviews.Logic.Model;
 using RestaurantReviews.Logic.Model.Review.Search;
 using RestaurantReviews.Web.Results;
 using System;
@@ -23,6 +24,7 @@ namespace RestaurantReviews.Controllers
 
         [HttpPost]
         [Route("search")]
+        [ProducesResponseType(typeof(SearchResponse<SearchReview>), 200)]
         public async Task<SearchActionResult<SearchReview>> Search(SearchReviewRequest request)
         {
             var result = await logic.SearchReviews(request);

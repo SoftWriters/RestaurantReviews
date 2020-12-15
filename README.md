@@ -12,12 +12,9 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 ![](./diagrams/Entities.png)
 
 ## TODO
-- Post a restaurant that is not in the database
-    - Duplicate Validation
-    - Return a 400 response for any validation errors
 - Post a review for a restaurant
 - Delete a review
-- Sample React app to consume API
+- A couple of integration unit tests for controllers
 
 ## Notes
 - Currently, the project is configured to automatically drop/re-create the database each time.  You can set the DropDb variable = false in project properties or run without the debugger to avoid this behavior.
@@ -27,6 +24,8 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 - API Versioning
 - Should also include street address when checking for duplicate restaurants
 - Would be good to use an address standardization service when checking for duplicate restaurants
+- Moderator review/approval of reviews
+- User signup/verification
 
 # Original Requirements
 The Problem

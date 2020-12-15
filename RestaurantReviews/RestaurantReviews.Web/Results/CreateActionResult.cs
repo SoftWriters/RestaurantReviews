@@ -19,10 +19,18 @@ namespace RestaurantReviews.Web.Results
 
         public async Task ExecuteResultAsync(ActionContext context)
         {
-            var objectResult = new ObjectResult(_result);
+            var objectResult = new ObjectResult(_result)
+            {
+                StatusCode = StatusCodes.Status201Created
+            };
+
             if (_result.Status == CreateResponseStatus.ValidationError.ToString())
             {
                 objectResult.StatusCode = StatusCodes.Status400BadRequest;
+            }
+            else if (_result.Status == CreateResponseStatus.Duplicate.ToString())
+            {
+                objectResult.StatusCode = StatusCodes.Status409Conflict;
             }
             else if (_result.Status == CreateResponseStatus.Failure.ToString())
             {

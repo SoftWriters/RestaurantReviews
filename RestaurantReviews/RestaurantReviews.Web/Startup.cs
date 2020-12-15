@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +38,14 @@ namespace RestaurantReviews
 
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                // Turn off automatic modelstate validation because we want to control
+                // the envelope that gets sent back.  Another possibility to research would
+                // be using a nuget package like AutoWrapper
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             // Application-specific services
             services.UseRestaurantReviewsEFCore();
