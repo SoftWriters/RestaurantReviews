@@ -10,6 +10,7 @@ using RestaurantReviews.Data;
 using RestaurantReviews.Logic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,7 +43,7 @@ namespace RestaurantReviews
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RestaurantContext context)
         {
             app.UseSwagger(c =>
             {
@@ -60,6 +61,14 @@ namespace RestaurantReviews
 
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            // If enabled, the database will be dropped/recreated each time
+            // Turn this off by changing the DropDb environment variable in the project properties
+            if (Configuration.DropDb && Debugger.IsAttached)
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+            }
         }
     }
 }

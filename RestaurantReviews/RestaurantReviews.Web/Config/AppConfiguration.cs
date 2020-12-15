@@ -7,6 +7,7 @@ namespace RestaurantReviews.Config
 {
     public class AppConfiguration
     {
+        public bool DropDb { get; set; }
         public AppConnectionStrings ConnectionStrings { get; set; }
     }
 

@@ -57,8 +57,13 @@ namespace RestaurantReviews.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Insert seed data
+            modelBuilder.Entity<Restaurant>()
+                .HasData(SeedRestaurants.All);
             modelBuilder.Entity<User>()
                 .HasData(SeedUsers.All);
+            modelBuilder.Entity<Review>()
+                .HasData(SeedReviews.All);
         }
     }
 }

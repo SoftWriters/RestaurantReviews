@@ -3,7 +3,8 @@ RestaurantReviews
 
 # Luke's Solution
 
-All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some [initial users](./RestaurantReviews.Data/Users.cs) are pre-seeded into the database.
+All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some initial data is pre-seeded into the database.  There are some basic unit tests to illustrate capability, but these tests are not intended to be exhaustive.
+
 ## Project Structure / Architecture
 - Data - Data tier, built with EF Core
 - Logic - Core business logic, and anti-corruption layer so that the database implementation details don't "leak" into the web tier
@@ -18,7 +19,12 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 - Delete a review
 - Sample React app to consume API
 
-# Notes and/or Future Enhancements
+## Notes
+- Currently, the project is configured to automatically drop/re-create the database each time.  You can set the DropDb variable = false in project properties or run without the debugger to avoid this behavior.
+
+## Possible Future Enhancements
+- Authentication/Authorization
+- API Versioning
 - Should also include street address when checking for duplicate restaurants
 - Would be good to use an address standardization service when checking for duplicate restaurants
 
