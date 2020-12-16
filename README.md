@@ -11,10 +11,6 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 - Web - Thin layer to expose the core business logic as a REST API
 ![](./diagrams/Entities.png)
 
-## TODO
-- A couple of integration unit tests for controllers
-- Swagger comments
-
 ## Notes
 - Currently, the project is configured to automatically drop/re-create the database each time.  You can set the DropDb variable = false in project properties or run without the debugger to avoid this behavior.
 
@@ -26,6 +22,7 @@ All class diagrams were generated using the [Class Diagram tool](https://docs.mi
 - Would be good to use an address standardization service when checking for duplicate restaurants to avoid things like "Street" vs "St" vs "St." or 5/9 digit zip codes
 - Moderator review/approval of reviews
 - User signup/verification
+- Introduce some "DDD" concepts in the business logic layer such as "always valid" entities so that the business layer doesn't need to re-validate or "trust" the requests that it has been given.
 
 # Original Requirements
 The Problem
