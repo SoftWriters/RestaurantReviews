@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using RestaurantReviews.Data.QueryBuilder;
 using RestaurantReviews.Logic;
 using System;
@@ -13,8 +14,12 @@ namespace RestaurantReviews.Data
         /// Adds services necessary to use EFCore as the persistance layer
         /// </summary>
         /// <param name="services"></param>
-        public static void UseRestaurantReviewsEFCore(this IServiceCollection services)
+        public static void UseRestaurantReviewsEFCore(this IServiceCollection services, string connectionString)
         {
+            services.AddDbContext<RestaurantContext>(p =>
+            {
+                p.UseSqlServer(connectionString);
+            });
             services.AddTransient<IRestaurantLogic, RestaurantLogicEF>();
             services.AddTransient<IRestaurantQueryBuilder, RestaurantQueryBuilder>();
             services.AddTransient<IReviewQueryBuilder, ReviewQueryBuilder>();

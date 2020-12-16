@@ -32,10 +32,6 @@ namespace RestaurantReviews
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-            services.AddDbContext<RestaurantContext>(p =>
-            {
-                p.UseSqlServer(Configuration.ConnectionStrings.Default);
-            });
 
             services.AddControllers()
                 .AddJsonOptions(opts =>
@@ -53,7 +49,7 @@ namespace RestaurantReviews
             });
 
             // Application-specific services
-            services.UseRestaurantReviewsEFCore();
+            services.UseRestaurantReviewsEFCore(Configuration.ConnectionStrings.Default);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
