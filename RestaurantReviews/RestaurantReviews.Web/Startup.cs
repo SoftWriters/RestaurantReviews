@@ -12,7 +12,9 @@ using RestaurantReviews.Logic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -21,6 +23,8 @@ namespace RestaurantReviews
     public class Startup
     {
         public AppConfiguration Configuration { get; } = new AppConfiguration();
+
+        public string AssemblyName { get; } = Assembly.GetExecutingAssembly().GetName().Name;
 
         public Startup(IConfiguration configuration)
         {
@@ -38,7 +42,13 @@ namespace RestaurantReviews
                  {
                      opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                  });
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{AssemblyName}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -60,7 +70,7 @@ namespace RestaurantReviews
             });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AssemblyName} V1");
                 c.RoutePrefix = string.Empty;
             });
 

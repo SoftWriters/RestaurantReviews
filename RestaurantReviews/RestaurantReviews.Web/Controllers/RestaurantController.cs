@@ -22,6 +22,9 @@ namespace RestaurantReviews.Web.Controllers
             this.logic = logic ?? throw new ArgumentNullException(nameof(logic));
         }
 
+        /// <summary>
+        /// Searches for restaurants based on the specified criteria
+        /// </summary>
         [HttpPost]
         [Route("search")]
         [ProducesResponseType(typeof(SearchResponse<SearchRestaurant>), 200)]
@@ -31,6 +34,9 @@ namespace RestaurantReviews.Web.Controllers
             return new SearchActionResult<SearchRestaurant>(result);
         }
 
+        /// <summary>
+        /// Creates a new restaurant
+        /// </summary>
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(CreateResponse), 200)]

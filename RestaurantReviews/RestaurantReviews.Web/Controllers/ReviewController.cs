@@ -23,6 +23,9 @@ namespace RestaurantReviews.Controllers
             this.logic = logic ?? throw new ArgumentNullException(nameof(logic));
         }
 
+        /// <summary>
+        /// Searches for reviews based on the specified criteria
+        /// </summary>
         [HttpPost]
         [Route("search")]
         [ProducesResponseType(typeof(SearchResponse<SearchReview>), 200)]
@@ -32,6 +35,9 @@ namespace RestaurantReviews.Controllers
             return new SearchActionResult<SearchReview>(result);
         }
 
+        /// <summary>
+        /// Creates a new review
+        /// </summary>
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(CreateResponse), 200)]
@@ -43,6 +49,9 @@ namespace RestaurantReviews.Controllers
             return new CreateActionResult(result);
         }
 
+        /// <summary>
+        /// Deletes the specified review
+        /// </summary>
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(CreateResponse), 200)]

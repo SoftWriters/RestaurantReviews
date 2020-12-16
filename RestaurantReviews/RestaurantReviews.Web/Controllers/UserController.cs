@@ -22,6 +22,11 @@ namespace RestaurantReviews.Web.Controllers
             this.logic = logic ?? throw new ArgumentNullException(nameof(logic));
         }
 
+        /// <summary>
+        /// Searches for users based on the specified criteria
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("search")]
         [ProducesResponseType(typeof(SearchResponse<SearchUser>), 200)]
