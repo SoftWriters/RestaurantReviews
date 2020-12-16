@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReviews.Logic.Model.Review.Create;
+using RestaurantReviews.Logic.Model.Review.Delete;
 using RestaurantReviews.Logic.Model.Review.Search;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,13 @@ namespace RestaurantReviews.Data.QueryBuilder
 {
     public interface IReviewQueryBuilder : 
         IQueryBuilderSearch<Review, SearchReviewRequest, SearchReview>,
-        IQueryBuilderUpsert<Review, CreateReviewRequest>
+        IQueryBuilderUpsert<Review, CreateReviewRequest>,
+        IQueryBuilderSingle<Review, DeleteReviewRequest>
     { }
 
     public class ReviewQueryBuilder : IReviewQueryBuilder
     {
-        public SearchReview BuildSearchEntity(Review entity)
+        public SearchReview BuildSearchResponse(Review entity)
         {
             return new SearchReview
             {
@@ -43,7 +45,7 @@ namespace RestaurantReviews.Data.QueryBuilder
                 .OrderByDescending(p => p.DateCreated);
         }
 
-        public Review BuildUpsertEntity(CreateReviewRequest request)
+        public Review BuildEntityUpsert(CreateReviewRequest request)
         {
             return new Review()
             {
@@ -54,11 +56,16 @@ namespace RestaurantReviews.Data.QueryBuilder
             };
         }
 
-        public IQueryable<Review> BuildUpsertQuery(IQueryable<Review> dbSet, CreateReviewRequest request)
+        public IQueryable<Review> BuildQuerySingle(IQueryable<Review> dbSet, CreateReviewRequest request)
         {
             return dbSet.Where(p => 
                 p.UserId.ToString() == request.UserId && 
                 p.RestaurantId.ToString() == request.RestaurantId);
+        }
+
+        public IQueryable<Review> BuildQuerySingle(IQueryable<Review> dbSet, DeleteReviewRequest request)
+        {
+            return dbSet.Where(p => p.Id.ToString() == request.ReviewId);
         }
     }
 }

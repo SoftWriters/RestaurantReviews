@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RestaurantReviews
@@ -36,7 +37,11 @@ namespace RestaurantReviews
                 p.UseSqlServer(Configuration.ConnectionStrings.Default);
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(opts =>
+                 {
+                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                 });
             services.AddSwaggerGen();
 
             services.Configure<ApiBehaviorOptions>(options =>

@@ -11,7 +11,7 @@ namespace RestaurantReviews.Data.QueryBuilder
 
     public class UserQueryBuilder : IUserQueryBuilder
     {
-        public SearchUser BuildSearchEntity(User entity)
+        public SearchUser BuildSearchResponse(User entity)
         {
             return new SearchUser
             {

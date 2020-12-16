@@ -31,7 +31,7 @@ namespace RestaurantReviews.Data.QueryBuilder
             return query;
         }
 
-        public SearchRestaurant BuildSearchEntity(Restaurant entity)
+        public SearchRestaurant BuildSearchResponse(Restaurant entity)
         {
             return new SearchRestaurant()
             {
@@ -43,7 +43,7 @@ namespace RestaurantReviews.Data.QueryBuilder
             };
         }
 
-        public Restaurant BuildUpsertEntity(CreateRestaurantRequest request)
+        public Restaurant BuildEntityUpsert(CreateRestaurantRequest request)
         {
             return new Restaurant()
             {
@@ -55,7 +55,7 @@ namespace RestaurantReviews.Data.QueryBuilder
             };
         }
 
-        public IQueryable<Restaurant> BuildUpsertQuery(IQueryable<Restaurant> dbSet, CreateRestaurantRequest request)
+        public IQueryable<Restaurant> BuildQuerySingle(IQueryable<Restaurant> dbSet, CreateRestaurantRequest request)
         {
             return dbSet.Where(p => p.Name.ToLower() == request.Name.ToLower() &&
                 p.City.ToLower() == request.City.ToLower() &&

@@ -2,6 +2,7 @@
 using RestaurantReviews.Logic.Model.Restaurant.Create;
 using RestaurantReviews.Logic.Model.Restaurant.Search;
 using RestaurantReviews.Logic.Model.Review.Create;
+using RestaurantReviews.Logic.Model.Review.Delete;
 using RestaurantReviews.Logic.Model.Review.Search;
 using RestaurantReviews.Logic.Model.User.Search;
 using System;
@@ -17,6 +18,7 @@ namespace RestaurantReviews.Logic
         Task<SearchResponse<SearchRestaurant>> SearchRestaurants(SearchRestaurantRequest request);
 
         Task<CreateResponse> CreateReview(CreateReviewRequest request);
+        Task<DeleteResponse> DeleteReview(DeleteReviewRequest request);
         Task<SearchResponse<SearchReview>> SearchReviews(SearchReviewRequest request);
 
         Task<SearchResponse<SearchUser>> SearchUsers(SearchUserRequest request);

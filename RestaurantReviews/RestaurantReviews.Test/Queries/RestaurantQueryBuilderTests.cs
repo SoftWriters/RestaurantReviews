@@ -116,7 +116,7 @@ namespace RestaurantReviews.Test.Queries
                 Zip = r.ZipCode
             };
             var response = new RestaurantQueryBuilder()
-                .BuildUpsertQuery(SeedRestaurants.All.AsQueryable(), request)
+                .BuildQuerySingle(SeedRestaurants.All.AsQueryable(), request)
                 .ToList();
             Assert.Single(response);
         }

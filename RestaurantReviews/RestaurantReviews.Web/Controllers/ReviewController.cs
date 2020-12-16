@@ -42,5 +42,15 @@ namespace RestaurantReviews.Controllers
             var result = await logic.CreateReview(request);
             return new CreateActionResult(result);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(CreateResponse), 200)]
+        [ProducesResponseType(typeof(CreateResponse), 400)]
+        public async Task<DeleteActionResult> Delete(string id)
+        {
+            var result = await logic.DeleteReview(new Logic.Model.Review.Delete.DeleteReviewRequest() { ReviewId = id });
+            return new DeleteActionResult(result);
+        }
     }
 }
