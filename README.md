@@ -1,6 +1,30 @@
 RestaurantReviews
 =================
 
+# Luke's Solution
+
+All class diagrams were generated using the [Class Diagram tool](https://docs.microsoft.com/en-us/visualstudio/ide/class-designer/how-to-add-class-diagrams-to-projects?view=vs-2019) in Visual Studio 2019.  The persistence layer users EF Core Code First Migrations to create a local SQL database.  Some initial data is pre-seeded into the database.  There are some basic unit tests to illustrate capability, but these tests are not intended to be exhaustive.  This code is meant as an example of my design and implementation capabilities, but it is not intended to be production code.  See the Future Enhancements section for some considerations that should occur before using this code in production.
+
+## Project Structure / Architecture
+- Data - Data tier, built with EF Core
+- Logic - Core business logic, and anti-corruption layer so that the database implementation details don't "leak" into the web tier
+- Web - Thin layer to expose the core business logic as a REST API
+![](./diagrams/Entities.png)
+
+## Notes
+- Currently, the project is configured to automatically drop/re-create the database each time.  You can set the DropDb variable = false in project properties or run without the debugger to avoid this behavior.
+
+## Possible Future Enhancements
+- Authentication/Authorization
+- Creating/Deleting a review ABSOLUTELY needs to be properly authenticated.  Users should only be allowed to create reviews "as themselves" and they should only be allowed to delete their own reviews (unless an admin role is desired that would have permission to delete any user's review)
+- API Versioning
+- Should also include street address when checking for duplicate restaurants
+- Would be good to use an address standardization service when checking for duplicate restaurants to avoid things like "Street" vs "St" vs "St." or 5/9 digit zip codes
+- Moderator review/approval of reviews
+- User signup/verification
+- Introduce some "DDD" concepts in the business logic layer such as "always valid" entities so that the business layer doesn't need to re-validate or "trust" the requests that it has been given.
+
+# Original Requirements
 The Problem
 --------------
 We are in the midst of building a mobile application that will let restaurant patrons rate the restaurant in which they are eating. As part of the build, we need to develop a web API that will accept and store the ratings and other sundry data from a publicly accessible interface. 

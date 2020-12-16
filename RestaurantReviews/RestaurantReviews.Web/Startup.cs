@@ -1,0 +1,94 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using RestaurantReviews.Config;
+using RestaurantReviews.Data;
+using RestaurantReviews.Logic;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+namespace RestaurantReviews
+{
+    public class Startup
+    {
+        public AppConfiguration Configuration { get; } = new AppConfiguration();
+
+        public string AssemblyName { get; } = Assembly.GetExecutingAssembly().GetName().Name;
+
+        public Startup(IConfiguration configuration)
+        {
+            configuration.Bind(Configuration);
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton(Configuration);
+
+            services.AddControllers()
+                .AddJsonOptions(opts =>
+                 {
+                     opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                 });
+            services.AddSwaggerGen(c =>
+            {
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{AssemblyName}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                // Turn off automatic modelstate validation because we want to control
+                // the envelope that gets sent back.  Another possibility to research would
+                // be using a nuget package like AutoWrapper
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            // Application-specific services
+            services.UseRestaurantReviewsEFCore(Configuration.ConnectionStrings.Default);
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, RestaurantContext context)
+        {
+            app.UseSwagger(c =>
+            {
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AssemblyName} V1");
+                c.RoutePrefix = string.Empty;
+            });
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            // If enabled, the database will be dropped/recreated each time
+            // Turn this off by changing the DropDb environment variable in the project properties
+            if (Configuration.DropDb && Debugger.IsAttached)
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+            }
+        }
+    }
+}
