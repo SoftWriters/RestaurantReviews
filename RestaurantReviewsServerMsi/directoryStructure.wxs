@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include config.wxi?>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="CompanyFolder" Name="$(var.Company)">
+          <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+            <Directory Id="ServiceFolder" Name="Service"/>
+            <Directory Id="TestClientFolder" Name="TestClient"/>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+	</Fragment>
+</Wix>

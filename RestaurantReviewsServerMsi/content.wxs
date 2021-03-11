@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?include config.wxi?>
+  <Fragment>
+
+    <ComponentGroup Id="ServiceComponents" Directory="ServiceFolder">
+      <Component Id="CreateServiceFolder" Guid="043E7740-8269-482A-9584-612093B5F890">
+        <CreateFolder Directory="ServiceFolder">
+          <Permission User="Everyone" Read="yes" Delete="yes" ReadPermission="yes" ChangePermission="yes" TakeOwnership="yes" ReadAttributes="yes" WriteAttributes="yes" ReadExtendedAttributes="yes" WriteExtendedAttributes="yes" CreateFile="yes" CreateChild="yes" DeleteChild="yes" Traverse="yes" GenericAll="yes" GenericExecute="yes" GenericWrite="yes" />
+        </CreateFolder>
+      </Component>
+      <Component Id="SoftWriters.RestaurantReviews.DataLibrary.dll" Guid="4B52AB08-C893-41F5-80FD-86693FCD7EB7">
+        <File Id="SoftWriters.RestaurantReviews.DataLibrary.dll" KeyPath="yes" Source="$(var.SoftWriters.RestaurantReviews.DataLibrary.TargetDir)SoftWriters.RestaurantReviews.DataLibrary.dll"/>
+      </Component>
+      <Component Id="SoftWriters.RestaurantReviews.Service.exe" Guid="33E9C85D-7061-4317-BB0C-5A552176E9D2">
+        <File Id="SoftWriters.RestaurantReviews.Service.exe" KeyPath="yes" Source="$(var.SoftWriters.RestaurantReviews.Service.TargetDir)SoftWriters.RestaurantReviews.Service.exe"/>
+        <File Id="SoftWriters.RestaurantReviews.Service.exe.config" Source="$(var.SoftWriters.RestaurantReviews.Service.TargetDir)SoftWriters.RestaurantReviews.Service.exe.config"/>
+        <ServiceInstall Id="ApiService" Name="RestaurantReviewsService" DisplayName="RestaurantReviewsService" Type="ownProcess" Start="auto" ErrorControl="normal" Description="SoftWriters Restaurant Reviews Service" Interactive="no">
+          <util:PermissionEx User="Everyone" GenericAll="yes" ServiceChangeConfig="yes" ServiceEnumerateDependents="yes" ChangePermission="yes" ServiceInterrogate="yes" ServicePauseContinue="yes" ServiceQueryConfig="yes" ServiceQueryStatus="yes" ServiceStart="yes" ServiceStop="yes" />
+        </ServiceInstall>
+        <ServiceControl Id="ApiServiceServiceControl" Name="RestaurantReviewsService" Stop="both" Start="install" Remove="uninstall" Wait="no" />
+      </Component>
+      <Component Id="SoftWriters.RestaurantReviews.WebApi.dll" Guid="53CA363A-F523-4051-96FB-D49E9E2F517F">
+        <File Id="SoftWriters.RestaurantReviews.WebApi.dll" KeyPath="yes" Source="$(var.SoftWriters.RestaurantReviews.WebApi.TargetDir)SoftWriters.RestaurantReviews.WebApi.dll"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="TestClientComponents" Directory="TestClientFolder">
+      <Component Id="CreateTestClientFolder" Guid="71668F9F-0803-49AA-8A64-C3080A6E4F40">
+        <CreateFolder Directory="TestClientFolder">
+          <Permission User="Everyone" Read="yes" Delete="yes" ReadPermission="yes" ChangePermission="yes" TakeOwnership="yes" ReadAttributes="yes" WriteAttributes="yes" ReadExtendedAttributes="yes" WriteExtendedAttributes="yes" CreateFile="yes" CreateChild="yes" DeleteChild="yes" Traverse="yes" GenericAll="yes" GenericExecute="yes" GenericWrite="yes" />
+        </CreateFolder>
+      </Component>
+      <Component Id="ClientConsole.exe" Guid="FF7BD845-1CBC-4ED7-8FD6-663296FD9B61">
+        <File Id="ClientConsole.exe" KeyPath="yes" Source="$(var.ClientConsole.TargetDir)ClientConsole.exe"/>
+        <File Id="ClientConsole.exe.config" Source="$(var.ClientConsole.TargetDir)ClientConsole.exe.config"/>
+      </Component>
+      <Component Id="SoftWriters.RestaurantReviews.DataLibrary.dll2" Guid="08B3EEF0-9B25-4F87-B2A4-BCD6476B4BB1">
+        <File Id="SoftWriters.RestaurantReviews.DataLibrary.dll2" KeyPath="yes" Source="$(var.SoftWriters.RestaurantReviews.DataLibrary.TargetDir)SoftWriters.RestaurantReviews.DataLibrary.dll"/>
+      </Component>
+      <Component Id="SoftWriters.RestaurantReviews.WebApi.dll2" Guid="EDA3DA80-7F8B-4287-8802-843476B22DC2">
+        <File Id="SoftWriters.RestaurantReviews.WebApi.dll2" KeyPath="yes" Source="$(var.SoftWriters.RestaurantReviews.WebApi.TargetDir)SoftWriters.RestaurantReviews.WebApi.dll"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="RegistryComponents">
+      <Component Id="InstallFolderKey" Guid="EA358280-1E98-4C17-98DD-A3E64D2895A1" Directory="INSTALLFOLDER">
+        <RegistryValue Root="HKLM" Key="Software\$(var.Company)\$(var.ProductName)" Name="InstallFolder" Type="string" Value="[INSTALLFOLDER]" KeyPath="yes"/>
+      </Component>
+      <Component Id="DomainKey" Guid="6844C407-79DC-4DB0-BAF9-3880B0DE103C" Directory="INSTALLFOLDER">
+        <RegistryValue Root="HKLM" Key="Software\$(var.Company)\$(var.ProductName)" Name="Domain" Type="string" Value="[DOMAIN]" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+
+	</Fragment>
+</Wix>
