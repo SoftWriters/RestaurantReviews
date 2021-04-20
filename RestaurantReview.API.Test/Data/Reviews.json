@@ -1,0 +1,14 @@
+[
+	{
+		"user_id": 123,
+		"restaurant_id": 4055128080014360,
+		"review_id": 4459,
+		"review": "Great!"
+	},
+	{
+		"user_id": 124,
+		"restaurant_id": 4053714880013123,
+		"review_id": 4460,
+		"review": "Extremely comfortable restaurant.!"
+	}
+]

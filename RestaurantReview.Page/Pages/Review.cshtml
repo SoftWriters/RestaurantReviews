@@ -1,0 +1,67 @@
+﻿@page "{id?}"
+@model RestaurantReview.Page.Pages.ReviewModel
+@{
+	ViewData["Title"] = Model.Id;
+}
+
+<div class="text-center">
+	<h3>Writers' Reviews</h3>
+</div>
+
+<form id="writersreview" method="get" v-cloak>
+	<table class="table table-bordered table-striped">
+		<tbody>
+			<tr style="cursor:pointer;text-align:center">
+				<th v-on:click="sort('restaurant_name')" width="20%">Name <span v-arrow="{sortKey: 'restaurant_name'}" /></th>
+				<th v-on:click="sort('user_name')">User <span v-arrow="{sortKey: 'user_name'}" /></th>
+				<th v-on:click="sort('review')">Review <span v-arrow="{sortKey: 'review'}" /></th>
+			</tr>
+
+			<tr v-for="r in limitBy(orderBy(reviews, sortKey, sortOrder), pageSize, pageSize * (page.currentPage - 1))">
+				<td>
+					{{r.restaurant_id}}
+				</td>
+				<td>{{r.user_id}}</td>
+				<td>{{r.review}}</td>
+			</tr>
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td>Total</td>
+				<td center colspan="10">{{ reviews.length }}</td>
+			</tr>
+			<tr>
+				<td colspan="10" align="center" v-if="reviews.length && reviews.length > pageSize">
+					<div is="uib-pagination" :boundary-links="true" :total-items="reviews.length" v-model="page" :items-per-page="pageSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+					<button class="btn-primary" type="submit" asp-page="./AddRestaurant">Add New</button>
+				</td>
+				<td v-else colspan="12" align="center">
+					<button class="btn-primary" type="submit" asp-page="./AddRestaurant">Add New</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+	@*<p v-else><em>{{ message }}</em></p>*@
+</form>
+
+<environment include="Development">
+	<script src="~/vue/vue.2.5.17.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue-router"></script>
+	<script src="~/vue/vuejs-uib-pagination.js"></script>
+	<script src="~/vue/vue2-filters.min.js"></script>
+	<script src="~/vue/moment-with-locales.js"></script>
+	<script src="~/vue/writersreview.js?v=1"></script>
+</environment>
+
+<environment exclude="Development">
+	<script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue-router"></script>
+	<script src="~/vue/vuejs-uib-pagination.js"></script>
+	<script src="~/vue/vue2-filters.min.js"></script>
+	<script src="~/vue/moment-with-locales.js"></script>
+	<script src="~/vue/writersreview.js?v=1"></script>
+</environment>

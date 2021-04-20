@@ -1,0 +1,2 @@
+::browser-sync start --proxy https://localhost:44367/ --files '**/*.cshtml, **/*.css, **/*.js, **/*.htm*'
+browser-sync start --proxy https://localhost:5001/ --files '**/*.cshtml, **/*.css, **/*.js, **/*.htm*'

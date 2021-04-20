@@ -1,0 +1,398 @@
+[
+	{
+		"restaurant_name": "Olive Garden",
+		"restaurant_phone": "(412) 369-9686",
+		"restaurant_website": "",
+		"hours": "",
+		"price_range": "$",
+		"price_range_num": 1,
+		"restaurant_id": 4055128080014360,
+		"cuisines": [
+			""
+		],
+		"address": "40 McIntyre Square Drive Pittsburgh, PA 15237",
+		"review": [
+			{
+				"user_id": 123,
+				"user_name": "unKnown",
+				"comment": "Great!"
+			}
+		],
+		"last_updated": "2020-12-28T19:21:35.047Z"
+	},
+	{
+		"restaurant_name": "Panera Bread",
+		"restaurant_phone": "(412) 635-9481",
+		"restaurant_website": "https://locations.panerabread.com/pa/ross-township/7217-mcknight-road.html?utm_medium=display-ad&utm_source=paid-digital&utm_campaign=yext&utm_content=local-search",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053714880013123,
+		"cuisines": [
+			"American",
+			"Bakery & Pastries",
+			"Sandwiches"
+		],
+		"address": "7217 McKnight Rd Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:21:30.607Z"
+	},
+	{
+		"restaurant_name": "Eat''n Park",
+		"restaurant_phone": "(412) 366-6220",
+		"restaurant_website": "http:///pa/pittsburgh/668296-eatn-park/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053848780011177,
+		"cuisines": [
+			""
+		],
+		"address": "7370 McKnight Road Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:45.545Z"
+	},
+	{
+		"restaurant_name": "Wheelfish",
+		"restaurant_phone": "(412) 487-8909",
+		"restaurant_website": "http:///pa/pittsburgh/671110-wheelfish/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053958179991455,
+		"cuisines": [
+			""
+		],
+		"address": "635 Sangree Road Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:45.998Z"
+	},
+	{
+		"restaurant_name": "Eat''n Park",
+		"restaurant_phone": "(412) 364-1211",
+		"restaurant_website": "http:///pa/pittsburgh/671111-eatn-park/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054473580016068,
+		"cuisines": [
+			""
+		],
+		"address": "7671 McKnight Road Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:46.130Z"
+	},
+	{
+		"restaurant_name": "Subway",
+		"restaurant_phone": "(412) 369-7827",
+		"restaurant_website": "https://restaurants.subway.com/united-states/pa/pittsburgh/175-blazier-drive?utm_source=yext-other&utm_medium=local&utm_term=acq&utm_content=24670&utm_campaign=evergreen-2020&y_source=1_MTQ5MDA3NTctNz",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4058460080039400,
+		"cuisines": [
+			""
+		],
+		"address": "175 Blazier Drive Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:46.964Z"
+	},
+	{
+		"restaurant_name": "NrGize Lifestyle Cafe",
+		"restaurant_phone": "(877) 585-1085",
+		"restaurant_website": "http:///pa/pittsburgh/698464-nrgize-lifestyle-cafe/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4056269580026772,
+		"cuisines": [
+			""
+		],
+		"address": "8700 Duncan Avenue Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:46.975Z"
+	},
+	{
+		"restaurant_name": "Bruster''s Real Ice Cream",
+		"restaurant_phone": "(412) 369-9008",
+		"restaurant_website": "http:///pa/pittsburgh/710349-brusters-real-ice-cream/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053402080051598,
+		"cuisines": [
+			""
+		],
+		"address": "493 Lowries Run Rd Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:47.147Z"
+	},
+	{
+		"restaurant_name": "Subway",
+		"restaurant_phone": "(412) 364-1948",
+		"restaurant_website": "https://restaurants.subway.com/united-states/pa/pittsburgh/1000-ross-park-mall-drive?utm_source=yext-other&utm_medium=local&utm_term=acq&utm_content=28040&utm_campaign=evergreen-2020&y_source=1_MTQ5MD",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054330080008100,
+		"cuisines": [
+			""
+		],
+		"address": "1000 Ross Park Mall Drive Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:47.386Z"
+	},
+	{
+		"restaurant_name": "Subway",
+		"restaurant_phone": "(412) 548-3172",
+		"restaurant_website": "https://restaurants.subway.com/united-states/pa/pittsburgh/4721-mcknight-rd?utm_source=yext-other&utm_medium=local&utm_term=acq&utm_content=58836&utm_campaign=evergreen-2020&y_source=1_MTQ5MDYxNjItNzA",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4051800080005700,
+		"cuisines": [
+			""
+		],
+		"address": "4721 McKnight Rd. Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:47.465Z"
+	},
+	{
+		"restaurant_name": "Nordstrom Ebar Artisan Coffee",
+		"restaurant_phone": "(412) 548-4300",
+		"restaurant_website": "http:///pa/pittsburgh/773740-nordstrom-ebar-artisan-coffee/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054456780008751,
+		"cuisines": [
+			""
+		],
+		"address": "1000 Ross Park Mall Drive Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:47.824Z"
+	},
+	{
+		"restaurant_name": "Villa Fresh Italian Kitchen",
+		"restaurant_phone": "(412) 358-9921",
+		"restaurant_website": "https://locations.villaitaliankitchen.com/us/pa/pittsburgh/1000-ross-park-mall-drive.html?utm_source=Yext&utm_medium=Local&utm_campaign=Website",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054343880008558,
+		"cuisines": [
+			"Italian",
+			"Pizza"
+		],
+		"address": "1000 Ross Park Mall Drive Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:49.098Z"
+	},
+	{
+		"restaurant_name": "Jersey Mike''s",
+		"restaurant_phone": "(412) 366-0891",
+		"restaurant_website": "http:///pa/pittsburgh/832780-jersey-mikes/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053968480011551,
+		"cuisines": [
+			""
+		],
+		"address": "7390 McKnight Rd Pittsburgh, PA 15237",
+		"review": [],
+
+		"last_updated": "2021-01-05T07:20:49.211Z"
+	},
+	{
+		"restaurant_name": "Pasqually''s Pizza & Wings",
+		"restaurant_phone": "(412) 364-4146",
+		"restaurant_website": "http:///pa/pittsburgh/840312-pasquallys-pizza-wings/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4055144980018662,
+		"cuisines": [
+			""
+		],
+		"address": "20 McIntyre Square Dr Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:49.477Z"
+	},
+	{
+		"restaurant_name": "Sheetz",
+		"restaurant_phone": "(412) 364-3120",
+		"restaurant_website": "http:///pa/pittsburgh/844007-sheetz/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4056171880039528,
+		"cuisines": [
+			""
+		],
+		"address": "8607 Perry Hwy Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:49.637Z"
+	},
+	{
+		"restaurant_name": "Sheetz",
+		"restaurant_phone": "(412) 630-8423",
+		"restaurant_website": "http:///pa/pittsburgh/844113-sheetz/",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4053320780071518,
+		"cuisines": [
+			""
+		],
+		"address": "211 Mt Nebo Rd Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:20:49.915Z"
+	},
+	{
+		"restaurant_name": "Braum''s Ice Cream & Dairy Stores",
+		"restaurant_phone": "(412) 366-9899",
+		"restaurant_website": "",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4058100580037872,
+		"cuisines": [
+			"American",
+			"Ice Cream"
+		],
+		"address": "9600 Perry Hwy PITTSBURGH, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:35.912Z"
+	},
+	{
+		"restaurant_name": "Vocelli Pizza",
+		"restaurant_phone": "(412) 367-1666",
+		"restaurant_website": "http://www.vocellipizza.com",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4055218280037770,
+		"cuisines": [
+			"American",
+			"Italian",
+			"Pasta",
+			"Pizza",
+			"Salads",
+			"Subs",
+			"Wings"
+		],
+		"address": "7910 Perry Hwy PITTSBURGH, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:36.346Z"
+	},
+	{
+		"restaurant_name": "Mr. Smoothie",
+		"restaurant_phone": "(412) 630-9065",
+		"restaurant_website": "",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054114680006528,
+		"cuisines": [
+			"American",
+			"Smoothies & Juices"
+		],
+		"address": "1000 Ross Park Mall Dr PITTSBURGH, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:36.463Z"
+	},
+	{
+		"restaurant_name": "Willow",
+		"restaurant_phone": "(412) 847-1007",
+		"restaurant_website": "http://www.willowpgh.com",
+		"hours": "",
+		"price_range": "$",
+		"price_range_num": 1,
+		"restaurant_id": 4052103880076653,
+		"cuisines": [
+			"American"
+		],
+		"address": "634 Camp Horne Road Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:36.802Z"
+	},
+	{
+		"restaurant_name": "Roma Italian Restaurant and Pizzeria",
+		"restaurant_phone": "(412) 367-7677",
+		"restaurant_website": "http://pizzaromarest.com",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4055867480038666,
+		"cuisines": [
+			"American",
+			"Pizza"
+		],
+		"address": "8350 Perry Highway Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:52.270Z"
+	},
+	{
+		"restaurant_name": "Sushi Tomo",
+		"restaurant_phone": "(412) 630-8666",
+		"restaurant_website": "http://www.sushi-tomo.com",
+		"hours": "",
+		"price_range": "$$$",
+		"price_range_num": 3,
+		"restaurant_id": 4052578480005127,
+		"cuisines": [
+			"Japanese"
+		],
+		"address": "4812 McKnight Road Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:52.757Z"
+	},
+	{
+		"restaurant_name": "Hal''s Bar & Grill",
+		"restaurant_phone": "(412) 364-3230",
+		"restaurant_website": "http://www.halsbar.com",
+		"hours": "",
+		"price_range": "$$",
+		"price_range_num": 2,
+		"restaurant_id": 4052413980015534,
+		"cuisines": [
+			"American",
+			"Pub Food"
+		],
+		"address": "3225 Babcock Blvd PITTSBURGH, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:53.307Z"
+	},
+	{
+		"restaurant_name": "Rico''s Restaurant",
+		"restaurant_phone": "(412) 931-1989",
+		"restaurant_website": "",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4051481680002350,
+		"cuisines": [
+			"Italian"
+		],
+		"address": "1 Rico Ln Pittsburgh, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:53.445Z"
+	},
+	{
+		"restaurant_name": "Pizza LA Bella",
+		"restaurant_phone": "(412) 364-5515",
+		"restaurant_website": "http://www.pizza-la-bella.com",
+		"hours": "",
+		"price_range": "",
+		"price_range_num": 0,
+		"restaurant_id": 4054357980029142,
+		"cuisines": [
+			"American",
+			"Pizza"
+		],
+		"address": "5439 Babcock Blvd  PITTSBURGH, PA 15237",
+		"review": [],
+		"last_updated": "2021-01-05T07:19:53.512Z"
+	}
+]

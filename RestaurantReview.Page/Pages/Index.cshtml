@@ -1,0 +1,70 @@
+﻿@page "{city?}"
+@model IndexModel
+@{
+	ViewData["Title"] = Model.City;
+}
+
+<div class="text-center">
+	<h3>Writers' Restaurants</h3>
+</div>
+
+<form id="writersrestaurant" method="get" v-cloak>
+	<table v-if="restaurants.length" class="table table-bordered table-striped">
+		<tbody>
+			<tr style="cursor:pointer;text-align:center">
+				<th v-on:click="sort('restaurant_id')" width="20%">Id <span v-arrow="{sortKey: 'restaurant_id'}" /></th>
+				<th v-on:click="sort('restaurant_name')">Name <span v-arrow="{sortKey: 'restaurant_name'}" /></th>
+				<th v-on:click="sort('restaurant_phone')">Phone <span v-arrow="{sortKey: 'restaurant_phone'}" /></th>
+			</tr>
+
+			<tr style="cursor:pointer" v-for="r in limitBy(orderBy(restaurants, sortKey, sortOrder), pageSize, pageSize * (page.currentPage - 1))"
+					v-on:click="review(r.restaurant_id)">
+				<td>
+					{{r.restaurant_id}}
+				</td>
+				<td>
+					{{r.restaurant_name}}
+				</td>
+				<td>{{r.restaurant_phone}}</td>
+			</tr>
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td>Total</td>
+				<td center colspan="10">{{ restaurants.length }}</td>
+			</tr>
+			<tr>
+				<td colspan="10" align="center" v-if="restaurants.length && restaurants.length > pageSize">
+					<div is="uib-pagination" :boundary-links="true" :total-items="restaurants.length" v-model="page" :items-per-page="pageSize" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>
+					<button class="btn-primary" type="submit" asp-page="./AddRestaurant">Add New</button>
+				</td>
+				<td v-else colspan="12" align="center">
+					<button class="btn-primary" type="submit" asp-page="./AddRestaurant">Add New</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+	<p v-else><em>{{ message }}</em></p>
+</form>
+
+<environment include="Development">
+	<script src="~/vue/vue.2.5.17.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue-router"></script>
+	<script src="~/vue/vuejs-uib-pagination.js"></script>
+	<script src="~/vue/vue2-filters.min.js"></script>
+	<script src="~/vue/moment-with-locales.js"></script>
+	<script src="~/vue/writersrestaurant.js?v=1"></script>
+</environment>
+
+<environment exclude="Development">
+	<script src="https://unpkg.com/vue@2.6.10/dist/vue.min.js"></script>
+	<script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue-router"></script>
+	<script src="~/vue/vuejs-uib-pagination.js"></script>
+	<script src="~/vue/vue2-filters.min.js"></script>
+	<script src="~/vue/moment-with-locales.js"></script>
+	<script src="~/vue/writersrestaurant.js?v=1"></script>
+</environment>
