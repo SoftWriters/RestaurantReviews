@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RestaurantReviewsAPI</name>
+    </assembly>
+    <members>
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.ReadRestaurants(System.Nullable{System.Int64})">
+            <summary>
+            Get a list of restaurants by city.
+            </summary>
+            <remarks>GET: api/Restaurants?cityId={id}</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.ReadRestaurant(System.Int64)">
+            <summary>
+            Get restaurant by id.
+            </summary>
+            <remarks>GET: api/Restaurants/{0}</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.RestaurantsController.CreateRestaurant(RestaurantReviewsAPI.Models.DataTransferObjects.RestaurantNewDTO)">
+            <summary>
+            Create new restaurant.
+            </summary>
+            <remarks>POST: api/Restaurants</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.ReviewsController.ReadReviews(System.Nullable{System.Int64})">
+            <summary>
+            Get a list of reviews by user.
+            </summary>
+            <remarks>GET: api/Reviews?userId={id}</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.ReviewsController.ReadReview(System.Int64)">
+            <summary>
+            Get review by id.
+            </summary>
+            <remarks>GET: api/Reviews/{0}</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.ReviewsController.CreateReview(RestaurantReviewsAPI.Models.DataTransferObjects.ReviewNewDTO)">
+            <summary>
+            Create new review.
+            </summary>
+            <remarks>POST: api/Reviews</remarks>
+        </member>
+        <member name="M:RestaurantReviewsAPI.Controllers.ReviewsController.DeleteReview(System.Int64)">
+            <summary>
+            Delete review by id.
+            </summary>
+            <remarks>DELETE: api/Reviews/{0}</remarks>
+        </member>
+    </members>
+</doc>
