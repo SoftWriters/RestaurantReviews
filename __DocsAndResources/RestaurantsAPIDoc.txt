@@ -1,0 +1,49 @@
+GET RESAURANT - GET
+Endpoint: api/resaturants/{cityId}?cuisine={some string}&sortByAvg={some bool}
+Notes: CityId is mandatory, but query params are not. Cuisine is a partial match (so "American" would match with "French-American Fusion"). The results are sorted alphebetically unless specified to sort by the average star rating
+
+Example Calls:
+api/restaurants/1
+api/restaurants/1?sortByAvg=true
+api/restaurants/1?cuisine=Mex&sortByAvg=true
+
+
+ADD RESAURANT - POST
+Endpoint: api/resaturants/add
+Example Payload:
+{
+	"name": "Noodles",
+	"cuisine": "Italian",
+    "address": "2 Lemon Drive",
+	"cityid": 1
+}
+
+Some Failure Conditions:
+
+1. Name and Address are required to be non-empty, non-whitespace (They are a unique constraint)
+Example Bad Input:
+{
+	"name": "New",
+	"cuisine": "Italian",
+    "address": "  ",
+	"cityid": 1
+}
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "Address field is required for a Restaurant"
+}
+
+2. CityId does not correspond to any City in db
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "City with id 5 does not exists"
+}
+
+3. Name and Address are not unique
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "Restaurant with name, Bon Apetite, and address, 3 Paris Street, already exists"
+}
