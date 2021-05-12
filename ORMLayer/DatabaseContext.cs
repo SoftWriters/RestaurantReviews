@@ -13,7 +13,7 @@ namespace ORMLayer
        * 
        * _connectionString = @"Data Source=.\SQLExpress;Initial Catalog=RestaurantReviews;Integrated Security=SSPI;";
        * 
-       * Then set this project to the start up project, and run Update-Database in the Package Manager Console;
+       * Then set this project to the start up project, and run Update-Database in the Package Manager Console with the default project set to ORMLayer;
        */
     }
     public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options) { }

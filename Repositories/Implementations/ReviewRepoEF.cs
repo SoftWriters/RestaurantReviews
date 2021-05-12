@@ -53,7 +53,7 @@ namespace Repositories.Implementations
     {
       using(var context = getContext())
       {
-        //Use SQL rather than EF to delete so only one sql statment is executed
+        //Use SQL rather than EF to delete so only one sql statment is executed vs EF Retrieving Record then deleting it
         var deleteSql = @"DELETE FROM [Reviews] WHERE Id = @Id";
         var rowsEffected = await context.Database.ExecuteSqlRawAsync(deleteSql, new SqlParameter("@Id", reviewId));
         return rowsEffected > 0;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using DTOs.Validators;
 using DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantReviewsAPI.Controllers
 {
@@ -32,10 +33,13 @@ namespace RestaurantReviewsAPI.Controllers
     [HttpPost]
     public async Task<IActionResult> AddRestaurant([FromBody] RestaurantDTO newRestaurant)
     {
-      return await toHttpResponse(() => { 
+      Task validateThenAdd()
+      {
         _payloadValidator.ValidateData(newRestaurant);
         return _restaurantRepository.AddRestaruantAsync(newRestaurant);
-      }, _logger);
+      }
+
+      return await toHttpResponse(() => validateThenAdd(), _logger);
     }
   }
 }

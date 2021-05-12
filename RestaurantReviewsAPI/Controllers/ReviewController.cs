@@ -42,10 +42,13 @@ namespace RestaurantReviewsAPI.Controllers
       [HttpPost]
       public async Task<IActionResult> AddReview([FromBody] ReviewDTO newReview)
       {
-        return await toHttpResponse(() => {
+        Task validateThenAdd()
+        {
           _payloadValidator.ValidateData(newReview);
           return _reviewRepository.AddReview(newReview);
-        }, _logger);
+        }
+
+        return await toHttpResponse(() => validateThenAdd(), _logger);
       }
       
       [Route("delete/{reviewId}")]
