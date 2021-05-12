@@ -1,0 +1,77 @@
+GET REVIEWS - GET
+api/reviews?userId={some #}&restaurantid={some #}&sortLowToHigh={some bool}
+NOTES: Either userId or restaurantId must be provided.  You wouldn't want to get all the resturants back in the whole country. sortLowToHigh is optional.  Default sort is DESC by Star Rating.  sortLowToHigh reverses it
+
+Example Calls:
+api/reviews?userId=1
+api/reviews?userId=1&sortLowToHigh=true
+api/reviews?restaurantId=1&sortLowToHigh=true
+
+Some Failure Conditions
+
+1. Don't provide userid or restaurantid (i.e. api/reviews)
+Example Response:
+{
+	"status": "Bad Request",
+	"failureMessage": "Must provide either the userId or restaurantId or both in the query parameters"
+}
+
+ADD REVIEWS - POST
+api/reviews/add
+Example Payload:
+{
+	"stars":2,
+	"reviewtext":"The wait staff was friendly, but the food was medicore and came to us cold.",
+	"restaurantid":1,
+	"userid":1
+}
+
+Some Failure Conditions
+
+1. Stars outside of range 0-5
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "8 is an invalid star rating. Range is between 0 and 5"
+}
+
+2. Text is less than 20 characters in length
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "ReviewText is required to be at least 20 characters in length"
+}
+
+3. User has already written a review for this restaurant (To Prevent Review Bombing)
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "User already wrote a review for this resturaunt.  Delete it before adding new review."
+}
+
+4. UserId or RestaurantId does not correspond to records in the database
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "User with id 40 does not exist"
+}
+Example Response:
+{
+    "status": "Failure: Payload Invalid",
+    "failureMessage": "Restaurant with id 40 does not exist"
+}
+
+DELETE REVIEWS - DELETE
+api/delete/{reviewId}
+
+Example Calls:
+api/reviews/delete/1
+
+Some Failure Conditions
+
+1. reviewId doesn't correspond to record in db
+Example Response:
+{
+    "status": "Failure",
+    "failureMessage": "Review with id 19 does not exist"
+}
