@@ -1,0 +1,87 @@
+
+-------------------------------------------------
+
+Instructions for Database:
+
+Please run the SQL Scripts at ../"Database Scripts" in order that they are numbered, ascending, beginning with 001, 002, etc.
+
+-------------------------------------------------
+
+Assumptions made:
+
+1.  Upon logging into the application, the client has the UserId. This may be through a login API or something similar.
+    (Passing database IDs around is silly, though, and I would much prefer using a token of some sort to validate instead.)
+
+
+-------------------------------------------------
+
+Integration Tests Performed Manually:
+
+Insert Restaurant:
+- PUT https://localhost:44336/api/reviews/restaurants/new?name=Test1&city=Pittsburgh
+    Expectation: Record added to DB
+    Result: as expected
+- PUT https://localhost:44336/api/reviews/restaurants/new?name=Test1&city=Pittsburgh
+    Expectation: No change, only the original record should exist, not 2, ID remaining intact
+    Result: as expected
+- PUT https://localhost:44336/api/reviews/restaurants/new?name=Test2&city=Pittsburgh
+    Expectation: Two records, "Test1" and "Test2" in database
+    Result: as expected
+
+Get Restaurants by City:
+- GET https://localhost:44336/api/reviews/restaurants?city=Pittsburgh
+    Expectation: Two records returned, "Test1" and "Test2" with city and IDs
+    Result: as expected
+
+Add User to Database:
+- POST https://localhost:44336/api/reviews/user/add?firstName=Test&lastName=User
+    Expectation: Single User record added to DB
+    Result: as expected
+- POST https://localhost:44336/api/reviews/user/add?firstName=Test&lastName=User
+    Expectation: Single User record added to DB (total two entries with unique IDs)
+    Result: as expected
+
+Add Review to Database:
+- POST https://localhost:44336/api/reviews/new?userId=92DB8B30-6E5A-4AC5-9C09-56C41F2DD3AD&restaurantId=E44FA6AD-0825-462A-B58F-07032B98F398&rating=5&reviewText=It was fantastic this time!
+    Expectation: Single Review added to the database (note that the userId and restaurantId should be unique to the database instance)
+    Result: as expected
+
+Add second review to database for same restaurant, same user as above
+- POST https://localhost:44336/api/reviews/new?userId=92DB8B30-6E5A-4AC5-9C09-56C41F2DD3AD&restaurantId=E44FA6AD-0825-462A-B58F-07032B98F398&rating=5&reviewText=It was fantastic this time!
+    Expectation: Single Review added to the database (note that the userId and restaurantId should be unique to the database instance)
+    Result: as expected
+
+Get list of reviews by user
+- GET https://localhost:44336/api/reviews/user?id=92DB8B30-6E5A-4AC5-9C09-56C41F2DD3AD
+    Expectation: List of multiple reviews only from the user listed
+    Result: as expected
+
+Delete review
+- DELETE https://localhost:44336/api/reviews?id=799511D1-98FF-48EB-A342-651348E7C94C
+    Expectation: Given review is "soft" deleted
+    Result: as expected
+
+
+-------------------------------------------------
+
+General Thoughts and Explanations of Approach:
+
+2.  Probably, we should inquire whether a single user can create multiple reviews for a restaurant, but I'm going off the explicit requirements given.
+    Thus, a user can submit multiple reviews for the same restaurant with this API for now. (Future enhancement? Should just be a change to the sproc)
+    
+3.  A timestamp should be added to each review, but not entirely sure if that matters or not. Something to clarify with the client.
+
+4.  You may notice a distinct lack of unit tests. This is because of the approach I have taken, which I believe justifies the lack of unit tests:
+    
+    The project is separated into four layers: "API (Entry Points)", "Domain Model", "Data Access" and "Data Base"
+
+    To me, the API is not unit testable, but is rather, integration testable. As all the validation is contained in the Domain model, we would only be
+    testing the HTTP Protocol and the built-in functionality of C#.
+
+    Since the domain model is immutable, there is no chance of it behaving any other way than what is defined.. this is a nicety of F#. You define
+    exactly the functionality that you want, and it is only exactly that. (That's weird phrasing.. but basically, no need for null checks or edge-case checks
+    because unless we explicitly allow nulls or edge-cases... they cannot ever happen.)
+
+    Data Access could be tested and may throw exceptions only if the Database is ill-formed or corrupted, but that
+    would entail crossing the application barrier with the unit test, which would make it an integration test instead, although
+    I can understand arguments here in favor of testing the SqlServerRestaurantReviewRepository.cs class.

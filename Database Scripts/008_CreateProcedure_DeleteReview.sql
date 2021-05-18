@@ -1,0 +1,21 @@
+USE [RestaurantReviews]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[DeleteReview]
+	@id UNIQUEIDENTIFIER
+AS
+BEGIN
+	UPDATE Review
+	SET IsDeleted = 1
+	WHERE Id = @id
+END
+GO
+
+

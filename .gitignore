@@ -1,0 +1,12 @@
+# Ignore Visual Studio files
+.vs/
+
+# Ignore bin and obj folders of projects
+RestaurantReviews/obj/*
+RestaurantReviews/bin/*
+RestaurantReviews/.vs/*
+RestaurantReviews.DomainModel/obj/*
+RestaurantReviews.DomainModel/bin/*
+RestaurantReviews.DomainModel/.vs/*
+RestaurantReviews.SQLServer/obj/*
+RestaurantReviews.SQLServer/bin/*
