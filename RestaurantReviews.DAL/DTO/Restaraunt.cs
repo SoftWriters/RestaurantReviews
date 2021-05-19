@@ -7,5 +7,9 @@ namespace RestarauntReviews.DTO
 {
     public class Restaraunt
     {
+        public string BusinessName { get; set; }
+        public string PriceRatings { get; set; }
+        public List<Review> Reviews { get; set; }
+        
     }
 }

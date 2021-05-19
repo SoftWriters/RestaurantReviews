@@ -1,0 +1,5 @@
+D:\softwriters\RestaurantReviews\RestarauntReviews\obj\Debug\netcoreapp3.1\RestarauntReviews.csprojAssemblyReference.cache
+D:\softwriters\RestaurantReviews\RestarauntReviews\obj\Debug\netcoreapp3.1\RestarauntReviews.AssemblyInfoInputs.cache
+D:\softwriters\RestaurantReviews\RestarauntReviews\obj\Debug\netcoreapp3.1\RestarauntReviews.AssemblyInfo.cs
+D:\softwriters\RestaurantReviews\RestarauntReviews\obj\Debug\netcoreapp3.1\RestarauntReviews.csproj.CoreCompileInputs.cache
+D:\softwriters\RestaurantReviews\RestarauntReviews\obj\Debug\netcoreapp3.1\RestarauntReviews.MvcApplicationPartsAssemblyInfo.cache

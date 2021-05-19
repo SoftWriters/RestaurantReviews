@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestarauntReviews.DTO;
+using RestarauntReviews.Service;
+using RestarauntReviews.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,29 +16,29 @@ namespace RestarauntReviews.Controllers
     [Route("[controller]")]
     public class RestaurantReviewsController : ControllerBase
     {
-        private static readonly string[] Cities = new[]
+        private readonly ILogger<RestaurantReviewsController> logger;
+        private IRestaurantReviewService service;
+        public RestaurantReviewsController(ILogger<RestaurantReviewsController> _logger, IRestaurantReviewService _service)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<RestaurantReviewsController> _logger;
-
-        public RestaurantReviewsController(ILogger<RestaurantReviewsController> logger)
-        {
-            _logger = logger;
+            logger = _logger;
+            service = _service;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Restaraunt> GetRestaurants([FromBody] string city)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Cities[rng.Next(Cities.Length)]
-            })
-            .ToArray();
+                return service.GetRestaraunts(city);
+            } 
+            catch (Exception ex)
+            {
+                logger.LogError("Error in GetRestaurants by City:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+
+                throw(ex);
+            }
+
+            
         }
     }
 }
