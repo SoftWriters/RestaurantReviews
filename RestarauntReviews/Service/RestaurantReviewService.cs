@@ -26,5 +26,16 @@ namespace RestarauntReviews.Service
         {
             return ((IEnumerable<Review>)dal.GetReviews(username));
         }
+
+        public IEnumerable<Review> AddReview(Review review)
+        {
+            return ((IEnumerable<Review>)dal.GetReviews(username));
+        }
+
+        public IEnumerable<Review> AddRestaurant(Restaraunt restaraunt)
+        {
+            return ((IEnumerable<Review>)dal.GetReviews(username));
+        }
+
     }
 }

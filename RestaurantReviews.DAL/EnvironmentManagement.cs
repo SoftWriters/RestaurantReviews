@@ -8,11 +8,19 @@ namespace RestaurantReviews.DAL
 {
     public static class EnvironmentManagement
     {
-        private ConfigurationManager configuration;
         public static string GetConnectionString()
         {
-            switch (configuration["Emvironment"])
+            switch (ConfigurationManager.AppSettings["Environment"])
             {
+                case "Development":
+                    return(ConfigurationManager.ConnectionStrings["DevelopmentConnection"].ConnectionString);
+                    break;
+                case "Test":
+                    return (ConfigurationManager.ConnectionStrings["TestConnection"].ConnectionString);
+                    break;
+                case "Production":
+                    return (ConfigurationManager.ConnectionStrings["ProductionConnection"].ConnectionString);
+                    break;
             }
         }
     }

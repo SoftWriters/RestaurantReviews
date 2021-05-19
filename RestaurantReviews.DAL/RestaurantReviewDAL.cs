@@ -38,10 +38,39 @@ namespace RestaurantReviews.DAL
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var reviews = connection.Query<Review>("Select ReviewId, UserName, ReviewDescription, Score  FROM REVIEW R INNER JOIN USER U on R.UserId = U.UserId WHERE U.UserName='" + username + "'").AsList();
+                var reviews = connection.Query<Review>("Select R.ReviewId, U.UserName, R.ReviewDescription, R.Score, R.RestaurantId FROM REVIEW R INNER JOIN USER U on R.UserId = U.UserId WHERE U.UserName='" + username + "'").AsList();
                 return (reviews);
             }
         }
 
+        public void AddReview(Restaraunt restaurant)
+        {
+            var sql = "InsertReview";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var affectedRows = connection.Execute(sql,
+                new { Restaraunt = restaurant, Code = "Single_Insert_1" },
+                    commandType: CommandType.StoredProcedure);
+                if (affectedRows != 1)
+                {
+                    throw (new Exception());
+                }
+            }
+        }
+
+        public void AddReview(Review review)
+        {
+            var sql = "InsertReview";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var affectedRows = connection.Execute(sql,
+                new { Review = review, Code = "Single_Insert_1" },
+                    commandType: CommandType.StoredProcedure);
+                if(affectedRows != 1)
+                {
+                    throw (new Exception());
+                }
+            }
+        }
     }
 }
