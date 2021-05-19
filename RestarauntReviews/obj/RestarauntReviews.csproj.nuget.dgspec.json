@@ -44,13 +44,13 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.AzureAD.UI": {
               "target": "Package",
               "version": "[3.1.14, )"
-            },
-            "Unity": {
-              "target": "Package",
-              "version": "[5.11.10, )"
             }
           },
           "imports": [

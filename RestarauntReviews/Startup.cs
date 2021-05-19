@@ -1,3 +1,4 @@
+using Autofac;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestarauntReviews.Controllers;
+using RestarauntReviews.Service;
+using RestarauntReviews.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +27,7 @@ namespace RestarauntReviews
         }
 
         public IConfiguration Configuration { get; }
-
+        public IContainer Container { get; set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -51,6 +55,11 @@ namespace RestarauntReviews
             {
                 endpoints.MapControllers();
             });
+
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(new RestaurantReviewService()).As<IRestaurantReviewService>();
+            builder.RegisterType<RestaurantReviewsController>();
+            Container = builder.Build();
         }
     }
 }
