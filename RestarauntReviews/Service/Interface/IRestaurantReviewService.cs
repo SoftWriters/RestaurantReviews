@@ -9,5 +9,6 @@ namespace RestarauntReviews.Service.Interface
     public interface IRestaurantReviewService
     {
         public IEnumerable<Restaraunt> GetRestaraunts(string city);
+        public IEnumerable<Review> GetReviews(string username);
     }
 }

@@ -29,9 +29,19 @@ namespace RestaurantReviews.DAL
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var customer = connection.Query<Restaraunt>("Select * FROM RESTAURANT").AsList();
-                return (customer);
+                var lstRestraurant = connection.Query<Restaraunt>("Select * FROM RESTAURANT").AsList();
+                return (lstRestraurant);
             }
         }
+
+        public IEnumerable<Review> GetReviews(string username)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var reviews = connection.Query<Review>("Select ReviewId, UserName, ReviewDescription, Score  FROM REVIEW R INNER JOIN USER U on R.UserId = U.UserId WHERE U.UserName='" + username + "'").AsList();
+                return (reviews);
+            }
+        }
+
     }
 }

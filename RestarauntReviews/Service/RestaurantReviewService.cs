@@ -21,5 +21,10 @@ namespace RestarauntReviews.Service
         {
             return((IEnumerable<Restaraunt>)dal.GetRestaurants(city));
         }
+
+        public IEnumerable<Review> GetReviews(string username)
+        {
+            return ((IEnumerable<Review>)dal.GetReviews(username));
+        }
     }
 }

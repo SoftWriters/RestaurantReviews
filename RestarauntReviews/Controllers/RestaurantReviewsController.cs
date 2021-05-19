@@ -40,5 +40,23 @@ namespace RestarauntReviews.Controllers
 
             
         }
+
+        [HttpGet]
+        public IEnumerable<Review> GetReviews([FromBody] string username)
+        {
+            try
+            {
+                return service.GetReviews(username);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error in GetRestaurants by City:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+
+                throw (ex);
+            }
+
+
+        }
+
     }
 }
