@@ -58,5 +58,32 @@ namespace RestarauntReviews.Controllers
 
         }
 
+        [HttpPost]
+        public void AddReview([FromBody] Review review)
+        {
+            try
+            {
+                service.AddReview(review);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error in AddReview:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+                throw (ex);
+            }
+        }
+
+        [HttpPost]
+        public void AddRestaurant([FromBody] Restaraunt restaraunt)
+        {
+            try
+            {
+                service.AddRestaurant(restaraunt);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error in AddRestaurant:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+                throw (ex);
+            }
+        }
     }
 }

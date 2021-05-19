@@ -21,6 +21,9 @@ namespace RestaurantReviews.DAL
                 case "Production":
                     return (ConfigurationManager.ConnectionStrings["ProductionConnection"].ConnectionString);
                     break;
+                default:
+                    return (ConfigurationManager.ConnectionStrings["DevelopmentConnection"].ConnectionString);
+                    break;
             }
         }
     }

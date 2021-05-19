@@ -72,5 +72,21 @@ namespace RestaurantReviews.DAL
                 }
             }
         }
+
+        public void AddRestaurant(Restaraunt restaraunt)
+        {
+            var sql = "InsertRestaraunt";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var affectedRows = connection.Execute(sql,
+                new { Restaraunt = restaraunt, Code = "Single_Insert_1" },
+                    commandType: CommandType.StoredProcedure);
+                if (affectedRows != 1)
+                {
+                    throw (new Exception());
+                }
+            }
+        }
+
     }
 }
