@@ -8,9 +8,9 @@ namespace RestarauntReviews.DTO
     public class Review
     {
         public int ReviewId { get; set; }
+        public int RestaurantId { get; set; }
         public string UserName { get; set; }
         public string ReviewDescription { get; set; }
         public int Score { get; set; }
-        public int RestaurantId { get; set; }
     }
 }

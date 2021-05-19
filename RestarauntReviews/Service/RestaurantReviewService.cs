@@ -39,7 +39,7 @@ namespace RestarauntReviews.Service
         
         public void DeleteReview(int ReviewId)
         {
-
+            dal.DeleteReview(ReviewId);
         }
     }
 }

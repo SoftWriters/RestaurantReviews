@@ -29,8 +29,8 @@ namespace RestaurantReviews.DAL
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var lstRestraurant = connection.Query<Restaraunt>("Select * FROM RESTAURANT").AsList();
-                return (lstRestraurant);
+                var restaraunts = connection.Query<Restaraunt>("Select * FROM RESTAURANT").AsList();
+                return (restaraunts);
             }
         }
 
@@ -88,5 +88,19 @@ namespace RestaurantReviews.DAL
             }
         }
 
+        public void DeleteReview(int ReviewId)
+        {
+            var sql = "DeleteReview";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var affectedRows = connection.Execute(sql,
+                new { ReviewId = ReviewId },
+                    commandType: CommandType.StoredProcedure);
+                if (affectedRows != 1)
+                {
+                    throw (new Exception());
+                }
+            }
+        }
     }
 }

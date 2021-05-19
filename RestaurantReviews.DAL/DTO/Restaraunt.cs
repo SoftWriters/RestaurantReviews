@@ -7,9 +7,8 @@ namespace RestarauntReviews.DTO
 {
     public class Restaraunt
     {
+        public int RestaurantId { get; set; }
         public string BusinessName { get; set; }
         public string PriceRatings { get; set; }
-        public List<Review> Reviews { get; set; }
-        
     }
 }
