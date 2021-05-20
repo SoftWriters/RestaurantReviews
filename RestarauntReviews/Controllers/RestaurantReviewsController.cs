@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestarauntReviews.DTO;
-using RestarauntReviews.Service;
 using RestarauntReviews.Service.Interface;
+using RestaurantReviews.DAL.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestarauntReviews.Controllers
 {
@@ -25,7 +22,7 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Restaraunt> GetRestaurants([FromBody] string city)
+        public IEnumerable<Restaurant> GetRestaurants([FromBody] string city)
         {
             try
             {
@@ -87,7 +84,7 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpPost]
-        public void AddRestaurant([FromBody] Restaraunt restaraunt)
+        public void AddRestaurant([FromBody] Restaurant restaraunt)
         {
             try
             {

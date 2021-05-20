@@ -120,3 +120,5 @@ D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp
 D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp3.1\RestaurantReviews.DAL.dll
 D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp3.1\RestaurantReviews.DAL.pdb
+D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp3.1\Castle.Core.dll
+D:\softwriters\RestaurantReviews\RestaurantReviews.DAL.Test\bin\Debug\netcoreapp3.1\Moq.dll

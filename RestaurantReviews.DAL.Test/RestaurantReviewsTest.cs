@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestaurantReviews.DAL;
+using RestaurantReviews.DAL.DTO;
 using System.Collections.Generic;
 
 namespace RestaurantReviews.DAL.Test

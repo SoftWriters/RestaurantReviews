@@ -1,4 +1,4 @@
-﻿using RestarauntReviews.DTO;
+﻿using RestaurantReviews.DAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ namespace RestarauntReviews.Service.Interface
 {
     public interface IRestaurantReviewService
     {
-        public IEnumerable<Restaraunt> GetRestaraunts(string city);
+        public IEnumerable<Restaurant> GetRestaraunts(string city);
         public IEnumerable<Review> GetReviews(string username);
         public void AddReview(Review review);
         public void DeleteReview(int ReviewId);
-        public void AddRestaurant(Restaraunt restaraunt);
+        public void AddRestaurant(Restaurant restaraunt);
     }
 }

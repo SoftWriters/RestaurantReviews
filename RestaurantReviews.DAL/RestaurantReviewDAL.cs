@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using RestarauntReviews.DTO;
+using RestaurantReviews.DAL.DTO;
 using RestaurantReviews.DAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,19 +8,19 @@ using System.Data.SqlClient;
 
 namespace RestaurantReviews.DAL
 {
-    public class Restaurant : IRestaurantReviewDAL
+    public class RestaurantReviewDAL : IRestaurantReviewDAL
     {
         public string connectionString;
-        public Restaurant()
+        public RestaurantReviewDAL()
         {
             connectionString = EnvironmentManagement.GetConnectionString();
         }
 
-        public IEnumerable<Restaraunt> GetRestaurants(string city)
+        public IEnumerable<Restaurant> GetRestaurants(string city)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var customer = connection.Query<Restaraunt>("Select * FROM RESTAURANT WHERE City='" + city + "'").AsList();
+                var customer = connection.Query<Restaurant>("Select * FROM RESTAURANT WHERE City='" + city + "'").AsList();
                 return (customer);
             }
         }
@@ -29,7 +29,7 @@ namespace RestaurantReviews.DAL
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var restaraunts = connection.Query<Restaraunt>("Select * FROM RESTAURANT").AsList();
+                var restaraunts = connection.Query<Restaurant>("Select * FROM RESTAURANT").AsList();
                 return (restaraunts);
             }
         }
@@ -43,7 +43,7 @@ namespace RestaurantReviews.DAL
             }
         }
 
-        public void AddReview(Restaraunt restaurant)
+        public void AddReview(Restaurant restaurant)
         {
             var sql = "InsertReview";
             using (var connection = new SqlConnection(connectionString))
@@ -73,7 +73,7 @@ namespace RestaurantReviews.DAL
             }
         }
 
-        public void AddRestaurant(Restaraunt restaraunt)
+        public void AddRestaurant(Restaurant restaraunt)
         {
             var sql = "InsertRestaraunt";
             using (var connection = new SqlConnection(connectionString))

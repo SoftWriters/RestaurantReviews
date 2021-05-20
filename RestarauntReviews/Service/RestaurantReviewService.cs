@@ -1,6 +1,6 @@
-using RestarauntReviews.DTO;
 using RestarauntReviews.Service.Interface;
 using RestaurantReviews.DAL;
+using RestaurantReviews.DAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +10,16 @@ namespace RestarauntReviews.Service
 {
     public class RestaurantReviewService : IRestaurantReviewService
     {
-        private Restaurant dal;
+        private RestaurantReviewDAL dal;
 
         public RestaurantReviewService()
         {
-            dal = new Restaurant();
+            dal = new RestaurantReviewDAL();
         }
 
-        public IEnumerable<Restaraunt> GetRestaraunts(string city)
+        public IEnumerable<Restaurant> GetRestaraunts(string city)
         {
-            return((IEnumerable<Restaraunt>)dal.GetRestaurants(city));
+            return((IEnumerable<Restaurant>)dal.GetRestaurants(city));
         }
 
         public IEnumerable<Review> GetReviews(string username)
@@ -32,7 +32,7 @@ namespace RestarauntReviews.Service
             dal.AddReview(review);
         }
 
-        public void AddRestaurant(Restaraunt restaraunt)
+        public void AddRestaurant(Restaurant restaraunt)
         {
             dal.AddRestaurant(restaraunt);
         }
