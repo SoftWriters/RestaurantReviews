@@ -73,6 +73,20 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpPost]
+        public void DeleteReview([FromBody] int reviewId)
+        {
+            try
+            {
+                service.DeleteReview(reviewId);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error in AddReview:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+                throw (ex);
+            }
+        }
+
+        [HttpPost]
         public void AddRestaurant([FromBody] Restaraunt restaraunt)
         {
             try

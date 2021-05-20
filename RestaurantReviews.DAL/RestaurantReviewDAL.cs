@@ -8,10 +8,10 @@ using System.Data.SqlClient;
 
 namespace RestaurantReviews.DAL
 {
-    public class RestaurantReviewDAL : IRestaurantReviewDAL
+    public class Restaurant : IRestaurantReviewDAL
     {
         public string connectionString;
-        public RestaurantReviewDAL()
+        public Restaurant()
         {
             connectionString = EnvironmentManagement.GetConnectionString();
         }
@@ -25,7 +25,7 @@ namespace RestaurantReviews.DAL
             }
         }
 
-        public IEnumerable<Restaraunt> GetRestaurants()
+        public IEnumerable<Restaurant> GetRestaurants()
         {
             using (var connection = new SqlConnection(connectionString))
             {

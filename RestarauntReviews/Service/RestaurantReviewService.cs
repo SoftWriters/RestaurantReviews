@@ -10,11 +10,11 @@ namespace RestarauntReviews.Service
 {
     public class RestaurantReviewService : IRestaurantReviewService
     {
-        private RestaurantReviewDAL dal;
+        private Restaurant dal;
 
         public RestaurantReviewService()
         {
-            dal = new RestaurantReviewDAL();
+            dal = new Restaurant();
         }
 
         public IEnumerable<Restaraunt> GetRestaraunts(string city)
