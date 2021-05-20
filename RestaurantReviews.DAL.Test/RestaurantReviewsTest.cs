@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestarauntReviews.Controllers;
 using RestaurantReviews.DAL;
 using RestaurantReviews.DAL.DTO;
 using System.Collections.Generic;
@@ -15,9 +17,10 @@ namespace RestaurantReviews.DAL.Test
             var list = new List<Restaurant>();
             list.Add(new Restaurant() { BusinessName = "Tai Pei", PriceRatings = "Economical", RestaurantId = 1 });
             var moq = new Moq.Mock<RestaurantReviewDAL>();
-            moq.SetupGet((a) => (List<Restaurant>)a.GetRestaurants("Pittsburgh")).Returns(list);
+            moq.Setup((a) => (List<Restaurant>)a.GetRestaurants("Pittsburgh")).Returns(list);
 
             //act
+            var controller = new RestaurantReviewsController(new Logger<RestaurantReviewsController>(),moq.Object);
         }
     }
 }

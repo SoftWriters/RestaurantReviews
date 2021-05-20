@@ -47,7 +47,7 @@ namespace RestarauntReviews.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError("Error in GetRestaurants by City:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+                logger.LogError("Error in GetReviews by username:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
 
                 throw (ex);
             }
@@ -78,7 +78,7 @@ namespace RestarauntReviews.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError("Error in AddReview:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
+                logger.LogError("Error in DeleteReview:" + ex.Message + "\n" + ex.Source + "\n" + ex.StackTrace);
                 throw (ex);
             }
         }

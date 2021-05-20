@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using RestaurantReviews.DAL.DTO;
-using RestaurantReviews.DAL.Interface;
+using RestaurantReviews.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace RestaurantReviews.DAL
 {
-    public class RestaurantReviewDAL : IRestaurantReviewDAL
+    public class RestaurantReviewDAL
     {
         public string connectionString;
         public RestaurantReviewDAL()
