@@ -56,11 +56,11 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpPost]
-        public void AddReview([FromBody] Review review)
+        public int AddReview([FromBody] Review review)
         {
             try
             {
-                service.AddReview(review);
+                return service.AddReview(review);
             }
             catch (Exception ex)
             {
@@ -70,11 +70,11 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpPost]
-        public void DeleteReview([FromBody] int reviewId)
+        public int DeleteReview([FromBody] int reviewId)
         {
             try
             {
-                service.DeleteReview(reviewId);
+                return service.DeleteReview(reviewId);
             }
             catch (Exception ex)
             {
@@ -84,11 +84,11 @@ namespace RestarauntReviews.Controllers
         }
 
         [HttpPost]
-        public void AddRestaurant([FromBody] Restaurant restaraunt)
+        public int AddRestaurant([FromBody] Restaurant restaraunt)
         {
             try
             {
-                service.AddRestaurant(restaraunt);
+                return service.AddRestaurant(restaraunt);
             }
             catch (Exception ex)
             {

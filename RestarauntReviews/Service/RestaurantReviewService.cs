@@ -28,19 +28,22 @@ namespace RestarauntReviews.Service
             return ((IEnumerable<Review>)dal.GetReviews(username));
         }
 
-        public void AddReview(Review review)
+        public int AddReview(Review review)
         {
             dal.AddReview(review);
+            return 200;
         }
 
-        public void AddRestaurant(Restaurant restaraunt)
+        public int AddRestaurant(Restaurant restaraunt)
         {
             dal.AddRestaurant(restaraunt);
+            return 200;
         }
         
-        public void DeleteReview(int ReviewId)
+        public int DeleteReview(int ReviewId)
         {
             dal.DeleteReview(ReviewId);
+            return 200;
         }
     }
 }

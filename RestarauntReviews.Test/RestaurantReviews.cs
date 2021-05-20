@@ -52,14 +52,45 @@ namespace RestarauntReviews.Test
             //arrange
             var review = new Review() { RatingScore = "1", ReviewDescription = "Delicious!", ReviewId = 1 };
             var moq = new Moq.Mock<IRestaurantReviewService>();
-            object p = moq.Setup((a) => a.AddReview(review));
+            object p = moq.Setup((a) => a.AddReview(review)).Returns(200);
 
             //act
             var controller = new RestaurantReviewsController(null, moq.Object);
-            controller.AddReview(review);
+            var result = controller.AddReview(review);
 
             //assert
-            Assert.AreEqual(200, controller.Response.StatusCode);
+            Assert.AreEqual(200, result);
+        }
+
+        [TestMethod]
+        public void RestaurantReviewService_DeleteReview()
+        {
+            //arrange
+            var moq = new Moq.Mock<IRestaurantReviewService>();
+            object p = moq.Setup((a) => a.DeleteReview(1)).Returns(200);
+
+            //act
+            var controller = new RestaurantReviewsController(null, moq.Object);
+            var result = controller.DeleteReview(1);
+
+            //assert
+            Assert.AreEqual(200, result);
+        }
+
+        [TestMethod]
+        public void RestaurantReviewService_AddRestaurant()
+        {
+            //arrange
+            var restaurant = new Restaurant() { BusinessName = "Burgatory", PriceRatings = "2", RestaurantId = 2  };
+            var moq = new Moq.Mock<IRestaurantReviewService>();
+            object p = moq.Setup((a) => a.AddRestaurant(restaurant)).Returns(200);
+
+            //act
+            var controller = new RestaurantReviewsController(null, moq.Object);
+            var result = controller.AddRestaurant(restaurant);
+
+            //assert
+            Assert.AreEqual(200, result);
         }
     }
 }
