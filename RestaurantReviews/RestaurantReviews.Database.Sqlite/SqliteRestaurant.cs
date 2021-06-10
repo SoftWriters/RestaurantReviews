@@ -15,9 +15,9 @@ namespace RestaurantReviews.Database.Sqlite
 
         }
 
-        public SqliteRestaurant(IRestaurant restaurant)
+        public SqliteRestaurant(IRestaurant restaurant, SqliteAddress address)
         {
-            UpdateProperties(restaurant);
+            UpdateProperties(restaurant, address);
         }
 
         [PrimaryKey, AutoIncrement]
@@ -26,7 +26,7 @@ namespace RestaurantReviews.Database.Sqlite
         //Foreign Key to Address. TODO: Enforce this
         public int AddressId { get; set; }
 
-        [Unique, Indexed]
+        [Indexed(Unique=true)]
         public Guid UniqueId { get; set; }
 
         public string Name { get; set; }
@@ -36,52 +36,13 @@ namespace RestaurantReviews.Database.Sqlite
         [Ignore]
         public IAddress Address { get; internal set; } //Set by parent db on load
 
-        public void UpdateProperties(IRestaurant restaurant)
+        public void UpdateProperties(IRestaurant restaurant, SqliteAddress address)
         {
             UniqueId = restaurant.UniqueId;
             Name = restaurant.Name;
             Description = restaurant.Description;
-            Address = restaurant.Address;
-        }
-
-        public override bool Save(SQLiteConnection sqliteConnection)
-        {
-            if (!SaveAddress(sqliteConnection))
-                return false;
-
-            return base.Save(sqliteConnection);
-        }
-
-        public override bool Remove(SQLiteConnection sqliteConnection)
-        {
-            if (!RemoveAddress(sqliteConnection))
-                return false;
-
-            return base.Remove(sqliteConnection);
-        }
-
-        private bool SaveAddress(SQLiteConnection sqliteConnection)
-        {
-            var dbAddress = Address as SqliteAddress;
-            if (dbAddress == null)
-                dbAddress = new SqliteAddress(Address);
-
-            if (!dbAddress.Save(sqliteConnection))
-                return false;
-
-            AddressId = dbAddress.Id;
-
-            return true;
-        }
-
-        private bool RemoveAddress(SQLiteConnection sqliteConnection)
-        {
-            AddressId = 0;
-
-            if (Address is SqliteAddress dbAddress)
-                return dbAddress.Remove(sqliteConnection);
-
-            return true;
+            Address = address;
+            AddressId = address.Id;
         }
     }
 }

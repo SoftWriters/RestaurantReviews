@@ -20,6 +20,7 @@ namespace RestaurantReviews.Database.Sqlite
             if (address == null)
                 return;
 
+            UniqueId = address.UniqueId;
             StreetLine1 = address.StreetLine1;
             StreetLine2 = address.StreetLine2;
             BuildingNumber = address.BuildingNumber;
@@ -29,8 +30,12 @@ namespace RestaurantReviews.Database.Sqlite
             PostalCode = address.PostalCode;
         }
 
+        //TODO: Do we need both Ids here? Can probably get rid of Id
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
+
+        [Indexed(Unique = true)]
+        public Guid UniqueId { get; set; }
 
         public string StreetLine1 { get; set; }
 

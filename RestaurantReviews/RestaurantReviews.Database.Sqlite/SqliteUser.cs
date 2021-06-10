@@ -23,7 +23,7 @@ namespace RestaurantReviews.Database.Sqlite
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
-        [Unique, Indexed]
+        [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
 
         public string DisplayName { get; set; }

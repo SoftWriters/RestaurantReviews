@@ -20,3 +20,9 @@ Initially had restaurants with a collection of reviews since that is the data to
 A restaurant can exist without reviews, whereas a review doesn't make sense without the restaurant it's reviewing. 
 So a restaurant is related to reviews but doesn't need them to exist, and that directional dependency can be removed.
 
+Ran into stupid problems with sqlite.dlls. Eventually downgraded the nuget version for System.Data.Sqlite.Core to get it to copy SQLite.Interop to the output directory.
+
+Created the db to start playing with SQL queries
+
+Addresses could be shared by restaurants, e.g. over time as a restaurant goes out of business and something else takes its place. 
+So restaurants to addresses is 1-N:1 instead of 1:1.

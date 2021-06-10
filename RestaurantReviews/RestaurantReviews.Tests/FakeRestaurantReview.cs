@@ -13,8 +13,6 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 
         public int FiveStarRating { get; set; }
 
-        public string Title { get; set; }
-
         public string ReviewText { get; set; }
 
         public DateTime Date { get; set; }

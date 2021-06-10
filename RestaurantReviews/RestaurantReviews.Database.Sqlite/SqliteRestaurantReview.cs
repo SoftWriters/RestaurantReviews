@@ -8,7 +8,7 @@ namespace RestaurantReviews.Database.Sqlite
     [Table(TableName)]
     public class SqliteRestaurantReview : PersistableBase, IRestaurantReview
     {
-        public const string TableName = "Restaurant";
+        public const string TableName = "Review";
 
         public SqliteRestaurantReview()
         {
@@ -37,7 +37,7 @@ namespace RestaurantReviews.Database.Sqlite
         //ForeignKey to SqliteUser.Id
         public int ReviewerId { get; set; }
 
-        [Unique, Indexed]
+        [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
 
         [Ignore]

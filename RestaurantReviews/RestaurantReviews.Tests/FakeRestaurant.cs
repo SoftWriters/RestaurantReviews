@@ -5,6 +5,11 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 {
     internal class FakeRestaurant : IRestaurant
     {
+        public FakeRestaurant()
+        {
+
+        }
+
         public Guid UniqueId { get; set; }
 
         public string Name { get; set; }

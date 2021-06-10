@@ -1,9 +1,12 @@
 ﻿using RestaurantReviews.Core;
+using System;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
     internal class FakeAddress : IAddress
     {
+        public Guid UniqueId { get; set; }
+
         public string StreetLine1 { get; set; }
 
         public string StreetLine2 { get; set; }

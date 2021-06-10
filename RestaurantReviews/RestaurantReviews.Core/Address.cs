@@ -1,7 +1,11 @@
-﻿namespace RestaurantReviews.Core
+﻿using System;
+
+namespace RestaurantReviews.Core
 {
     public class Address : IAddress //Maybe drop the interface
     {
+        public Guid UniqueId { get; set; }
+
         public string StreetLine1 { get; set; }
 
         public string StreetLine2 { get; set; }
