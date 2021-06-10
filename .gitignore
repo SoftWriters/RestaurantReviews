@@ -1,0 +1,48 @@
+# Build system files
+build.log
+
+# Visual Studio files
+**/bin/
+**/obj/
+**/.vs/
+*.suo
+*.*sdf
+*.user
+*.bak
+*.aps
+*.ipch
+*.VC.db
+*.VC.opendb
+builderrors.log
+project.lock.json
+project.assets.json
+*.nuget.cache
+*.nuget.targets
+*.nuget.g.targets
+*.nuget.props
+*.nuget.g.props
+
+# Resharper files
+_ReSharper*
+*.resharper
+
+# Xamarin files
+*.userprefs
+
+# .Git-files
+*.orig
+
+# Office Temp Files
+~$*
+
+#Passolo log files
+*.resx.log.htm
+
+#osx
+.DS_Store
+
+#Costura generated files
+*.xsd
+
+#emacs
+*~

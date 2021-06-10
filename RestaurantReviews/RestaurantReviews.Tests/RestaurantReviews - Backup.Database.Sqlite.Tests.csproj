@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.114.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup> 
+    <ContentSQLiteInteropFiles>true</ContentSQLiteInteropFiles>
+    <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
+    <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
+    <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
+ </PropertyGroup>
+ 
+  <PropertyGroup>
+    <PreBuildEvent>if '$(PROCESSOR_ARCHITECTURE)'=='x64' (xcopy /y "$(MSBuildProjectDirectory)\x64\sqlite3.dll" ".\") 
+if '$(PROCESSOR_ARCHITECTURE)'=='x86' (xcopy /y "$(MSBuildProjectDirectory)\x86\sqlite3.dll" ".\")</PreBuildEvent>
+  </PropertyGroup>
+</Project>
