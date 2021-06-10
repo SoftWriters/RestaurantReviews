@@ -10,8 +10,6 @@ namespace RestaurantReviews.Database.Sqlite
 {
     public class SqliteRestaurantReviewDatabase : IRestaurantReviewDatabase, IDisposable
     {
-        private static readonly IntPtr NegativePointer = new IntPtr(-1); // re-useable IntPtr for SQLiteApi.BindText16
-
         private SQLiteConnection _sqliteConnection;
 
         public SqliteRestaurantReviewDatabase(ISQLitePlatform sqlitePlatform, string filePath)
@@ -29,7 +27,7 @@ namespace RestaurantReviews.Database.Sqlite
 
             if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
             {
-                dbAddress = FindAddressByUniqueId(_sqliteConnection, restaurant.Address.UniqueId);
+                dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
                 if (dbAddress == null)
                 {
                     //Add the address
@@ -48,14 +46,14 @@ namespace RestaurantReviews.Database.Sqlite
             //TODO: Maybe just update it in SQL instead?
             if (!(restaurant is SqliteRestaurant dbRestaurant) || dbRestaurant.Id == 0)
             {
-                dbRestaurant = FindRestaurantByUniqueId(_sqliteConnection, restaurant.UniqueId);
+                dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId);
                 if (dbRestaurant == null)
                     return false;
             }
 
             if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
             {
-                dbAddress = FindAddressByUniqueId(_sqliteConnection, restaurant.Address.UniqueId);
+                dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
                 if (dbAddress == null)
                 {
                     //Add the address
@@ -72,7 +70,7 @@ namespace RestaurantReviews.Database.Sqlite
         public bool DeleteRestaurant(Guid restaurantId)
         {
             //TODO: Maybe just delete it in SQL instead?
-            SqliteRestaurant dbRestaurant  = FindRestaurantByUniqueId(_sqliteConnection, restaurantId);
+            SqliteRestaurant dbRestaurant  = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
             return dbRestaurant?.Remove(_sqliteConnection) ?? false;
         }
 
@@ -86,7 +84,7 @@ namespace RestaurantReviews.Database.Sqlite
             //TODO: Add them if they don't already exist?
             if (!(review.Reviewer is SqliteUser dbUser))
             {
-                dbUser = FindUserByUniqueId(_sqliteConnection, review.Reviewer.UniqueId);
+                dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), review.Reviewer.UniqueId);
                 if (dbUser == null)
                     return; //TODO: Throw?
             }
@@ -94,7 +92,7 @@ namespace RestaurantReviews.Database.Sqlite
             //Make sure the user and restaurant are saved
             if (!(review.Restaurant is SqliteRestaurant dbRestaurant))
             {
-                dbRestaurant = FindRestaurantByUniqueId(_sqliteConnection, review.Restaurant.UniqueId);
+                dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), review.Restaurant.UniqueId);
                 if (dbRestaurant == null)
                     return; //TODO: Throw?
             }
@@ -106,7 +104,7 @@ namespace RestaurantReviews.Database.Sqlite
         public bool DeleteReview(Guid reviewId)
         {
             //TODO: Maybe just delete it in SQL instead?
-            SqliteRestaurantReview dbReview = FindReviewByUniqueId(_sqliteConnection, reviewId);
+            SqliteRestaurantReview dbReview = FindEntityByUniqueId<SqliteRestaurantReview>(_sqliteConnection, SqliteRestaurantReview.TableName, nameof(SqliteRestaurantReview.UniqueId), reviewId);
             return dbReview?.Remove(_sqliteConnection) ?? false;
         }
 
@@ -114,7 +112,7 @@ namespace RestaurantReviews.Database.Sqlite
         {
             if ((user is SqliteUser dbUser) && dbUser.Id != 0)
             {
-                throw new ArgumentException("Restaurant already exists", nameof(user));
+                throw new ArgumentException("User already exists", nameof(user));
             }
             //TODO: Check if the unique Id already exists. Add Unique constraints on UniqueId fields
             dbUser = new SqliteUser(user);
@@ -124,18 +122,14 @@ namespace RestaurantReviews.Database.Sqlite
         public bool DeleteUser(Guid userId)
         {
             //TODO: Maybe just delete it in SQL instead?
-            SqliteUser dbUser = FindUserByUniqueId(_sqliteConnection, userId);
+            SqliteUser dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), userId);
             return dbUser?.Remove(_sqliteConnection) ?? false;
         }
 
         public IReadOnlyList<IRestaurant> FindRestaurants(string name = null, string city = null, string stateOrProvince = null, string postalCode = null)
         {
             //Build the SQL query from the optional parameters
-            string query = $"SELECT {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Id)}," +
-                $" {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.UniqueId)}," +
-                $" {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.AddressId)}," +
-                $" {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Name)}," +
-                $" {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Description)}" +
+            string query = $"SELECT {SqliteRestaurant.FullyQualifiedTableProperties}" +
                 $" FROM {SqliteRestaurant.TableName} INNER JOIN {SqliteAddress.TableName}" +
                 $" ON {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.AddressId)} = {SqliteAddress.TableName}.{nameof(SqliteAddress.Id)}" +
                 $" WHERE 1 = 1"; //1=1 allows us to easily add the "AND" clauses dynamically
@@ -173,14 +167,7 @@ namespace RestaurantReviews.Database.Sqlite
 
         public IReadOnlyList<IRestaurantReview> FindReviews(IRestaurant restaurant)
         {
-            //TODO: Maybe provide the known column names as a string in the class for better encapsulation and reuse
-            string query = $"SELECT {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Id)},"+
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.UniqueId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Date)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.FiveStarRating)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewText)}" +
+            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties}" +
                 $" FROM {SqliteRestaurantReview.TableName} INNER JOIN {SqliteRestaurant.TableName}" +
                 $" ON {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantId)} = {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Id)}" +
                 $" WHERE {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.UniqueId)} = \"{restaurant.UniqueId}\"";
@@ -211,13 +198,7 @@ namespace RestaurantReviews.Database.Sqlite
 
         public IReadOnlyList<IRestaurantReview> FindReviewsByReviewer(IUser reviewer)
         {
-            string query = $"SELECT {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Id)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.UniqueId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Date)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.FiveStarRating)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)}," +
-                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewText)}" +
+            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties}" +
                 $" FROM {SqliteRestaurantReview.TableName} INNER JOIN {SqliteUser.TableName}" +
                 $" ON {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)} = {SqliteUser.TableName}.{nameof(SqliteUser.Id)}" +
                 $" WHERE {SqliteUser.TableName}.{nameof(SqliteUser.UniqueId)} = \"{reviewer.UniqueId}\"";
@@ -262,25 +243,10 @@ namespace RestaurantReviews.Database.Sqlite
             }
         }
 
-        //TODO: Make this a reusable query. Maybe with generics? Would need a way to commonly reference the UniqueId columns
-        private static SqliteRestaurant FindRestaurantByUniqueId(SQLiteConnection sqliteConnection, Guid id)
+        private static T FindEntityByUniqueId<T>(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id) where T : class
         {
-            return sqliteConnection.Query<SqliteRestaurant>($"SELECT * FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.UniqueId)} = \"{id}\" LIMIT 1").FirstOrDefault();
-        }
+            return sqliteConnection.Query<T>($"SELECT * FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\" LIMIT 1").FirstOrDefault();
 
-        private static SqliteAddress FindAddressByUniqueId(SQLiteConnection sqliteConnection, Guid id)
-        {
-            return sqliteConnection.Query<SqliteAddress>($"SELECT * FROM {SqliteAddress.TableName} WHERE {nameof(SqliteAddress.UniqueId)} = \"{id}\" LIMIT 1").FirstOrDefault();
-        }
-
-        private static SqliteUser FindUserByUniqueId(SQLiteConnection sqliteConnection, Guid id)
-        {
-            return sqliteConnection.Query<SqliteUser>($"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.UniqueId)} = \"{id}\" LIMIT 1").FirstOrDefault();
-        }
-
-        private static SqliteRestaurantReview FindReviewByUniqueId(SQLiteConnection sqliteConnection, Guid id)
-        {
-            return sqliteConnection.Query<SqliteRestaurantReview>($"SELECT * FROM {SqliteRestaurantReview.TableName} WHERE {nameof(SqliteRestaurantReview.UniqueId)} = \"{id}\" LIMIT 1").FirstOrDefault();
         }
 
         private static SQLiteConnection InitializeConnection(ISQLitePlatform sqlitePlatform, string filePath)

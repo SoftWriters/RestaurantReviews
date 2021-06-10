@@ -8,7 +8,6 @@ namespace RestaurantReviews.Database.Sqlite
     [Table(TableName)]
     public class SqliteRestaurant : PersistableBase, IRestaurant
     {
-        public const string TableName = "Restaurant";
 
         public SqliteRestaurant() //Sqlite constructor
         {
@@ -19,6 +18,20 @@ namespace RestaurantReviews.Database.Sqlite
         {
             UpdateProperties(restaurant, address);
         }
+
+        public const string TableName = "Restaurant";
+
+        /// <summary>
+        /// Comma separated string of the SQL table name and column namess for convenience in SQL queries.
+        /// Avoids the needs for "SELECT *", which may have unintended side effects (e.g. column name conflicts in a JOIN statement).
+        /// Provides a bit of encapsulation and convenient reusability.
+        /// </summary>
+        public static string FullyQualifiedTableProperties =
+            $"{TableName}.{nameof(Id)}," +
+            $" {TableName}.{nameof(UniqueId)}," +
+            $" {TableName}.{nameof(AddressId)}," +
+            $" {TableName}.{nameof(Name)}," +
+            $" {TableName}.{nameof(Description)}";
 
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
@@ -43,6 +56,6 @@ namespace RestaurantReviews.Database.Sqlite
             Description = restaurant.Description;
             Address = address;
             AddressId = address.Id;
-        }
+        }        
     }
 }
