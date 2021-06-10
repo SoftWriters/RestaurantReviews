@@ -173,6 +173,7 @@ namespace RestaurantReviews.Database.Sqlite
 
         public IReadOnlyList<IRestaurantReview> FindReviews(IRestaurant restaurant)
         {
+            //TODO: Maybe provide the known column names as a string in the class for better encapsulation and reuse
             string query = $"SELECT {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Id)},"+
                 $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.UniqueId)}," +
                 $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Date)}," +
@@ -200,12 +201,9 @@ namespace RestaurantReviews.Database.Sqlite
                     string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
                     reviewer = _sqliteConnection.Query<SqliteUser>(userQuery).FirstOrDefault();
                     usersById[reviewer.Id] = reviewer;
-                    review.Reviewer = reviewer;
                 }
-                else
-                {
-                    review.Reviewer = reviewer;
-                }
+
+                review.Reviewer = reviewer;
             }
 
             return reviews;
@@ -213,7 +211,40 @@ namespace RestaurantReviews.Database.Sqlite
 
         public IReadOnlyList<IRestaurantReview> FindReviewsByReviewer(IUser reviewer)
         {
-            throw new NotImplementedException();
+            string query = $"SELECT {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Id)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.UniqueId)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.Date)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.FiveStarRating)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantId)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)}," +
+                $" {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewText)}" +
+                $" FROM {SqliteRestaurantReview.TableName} INNER JOIN {SqliteUser.TableName}" +
+                $" ON {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)} = {SqliteUser.TableName}.{nameof(SqliteUser.Id)}" +
+                $" WHERE {SqliteUser.TableName}.{nameof(SqliteUser.UniqueId)} = \"{reviewer.UniqueId}\"";
+
+            var reviews = _sqliteConnection.Query<SqliteRestaurantReview>(query);
+
+            var restaurantsById = new Dictionary<int, SqliteRestaurant>();
+            foreach (var review in reviews)
+            {
+                review.Reviewer = reviewer;
+
+                if (!restaurantsById.TryGetValue(review.RestaurantId, out SqliteRestaurant restaurant))
+                {
+                    string restaurantQuery = $"SELECT * FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.Id)} = {review.RestaurantId} LIMIT 1";
+                    restaurant = _sqliteConnection.Query<SqliteRestaurant>(restaurantQuery).FirstOrDefault();
+
+                    string addressQuery = $"SELECT * FROM {SqliteAddress.TableName} WHERE {nameof(SqliteAddress.Id)} = {restaurant.AddressId} LIMIT 1";
+
+                    restaurant.Address = _sqliteConnection.Query<SqliteAddress>(addressQuery).FirstOrDefault();
+
+                    restaurantsById[restaurant.Id] = restaurant;
+                }
+
+                review.Restaurant = restaurant;
+            }
+
+            return reviews;
         }
 
         public void Dispose()

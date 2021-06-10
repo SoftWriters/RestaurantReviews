@@ -26,3 +26,5 @@ Created the db to start playing with SQL queries
 
 Addresses could be shared by restaurants, e.g. over time as a restaurant goes out of business and something else takes its place. 
 So restaurants to addresses is 1-N:1 instead of 1:1.
+
+Red/Green/Refactor. Get the test to pass first, then rewrite it and use the test to check
