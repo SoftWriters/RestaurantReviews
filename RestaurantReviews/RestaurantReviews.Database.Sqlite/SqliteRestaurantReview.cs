@@ -1,10 +1,13 @@
 ﻿using RestaurantReviews.Core;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 using System;
 
 namespace RestaurantReviews.Database.Sqlite
 {
-    //TODO: maybe these should all be internal
+    /// <summary>
+    /// Sqlite db implementation of IRestaurantReview
+    /// </summary>
     [Table(TableName)]
     public class SqliteRestaurantReview : PersistableBase, IRestaurantReview
     {
@@ -44,24 +47,24 @@ namespace RestaurantReviews.Database.Sqlite
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
-        //ForeignKey to SqliteRestaurant.Id
-        [Indexed]
-        public int RestaurantId { get; set; }
-
-        //ForeignKey to SqliteUser.Id
-        public int ReviewerId { get; set; }
-
         [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
+
+        [Indexed, ForeignKey(typeof(SqliteRestaurant))]
+        public int RestaurantId { get; set; }
 
         [Ignore]
         public IRestaurant Restaurant { get; internal set; } //Set by the parent DB controller
 
+        [Indexed, ForeignKey(typeof(SqliteRestaurantReview))]
+        public int ReviewerId { get; set; }
+
         [Ignore]
         public IUser Reviewer { get; internal set; } //Set by the parent DB controller
 
-        public int FiveStarRating { get; set; }
+        public int FiveStarRating { get; set; } //TODO: Add Check 1 <= Rating <= 5
         
+        [NotNull]
         public string ReviewText { get; set; }
 
         public DateTime Date { get; set; }

@@ -4,11 +4,12 @@ using System;
 
 namespace RestaurantReviews.Database.Sqlite
 {
+    /// <summary>
+    /// Sqlite db representation of IUser
+    /// </summary>
     [Table(TableName)]
     public class SqliteUser : PersistableBase, IUser
     {
-        public const string TableName = "User";
-
         public SqliteUser() //Sqlite constructor
         {
 
@@ -20,12 +21,25 @@ namespace RestaurantReviews.Database.Sqlite
             DisplayName = user.DisplayName;
         }
 
+        public const string TableName = "User";
+
+        /// <summary>
+        /// Comma separated string of the SQL table name and column namess for convenience in SQL queries.
+        /// Avoids the needs for "SELECT *", which may have unintended side effects (e.g. column name conflicts in a JOIN statement).
+        /// Provides a bit of encapsulation and convenient reusability.
+        /// </summary>
+        public static string FullyQualifiedTableProperties =
+            $"{TableName}.{nameof(Id)}," +
+            $" {TableName}.{nameof(UniqueId)}," +
+            $" {TableName}.{nameof(DisplayName)}";
+
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
         [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
 
+        [NotNull]
         public string DisplayName { get; set; }
     }
 }

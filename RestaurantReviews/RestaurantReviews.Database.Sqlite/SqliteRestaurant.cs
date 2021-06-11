@@ -1,14 +1,16 @@
 ﻿using RestaurantReviews.Core;
-using SQLite.Net;
 using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 using System;
 
 namespace RestaurantReviews.Database.Sqlite
 {
+    /// <summary>
+    /// Sqlite db implementation of IRestaurant
+    /// </summary>
     [Table(TableName)]
     public class SqliteRestaurant : PersistableBase, IRestaurant
     {
-
         public SqliteRestaurant() //Sqlite constructor
         {
 
@@ -36,15 +38,17 @@ namespace RestaurantReviews.Database.Sqlite
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
-        //Foreign Key to Address. TODO: Enforce this
-        public int AddressId { get; set; }
-
         [Indexed(Unique=true)]
         public Guid UniqueId { get; set; }
 
+        [NotNull]
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        //Attribute is really only for documentation purposes, as the performance of Sqlitenetextensions isn't great
+        [Indexed, ForeignKey(typeof(SqliteAddress))]
+        public int AddressId { get; set; }
 
         [Ignore]
         public IAddress Address { get; internal set; } //Set by parent db on load
