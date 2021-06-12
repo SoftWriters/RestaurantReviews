@@ -9,40 +9,50 @@ using System.Linq;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
-    public class Tests
+    [TestFixture]
+    public class RestaurantReviewsControllerTests
     {
-        [SetUp]
-        public void Setup()
+        private TempFileWrapper _testDatabaseFile;
+
+        [OneTimeSetUp]
+        public void FixtureSetup()
         {
+            //Create a reusable (readonly) database for testing
+            //This reduces each test execution time significantly since the db doesn't need to be recreated for every test (4+s to a few ms)
+            _testDatabaseFile = new TempFileWrapper();
+            TestData.InitializeController(_testDatabaseFile.FilePath);
+        }
+
+        [OneTimeTearDown]
+        public void FixtureTeardown()
+        {
+            _testDatabaseFile?.Dispose();
+            _testDatabaseFile = null;
         }
 
         [Test]
         public void CreateAndReadDatabaseTest()
         {
             //This basic tests exercises most of the functionality of the database,
-            //verifying the database can be created, entities added, and retrieved
-
-            using (var tempFile = new TempFileWrapper())
+            //verifying the created database (in one-time setup) added all the entities
+            using (IRestaurantReviewController controller = new RestaurantReviewsController(_testDatabaseFile.FilePath))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
+                //Verify the restaurants can be retrieved from the db
+                foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
                 {
-                    //Verify the restaurants can be retrieved from the db
-                    foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
-                    {
-                        IRestaurant foundRestaurant = controller.GetRestaurant(restaurant.UniqueId);
-                        Assert.IsNotNull(foundRestaurant, "Restaurant was not found");
+                    IRestaurant foundRestaurant = controller.GetRestaurant(restaurant.UniqueId);
+                    Assert.IsNotNull(foundRestaurant, "Restaurant was not found");
 
-                        VerifyRestaurant(restaurant, foundRestaurant);
-                    }
+                    VerifyRestaurant(restaurant, foundRestaurant);
+                }
 
-                    //Verify the reviews can be retrieved from the db
-                    foreach (RestaurantReview review in TestData.Reviews.AllReviews)
-                    {
-                        IRestaurantReview foundReview = controller.GetReview(review.UniqueId);
-                        Assert.IsNotNull(foundReview, "Review not found");
+                //Verify the reviews can be retrieved from the db
+                foreach (RestaurantReview review in TestData.Reviews.AllReviews)
+                {
+                    IRestaurantReview foundReview = controller.GetReview(review.UniqueId);
+                    Assert.IsNotNull(foundReview, "Review not found");
 
-                        VerifyReview(review, foundReview);
-                    }
+                    VerifyReview(review, foundReview);
                 }
             }
         }
@@ -50,20 +60,17 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void FindRestaurantsByFullQueryTest()
         {
-            using (var tempFile = new TempFileWrapper())
+            using (IRestaurantReviewController controller = new RestaurantReviewsController(_testDatabaseFile.FilePath))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
+                //Verify the restaurants can be retrieved from the db with a fully-specified query
+                foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
                 {
-                    //Verify the restaurants can be retrieved from the db with a fully-specified query
-                    foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
-                    {
-                        //Full query
-                        var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
-                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
-                        Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
-                        IRestaurant foundRestaurant = findRestaurantResults[0];
-                        VerifyRestaurant(restaurant, foundRestaurant);
-                    }
+                    //Full query
+                    var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
+                    IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+                    Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+                    IRestaurant foundRestaurant = findRestaurantResults[0];
+                    VerifyRestaurant(restaurant, foundRestaurant);
                 }
             }
         }
@@ -71,29 +78,26 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void FindRestaurantsByCityTest()
         {
-            using (var tempFile = new TempFileWrapper())
+            using (IRestaurantReviewController controller = new RestaurantReviewsController(_testDatabaseFile.FilePath))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
+                //Verify the restaurants can be retrieved from the db by city
+                var expectedResults = TestData.Restaurants.AllRestaurants.GroupBy(r => r.Address.City);
+
+                foreach (IGrouping<string, Restaurant> grouping in expectedResults)
                 {
-                    //Verify the restaurants can be retrieved from the db by city
-                    var expectedResults = TestData.Restaurants.AllRestaurants.GroupBy(r => r.Address.City);
+                    Dictionary<Guid, Restaurant> expectedRestaurantsById = grouping.ToDictionary(r => r.UniqueId, r => r);
 
-                    foreach (IGrouping<string, Restaurant> grouping in expectedResults)
+                    var restaurantQuery = new RestaurantsQuery() { City = grouping.Key };
+                    IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+                    Assert.AreEqual(expectedRestaurantsById.Count, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+
+                    //Match them up by unique Id and compare
+                    foreach (IRestaurant foundRestaurant in findRestaurantResults)
                     {
-                        Dictionary<Guid, Restaurant> expectedRestaurantsById = grouping.ToDictionary(r => r.UniqueId, r => r);
+                        if (!expectedRestaurantsById.TryGetValue(foundRestaurant.UniqueId, out var expectedRestaurant))
+                            Assert.Fail("Unexpected restaurant found");
 
-                        var restaurantQuery = new RestaurantsQuery() { City = grouping.Key };
-                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
-                        Assert.AreEqual(expectedRestaurantsById.Count, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
-
-                        //Match them up by unique Id and compare
-                        foreach (IRestaurant foundRestaurant in findRestaurantResults)
-                        {
-                            if (!expectedRestaurantsById.TryGetValue(foundRestaurant.UniqueId, out var expectedRestaurant))
-                                Assert.Fail("Unexpected restaurant found");
-
-                            VerifyRestaurant(expectedRestaurant, foundRestaurant);
-                        }
+                        VerifyRestaurant(expectedRestaurant, foundRestaurant);
                     }
                 }
             }
@@ -102,29 +106,26 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void FindReviewsByUserTest()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            using (IRestaurantReviewController controller = new RestaurantReviewsController(_testDatabaseFile.FilePath))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                //Get the expected results by user
+                IEnumerable<IGrouping<Guid, RestaurantReview>> reviewsByReviewerId = TestData.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
+
+                //Test each one
+                foreach (IGrouping<Guid, RestaurantReview> grouping in reviewsByReviewerId)
                 {
-                    //Get the expected results by user
-                    IEnumerable<IGrouping<Guid, RestaurantReview>> reviewsByReviewerId = TestData.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
+                    List<RestaurantReview> expectedReviews = grouping.ToList();
 
-                    //Test each one
-                    foreach (IGrouping<Guid, RestaurantReview> grouping in reviewsByReviewerId)
+                    IReadOnlyList<IRestaurantReview> foundReviews = controller.GetReviewsForUser(grouping.Key);
+
+                    Assert.AreEqual(expectedReviews.Count, foundReviews.Count, "Incorrect reviews for user");
+
+                    foreach (RestaurantReview review in expectedReviews)
                     {
-                        List<RestaurantReview> expectedReviews = grouping.ToList();
+                        var foundReview = foundReviews.FirstOrDefault(r => r.UniqueId == review.UniqueId);
 
-                        IReadOnlyList<IRestaurantReview> foundReviews = controller.GetReviewsForUser(grouping.Key);
-
-                        Assert.AreEqual(expectedReviews.Count, foundReviews.Count, "Incorrect reviews for user");
-
-                        foreach (RestaurantReview review in expectedReviews)
-                        {
-                            var foundReview = foundReviews.FirstOrDefault(r => r.UniqueId == review.UniqueId);
-
-                            Assert.IsNotNull(foundReview, "Review not found for user and review Id");
-                            VerifyReview(review, foundReview);
-                        }
+                        Assert.IsNotNull(foundReview, "Review not found for user and review Id");
+                        VerifyReview(review, foundReview);
                     }
                 }
             }
@@ -133,9 +134,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void AddDuplicateRestaurantThrowsDuplicateEntityException()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            //Make a copy of the test db so we don't corrupt it
+            using (var tempFileWrapper = new TempFileWrapper(CreateTempFileCopy(_testDatabaseFile.FilePath)))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = new RestaurantReviewsController(tempFileWrapper.FilePath))
                 {
                     Restaurant testRestaurant = TestData.Restaurants.MadNoodles;
                     Assert.Throws<DuplicateEntityException>(() => controller.AddRestaurant(testRestaurant), "Adding duplicate restaurant did not throw an exception");
@@ -151,9 +153,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void AddRestaurantAddsRestaurantAndAddress()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            //Make a copy of the test db so we don't corrupt it
+            using (var tempFileWrapper = new TempFileWrapper(CreateTempFileCopy(_testDatabaseFile.FilePath)))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = new RestaurantReviewsController(tempFileWrapper.FilePath))
                 {
                     var newRestaurant = new Restaurant()
                     {
@@ -182,9 +185,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void AddReviewAddsReviewAndUser()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            //Make a copy of the test db so we don't corrupt it
+            using (var tempFileWrapper = new TempFileWrapper(CreateTempFileCopy(_testDatabaseFile.FilePath)))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = new RestaurantReviewsController(tempFileWrapper.FilePath))
                 {
                     var newReview = new RestaurantReview()
                     {
@@ -220,9 +224,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void DeleteRestaurantDeletesRestaurantAndReviews()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            //Make a copy of the test db so we don't corrupt it
+            using (var tempFileWrapper = new TempFileWrapper(CreateTempFileCopy(_testDatabaseFile.FilePath)))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = new RestaurantReviewsController(tempFileWrapper.FilePath))
                 {
                     Restaurant testRestaurant = TestData.Restaurants.MadNoodles;
                     controller.DeleteRestaurant(testRestaurant.UniqueId);
@@ -242,9 +247,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         [Test]
         public void DeleteReviewDeletesReview()
         {
-            using (var tempFileWrapper = new TempFileWrapper())
+            //Make a copy of the test db so we don't corrupt it
+            using (var tempFileWrapper = new TempFileWrapper(CreateTempFileCopy(_testDatabaseFile.FilePath)))
             {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = new RestaurantReviewsController(tempFileWrapper.FilePath))
                 {
                     RestaurantReview testReview = TestData.Reviews.MadNoodles3;
                     controller.DeleteReview(testReview.UniqueId);
@@ -298,14 +304,26 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             Assert.AreEqual(expected.DisplayName, actual.DisplayName, "Incorrect user display name");
         }
 
+        private static string CreateTempFileCopy(string filePath)
+        {
+            string destFile = Path.GetTempFileName();
+            File.Copy(filePath, destFile, true);
+            return destFile;
+        }
+
         /// <summary>
         /// Helper to create and destroy temporary files
         /// </summary>
         private class TempFileWrapper : IDisposable
         {
             public TempFileWrapper()
+                : this(Path.GetTempFileName())
             {
-                FilePath = Path.GetTempFileName();
+            }
+
+            public TempFileWrapper(string filePath)
+            {
+                FilePath = filePath;
             }
 
             public string FilePath { get; }
