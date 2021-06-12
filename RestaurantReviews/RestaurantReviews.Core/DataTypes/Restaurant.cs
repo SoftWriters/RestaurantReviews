@@ -19,13 +19,13 @@ namespace RestaurantReviews.Core.DataTypes
             UniqueId = uniqueId;
         }
 
-        //public Restaurant(Guid uniqueId = default(Guid), string name = null, string description = null, IAddress address = null)
-        //{
-        //    UniqueId = (uniqueId == default(Guid)) ? Guid.NewGuid() : uniqueId;
-        //    Name = name;
-        //    Description = description;
-        //    Address = address;
-        //}
+        public Restaurant(IRestaurant other) //Copy constructor
+        {
+            UniqueId = other.UniqueId;
+            Name = other.Name;
+            Description = other.Description;
+            Address = new Address(other.Address);
+        }
 
         public Guid UniqueId { get; }
 

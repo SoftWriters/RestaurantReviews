@@ -19,17 +19,17 @@ namespace RestaurantReviews.Core.DataTypes
             UniqueId = uniqueId;
         }
 
-        //public Address(Guid uniqueId = default(Guid), string streetLine1 = null, string streetLine2 = null, string buildingNumber = null, string city = null, string countryOrRegion = null, string stateOrProvince = null, string postalCode = null)
-        //{
-        //    UniqueId = (uniqueId == default(Guid)) ? Guid.NewGuid() : uniqueId;
-        //    StreetLine1 = streetLine1;
-        //    StreetLine2 = streetLine2;
-        //    BuildingNumber = buildingNumber;
-        //    City = city;
-        //    CountryOrRegion = countryOrRegion;
-        //    StateOrProvince = stateOrProvince;
-        //    PostalCode = postalCode;
-        //}
+        public Address(IAddress other)
+        {
+            UniqueId = other.UniqueId;
+            StreetLine1 = other.StreetLine1;
+            StreetLine2 = other.StreetLine2;
+            BuildingNumber = other.BuildingNumber;
+            City = other.City;
+            CountryOrRegion = other.CountryOrRegion;
+            StateOrProvince = other.StateOrProvince;
+            PostalCode = other.PostalCode;
+        }
 
         public Guid UniqueId { get; }
 

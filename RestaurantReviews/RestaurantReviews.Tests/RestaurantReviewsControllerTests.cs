@@ -29,23 +29,69 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                     //Verify the restaurants can be retrieved from the db
                     foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
                     {
-                        var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
-                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
-                        Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+                        IRestaurant foundRestaurant = controller.GetRestaurant(restaurant.UniqueId);
+                        Assert.IsNotNull(foundRestaurant, "Restaurant was not found");
 
-                        IRestaurant foundRestaurant = findRestaurantResults[0];
                         VerifyRestaurant(restaurant, foundRestaurant);
                     }
 
                     //Verify the reviews can be retrieved from the db
                     foreach (RestaurantReview review in TestData.Reviews.AllReviews)
                     {
-                        IReadOnlyList<IRestaurantReview> findReviewResults = controller.GetReviewsForRestaurant(review.RestaurantUniqueId);
-
-                        IRestaurantReview foundReview = findReviewResults.FirstOrDefault(r => r.UniqueId == review.UniqueId);
-                        Assert.IsNotNull(foundReview, "Review not found for restaurant and review id");
+                        IRestaurantReview foundReview = controller.GetReview(review.UniqueId);
+                        Assert.IsNotNull(foundReview, "Review not found");
 
                         VerifyReview(review, foundReview);
+                    }
+                }
+            }
+        }
+
+        public void FindRestaurantsByFullQueryTest()
+        {
+            using (var tempFile = new TempFileWrapper())
+            {
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
+                {
+                    //Verify the restaurants can be retrieved from the db with a fully-specified query
+                    foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
+                    {
+                        //Full query
+                        var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
+                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+                        Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+                        IRestaurant foundRestaurant = findRestaurantResults[0];
+                        VerifyRestaurant(restaurant, foundRestaurant);
+                    }
+                }
+            }
+        }
+
+        public void FindRestaurantsByCityTest()
+        {
+            using (var tempFile = new TempFileWrapper())
+            {
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
+                {
+                    //Verify the restaurants can be retrieved from the db by city
+                    var expectedResults = TestData.Restaurants.AllRestaurants.GroupBy(r => r.Address.City);
+
+                    foreach (IGrouping<string, Restaurant> grouping in expectedResults)
+                    {
+                        Dictionary<Guid, Restaurant> expectedRestaurantsById = grouping.ToDictionary(r => r.UniqueId, r => r);
+
+                        var restaurantQuery = new RestaurantsQuery() { City = grouping.Key };
+                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+                        Assert.AreEqual(expectedRestaurantsById.Count, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+
+                        //Match them up by unique Id and compare
+                        foreach (IRestaurant foundRestaurant in findRestaurantResults)
+                        {
+                            if (!expectedRestaurantsById.TryGetValue(foundRestaurant.UniqueId, out var expectedRestaurant))
+                                Assert.Fail("Unexpected restaurant found");
+
+                            VerifyRestaurant(expectedRestaurant, foundRestaurant);
+                        }
                     }
                 }
             }

@@ -48,6 +48,20 @@ namespace RestaurantReviews.Controller
         #region Queries
 
         /// <summary>
+        /// Get a restaurant by Id
+        /// </summary>
+        /// <param name="restaurantId">Restaurant Id</param>
+        /// <returns>Restaurant or null if not found</returns>
+        IRestaurant GetRestaurant(Guid restaurantId);
+
+        /// <summary>
+        /// Get a review by id
+        /// </summary>
+        /// <param name="reviewId">Review id</param>
+        /// <returns>Review or null if not found</returns>
+        IRestaurantReview GetReview(Guid reviewId);
+
+        /// <summary>
         /// Find restaurants that match the query
         /// </summary>
         /// <param name="query">Query parameters with optional fields</param>

@@ -16,6 +16,10 @@ namespace RestaurantReviews.Core.Interfaces
 
         void DeleteReview(Guid reviewId);
 
+        IRestaurant GetRestaurant(Guid restaurantId);
+
+        IRestaurantReview GetReview(Guid reviewId);
+
         IReadOnlyList<IRestaurant> FindRestaurants(string name = null, string city = null, string StateOrProvince = null, string postalCode = null);
 
         IReadOnlyList<IRestaurantReview> GetReviewsForRestaurant(Guid restaurantId);

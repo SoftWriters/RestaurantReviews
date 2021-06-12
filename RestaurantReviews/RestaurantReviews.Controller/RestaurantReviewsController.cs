@@ -43,6 +43,16 @@ namespace RestaurantReviews.Controller
             _db.DeleteReview(reviewId);
         }
 
+        public IRestaurant GetRestaurant(Guid restaurantId)
+        {
+            return _db.GetRestaurant(restaurantId);
+        }
+
+        public IRestaurantReview GetReview(Guid reviewId)
+        {
+            return _db.GetReview(reviewId);
+        }
+
         public IReadOnlyList<IRestaurant> FindRestaurants(RestaurantsQuery query)
         {
             return _db.FindRestaurants(query.Name, query.City, query.StateOrProvince, query.PostalCode);

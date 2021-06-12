@@ -58,7 +58,7 @@ namespace RestaurantReviews.Database.Sqlite
             _sqliteConnection.Execute(deleteReviewsQuery);
 
             //Get the restaurant This will be more convenient to work with.
-            SqliteRestaurant dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
+            var dbRestaurant = (SqliteRestaurant)GetRestaurant(restaurantId);
             
             //Delete it
             dbRestaurant.Remove(_sqliteConnection);
@@ -104,7 +104,7 @@ namespace RestaurantReviews.Database.Sqlite
         public void DeleteReview(Guid reviewId)
         {
             //Get the review. This will be more convenient to work with.
-            SqliteRestaurantReview dbReview = FindEntityByUniqueId<SqliteRestaurantReview>(_sqliteConnection, SqliteRestaurantReview.TableName, nameof(SqliteRestaurantReview.UniqueId), reviewId);
+            var dbReview = (SqliteRestaurantReview)GetReview(reviewId);
 
             //Delete it
             dbReview.Remove(_sqliteConnection);
@@ -125,6 +125,26 @@ namespace RestaurantReviews.Database.Sqlite
         #endregion
 
         #region Query functions
+
+        public IRestaurant GetRestaurant(Guid restaurantId)
+        {
+            var restaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
+
+            if (restaurant != null)
+                ConnectAddresses(_sqliteConnection, new[] { restaurant });
+
+            return restaurant;
+        }
+
+        public IRestaurantReview GetReview(Guid reviewId)
+        {
+            var review = FindEntityByUniqueId<SqliteRestaurantReview>(_sqliteConnection, SqliteRestaurantReview.TableName, nameof(SqliteRestaurantReview.UniqueId), reviewId);
+            
+            if (review != null)
+                ConnectUsers(_sqliteConnection, new[] { review });
+
+            return review;
+        }
 
         public IReadOnlyList<IRestaurant> FindRestaurants(string name = null, string city = null, string stateOrProvince = null, string postalCode = null)
         {
@@ -153,14 +173,9 @@ namespace RestaurantReviews.Database.Sqlite
             }
 
             var restaurants = _sqliteConnection.Query<SqliteRestaurant>(query);
-            //Link up the foreign key objects
-            //TODO: Already have the address information from the query. Would be more efficient to use that
-            foreach (var restaurant in restaurants)
-            {
-                string addressQuery = $"SELECT * FROM {SqliteAddress.TableName} WHERE {nameof(SqliteAddress.Id)} = {restaurant.AddressId} LIMIT 1";
 
-                restaurant.Address = _sqliteConnection.Query<SqliteAddress>(addressQuery).FirstOrDefault();
-            }
+            //Link up the foreign key objects
+            ConnectAddresses(_sqliteConnection, restaurants);
             
             return restaurants.ToList();
         }
@@ -173,19 +188,7 @@ namespace RestaurantReviews.Database.Sqlite
             var reviews = _sqliteConnection.Query<SqliteRestaurantReview>(query);
 
             //Link up the foreign key objects
-            //TODO: Move this somewhere common
-            var usersById = new Dictionary<int, SqliteUser>();
-            foreach (var review in reviews)
-            {
-                if (!usersById.TryGetValue(review.ReviewerId, out SqliteUser reviewer))
-                {
-                    string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
-                    reviewer = _sqliteConnection.Query<SqliteUser>(userQuery).FirstOrDefault();
-                    usersById[reviewer.Id] = reviewer;
-                }
-
-                review.Reviewer = reviewer;
-            }
+            ConnectUsers(_sqliteConnection, reviews);
 
             return reviews;
         }
@@ -199,18 +202,7 @@ namespace RestaurantReviews.Database.Sqlite
             var reviews = _sqliteConnection.Query<SqliteRestaurantReview>(query);
 
             //Link up the foreign key objects
-            var usersById = new Dictionary<int, SqliteUser>();
-            foreach (var review in reviews)
-            {
-                if (!usersById.TryGetValue(review.ReviewerId, out SqliteUser reviewer))
-                {
-                    string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
-                    reviewer = _sqliteConnection.Query<SqliteUser>(userQuery).FirstOrDefault();
-                    usersById[reviewer.Id] = reviewer;
-                }
-
-                review.Reviewer = reviewer;
-            }
+            ConnectUsers(_sqliteConnection, reviews);
 
             return reviews;
         }
@@ -243,20 +235,41 @@ namespace RestaurantReviews.Database.Sqlite
             return sqliteConnection.ExecuteScalar<int>($"SELECT Count(*) FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\" LIMIT 1") > 0;
         }
 
-        private static T FindEntityById<T>(SQLiteConnection sqliteConnection, string tableName, string idPropertyName, int id) where T : class
-        {
-            return sqliteConnection.Query<T>($"SELECT * FROM {tableName} WHERE {idPropertyName} = {id} LIMIT 1").FirstOrDefault();
-        }
-
         private static T FindEntityByUniqueId<T>(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id) where T : class
         {
             return sqliteConnection.Query<T>($"SELECT * FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\" LIMIT 1").FirstOrDefault();
         }
 
-        private static void DeleteEntityByUniqueId(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id)
+        private static void ConnectAddresses(SQLiteConnection sqliteConnection, IEnumerable<SqliteRestaurant> restaurants)
         {
-            //I would add LIMIT 1 to this but it's a compile-time option I don't have right now
-            sqliteConnection.ExecuteScalar<int>($"DELETE FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\"");
+            var addressesById = new Dictionary<int, SqliteAddress>();
+            foreach (SqliteRestaurant restaurant in restaurants)
+            {
+                if (!addressesById.TryGetValue(restaurant.AddressId, out SqliteAddress address))
+                {
+                    string addressQuery = $"SELECT * FROM {SqliteAddress.TableName} WHERE {nameof(SqliteAddress.Id)} = {restaurant.AddressId} LIMIT 1";
+                    address = sqliteConnection.Query<SqliteAddress>(addressQuery).FirstOrDefault();
+                    addressesById[restaurant.AddressId] = address;
+                }
+
+                restaurant.Address = address;
+            }
+        }
+
+        private static void ConnectUsers(SQLiteConnection sqliteConnection, IEnumerable<SqliteRestaurantReview> reviews)
+        {
+            var usersById = new Dictionary<int, SqliteUser>();
+            foreach (SqliteRestaurantReview review in reviews)
+            {
+                if (!usersById.TryGetValue(review.ReviewerId, out SqliteUser user))
+                {
+                    string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
+                    user = sqliteConnection.Query<SqliteUser>(userQuery).FirstOrDefault();
+                    usersById[review.ReviewerId] = user;
+                }
+
+                review.Reviewer = user;
+            }
         }
 
         #endregion
