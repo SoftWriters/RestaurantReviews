@@ -46,7 +46,8 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                 }
             }
         }
-
+        
+        [Test]
         public void FindRestaurantsByFullQueryTest()
         {
             using (var tempFile = new TempFileWrapper())
@@ -67,6 +68,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             }
         }
 
+        [Test]
         public void FindRestaurantsByCityTest()
         {
             using (var tempFile = new TempFileWrapper())

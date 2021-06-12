@@ -158,25 +158,31 @@ namespace RestaurantReviews.Database.Sqlite
                 $" ON {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.AddressId)} = {SqliteAddress.TableName}.{nameof(SqliteAddress.Id)}" +
                 $" WHERE 1 = 1"; //1=1 allows us to easily add the "AND" clauses dynamically
 
-            //TODO: Prevent sql injection and all that good stuff
+            //Since this is user input strings, use a command with parameter bindings to prevent against injection
+            var statement = _sqliteConnection.CreateCommand(query);
+            
             if (!string.IsNullOrEmpty(name))
             {
-                query += $" AND {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Name)} LIKE \"%{name}%\"";
+                statement.CommandText += $" AND {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Name)} LIKE @name";
+                statement.Bind("@name", $"%{name}%");
             }
             if (!string.IsNullOrEmpty(city))
             {
-                query += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.City)} LIKE \"%{city}%\"";
+                statement.CommandText += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.City)} LIKE @city";
+                statement.Bind("@city", $"%{city}%");
             }
             if (!string.IsNullOrEmpty(stateOrProvince))
             {
-                query += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.StateOrProvince)} LIKE \"%{stateOrProvince}%\"";
+                statement.CommandText += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.StateOrProvince)} LIKE @state";
+                statement.Bind("@state", $"%{stateOrProvince}%");
             }
             if (!string.IsNullOrEmpty(postalCode))
             {
-                query += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.PostalCode)} LIKE \"%{postalCode}%\"";
+                statement.CommandText += $" AND {SqliteAddress.TableName}.{nameof(SqliteAddress.PostalCode)} LIKE @postal";
+                statement.Bind("@postal", $"%{postalCode}%");
             }
 
-            var restaurants = _sqliteConnection.Query<SqliteRestaurant>(query);
+            var restaurants = statement.ExecuteQuery<SqliteRestaurant>();
 
             //Link up the foreign key objects
             ConnectAddresses(_sqliteConnection, restaurants);
