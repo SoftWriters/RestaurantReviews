@@ -8,50 +8,67 @@ namespace RestaurantReviews.Controller
 {
     public class RestaurantReviewsController : IRestaurantReviewController
     {
-        /* Using separate interfaces for reading and writing for a bit of self-sanity checking,
-         * and in theory each interface could have enforced permissions (e.g. query interface attempting a write operation would throw) */        private readonly IRestaurantReviewMutableDatabase _mutableDb;
-        private readonly IRestaurantReviewQueryDatabase _queryDb;
+        private IRestaurantReviewDatabase _db;
 
         public RestaurantReviewsController(string dbFilePath)
         {
-            var db = new SqliteRestaurantReviewDatabase(new SQLitePlatformWin32(), dbFilePath);
-            _mutableDb = db;
-            _queryDb = db;
+            _db = new SqliteRestaurantReviewDatabase(new SQLitePlatformWin32(), dbFilePath);
         }
 
         public void AddRestaurant(IRestaurant restaurant)
         {
-            _mutableDb.AddRestaurant(restaurant);
+            _db.AddRestaurant(restaurant);
         }
 
         public void DeleteRestaurant(Guid restaurantId)
         {
-            _mutableDb.DeleteRestaurant(restaurantId);
+            _db.DeleteRestaurant(restaurantId);
         }
 
         public void AddReview(IRestaurantReview review)
         {
-            _mutableDb.AddReview(review);
+            if (string.IsNullOrEmpty(review.ReviewText))
+                throw new InvalidEntryException($"{nameof(review.ReviewText)} cannot be empty");
+
+            if (review.FiveStarRating < 1 || review.FiveStarRating > 5)
+                throw new InvalidEntryException($"{nameof(review.FiveStarRating)} must be between 1 and 5 (inclusive)");
+
+            _db.AddReview(review);
         }
 
         public void DeleteReview(Guid reviewId)
         {
-            _mutableDb.DeleteReview(reviewId);
+            _db.DeleteReview(reviewId);
         }
 
         public IReadOnlyList<IRestaurant> FindRestaurants(RestaurantsQuery query)
         {
-            return _queryDb.FindRestaurants(query.Name, query.City, query.StateOrProvince, query.PostalCode);
+            return _db.FindRestaurants(query.Name, query.City, query.StateOrProvince, query.PostalCode);
         }
 
         public IReadOnlyList<IRestaurantReview> GetReviewsForRestaurant(Guid restaurantId)
         {
-            return _queryDb.GetReviewsForRestaurant(restaurantId);
+            return _db.GetReviewsForRestaurant(restaurantId);
         }
 
         public IReadOnlyList<IRestaurantReview> GetReviewsForUser(Guid reviewerId)
         {
-            return _queryDb.GetReviewsForReviewer(reviewerId);
+            return _db.GetReviewsForReviewer(reviewerId);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db?.Dispose();
+                _db = null;
+            }
         }
     }
 }

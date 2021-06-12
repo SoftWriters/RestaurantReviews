@@ -1,4 +1,4 @@
-﻿using SQLite.Net.Platform.Win32;
+﻿using RestaurantReviews.Controller;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
     /// <summary>
     /// Semi-fabricated sample data for unit tests. Some restaurants and reviews are based on real Google Reviews.  
     /// </summary>
-    internal static class TestDatabase
+    internal static class TestData
     {
         public static class Users
         {
@@ -195,29 +195,24 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             };
         }
             
-        public static SqliteRestaurantReviewDatabase CreateDatabase(string filePath)
+        public static IRestaurantReviewController InitializeController(string filePath)
         {
             if (File.Exists(filePath))
                 File.Delete(filePath); //Overwrite the old one
 
-            var database = new SqliteRestaurantReviewDatabase(new SQLitePlatformWin32(), filePath);
+            var controller = new RestaurantReviewsController(filePath);
         
-            foreach (var user in Users.AllUsers)
-            {
-                database.AddUser(user);
-            }
-
             foreach (var restaurant in Restaurants.AllRestaurants)
             {
-                database.AddRestaurant(restaurant);
+                controller.AddRestaurant(restaurant);
             }
 
             foreach (var review in Reviews.AllReviews)
             {
-                database.AddReview(review);
+                controller.AddReview(review);
             }
 
-            return database;
+            return controller;
         }
     }
 }

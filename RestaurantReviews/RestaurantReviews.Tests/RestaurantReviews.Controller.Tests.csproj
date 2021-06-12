@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.Controller\RestaurantReviews.Controller.csproj" />
     <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
-    <ProjectReference Include="..\RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

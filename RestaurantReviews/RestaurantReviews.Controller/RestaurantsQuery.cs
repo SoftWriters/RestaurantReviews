@@ -3,17 +3,13 @@
     /// <summary>
     /// Parameter object for searching for restaurants 
     /// </summary>
+    /// <remarks>Could add more to this, e.g. by street name, ratings</remarks>
     public class RestaurantsQuery
     {
         /// <summary>
         /// Restaurant name
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Restaurant street address
-        /// </summary>
-        public string StreetAddress { get; set; }
 
         /// <summary>
         /// Restaurant City

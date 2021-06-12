@@ -8,7 +8,7 @@ namespace RestaurantReviews.Controller
     /// Controller API for the restaurant reviews system. 
     /// Can be used by local apps, web api, UI, etc.
     /// </summary>
-    public interface IRestaurantReviewController
+    public interface IRestaurantReviewController : IDisposable
     {
         #region Mutable
 
@@ -20,15 +20,6 @@ namespace RestaurantReviews.Controller
         /// <exception cref="ArgumentNullException">Restaurant is null</exception>
         /// <exception cref="DuplicateEntityException">Restaurant with the same unique Id already exists</exception>
         void AddRestaurant(IRestaurant restaurant);
-
-        ///// <summary>
-        ///// Update an existing restaurant and address in the database.
-        ///// All the information is saved, so it must be complete to avoid losing data.
-        ///// </summary>
-        ///// <param name="restaurant">Restaurant to update</param>
-        ///// <exception cref="ArgumentNullException">Restaurant is null</exception>
-        ///// <exception cref="EntityNotFoundException">Restaurant does not exists</exception>
-        //void UpdateRestaurant(IRestaurant restaurant);
 
         /// <summary>
         /// Delete a restaurant from the database along with all associated reviews.

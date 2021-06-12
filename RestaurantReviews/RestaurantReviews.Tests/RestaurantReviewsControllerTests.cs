@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using RestaurantReviews.Controller;
 using RestaurantReviews.Core;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,13 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 
             using (var tempFile = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFile.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
                 {
                     //Verify the restaurants can be retrieved from the db
-                    foreach (FakeRestaurant restaurant in TestDatabase.Restaurants.AllRestaurants)
+                    foreach (FakeRestaurant restaurant in TestData.Restaurants.AllRestaurants)
                     {
-                        IReadOnlyList<IRestaurant> findRestaurantResults = db.FindRestaurants(restaurant.Name, restaurant.Address.City, restaurant.Address.StateOrProvince, restaurant.Address.PostalCode);
+                        var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
+                        IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
                         Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
 
                         IRestaurant foundRestaurant = findRestaurantResults[0];
@@ -35,9 +37,9 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                     }
 
                     //Verify the reviews can be retrieved from the db
-                    foreach (FakeRestaurantReview review in TestDatabase.Reviews.AllReviews)
+                    foreach (FakeRestaurantReview review in TestData.Reviews.AllReviews)
                     {
-                        IReadOnlyList<IRestaurantReview> findReviewResults = db.GetReviewsForRestaurant(review.RestaurantUniqueId);
+                        IReadOnlyList<IRestaurantReview> findReviewResults = controller.GetReviewsForRestaurant(review.RestaurantUniqueId);
 
                         IRestaurantReview foundReview = findReviewResults.FirstOrDefault(r => r.UniqueId == review.UniqueId);
                         Assert.IsNotNull(foundReview, "Review not found for restaurant and review id");
@@ -53,17 +55,17 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //Get the expected results by user
-                    IEnumerable<IGrouping<Guid, FakeRestaurantReview>> reviewsByReviewerId = TestDatabase.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
+                    IEnumerable<IGrouping<Guid, FakeRestaurantReview>> reviewsByReviewerId = TestData.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
 
                     //Test each one
                     foreach (IGrouping<Guid, FakeRestaurantReview> grouping in reviewsByReviewerId)
                     {
                         List<FakeRestaurantReview> expectedReviews = grouping.ToList();
 
-                        IReadOnlyList<IRestaurantReview> foundReviews = db.GetReviewsForReviewer(grouping.Key);
+                        IReadOnlyList<IRestaurantReview> foundReviews = controller.GetReviewsForUser(grouping.Key);
 
                         Assert.AreEqual(expectedReviews.Count, foundReviews.Count, "Incorrect reviews for user");
 
@@ -84,13 +86,14 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurant testRestaurant = TestDatabase.Restaurants.MadNoodles;
-                    Assert.Throws<DuplicateEntityException>(() => db.AddRestaurant(testRestaurant), "Adding duplicate restaurant did not throw an exception");
+                    FakeRestaurant testRestaurant = TestData.Restaurants.MadNoodles;
+                    Assert.Throws<DuplicateEntityException>(() => controller.AddRestaurant(testRestaurant), "Adding duplicate restaurant did not throw an exception");
 
                     //Verify the duplicate wasn't added
-                    IReadOnlyList<IRestaurant> findRestaurantResults = db.FindRestaurants(testRestaurant.Name, testRestaurant.Address.City, testRestaurant.Address.StateOrProvince, testRestaurant.Address.PostalCode);
+                    var restaurantQuery = new RestaurantsQuery() { Name = testRestaurant.Name, City = testRestaurant.Address.City, StateOrProvince = testRestaurant.Address.StateOrProvince, PostalCode = testRestaurant.Address.PostalCode };
+                    IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
                     Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
                 }
             }
@@ -101,9 +104,9 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                   //TODO
+                    //TODO
                 }
             }
         }
@@ -113,7 +116,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //TODO
                 }
@@ -125,7 +128,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //TODO
                 }
@@ -137,7 +140,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //TODO
                 }
@@ -149,10 +152,10 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurant testRestaurant = TestDatabase.Restaurants.MadNoodles;
-                    db.DeleteRestaurant(testRestaurant.UniqueId);
+                    FakeRestaurant testRestaurant = TestData.Restaurants.MadNoodles;
+                    controller.DeleteRestaurant(testRestaurant.UniqueId);
                     //TODO
                 }
             }
@@ -163,9 +166,9 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                   // FakeRestaurant testRestaurant;
+                    // FakeRestaurant testRestaurant;
                     //db.DeleteRestaurant()
                     //TODO
                 }
@@ -177,7 +180,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
-                using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
+                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //TODO
                 }

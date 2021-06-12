@@ -12,7 +12,7 @@ namespace RestaurantReviews.Database.Sqlite
     /// <summary>
     /// Controller for the restaurant review database
     /// </summary>
-    public class SqliteRestaurantReviewDatabase : IRestaurantReviewMutableDatabase, IRestaurantReviewQueryDatabase, IDisposable
+    public class SqliteRestaurantReviewDatabase : IRestaurantReviewDatabase
     {
         private SQLiteConnection _sqliteConnection;
 
@@ -21,7 +21,7 @@ namespace RestaurantReviews.Database.Sqlite
             _sqliteConnection = InitializeConnection(sqlitePlatform, filePath);
         }
 
-        #region IRestaurantReviewMutableDatabase implementation
+        #region Mutable functions
 
         public void AddRestaurant(IRestaurant restaurant)
         {
@@ -48,42 +48,6 @@ namespace RestaurantReviews.Database.Sqlite
             dbRestaurant.Save(_sqliteConnection);
         }
 
-        //public void UpdateRestaurant(IRestaurant restaurant)
-        //{
-        //    if (restaurant == null)
-        //        throw new ArgumentNullException(nameof(restaurant));
-
-        //    //Find the existing restaurant
-        //    if (!(restaurant is SqliteRestaurant dbRestaurant) || dbRestaurant.Id == 0)
-        //    {
-        //        dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId);
-        //        if (dbRestaurant == null)
-        //            throw new EntityNotFoundException(nameof(IRestaurant), restaurant.UniqueId);
-        //    }
-
-        //    //Find the existing address or add a new one
-        //    if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
-        //    {
-        //        dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
-        //        if (dbAddress == null)
-        //        {
-        //            //Add the new address
-        //            dbAddress = new SqliteAddress(restaurant.Address);
-        //        }
-        //        else
-        //        {
-        //            //Update the existing address
-        //            dbAddress.UpdateProperties(restaurant.Address);
-        //        }
-
-        //        dbAddress.Save(_sqliteConnection);
-        //    }
-
-        //    //Update and save
-        //    dbRestaurant.UpdateProperties(restaurant, dbAddress);
-        //    dbRestaurant.Save(_sqliteConnection);
-        //}
-
         public void DeleteRestaurant(Guid restaurantId)
         {
             //First delete all associated reviews
@@ -92,10 +56,23 @@ namespace RestaurantReviews.Database.Sqlite
             
             _sqliteConnection.Execute(deleteReviewsQuery);
 
-            //Count how many restaurants are sharing the same address
-           // string addressUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.AddressId)}"
-            //TODO: Get the address, and delete it if there are no other restaurants referencing it
-            DeleteEntityByUniqueId(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
+            //Get the restaurant This will be more convenient to work with.
+            SqliteRestaurant dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
+            
+            //Delete it
+            dbRestaurant.Remove(_sqliteConnection);
+
+            //Now check if the address should also be deleted (no more restaurants are referencing it)
+            string addressUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurant.TableName}" +
+                $" WHERE {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.AddressId)} = {dbRestaurant.AddressId}";
+
+            int numRestaurantsUsingAddress = _sqliteConnection.ExecuteScalar<int>(addressUseCountQuery);
+            if (numRestaurantsUsingAddress == 0)
+            {
+                string deleteAddressQuery = $"DELETE FROM {SqliteAddress.TableName}" +
+                    $" WHERE {nameof(SqliteAddress.Id)} = \"{dbRestaurant.AddressId}\"";
+                _sqliteConnection.Execute(deleteAddressQuery);
+            }
         }
 
         public void AddReview(IRestaurantReview review)
@@ -123,34 +100,30 @@ namespace RestaurantReviews.Database.Sqlite
             dbReview.Save(_sqliteConnection);
         }
 
-        public bool DeleteReview(Guid reviewId)
+        public void DeleteReview(Guid reviewId)
         {
-            //TODO: Maybe just delete it in SQL instead?
+            //Get the review. This will be more convenient to work with.
             SqliteRestaurantReview dbReview = FindEntityByUniqueId<SqliteRestaurantReview>(_sqliteConnection, SqliteRestaurantReview.TableName, nameof(SqliteRestaurantReview.UniqueId), reviewId);
-            return dbReview?.Remove(_sqliteConnection) ?? false;
-        }
 
-        public void AddUser(IUser user)
-        {
-            if ((user is SqliteUser dbUser) && dbUser.Id != 0)
+            //Delete it
+            dbReview.Remove(_sqliteConnection);
+
+            //Now check if the reviewer should also be deleted (no more reviews are referencing it)
+            string reviewerUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurantReview.TableName}" +
+                $" WHERE {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)} = {dbReview.ReviewerId}";
+
+            int numReviewsUsingReviewer = _sqliteConnection.ExecuteScalar<int>(reviewerUseCountQuery);
+            if (numReviewsUsingReviewer == 0)
             {
-                throw new ArgumentException("User already exists", nameof(user));
+                string deleteUserQuery = $"DELETE FROM {SqliteUser.TableName}" +
+                    $" WHERE {nameof(SqliteUser.Id)} = \"{dbReview.ReviewerId}\"";
+                _sqliteConnection.Execute(deleteUserQuery);
             }
-            //TODO: Check if the unique Id already exists. Add Unique constraints on UniqueId fields
-            dbUser = new SqliteUser(user);
-            dbUser.Save(_sqliteConnection);
-        }
-
-        public bool DeleteUser(Guid userId)
-        {
-            //TODO: Maybe just delete it in SQL instead?
-            SqliteUser dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), userId);
-            return dbUser?.Remove(_sqliteConnection) ?? false;
         }
 
         #endregion
 
-        #region IRestaurantReviewQueryDatabase Implementation
+        #region Query functions
 
         public IReadOnlyList<IRestaurant> FindRestaurants(string name = null, string city = null, string stateOrProvince = null, string postalCode = null)
         {
