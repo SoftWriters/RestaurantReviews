@@ -28,3 +28,10 @@ Addresses could be shared by restaurants, e.g. over time as a restaurant goes ou
 So restaurants to addresses is 1-N:1 instead of 1:1.
 
 Red/Green/Refactor. Get the test to pass first, then rewrite it and use the test to check
+
+Rethinking interfaces from the API layer...e.g. shouldn't have to specify the entire restaurant to add a review
+Create controller layer that wraps db. Shift some businessy logic from the DB to there, though it may not be the most efficient
+
+Flip flopped a bit on whether the API should reference everything by foreign key or the whole object. 
+Foreign keys would require multiple API calls (e.g. add address, then restaurant; add user, then review). 
+Decided to use the whole object in cases where we don't really want the objects to be managed separately in this context.

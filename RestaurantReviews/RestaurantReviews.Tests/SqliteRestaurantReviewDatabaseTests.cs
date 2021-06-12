@@ -37,7 +37,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                     //Verify the reviews can be retrieved from the db
                     foreach (FakeRestaurantReview review in TestDatabase.Reviews.AllReviews)
                     {
-                        IReadOnlyList<IRestaurantReview> findReviewResults = db.FindReviews(review.Restaurant);
+                        IReadOnlyList<IRestaurantReview> findReviewResults = db.GetReviewsForRestaurant(review.RestaurantUniqueId);
 
                         IRestaurantReview foundReview = findReviewResults.FirstOrDefault(r => r.UniqueId == review.UniqueId);
                         Assert.IsNotNull(foundReview, "Review not found for restaurant and review id");
@@ -56,14 +56,14 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                 using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
                 {
                     //Get the expected results by user
-                    IEnumerable<IGrouping<IUser, FakeRestaurantReview>> reviewsByReviewer = TestDatabase.Reviews.AllReviews.GroupBy(r => r.Reviewer);
+                    IEnumerable<IGrouping<Guid, FakeRestaurantReview>> reviewsByReviewerId = TestDatabase.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
 
                     //Test each one
-                    foreach (IGrouping<IUser, FakeRestaurantReview> grouping in reviewsByReviewer)
+                    foreach (IGrouping<Guid, FakeRestaurantReview> grouping in reviewsByReviewerId)
                     {
                         List<FakeRestaurantReview> expectedReviews = grouping.ToList();
 
-                        IReadOnlyList<IRestaurantReview> foundReviews = db.FindReviewsByReviewer(grouping.Key);
+                        IReadOnlyList<IRestaurantReview> foundReviews = db.GetReviewsForReviewer(grouping.Key);
 
                         Assert.AreEqual(expectedReviews.Count, foundReviews.Count, "Incorrect reviews for user");
 
@@ -165,7 +165,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (SqliteRestaurantReviewDatabase db = TestDatabase.CreateDatabase(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurant testRestaurant;
+                   // FakeRestaurant testRestaurant;
                     //db.DeleteRestaurant()
                     //TODO
                 }
@@ -206,12 +206,11 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 
         private static void VerifyReview(IRestaurantReview expected, IRestaurantReview actual)
         {
-            Assert.AreEqual(expected.Restaurant.UniqueId, actual.Restaurant.UniqueId, "Incorrect review restaurant");
+            Assert.AreEqual(expected.RestaurantUniqueId, actual.RestaurantUniqueId, "Incorrect review restaurant");
             Assert.AreEqual(expected.ReviewText, actual.ReviewText, "Incorrect review text");
             Assert.AreEqual(expected.FiveStarRating, actual.FiveStarRating, "Incorrect review star rating");
-            Assert.AreEqual(expected.Date, actual.Date, "Incorrect review date");
+            Assert.AreEqual(expected.Timestamp, actual.Timestamp, "Incorrect review date");
 
-            VerifyRestaurant(expected.Restaurant, actual.Restaurant);
             VerifyReviewer(expected.Reviewer, actual.Reviewer);
         }
 

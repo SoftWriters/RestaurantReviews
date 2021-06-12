@@ -18,16 +18,15 @@ namespace RestaurantReviews.Database.Sqlite.Entities
 
         }
 
-        public SqliteRestaurantReview(IRestaurantReview review, SqliteRestaurant restaurant, SqliteUser reviewer)
+        public SqliteRestaurantReview(IRestaurantReview review, SqliteUser reviewer)
         {
             UniqueId = review.UniqueId;
-            Restaurant = restaurant;
-            RestaurantId = restaurant?.Id ?? 0;
+            RestaurantUniqueId = review.RestaurantUniqueId;
             Reviewer = reviewer;
             ReviewerId = reviewer?.Id ?? 0;
             FiveStarRating = review.FiveStarRating;
             ReviewText = review.ReviewText;
-            Date = review.Date;
+            Timestamp = review.Timestamp;
         }
 
         /// <summary>
@@ -38,11 +37,11 @@ namespace RestaurantReviews.Database.Sqlite.Entities
         public static string FullyQualifiedTableProperties =
             $"{TableName}.{nameof(Id)}," +
             $" {TableName}.{nameof(UniqueId)}," +
-            $" {TableName}.{nameof(Date)}," +
-            $" {TableName}.{nameof(FiveStarRating)}," +
-            $" {TableName}.{nameof(RestaurantId)}," +
+            $" {TableName}.{nameof(RestaurantUniqueId)}," +
             $" {TableName}.{nameof(ReviewerId)}," +
-            $" {TableName}.{nameof(ReviewText)}";
+            $" {TableName}.{nameof(FiveStarRating)}," +
+            $" {TableName}.{nameof(ReviewText)}," +
+            $" {TableName}.{nameof(Timestamp)}";
 
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
@@ -50,11 +49,8 @@ namespace RestaurantReviews.Database.Sqlite.Entities
         [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
 
-        [Indexed, ForeignKey(typeof(SqliteRestaurant))]
-        public int RestaurantId { get; set; }
-
-        [Ignore]
-        public IRestaurant Restaurant { get; internal set; } //Set by the parent DB controller
+        [Indexed]
+        public Guid RestaurantUniqueId { get; set; }
 
         [Indexed, ForeignKey(typeof(SqliteRestaurantReview))]
         public int ReviewerId { get; set; }
@@ -66,11 +62,11 @@ namespace RestaurantReviews.Database.Sqlite.Entities
         /// This should probably have a CHECK constraint for 1 <= FiveStarRating <= 5,
         /// but Sqlite.NET doesn't have an attribute for it. Should be checked by the parent db.
         /// </remarks>
-        public int FiveStarRating { get; set; } //TODO: Add Check 1 <= Rating <= 5
+        public int FiveStarRating { get; set; } 
 
         [NotNull]
         public string ReviewText { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

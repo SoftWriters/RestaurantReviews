@@ -12,7 +12,7 @@ namespace RestaurantReviews.Database.Sqlite
     /// <summary>
     /// Controller for the restaurant review database
     /// </summary>
-    public class SqliteRestaurantReviewDatabase : IRestaurantReviewDatabase, IDisposable
+    public class SqliteRestaurantReviewDatabase : IRestaurantReviewMutableDatabase, IRestaurantReviewQueryDatabase, IDisposable
     {
         private SQLiteConnection _sqliteConnection;
 
@@ -20,6 +20,8 @@ namespace RestaurantReviews.Database.Sqlite
         {
             _sqliteConnection = InitializeConnection(sqlitePlatform, filePath);
         }
+
+        #region IRestaurantReviewMutableDatabase implementation
 
         public void AddRestaurant(IRestaurant restaurant)
         {
@@ -46,81 +48,78 @@ namespace RestaurantReviews.Database.Sqlite
             dbRestaurant.Save(_sqliteConnection);
         }
 
-        public void UpdateRestaurant(IRestaurant restaurant)
-        {
-            if (restaurant == null)
-                throw new ArgumentNullException(nameof(restaurant));
+        //public void UpdateRestaurant(IRestaurant restaurant)
+        //{
+        //    if (restaurant == null)
+        //        throw new ArgumentNullException(nameof(restaurant));
 
-            //Find the existing restaurant
-            if (!(restaurant is SqliteRestaurant dbRestaurant) || dbRestaurant.Id == 0)
-            {
-                dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId);
-                if (dbRestaurant == null)
-                    throw new EntityNotFoundException(nameof(IRestaurant), restaurant.UniqueId);
-            }
+        //    //Find the existing restaurant
+        //    if (!(restaurant is SqliteRestaurant dbRestaurant) || dbRestaurant.Id == 0)
+        //    {
+        //        dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId);
+        //        if (dbRestaurant == null)
+        //            throw new EntityNotFoundException(nameof(IRestaurant), restaurant.UniqueId);
+        //    }
 
-            //Find the existing address or add a new one
-            if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
-            {
-                dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
-                if (dbAddress == null)
-                {
-                    //Add the new address
-                    dbAddress = new SqliteAddress(restaurant.Address);
-                }
-                else
-                {
-                    //Update the existing address
-                    dbAddress.UpdateProperties(restaurant.Address);
-                }
+        //    //Find the existing address or add a new one
+        //    if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
+        //    {
+        //        dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
+        //        if (dbAddress == null)
+        //        {
+        //            //Add the new address
+        //            dbAddress = new SqliteAddress(restaurant.Address);
+        //        }
+        //        else
+        //        {
+        //            //Update the existing address
+        //            dbAddress.UpdateProperties(restaurant.Address);
+        //        }
 
-                dbAddress.Save(_sqliteConnection);
-            }
+        //        dbAddress.Save(_sqliteConnection);
+        //    }
 
-            //Update and save
-            dbRestaurant.UpdateProperties(restaurant, dbAddress);
-            dbRestaurant.Save(_sqliteConnection);
-        }
+        //    //Update and save
+        //    dbRestaurant.UpdateProperties(restaurant, dbAddress);
+        //    dbRestaurant.Save(_sqliteConnection);
+        //}
 
         public void DeleteRestaurant(Guid restaurantId)
         {
             //First delete all associated reviews
             string deleteReviewsQuery = $"DELETE FROM {SqliteRestaurantReview.TableName}" +
-                $" WHERE {nameof(SqliteRestaurantReview.RestaurantId)} IN" +
-                $" (SELECT {nameof(SqliteRestaurant.Id)} FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.UniqueId)} = \"{restaurantId}\")";
+                $" WHERE {nameof(SqliteRestaurantReview.RestaurantUniqueId)} = \"{restaurantId}\"";
             
             _sqliteConnection.Execute(deleteReviewsQuery);
 
             //Count how many restaurants are sharing the same address
-            string addressUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.AddressId)}"
+           // string addressUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.AddressId)}"
             //TODO: Get the address, and delete it if there are no other restaurants referencing it
             DeleteEntityByUniqueId(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
         }
 
         public void AddReview(IRestaurantReview review)
         {
-            //TODO: Maybe just find the Ids we care about?
-            if (review.Restaurant == null || review.Reviewer == null)
-                return; //TODO: Throw?
+            if (review == null)
+                throw new ArgumentNullException(nameof(review));
 
-            //Find the user and restaurant in the db.
-            //TODO: Add them if they don't already exist?
-            if (!(review.Reviewer is SqliteUser dbUser))
+            //Check if it already exists
+            if (EntityExists(_sqliteConnection, SqliteRestaurantReview.TableName, nameof(SqliteRestaurantReview.UniqueId), review.UniqueId))
+                throw new DuplicateEntityException(nameof(IRestaurantReview), review.UniqueId);
+
+            //Make sure the restaurant exists
+            if (!EntityExists(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), review.RestaurantUniqueId))
+                throw new EntityNotFoundException(nameof(IRestaurant), review.RestaurantUniqueId);
+
+            //If the user doesn't already exist, add it 
+            SqliteUser dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), review.Reviewer.UniqueId);
+            if (dbUser == null)
             {
-                dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), review.Reviewer.UniqueId);
-                if (dbUser == null)
-                    return; //TODO: Throw?
-            }
+                dbUser = new SqliteUser(review.Reviewer);
+                dbUser.Save(_sqliteConnection);
+            } //Otherwise, the user is ignored 
 
-            //Make sure the user and restaurant are saved
-            if (!(review.Restaurant is SqliteRestaurant dbRestaurant))
-            {
-                dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), review.Restaurant.UniqueId);
-                if (dbRestaurant == null)
-                    return; //TODO: Throw?
-            }
-
-            var dbReview = new SqliteRestaurantReview(review, dbRestaurant, dbUser);
+            var dbReview = new SqliteRestaurantReview(review, dbUser);
             dbReview.Save(_sqliteConnection);
         }
 
@@ -148,6 +147,10 @@ namespace RestaurantReviews.Database.Sqlite
             SqliteUser dbUser = FindEntityByUniqueId<SqliteUser>(_sqliteConnection, SqliteUser.TableName, nameof(SqliteUser.UniqueId), userId);
             return dbUser?.Remove(_sqliteConnection) ?? false;
         }
+
+        #endregion
+
+        #region IRestaurantReviewQueryDatabase Implementation
 
         public IReadOnlyList<IRestaurant> FindRestaurants(string name = null, string city = null, string stateOrProvince = null, string postalCode = null)
         {
@@ -188,24 +191,18 @@ namespace RestaurantReviews.Database.Sqlite
             return restaurants.ToList();
         }
 
-        public IReadOnlyList<IRestaurantReview> FindReviews(IRestaurant restaurant)
+        public IReadOnlyList<IRestaurantReview> GetReviewsForRestaurant(Guid restaurantId)
         {
-            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties}" +
-                $" FROM {SqliteRestaurantReview.TableName} INNER JOIN {SqliteRestaurant.TableName}" +
-                $" ON {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantId)} = {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.Id)}" +
-                $" WHERE {SqliteRestaurant.TableName}.{nameof(SqliteRestaurant.UniqueId)} = \"{restaurant.UniqueId}\"";
+            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties} FROM {SqliteRestaurantReview.TableName} " +
+                $"WHERE {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.RestaurantUniqueId)} = \"{restaurantId}\"";
 
             var reviews = _sqliteConnection.Query<SqliteRestaurantReview>(query);
 
             //Link up the foreign key objects
-            //We can be lazy here since we know the reviews are all for the same restaurant
-            //TODO: Does this create problems if we're not reading the restaurant from the db?
-
+            //TODO: Move this somewhere common
             var usersById = new Dictionary<int, SqliteUser>();
             foreach (var review in reviews)
             {
-                review.Restaurant = restaurant;
-
                 if (!usersById.TryGetValue(review.ReviewerId, out SqliteUser reviewer))
                 {
                     string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
@@ -219,37 +216,34 @@ namespace RestaurantReviews.Database.Sqlite
             return reviews;
         }
 
-        public IReadOnlyList<IRestaurantReview> FindReviewsByReviewer(IUser reviewer)
+        public IReadOnlyList<IRestaurantReview> GetReviewsForReviewer(Guid reviewerId)
         {
-            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties}" +
-                $" FROM {SqliteRestaurantReview.TableName} INNER JOIN {SqliteUser.TableName}" +
-                $" ON {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)} = {SqliteUser.TableName}.{nameof(SqliteUser.Id)}" +
-                $" WHERE {SqliteUser.TableName}.{nameof(SqliteUser.UniqueId)} = \"{reviewer.UniqueId}\"";
+            string query = $"SELECT {SqliteRestaurantReview.FullyQualifiedTableProperties} FROM {SqliteRestaurantReview.TableName}" +
+                $" INNER JOIN {SqliteUser.TableName} ON {SqliteUser.TableName}.{nameof(SqliteUser.Id)} = {SqliteRestaurantReview.TableName}.{nameof(SqliteRestaurantReview.ReviewerId)}" +
+                $" WHERE {SqliteUser.TableName}.{nameof(SqliteUser.UniqueId)} = \"{reviewerId}\"";
 
             var reviews = _sqliteConnection.Query<SqliteRestaurantReview>(query);
 
-            var restaurantsById = new Dictionary<int, SqliteRestaurant>();
+            //Link up the foreign key objects
+            var usersById = new Dictionary<int, SqliteUser>();
             foreach (var review in reviews)
             {
-                review.Reviewer = reviewer;
-
-                if (!restaurantsById.TryGetValue(review.RestaurantId, out SqliteRestaurant restaurant))
+                if (!usersById.TryGetValue(review.ReviewerId, out SqliteUser reviewer))
                 {
-                    string restaurantQuery = $"SELECT * FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.Id)} = {review.RestaurantId} LIMIT 1";
-                    restaurant = _sqliteConnection.Query<SqliteRestaurant>(restaurantQuery).FirstOrDefault();
-
-                    string addressQuery = $"SELECT * FROM {SqliteAddress.TableName} WHERE {nameof(SqliteAddress.Id)} = {restaurant.AddressId} LIMIT 1";
-
-                    restaurant.Address = _sqliteConnection.Query<SqliteAddress>(addressQuery).FirstOrDefault();
-
-                    restaurantsById[restaurant.Id] = restaurant;
+                    string userQuery = $"SELECT * FROM {SqliteUser.TableName} WHERE {nameof(SqliteUser.Id)} = {review.ReviewerId} LIMIT 1";
+                    reviewer = _sqliteConnection.Query<SqliteUser>(userQuery).FirstOrDefault();
+                    usersById[reviewer.Id] = reviewer;
                 }
 
-                review.Restaurant = restaurant;
+                review.Reviewer = reviewer;
             }
 
             return reviews;
         }
+
+        #endregion
+
+        #region IDisposable implementation
 
         public void Dispose()
         {
@@ -265,6 +259,8 @@ namespace RestaurantReviews.Database.Sqlite
                 _sqliteConnection = null;
             }
         }
+
+        #endregion
 
         #region Common Queries
 

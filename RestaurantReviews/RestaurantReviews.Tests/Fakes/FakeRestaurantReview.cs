@@ -8,9 +8,9 @@ namespace RestaurantReviews.Database.Sqlite.Tests
     /// </summary>
     internal class FakeRestaurantReview : IRestaurantReview
     {
-        public IRestaurant Restaurant { get; set; }
-
         public Guid UniqueId { get; set; }
+
+        public Guid RestaurantUniqueId { get; set; }
 
         public IUser Reviewer { get; set; }
 
@@ -18,6 +18,6 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 
         public string ReviewText { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }
