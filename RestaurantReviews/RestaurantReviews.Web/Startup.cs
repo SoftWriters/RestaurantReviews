@@ -15,9 +15,13 @@ namespace RestaurantReviews.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +30,11 @@ namespace RestaurantReviews.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddOptions();
+
+            // Add our Config object so it can be injected
+            services.Configure<RestaurantReviewConfig>(Configuration.GetSection("RestaurantReviewConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

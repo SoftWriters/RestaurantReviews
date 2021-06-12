@@ -1,26 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Database\SampleReviews.db3" />
+    <None Remove="TestFiles\TestDb.db3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Database\SampleReviews.db3">
+    <Content Include="TestFiles\TestDb.db3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.107" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RestaurantReviews.Controller\RestaurantReviews.Controller.csproj" />
     <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
