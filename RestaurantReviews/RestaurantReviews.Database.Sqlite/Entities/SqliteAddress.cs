@@ -2,13 +2,13 @@
 using SQLite.Net.Attributes;
 using System;
 
-namespace RestaurantReviews.Database.Sqlite
+namespace RestaurantReviews.Database.Sqlite.Entities
 {
     /// <summary>
     /// Sqlite db representation of IAddress
     /// </summary>
     [Table(TableName)]
-    public class SqliteAddress : PersistableBase, IAddress
+    internal class SqliteAddress : PersistableBase, IAddress
     {
         public SqliteAddress() //Sqlite constructor
         {

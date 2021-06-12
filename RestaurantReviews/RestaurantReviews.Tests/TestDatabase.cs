@@ -5,6 +5,9 @@ using System.IO;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
+    /// <summary>
+    /// Semi-fabricated sample data for unit tests. Some restaurants and reviews are based on real Google Reviews.  
+    /// </summary>
     internal static class TestDatabase
     {
         public static class Users

@@ -1,4 +1,5 @@
 ﻿using RestaurantReviews.Core;
+using RestaurantReviews.Database.Sqlite.Entities;
 using SQLite.Net;
 using SQLite.Net.Interop;
 using System;
@@ -8,6 +9,9 @@ using System.Linq;
 
 namespace RestaurantReviews.Database.Sqlite
 {
+    /// <summary>
+    /// Controller for the restaurant review database
+    /// </summary>
     public class SqliteRestaurantReviewDatabase : IRestaurantReviewDatabase, IDisposable
     {
         private SQLiteConnection _sqliteConnection;
@@ -19,59 +23,78 @@ namespace RestaurantReviews.Database.Sqlite
 
         public void AddRestaurant(IRestaurant restaurant)
         {
-            if ((restaurant is SqliteRestaurant dbRestaurant) && dbRestaurant.Id != 0)
+            if (restaurant == null)
+                throw new ArgumentNullException(nameof(restaurant));
+
+            //Check if it already exists
+            if ((restaurant is SqliteRestaurant dbRestaurant && dbRestaurant.Id != 0) ||
+                EntityExists(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId))
             {
-                //TODO: Maybe search UniqueId too?
-                throw new ArgumentException("Restaurant already exists", nameof(restaurant));
+                throw new DuplicateEntityException(nameof(IRestaurant), restaurant.UniqueId);
             }
 
-            if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
+            //If the address doesn't already exist, add it 
+            SqliteAddress dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
+            if (dbAddress == null)
             {
-                dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
-                if (dbAddress == null)
-                {
-                    //Add the address
-                    dbAddress = new SqliteAddress(restaurant.Address);
-                    dbAddress.Save(_sqliteConnection);
-                }
-                //TODO: Else update it? maybe separate api for that
-            }
+                dbAddress = new SqliteAddress(restaurant.Address);
+                dbAddress.Save(_sqliteConnection);
+            } //Otherwise, the address is ignored (e.g. another restaurant was there previously, or multiple restaurants are in the same building)
 
+            //Create and save
             dbRestaurant = new SqliteRestaurant(restaurant, dbAddress);
             dbRestaurant.Save(_sqliteConnection);
         }
 
-        public bool UpdateRestaurant(IRestaurant restaurant)
+        public void UpdateRestaurant(IRestaurant restaurant)
         {
-            //TODO: Maybe just update it in SQL instead?
+            if (restaurant == null)
+                throw new ArgumentNullException(nameof(restaurant));
+
+            //Find the existing restaurant
             if (!(restaurant is SqliteRestaurant dbRestaurant) || dbRestaurant.Id == 0)
             {
                 dbRestaurant = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurant.UniqueId);
                 if (dbRestaurant == null)
-                    return false;
+                    throw new EntityNotFoundException(nameof(IRestaurant), restaurant.UniqueId);
             }
 
+            //Find the existing address or add a new one
             if (!(restaurant.Address is SqliteAddress dbAddress) || dbAddress.Id == 0)
             {
                 dbAddress = FindEntityByUniqueId<SqliteAddress>(_sqliteConnection, SqliteAddress.TableName, nameof(SqliteAddress.UniqueId), restaurant.Address.UniqueId);
                 if (dbAddress == null)
                 {
-                    //Add the address
+                    //Add the new address
                     dbAddress = new SqliteAddress(restaurant.Address);
-                    dbAddress.Save(_sqliteConnection);
                 }
-                //TODO: Else update it? maybe separate api for that
+                else
+                {
+                    //Update the existing address
+                    dbAddress.UpdateProperties(restaurant.Address);
+                }
+
+                dbAddress.Save(_sqliteConnection);
             }
 
+            //Update and save
             dbRestaurant.UpdateProperties(restaurant, dbAddress);
-            return dbRestaurant.Save(_sqliteConnection);
+            dbRestaurant.Save(_sqliteConnection);
         }
 
-        public bool DeleteRestaurant(Guid restaurantId)
+        public void DeleteRestaurant(Guid restaurantId)
         {
-            //TODO: Maybe just delete it in SQL instead?
-            SqliteRestaurant dbRestaurant  = FindEntityByUniqueId<SqliteRestaurant>(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
-            return dbRestaurant?.Remove(_sqliteConnection) ?? false;
+            //First delete all associated reviews
+            string deleteReviewsQuery = $"DELETE FROM {SqliteRestaurantReview.TableName}" +
+                $" WHERE {nameof(SqliteRestaurantReview.RestaurantId)} IN" +
+                $" (SELECT {nameof(SqliteRestaurant.Id)} FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.UniqueId)} = \"{restaurantId}\")";
+            
+            _sqliteConnection.Execute(deleteReviewsQuery);
+
+            //Count how many restaurants are sharing the same address
+            string addressUseCountQuery = $"SELECT COUNT(*) FROM {SqliteRestaurant.TableName} WHERE {nameof(SqliteRestaurant.AddressId)}"
+            //TODO: Get the address, and delete it if there are no other restaurants referencing it
+            DeleteEntityByUniqueId(_sqliteConnection, SqliteRestaurant.TableName, nameof(SqliteRestaurant.UniqueId), restaurantId);
         }
 
         public void AddReview(IRestaurantReview review)
@@ -243,11 +266,30 @@ namespace RestaurantReviews.Database.Sqlite
             }
         }
 
+        #region Common Queries
+
+        private static bool EntityExists(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id)
+        {
+            return sqliteConnection.ExecuteScalar<int>($"SELECT Count(*) FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\" LIMIT 1") > 0;
+        }
+
+        private static T FindEntityById<T>(SQLiteConnection sqliteConnection, string tableName, string idPropertyName, int id) where T : class
+        {
+            return sqliteConnection.Query<T>($"SELECT * FROM {tableName} WHERE {idPropertyName} = {id} LIMIT 1").FirstOrDefault();
+        }
+
         private static T FindEntityByUniqueId<T>(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id) where T : class
         {
             return sqliteConnection.Query<T>($"SELECT * FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\" LIMIT 1").FirstOrDefault();
-
         }
+
+        private static void DeleteEntityByUniqueId(SQLiteConnection sqliteConnection, string tableName, string uniqueIdPropertyName, Guid id)
+        {
+            //I would add LIMIT 1 to this but it's a compile-time option I don't have right now
+            sqliteConnection.ExecuteScalar<int>($"DELETE FROM {tableName} WHERE {uniqueIdPropertyName} = \"{id}\"");
+        }
+
+        #endregion
 
         private static SQLiteConnection InitializeConnection(ISQLitePlatform sqlitePlatform, string filePath)
         {

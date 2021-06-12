@@ -1,8 +1,8 @@
 ﻿using SQLite.Net;
 
-namespace RestaurantReviews.Database.Sqlite
+namespace RestaurantReviews.Database.Sqlite.Entities
 {
-    public abstract class PersistableBase
+    internal abstract class PersistableBase
     {
         //SQLite creates columns for derived class properties before the base. This is abstract so that derived classes can declare it as the first property. 
         public abstract int Id { get; set; }

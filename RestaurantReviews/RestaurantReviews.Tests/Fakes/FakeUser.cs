@@ -1,10 +1,11 @@
 ﻿using RestaurantReviews.Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
+    /// <summary>
+    /// Basic In-memory implementation of IUser for tests
+    /// </summary>
     internal class FakeUser : IUser
     {
         public Guid UniqueId { get; set; }

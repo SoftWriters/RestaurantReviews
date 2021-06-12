@@ -2,13 +2,13 @@
 using SQLite.Net.Attributes;
 using System;
 
-namespace RestaurantReviews.Database.Sqlite
+namespace RestaurantReviews.Database.Sqlite.Entities
 {
     /// <summary>
     /// Sqlite db representation of IUser
     /// </summary>
     [Table(TableName)]
-    public class SqliteUser : PersistableBase, IUser
+    internal class SqliteUser : PersistableBase, IUser
     {
         public SqliteUser() //Sqlite constructor
         {

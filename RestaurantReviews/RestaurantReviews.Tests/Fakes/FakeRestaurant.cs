@@ -3,13 +3,11 @@ using System;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
+    /// <summary>
+    /// Basic In-memory implementation of IRestaurant for tests
+    /// </summary>
     internal class FakeRestaurant : IRestaurant
     {
-        public FakeRestaurant()
-        {
-
-        }
-
         public Guid UniqueId { get; set; }
 
         public string Name { get; set; }

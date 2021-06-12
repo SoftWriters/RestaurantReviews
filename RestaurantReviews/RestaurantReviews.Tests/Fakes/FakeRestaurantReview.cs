@@ -3,6 +3,9 @@ using System;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
+    /// <summary>
+    /// Basic In-memory implementation of IRestaurantReview for tests
+    /// </summary>
     internal class FakeRestaurantReview : IRestaurantReview
     {
         public IRestaurant Restaurant { get; set; }

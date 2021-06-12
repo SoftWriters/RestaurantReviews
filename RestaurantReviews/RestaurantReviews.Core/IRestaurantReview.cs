@@ -4,11 +4,11 @@ namespace RestaurantReviews.Core
 {
     public interface IRestaurantReview
     {
-        IRestaurant Restaurant { get; }
+        IRestaurant Restaurant { get; } //TODO: Should this just be the unique ID ?
 
         Guid UniqueId { get; }
 
-        IUser Reviewer { get; }
+        IUser Reviewer { get; }  //TODO: This should just be the unique ID
 
         int FiveStarRating { get; }
 

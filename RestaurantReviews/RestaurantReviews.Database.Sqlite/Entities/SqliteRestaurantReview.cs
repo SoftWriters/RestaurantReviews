@@ -3,13 +3,13 @@ using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
 
-namespace RestaurantReviews.Database.Sqlite
+namespace RestaurantReviews.Database.Sqlite.Entities
 {
     /// <summary>
     /// Sqlite db implementation of IRestaurantReview
     /// </summary>
     [Table(TableName)]
-    public class SqliteRestaurantReview : PersistableBase, IRestaurantReview
+    internal class SqliteRestaurantReview : PersistableBase, IRestaurantReview
     {
         public const string TableName = "Review";
 
@@ -62,8 +62,12 @@ namespace RestaurantReviews.Database.Sqlite
         [Ignore]
         public IUser Reviewer { get; internal set; } //Set by the parent DB controller
 
+        /// <remarks>
+        /// This should probably have a CHECK constraint for 1 <= FiveStarRating <= 5,
+        /// but Sqlite.NET doesn't have an attribute for it. Should be checked by the parent db.
+        /// </remarks>
         public int FiveStarRating { get; set; } //TODO: Add Check 1 <= Rating <= 5
-        
+
         [NotNull]
         public string ReviewText { get; set; }
 

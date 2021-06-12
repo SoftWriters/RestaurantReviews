@@ -3,13 +3,13 @@ using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
 
-namespace RestaurantReviews.Database.Sqlite
+namespace RestaurantReviews.Database.Sqlite.Entities
 {
     /// <summary>
     /// Sqlite db implementation of IRestaurant
     /// </summary>
     [Table(TableName)]
-    public class SqliteRestaurant : PersistableBase, IRestaurant
+    internal class SqliteRestaurant : PersistableBase, IRestaurant
     {
         public SqliteRestaurant() //Sqlite constructor
         {
@@ -38,7 +38,7 @@ namespace RestaurantReviews.Database.Sqlite
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
-        [Indexed(Unique=true)]
+        [Indexed(Unique = true)]
         public Guid UniqueId { get; set; }
 
         [NotNull]
@@ -60,6 +60,6 @@ namespace RestaurantReviews.Database.Sqlite
             Description = restaurant.Description;
             Address = address;
             AddressId = address.Id;
-        }        
+        }
     }
 }

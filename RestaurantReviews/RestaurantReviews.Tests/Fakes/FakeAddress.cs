@@ -3,6 +3,9 @@ using System;
 
 namespace RestaurantReviews.Database.Sqlite.Tests
 {
+    /// <summary>
+    /// Basic In-memory implementation of IAddress for tests
+    /// </summary>
     internal class FakeAddress : IAddress
     {
         public Guid UniqueId { get; set; }
