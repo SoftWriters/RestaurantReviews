@@ -51,14 +51,16 @@ namespace RestaurantReviews.Database.Sqlite
 
         public void DeleteRestaurant(Guid restaurantId)
         {
+            //Get the restaurant This will be more convenient to work with.
+            var dbRestaurant = (SqliteRestaurant)GetRestaurant(restaurantId);
+            if (dbRestaurant == null)
+                throw new EntityNotFoundException(nameof(IRestaurant), restaurantId);
+
             //First delete all associated reviews
             string deleteReviewsQuery = $"DELETE FROM {SqliteRestaurantReview.TableName}" +
                 $" WHERE {nameof(SqliteRestaurantReview.RestaurantUniqueId)} = \"{restaurantId}\"";
             
             _sqliteConnection.Execute(deleteReviewsQuery);
-
-            //Get the restaurant This will be more convenient to work with.
-            var dbRestaurant = (SqliteRestaurant)GetRestaurant(restaurantId);
             
             //Delete it
             dbRestaurant.Remove(_sqliteConnection);
@@ -105,6 +107,8 @@ namespace RestaurantReviews.Database.Sqlite
         {
             //Get the review. This will be more convenient to work with.
             var dbReview = (SqliteRestaurantReview)GetReview(reviewId);
+            if (dbReview == null)
+                throw new EntityNotFoundException(nameof(IRestaurantReview), reviewId);
 
             //Delete it
             dbReview.Remove(_sqliteConnection);

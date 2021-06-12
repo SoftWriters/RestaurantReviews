@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestaurantReviews.Core.DataTypes;
+using RestaurantReviews.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,10 @@ namespace RestaurantReviews.Web
         {
             services.AddControllers().AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.Converters.Add(new AddressJsonConverter());
+                //Can't directly Json deserialize interfaces to concrete types so we have to create the converters manually.
+                //Concrete types must implement a copy constructor that takes the interface type as a param
+                options.JsonSerializerOptions.Converters.Add(new ConcreteJsonConverter<IAddress, Address>());
+                options.JsonSerializerOptions.Converters.Add(new ConcreteJsonConverter<IUser, User>());
             });
 
             services.AddOptions();

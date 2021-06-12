@@ -19,6 +19,13 @@ namespace RestaurantReviews.Core.DataTypes
             UniqueId = uniqueId;
         }
 
+        public User(IUser user)
+        {
+            UniqueId = user.UniqueId;
+            DisplayName = user.DisplayName;
+        }
+
+
         public Guid UniqueId { get; set; }
 
         public string DisplayName { get; set; }

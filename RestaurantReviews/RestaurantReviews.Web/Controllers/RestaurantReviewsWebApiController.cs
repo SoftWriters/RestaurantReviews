@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using RestaurantReviews.Controller;
@@ -11,6 +10,7 @@ using System.IO;
 
 namespace RestaurantReviews.Web.Controllers
 {
+    //These should probably return IResultAction or one of those patterns
     [ApiController]
     [Route("api")]
     public class RestaurantReviewsWebApiController : ControllerBase, IDisposable
@@ -25,10 +25,9 @@ namespace RestaurantReviews.Web.Controllers
 
         [HttpPost]
         [Route("restaurants")]
-        public IActionResult AddRestaurant([FromBody] Restaurant restaurant)
+        public void AddRestaurant([FromBody] Restaurant restaurant)
         {
             _controller.AddRestaurant(restaurant);
-            return Ok();
         }
 
         [HttpDelete]
@@ -40,10 +39,9 @@ namespace RestaurantReviews.Web.Controllers
 
         [HttpPost]
         [Route("reviews")]
-        public IActionResult AddReview([FromBody] IRestaurantReview review)
+        public void AddReview([FromBody] RestaurantReview review)
         {
             _controller.AddReview(review);
-            return Ok();
         }
 
         [HttpDelete]
