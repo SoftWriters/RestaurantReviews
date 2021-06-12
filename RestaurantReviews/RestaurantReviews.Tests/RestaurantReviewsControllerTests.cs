@@ -106,49 +106,73 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    //TODO
+                    var newRestaurant = new FakeRestaurant()
+                    {
+                        Name = "Test fake restaurant",
+                        Description = "This restaurant is a new entry",
+                        UniqueId = Guid.NewGuid(),
+                        Address = new FakeAddress()
+                        {
+                            UniqueId = Guid.NewGuid(),
+                            StreetLine1 = "123 Fake St",
+                            City = "Faketown",
+                            StateOrProvince = "PA",
+                            PostalCode = "15000"
+                        }
+                    };
+
+                    controller.AddRestaurant(newRestaurant);
+                    var restaurantQuery = new RestaurantsQuery() { Name = newRestaurant.Name, City = newRestaurant.Address.City, StateOrProvince = newRestaurant.Address.StateOrProvince, PostalCode = newRestaurant.Address.PostalCode };
+                    IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+                    Assert.AreEqual(1, findRestaurantResults.Count, "Incorrect number of results for FindRestaurants");
+
+                    IRestaurant foundRestaurant = findRestaurantResults[0];
+                    VerifyRestaurant(newRestaurant, foundRestaurant);
                 }
             }
         }
 
         [Test]
-        public void AddRestaurantAddsRestaurantAndIgnoresDuplicateAddress()
+        public void AddReviewAddsReviewAndUser()
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    //TODO
+                    var newReview = new FakeRestaurantReview()
+                    {
+                        UniqueId = Guid.NewGuid(),
+                        RestaurantUniqueId = TestData.Restaurants.DuckDonuts.UniqueId,
+                        FiveStarRating=2,
+                        ReviewText = "This place is run by a bunch of quacks!",
+                        Timestamp = DateTime.UtcNow,
+                        Reviewer = new FakeUser()
+                        {
+                            UniqueId = Guid.NewGuid(),
+                            DisplayName = "Test Reviewer 42"
+                        }
+                    };
+
+                    controller.AddReview(newReview);
+                    IReadOnlyList<IRestaurantReview> findReviewsResult = controller.GetReviewsForRestaurant(newReview.RestaurantUniqueId);
+                    Assert.AreEqual(1, findReviewsResult.Count, "Incorrect number of results for GetReviewsForRestaurant");
+
+                    IRestaurantReview foundReview = findReviewsResult[0];
+                    VerifyReview(newReview, foundReview);
+
+                    //Query by user too, just for fun
+                    findReviewsResult = controller.GetReviewsForUser(newReview.Reviewer.UniqueId);
+                    Assert.AreEqual(1, findReviewsResult.Count, "Incorrect number of results for GetReviewsForUser");
+
+                    foundReview = findReviewsResult[0];
+                    VerifyReview(newReview, foundReview);
                 }
             }
         }
 
-        [Test]
-        public void UpdateRestaurantUpdateRestaurant()
-        {
-            using (var tempFileWrapper = new TempFileWrapper())
-            {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
-                {
-                    //TODO
-                }
-            }
-        }
 
         [Test]
-        public void UpdateUnknownRestaurantThrowsEntityNotFoundException()
-        {
-            using (var tempFileWrapper = new TempFileWrapper())
-            {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
-                {
-                    //TODO
-                }
-            }
-        }
-
-        [Test]
-        public void DeleteRestaurantDeletesRestaurantAndReviewsAndAddress()
+        public void DeleteRestaurantDeletesRestaurantAndReviews()
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
@@ -156,33 +180,38 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                 {
                     FakeRestaurant testRestaurant = TestData.Restaurants.MadNoodles;
                     controller.DeleteRestaurant(testRestaurant.UniqueId);
-                    //TODO
+
+                    //Verify it was deleted
+                    var restaurantQuery = new RestaurantsQuery() { Name = testRestaurant.Name, City = testRestaurant.Address.City, StateOrProvince = testRestaurant.Address.StateOrProvince, PostalCode = testRestaurant.Address.PostalCode };
+                    IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
+
+                    Assert.IsEmpty(findRestaurantResults, "Restaurant was not deleted");
+
+                    IReadOnlyList<IRestaurantReview> findReviewsResults = controller.GetReviewsForRestaurant(testRestaurant.UniqueId);
+                    Assert.IsEmpty(findReviewsResults, "Reviews were not deleted");
                 }
             }
         }
 
         [Test]
-        public void DeleteRestaurantDoesNotDeleteAddressIfShared()
+        public void DeleteReviewDeletesReview()
         {
             using (var tempFileWrapper = new TempFileWrapper())
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    // FakeRestaurant testRestaurant;
-                    //db.DeleteRestaurant()
-                    //TODO
-                }
-            }
-        }
+                    FakeRestaurantReview testReview = TestData.Reviews.MadNoodles3;
+                    controller.DeleteReview(testReview.UniqueId);
 
-        [Test]
-        public void DeleteUnknownRestaurantThrowsEntityNotFoundException()
-        {
-            using (var tempFileWrapper = new TempFileWrapper())
-            {
-                using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
-                {
-                    //TODO
+                    //Verify it was deleted
+                    IReadOnlyList<IRestaurantReview> findReviewsResult = controller.GetReviewsForRestaurant(testReview.RestaurantUniqueId);
+
+                    Assert.IsFalse(findReviewsResult.Any(r => r.UniqueId == testReview.UniqueId), "Review was not deleted");
+
+                    //Query by user too just for fun
+                    findReviewsResult = controller.GetReviewsForUser(testReview.Reviewer.UniqueId);
+
+                    Assert.IsFalse(findReviewsResult.Any(r => r.UniqueId == testReview.UniqueId), "Review was not deleted");
                 }
             }
         }

@@ -10,6 +10,7 @@ namespace RestaurantReviews.Controller
     {
         private IRestaurantReviewDatabase _db;
 
+        //TODO: Check all Ids for Guid.Empty
         public RestaurantReviewsController(string dbFilePath)
         {
             _db = new SqliteRestaurantReviewDatabase(new SQLitePlatformWin32(), dbFilePath);
