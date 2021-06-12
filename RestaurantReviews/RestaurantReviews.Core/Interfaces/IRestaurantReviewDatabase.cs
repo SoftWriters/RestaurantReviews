@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RestaurantReviews.Core
+namespace RestaurantReviews.Core.Interfaces
 {
     /// <summary>
     /// Interface for the restaurant review database

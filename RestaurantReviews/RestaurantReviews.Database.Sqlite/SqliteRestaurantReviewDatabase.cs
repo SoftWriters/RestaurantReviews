@@ -1,4 +1,5 @@
-﻿using RestaurantReviews.Core;
+﻿using RestaurantReviews.Core.DataTypes;
+using RestaurantReviews.Core.Interfaces;
 using RestaurantReviews.Database.Sqlite.Entities;
 using SQLite.Net;
 using SQLite.Net.Interop;

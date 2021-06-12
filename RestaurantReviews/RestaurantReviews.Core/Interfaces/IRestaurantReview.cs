@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestaurantReviews.Core
+namespace RestaurantReviews.Core.Interfaces
 {
     /// <summary>
     /// Representation of a restaurant review

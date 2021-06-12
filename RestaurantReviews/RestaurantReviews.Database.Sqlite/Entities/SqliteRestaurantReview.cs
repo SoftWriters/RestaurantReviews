@@ -1,4 +1,4 @@
-﻿using RestaurantReviews.Core;
+﻿using RestaurantReviews.Core.Interfaces;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;

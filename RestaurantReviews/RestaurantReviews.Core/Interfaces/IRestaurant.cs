@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestaurantReviews.Core
+namespace RestaurantReviews.Core.Interfaces
 {
     /// <summary>
     /// Representation of a restaurant
@@ -10,7 +10,7 @@ namespace RestaurantReviews.Core
         Guid UniqueId { get; }
 
         string Name { get; }
-        
+
         string Description { get; }
 
         /// <summary>

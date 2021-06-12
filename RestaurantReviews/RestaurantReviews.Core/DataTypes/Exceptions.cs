@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestaurantReviews.Core
+namespace RestaurantReviews.Core.DataTypes
 {
     public class DuplicateEntityException : Exception
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RestaurantReviews.Core
+namespace RestaurantReviews.Core.Interfaces
 {
     /// <summary>
     /// Representation of an international address. All fields are not required.
@@ -15,7 +15,7 @@ namespace RestaurantReviews.Core
         /// Unique identifier for the address so that it can be reused by multiple instances,
         /// e.g. multiple restaurants in the same building, or different restaurants at the same address over time.
         /// </summary>
-        Guid UniqueId { get; set; }
+        Guid UniqueId { get; }
 
         string StreetLine1 { get; }
 

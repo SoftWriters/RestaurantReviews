@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using RestaurantReviews.Controller;
-using RestaurantReviews.Core;
+using RestaurantReviews.Core.DataTypes;
+using RestaurantReviews.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFile.FilePath))
                 {
                     //Verify the restaurants can be retrieved from the db
-                    foreach (FakeRestaurant restaurant in TestData.Restaurants.AllRestaurants)
+                    foreach (Restaurant restaurant in TestData.Restaurants.AllRestaurants)
                     {
                         var restaurantQuery = new RestaurantsQuery() { Name = restaurant.Name, City = restaurant.Address.City, StateOrProvince = restaurant.Address.StateOrProvince, PostalCode = restaurant.Address.PostalCode };
                         IReadOnlyList<IRestaurant> findRestaurantResults = controller.FindRestaurants(restaurantQuery);
@@ -37,7 +38,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                     }
 
                     //Verify the reviews can be retrieved from the db
-                    foreach (FakeRestaurantReview review in TestData.Reviews.AllReviews)
+                    foreach (RestaurantReview review in TestData.Reviews.AllReviews)
                     {
                         IReadOnlyList<IRestaurantReview> findReviewResults = controller.GetReviewsForRestaurant(review.RestaurantUniqueId);
 
@@ -58,18 +59,18 @@ namespace RestaurantReviews.Database.Sqlite.Tests
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
                     //Get the expected results by user
-                    IEnumerable<IGrouping<Guid, FakeRestaurantReview>> reviewsByReviewerId = TestData.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
+                    IEnumerable<IGrouping<Guid, RestaurantReview>> reviewsByReviewerId = TestData.Reviews.AllReviews.GroupBy(r => r.Reviewer.UniqueId);
 
                     //Test each one
-                    foreach (IGrouping<Guid, FakeRestaurantReview> grouping in reviewsByReviewerId)
+                    foreach (IGrouping<Guid, RestaurantReview> grouping in reviewsByReviewerId)
                     {
-                        List<FakeRestaurantReview> expectedReviews = grouping.ToList();
+                        List<RestaurantReview> expectedReviews = grouping.ToList();
 
                         IReadOnlyList<IRestaurantReview> foundReviews = controller.GetReviewsForUser(grouping.Key);
 
                         Assert.AreEqual(expectedReviews.Count, foundReviews.Count, "Incorrect reviews for user");
 
-                        foreach (FakeRestaurantReview review in expectedReviews)
+                        foreach (RestaurantReview review in expectedReviews)
                         {
                             var foundReview = foundReviews.FirstOrDefault(r => r.UniqueId == review.UniqueId);
 
@@ -88,7 +89,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurant testRestaurant = TestData.Restaurants.MadNoodles;
+                    Restaurant testRestaurant = TestData.Restaurants.MadNoodles;
                     Assert.Throws<DuplicateEntityException>(() => controller.AddRestaurant(testRestaurant), "Adding duplicate restaurant did not throw an exception");
 
                     //Verify the duplicate wasn't added
@@ -106,14 +107,12 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    var newRestaurant = new FakeRestaurant()
+                    var newRestaurant = new Restaurant()
                     {
                         Name = "Test fake restaurant",
                         Description = "This restaurant is a new entry",
-                        UniqueId = Guid.NewGuid(),
-                        Address = new FakeAddress()
+                        Address = new Address()
                         {
-                            UniqueId = Guid.NewGuid(),
                             StreetLine1 = "123 Fake St",
                             City = "Faketown",
                             StateOrProvince = "PA",
@@ -139,14 +138,13 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    var newReview = new FakeRestaurantReview()
+                    var newReview = new RestaurantReview()
                     {
-                        UniqueId = Guid.NewGuid(),
                         RestaurantUniqueId = TestData.Restaurants.DuckDonuts.UniqueId,
                         FiveStarRating=2,
                         ReviewText = "This place is run by a bunch of quacks!",
                         Timestamp = DateTime.UtcNow,
-                        Reviewer = new FakeUser()
+                        Reviewer = new User()
                         {
                             UniqueId = Guid.NewGuid(),
                             DisplayName = "Test Reviewer 42"
@@ -178,7 +176,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurant testRestaurant = TestData.Restaurants.MadNoodles;
+                    Restaurant testRestaurant = TestData.Restaurants.MadNoodles;
                     controller.DeleteRestaurant(testRestaurant.UniqueId);
 
                     //Verify it was deleted
@@ -200,7 +198,7 @@ namespace RestaurantReviews.Database.Sqlite.Tests
             {
                 using (IRestaurantReviewController controller = TestData.InitializeController(tempFileWrapper.FilePath))
                 {
-                    FakeRestaurantReview testReview = TestData.Reviews.MadNoodles3;
+                    RestaurantReview testReview = TestData.Reviews.MadNoodles3;
                     controller.DeleteReview(testReview.UniqueId);
 
                     //Verify it was deleted

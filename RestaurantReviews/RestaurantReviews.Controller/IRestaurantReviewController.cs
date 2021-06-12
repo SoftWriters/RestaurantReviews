@@ -1,4 +1,5 @@
-﻿using RestaurantReviews.Core;
+﻿using RestaurantReviews.Core.DataTypes;
+using RestaurantReviews.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 
