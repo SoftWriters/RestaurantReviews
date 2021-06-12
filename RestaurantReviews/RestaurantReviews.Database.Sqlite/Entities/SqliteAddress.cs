@@ -1,4 +1,5 @@
-﻿using RestaurantReviews.Core.Interfaces;
+﻿using Newtonsoft.Json;
+using RestaurantReviews.Core.Interfaces;
 using SQLite.Net.Attributes;
 using System;
 
@@ -38,6 +39,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
             $" {TableName}.{nameof(StateOrProvince)}," +
             $" {TableName}.{nameof(PostalCode)}";
 
+        [JsonIgnore]
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 

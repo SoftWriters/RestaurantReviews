@@ -1,7 +1,9 @@
-﻿using RestaurantReviews.Core.Interfaces;
+﻿using Newtonsoft.Json;
+using RestaurantReviews.Core.Interfaces;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
+using System.Runtime.Serialization;
 
 namespace RestaurantReviews.Database.Sqlite.Entities
 {
@@ -35,6 +37,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
             $" {TableName}.{nameof(Name)}," +
             $" {TableName}.{nameof(Description)}";
 
+        [JsonIgnore] //TODO: Web api is still serializing this
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
@@ -48,6 +51,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
 
         //Attribute is really only for documentation purposes, as the performance of Sqlitenetextensions isn't great
         [Indexed, ForeignKey(typeof(SqliteAddress))]
+        [JsonIgnore]
         public int AddressId { get; set; }
 
         [Ignore]

@@ -1,6 +1,8 @@
-﻿using RestaurantReviews.Core.Interfaces;
+﻿using Newtonsoft.Json;
+using RestaurantReviews.Core.Interfaces;
 using SQLite.Net.Attributes;
 using System;
+using System.Runtime.Serialization;
 
 namespace RestaurantReviews.Database.Sqlite.Entities
 {
@@ -33,6 +35,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
             $" {TableName}.{nameof(UniqueId)}," +
             $" {TableName}.{nameof(DisplayName)}";
 
+        [JsonIgnore]
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 

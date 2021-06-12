@@ -1,4 +1,5 @@
-﻿using RestaurantReviews.Core.Interfaces;
+﻿using Newtonsoft.Json;
+using RestaurantReviews.Core.Interfaces;
 using SQLite.Net.Attributes;
 using SQLiteNetExtensions.Attributes;
 using System;
@@ -43,6 +44,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
             $" {TableName}.{nameof(ReviewText)}," +
             $" {TableName}.{nameof(Timestamp)}";
 
+        [JsonIgnore]
         [PrimaryKey, AutoIncrement]
         public override int Id { get; set; }
 
@@ -52,6 +54,7 @@ namespace RestaurantReviews.Database.Sqlite.Entities
         [Indexed]
         public Guid RestaurantUniqueId { get; set; }
 
+        [JsonIgnore]
         [Indexed, ForeignKey(typeof(SqliteRestaurantReview))]
         public int ReviewerId { get; set; }
 
