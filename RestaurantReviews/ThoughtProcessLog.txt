@@ -1,0 +1,37 @@
+Start with the obvious: 
+- There will be a database with restaurants/reviews/users. Those are the entities in this domain. 
+- Add functions for know queries.
+
+Using interfaces instead of concrete classes:
+- Allows for the same information to be implented in different ways, e.g. database implementation vs web-serializable version
+- Allows for easy injection in user tests
+- Abstraction of the database implementation from the API. Can easily swap it for something else (Sql variations, NoSql, something in the cloud, a .json file, whatever)
+
+For a web API like this, a cloud-hosted database would probably make sense in today's world. An internally-hosted database could also make sense (e.g. MySql or Postgres server).
+I want to be able to use the database with C# objects rather than writing manual queries for everything. Something like EntityFramework.
+
+Since I'm not super familiar with web services/MySql/NoSQL/etc, I thought it might be best to first get a working implentation with what I already know.
+- Write a .NET Standard library for the base types and implentation
+- Can always slap a web service layer on top of it easily
+- Use Sqlite.NET for the database since that's what I'm most familiar with, even though this probably wouldn't be a real-world solution.
+- Get a working implementation with unit tests, then work on swapping the database for something more realistic (like MySQL).
+
+Initially had restaurants with a collection of reviews since that is the data to be aggregated, but I don't love the circular references between restaurants and reviews.
+A restaurant can exist without reviews, whereas a review doesn't make sense without the restaurant it's reviewing. 
+So a restaurant is related to reviews but doesn't need them to exist, and that directional dependency can be removed.
+
+Ran into stupid problems with sqlite.dlls. Eventually downgraded the nuget version for System.Data.Sqlite.Core to get it to copy SQLite.Interop to the output directory.
+
+Created the db to start playing with SQL queries
+
+Addresses could be shared by restaurants, e.g. over time as a restaurant goes out of business and something else takes its place. 
+So restaurants to addresses is 1-N:1 instead of 1:1.
+
+Red/Green/Refactor. Get the test to pass first, then rewrite it and use the test to check
+
+Rethinking interfaces from the API layer...e.g. shouldn't have to specify the entire restaurant to add a review
+Create controller layer that wraps db. Shift some businessy logic from the DB to there, though it may not be the most efficient
+
+Flip flopped a bit on whether the API should reference everything by foreign key or the whole object. 
+Foreign keys would require multiple API calls (e.g. add address, then restaurant; add user, then review). 
+Decided to use the whole object in cases where we don't really want the objects to be managed separately in this context.

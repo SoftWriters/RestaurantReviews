@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /y "$(MSBuildProjectDirectory)\x64\sqlite3.dll" ".\x64\"
+    xcopy /y "$(MSBuildProjectDirectory)\x86\sqlite3.dll" ".\x86\"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

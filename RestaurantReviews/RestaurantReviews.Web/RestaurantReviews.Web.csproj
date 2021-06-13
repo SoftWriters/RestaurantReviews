@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Database\SampleReviews.db3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Database\SampleReviews.db3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.4" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.107" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.Controller\RestaurantReviews.Controller.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /y "$(MSBuildProjectDirectory)\x64\sqlite3.dll" ".\x64\"
+    xcopy /y "$(MSBuildProjectDirectory)\x86\sqlite3.dll" ".\x86\"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

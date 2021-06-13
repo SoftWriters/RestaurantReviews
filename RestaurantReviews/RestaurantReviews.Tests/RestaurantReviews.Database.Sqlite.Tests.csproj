@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestFiles\TestDb.db3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TestFiles\TestDb.db3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.107" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.Core\RestaurantReviews.Core.csproj" />
+    <ProjectReference Include="..\RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /y "$(MSBuildProjectDirectory)\x64\sqlite3.dll" ".\x64\"
+    xcopy /y "$(MSBuildProjectDirectory)\x86\sqlite3.dll" ".\x86\"</PreBuildEvent>
+  </PropertyGroup>
+</Project>
