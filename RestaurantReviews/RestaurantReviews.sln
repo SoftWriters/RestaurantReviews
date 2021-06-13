@@ -8,15 +8,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews.Database.Sqlite", "RestaurantReviews.Database.Sqlite\RestaurantReviews.Database.Sqlite.csproj", "{EF408555-078E-4619-9548-2CE23FF1E7EE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC961502-9F9E-48B6-A7E2-2C9AE07BACC5}"
-	ProjectSection(SolutionItems) = preProject
-		ThoughtProcessLog.txt = ThoughtProcessLog.txt
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews.Controller.Tests", "RestaurantReviews.Tests\RestaurantReviews.Controller.Tests.csproj", "{0E22FD14-E196-421B-BF1A-99474E322CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReviews.Web", "RestaurantReviews.Web\RestaurantReviews.Web.csproj", "{F0A3281F-16B5-41E7-8A86-ED11DD44A8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews.Web", "RestaurantReviews.Web\RestaurantReviews.Web.csproj", "{F0A3281F-16B5-41E7-8A86-ED11DD44A8A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReviews.Controller", "RestaurantReviews.Controller\RestaurantReviews.Controller.csproj", "{29EAC463-CCB8-4EB3-9AD3-1950E3C6156B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantReviews.Controller", "RestaurantReviews.Controller\RestaurantReviews.Controller.csproj", "{29EAC463-CCB8-4EB3-9AD3-1950E3C6156B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
