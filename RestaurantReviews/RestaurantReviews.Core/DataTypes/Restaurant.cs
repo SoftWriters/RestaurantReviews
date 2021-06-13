@@ -19,6 +19,14 @@ namespace RestaurantReviews.Core.DataTypes
             UniqueId = uniqueId;
         }
 
+        public Restaurant(IRestaurant other) //Copy constructor
+        {
+            UniqueId = other.UniqueId;
+            Name = other.Name;
+            Description = other.Description;
+            Address = new Address(other.Address);
+        }
+
         public Guid UniqueId { get; }
 
         public string Name { get; set; }

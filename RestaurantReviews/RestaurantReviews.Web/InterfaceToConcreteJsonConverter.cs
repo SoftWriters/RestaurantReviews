@@ -6,7 +6,12 @@ using System.Text.Json.Serialization;
 
 namespace RestaurantReviews.Web
 {
-    internal class ConcreteJsonConverter<InterfaceType, ConcreteType> : JsonConverter<InterfaceType> where ConcreteType : InterfaceType
+    /// <summary>
+    /// Converts an interface type to a concrete type for JSon serialization
+    /// </summary>
+    /// <typeparam name="InterfaceType">Base interface</typeparam>
+    /// <typeparam name="ConcreteType">Concrete type</typeparam>
+    internal class InterfaceToConcreteJsonConverter<InterfaceType, ConcreteType> : JsonConverter<InterfaceType> where ConcreteType : InterfaceType
     {
         public override bool CanConvert(Type objectType) => objectType == typeof(InterfaceType);
 
@@ -23,7 +28,7 @@ namespace RestaurantReviews.Web
         {
             //Convert the interface type to the concrete implementation, then serialize it
             var concreteValue = (ConcreteType) Activator.CreateInstance(typeof(ConcreteType), value);
-            JsonSerializer.Serialize<ConcreteType>(writer, concreteValue, options);
+            JsonSerializer.Serialize(writer, concreteValue, options);
         }
     }
 }

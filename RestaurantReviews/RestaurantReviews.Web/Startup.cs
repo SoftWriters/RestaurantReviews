@@ -35,8 +35,8 @@ namespace RestaurantReviews.Web
             {
                 //Can't directly Json deserialize interfaces to concrete types so we have to create the converters manually.
                 //Concrete types must implement a copy constructor that takes the interface type as a param
-                options.JsonSerializerOptions.Converters.Add(new ConcreteJsonConverter<IAddress, Address>());
-                options.JsonSerializerOptions.Converters.Add(new ConcreteJsonConverter<IUser, User>());
+                options.JsonSerializerOptions.Converters.Add(new InterfaceToConcreteJsonConverter<IAddress, Address>());
+                options.JsonSerializerOptions.Converters.Add(new InterfaceToConcreteJsonConverter<IUser, User>());
             });
 
             services.AddOptions();

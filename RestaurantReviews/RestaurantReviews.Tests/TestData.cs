@@ -24,7 +24,6 @@ namespace RestaurantReviews.Database.Sqlite.Tests
 
         public static class Restaurants
         {
-            //TODO: Maybe create the guids once so we can re-use the populated db
             public static readonly Restaurant MadNoodles = new Restaurant()
             {
                 Name = "Mad Noodles",

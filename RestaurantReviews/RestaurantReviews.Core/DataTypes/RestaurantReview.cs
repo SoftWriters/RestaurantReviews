@@ -19,6 +19,16 @@ namespace RestaurantReviews.Core.DataTypes
             UniqueId = uniqueId;
         }
 
+        public RestaurantReview(IRestaurantReview other) //Copy constructor
+        {
+            UniqueId = other.UniqueId;
+            RestaurantUniqueId = other.RestaurantUniqueId;
+            Reviewer = new User(other.Reviewer);
+            FiveStarRating = other.FiveStarRating;
+            ReviewText = other.ReviewText;
+            Timestamp = other.Timestamp;
+        }
+
         public Guid UniqueId { get; }
 
         public Guid RestaurantUniqueId { get; set; }

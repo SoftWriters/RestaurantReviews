@@ -7,6 +7,7 @@ using RestaurantReviews.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace RestaurantReviews.Web.Controllers
 {
@@ -55,35 +56,45 @@ namespace RestaurantReviews.Web.Controllers
         [Route("restaurants")]
         public IEnumerable<IRestaurant> GetRestaurants([FromQuery] RestaurantsQuery query)
         {
-            return _controller.FindRestaurants(query);
+            //Workaround since ASP.NET doesn't seem to respect [JsonIgnore]
+            //Convert to generic Restaurant type for Json serialization
+            return _controller.FindRestaurants(query).Select(r => new Restaurant(r));
         }
 
         [HttpGet]
         [Route("restaurants/{restaurantId}")]
         public IRestaurant GetRestaurant(Guid restaurantId)
         {
-            return _controller.GetRestaurant(restaurantId);
+            //Workaround since ASP.NET doesn't seem to respect [JsonIgnore]
+            //Convert to generic Restaurant type for Json serialization
+            return new Restaurant(_controller.GetRestaurant(restaurantId));
         }
 
         [HttpGet]
         [Route("reviews/{reviewId}")]
         public IRestaurantReview GetReview(Guid reviewId)
         {
-            return _controller.GetReview(reviewId);
+            //Workaround since ASP.NET doesn't seem to respect [JsonIgnore]
+            //Convert to generic Review type for Json serialization
+            return new RestaurantReview(_controller.GetReview(reviewId));
         }
 
         [HttpGet]
         [Route("restaurants/{restaurantId}/reviews")]
         public IEnumerable<IRestaurantReview> GetReviews(Guid restaurantId)
         {
-            return _controller.GetReviewsForRestaurant(restaurantId);
+            //Workaround since ASP.NET doesn't seem to respect [JsonIgnore]
+            //Convert to generic Restaurant type for Json serialization
+            return _controller.GetReviewsForRestaurant(restaurantId).Select(r => new RestaurantReview(r));
         }
 
         [HttpGet]
         [Route("reviews")]
         public IEnumerable<IRestaurantReview> GetReviewsByUserId([FromQuery] Guid userId)
         {
-            return _controller.GetReviewsForUser(userId);
+            //Workaround since ASP.NET doesn't seem to respect [JsonIgnore]
+            //Convert to generic Restaurant type for Json serialization
+            return _controller.GetReviewsForUser(userId).Select(r => new RestaurantReview(r));
         }
 
         public void Dispose()
@@ -100,6 +111,5 @@ namespace RestaurantReviews.Web.Controllers
                 _controller = null;
             }
         }
-
     }
 }
