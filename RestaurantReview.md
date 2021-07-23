@@ -1,7 +1,7 @@
 In my zip file, you will find 4 projects:
 
 * There are some fairly simple instructions needed to get this solution working.
-1) You should be able to start the API solution up and see the Swagger UI without a back database.
+1) You should be able to start the API solution up and see the Swagger UI without a backing database.
 2) There is folder in the RestaurantReviewData project called DatabaseFile that contains an .mdf file.
 3) That database file will need to be attached to an instance of SQL Server.
 4) Then you will need to update RestaurantReviewConntectionString in the appsetting.json file with an appropriate connection string.
