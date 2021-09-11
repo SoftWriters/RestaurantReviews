@@ -10,48 +10,48 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReviewsController : ControllerBase
+    public class CitiesController : ControllerBase
     {
         private readonly ReviewsContext _context;
 
-        public ReviewsController(ReviewsContext context)
+        public CitiesController(ReviewsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Reviews
+        // GET: api/Cities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.Cities.ToListAsync();
         }
 
-        // GET: api/Reviews/1
+        // GET: api/Cities/1
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
+        public async Task<ActionResult<City>> GetCity(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var city = await _context.Cities.FindAsync(id);
 
-            if (Review == null)
+            if (city == null)
             {
                 return NotFound();
             }
 
-            return Review;
+            return city;
         }
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Update
-        // PUT: api/Reviews/1
+        // PUT: api/Cities/1
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutReview(int id, Review Review)
+        public async Task<IActionResult> PutCity(int id, City city)
         {
-            if (id != Review.Id)
+            if (id != city.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(Review).State = EntityState.Modified;
+            _context.Entry(city).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReviewExists(id))
+                if (!CityExists(id))
                 {
                     return NotFound();
                 }
@@ -75,39 +75,39 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Create
-        // POST: api/Reviews
+        // POST: api/Cities
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review Review)
+        public async Task<ActionResult<City>> PostCity(City city)
         {
-            _context.Reviews.Add(Review);
+            _context.Cities.Add(city);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReview), new { id = Review.Id }, Review);
+            return CreatedAtAction(nameof(GetCity), new { id = city.Id }, city);
         }
         #endregion
 
         #region snippet_Delete
-        // DELETE: api/Reviews/1
+        // DELETE: api/Cities/1
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteReview(int id)
+        public async Task<IActionResult> DeleteCity(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var city = await _context.Cities.FindAsync(id);
 
-            if (Review == null)
+            if (city == null)
             {
                 return NotFound();
             }
 
-            _context.Reviews.Remove(Review);
+            _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         #endregion
 
-        private bool ReviewExists(long id)
+        private bool CityExists(long id)
         {
-            return _context.Reviews.Any(e => e.Id == id);
+            return _context.Cities.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace Softwriters.RestaurantReviews.Models.Entities
 {
@@ -16,8 +17,10 @@ namespace Softwriters.RestaurantReviews.Models.Entities
 
         public int RestaurantId { get; set; }
 
+        [JsonIgnore]
         public User User { get; set; }
 
+        [JsonIgnore]
         public Restaurant Restaurant { get; set; }
     }
 }
