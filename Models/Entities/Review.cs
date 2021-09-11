@@ -10,7 +10,7 @@ namespace Softwriters.RestaurantReviews.Models.Entities
 
         public string Description { get; set; }
 
-        public int Stars { get; set; }
+        public double Stars { get; set; }
 
         public int UserId { get; set; }
 

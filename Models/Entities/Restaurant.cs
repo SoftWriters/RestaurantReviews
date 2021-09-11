@@ -1,14 +1,12 @@
-﻿namespace Softwriters.RestaurantReviews.Models.Entities
+﻿using System.Collections.Generic;
+
+namespace Softwriters.RestaurantReviews.Models.Entities
 {
     public class Restaurant
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public int ReviewId { get; set; }
-
-        public Review Review { get; set; }
 
         public int RestaurantTypeId { get; set; }
 
@@ -21,5 +19,7 @@
         public int MenuId { get; set; }
 
         public Menu Menu { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }
