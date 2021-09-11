@@ -47,7 +47,7 @@ namespace Softwriters.RestaurantReviews.Api
             });
 
             services.AddDbContext<ReviewsContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDbConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
         }

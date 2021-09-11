@@ -16,7 +16,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
                 return;
             }
 
-            InsertUsers(context);
+            InsertCritics(context);
             InsertCities(context);
             InsertMenus(context);
             InsertRestaurantTypes(context);
@@ -251,23 +251,23 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertUsers(ReviewsContext context)
+        private static void InsertCritics(ReviewsContext context)
         {
-            var users = new List<User>();
+            var critics = new List<Critic>();
 
-            var user1 = new User { FirstName = "Bill", LastName = "Napier" };
-            var user2 = new User { FirstName = "Denise", LastName = "Napier" };
-            var user3 = new User { FirstName = "Grace", LastName = "Napier" };
-            var user4 = new User { FirstName = "Isaac", LastName = "Napier" };
+            var critic1 = new Critic { FirstName = "Bill", LastName = "Napier" };
+            var critic2 = new Critic { FirstName = "Denise", LastName = "Napier" };
+            var critic3 = new Critic { FirstName = "Grace", LastName = "Napier" };
+            var user4 = new Critic { FirstName = "Isaac", LastName = "Napier" };
 
-            users.Add(user1);
-            users.Add(user2);
-            users.Add(user3);
-            users.Add(user4);
+            critics.Add(critic1);
+            critics.Add(critic2);
+            critics.Add(critic3);
+            critics.Add(user4);
 
-            foreach (var user in users)
+            foreach (var user in critics)
             {
-                context.Users.Add(user);
+                context.Critics.Add(user);
             }
 
             context.SaveChanges();

@@ -18,7 +18,7 @@ namespace Softwriters.RestaurantReviews.Models.Entities
         public int RestaurantId { get; set; }
 
         [JsonIgnore]
-        public User User { get; set; }
+        public Critic Critic { get; set; }
 
         [JsonIgnore]
         public Restaurant Restaurant { get; set; }
