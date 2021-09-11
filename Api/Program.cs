@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Net;
+using Microsoft.Extensions.Logging;
+using Softwriters.RestaurantReviews.Data.DataContext;
+using Softwriters.RestaurantReviews.Data.DataSeeding;
+using System;
 
 namespace Softwriters.RestaurantReviews.Api
 {
@@ -8,24 +12,37 @@ namespace Softwriters.RestaurantReviews.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            CreateDbIfNotExists(host);
+
+            host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        private static void CreateDbIfNotExists(IHost host)
         {
-            var ipAddress = IPAddress.Loopback;
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ReviewsContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
+        }
 
-            return Host.CreateDefaultBuilder(args)
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder
-                        .UseUrls()
-                        .ConfigureKestrel(serverOptions =>
-                        {
-                            serverOptions.Listen(ipAddress, 8500);
-                        })
-                        .UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>();
                 });
-        }
     }
 }
