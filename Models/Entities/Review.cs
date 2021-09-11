@@ -1,6 +1,6 @@
 using System;
 
-namespace Softwriters.RestaurantReviews.Models
+namespace Softwriters.RestaurantReviews.Models.Entities
 {
     public class Review
     {

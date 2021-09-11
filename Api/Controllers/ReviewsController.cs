@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Models.Entities;
 using System;
 using System.Collections.Generic;
 

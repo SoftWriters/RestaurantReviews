@@ -1,12 +1,10 @@
-﻿namespace Softwriters.RestaurantReviews.Models
+﻿namespace Softwriters.RestaurantReviews.Models.Entities
 {
-    public class Menu
+    public class RestaurantType
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public string Items { get; set; }
 
         public int RestaurantId { get; set; }
 

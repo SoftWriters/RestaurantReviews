@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Softwriters.RestaurantReviews.Models
+namespace Softwriters.RestaurantReviews.Models.Entities
 {
     public class City
     {
