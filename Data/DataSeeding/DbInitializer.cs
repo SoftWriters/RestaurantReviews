@@ -16,7 +16,265 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
                 return;
             }
 
-            //Reviews
+            InsertUsers(context);
+            InsertCities(context);
+            InsertMenus(context);
+            InsertRestaurantTypes(context);
+            InsertRestaurants(context);
+            InsertReviews(context);
+        }
+
+        private static void InsertRestaurants(ReviewsContext context)
+        {
+            var restaurants = new List<Restaurant>();
+            var restaurant1 = new Restaurant
+            {
+                CityId = 1,
+                MenuId = 1,
+                RestaurantTypeId = 1,
+                Name = "Bitter Ends Garden Luncheonette"
+            };
+            var restaurant2 = new Restaurant
+            {
+                CityId = 1,
+                MenuId = 2,
+                RestaurantTypeId = 2,
+                Name = "The Capital Grille"
+            };
+            var restaurant3 = new Restaurant
+            {
+                CityId = 1,
+                MenuId = 3,
+                RestaurantTypeId = 3,
+                Name = "Oak Hill Post"
+            };
+            var restaurant4 = new Restaurant
+            {
+                CityId = 1,
+                MenuId = 4,
+                RestaurantTypeId = 4,
+                Name = "Savor Bread"
+            };
+            var restaurant5 = new Restaurant
+            {
+                CityId = 2,
+                MenuId = 5,
+                RestaurantTypeId = 5,
+                Name = "Food Wish"
+            };
+            var restaurant6 = new Restaurant
+            {
+                CityId = 2,
+                MenuId = 6,
+                RestaurantTypeId = 6,
+                Name = "Feed Logic"
+            };
+            var restaurant7 = new Restaurant
+            {
+                CityId = 3,
+                MenuId = 7,
+                RestaurantTypeId = 7,
+                Name = "Burgerpad"
+            };
+            var restaurant8 = new Restaurant
+            {
+                CityId = 4,
+                MenuId = 8,
+                RestaurantTypeId = 1,
+                Name = "Alluring Lo"
+            };
+            var restaurant9 = new Restaurant
+            {
+                CityId = 4,
+                MenuId = 2,
+                RestaurantTypeId = 2,
+                Name = "Spices Mein"
+            };
+            var restaurant10 = new Restaurant
+            {
+                CityId = 5,
+                MenuId = 4,
+                RestaurantTypeId = 4,
+                Name = "Tasty Noodle"
+            };
+            var restaurant11 = new Restaurant
+            {
+                CityId = 5,
+                MenuId = 6,
+                RestaurantTypeId = 7,
+                Name = "Diced Bean"
+            };
+            var restaurant12 = new Restaurant
+            {
+                CityId = 5,
+                MenuId = 7,
+                RestaurantTypeId = 3,
+                Name = "Cuisine Lemo"
+            };
+
+            restaurants.Add(restaurant1);
+            restaurants.Add(restaurant2);
+            restaurants.Add(restaurant3);
+            restaurants.Add(restaurant4);
+            restaurants.Add(restaurant5);
+            restaurants.Add(restaurant6);
+            restaurants.Add(restaurant7);
+            restaurants.Add(restaurant8);
+            restaurants.Add(restaurant9);
+            restaurants.Add(restaurant10);
+            restaurants.Add(restaurant11);
+            restaurants.Add(restaurant12);
+
+            foreach (var restaurant in restaurants)
+            {
+                context.Restaurants.Add(restaurant);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InsertCities(ReviewsContext context)
+        {
+            var cities = new List<City>();
+            var city1 = new City { Name = "Pittsburgh, PA" };
+            var city2 = new City { Name = "Barboursville, WV" };
+            var city3 = new City { Name = "New York, NY" };
+            var city4 = new City { Name = "San Francisco, CA" };
+            var city5 = new City { Name = "Dallas, TX" };
+            cities.Add(city1);
+            cities.Add(city2);
+            cities.Add(city3);
+            cities.Add(city4);
+            cities.Add(city5);
+
+            foreach (var city in cities)
+            {
+                context.Cities.Add(city);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InsertMenus(ReviewsContext context)
+        {
+            var menus = new List<Menu>();
+            var menu1 = new Menu
+            {
+                Items =
+                    "Chicken pot pie, Mashed potatoes, Fried chicken, Burgers, Chicken soup",
+                Name = "Standard Fare"
+            };
+            var menu2 = new Menu
+            {
+                Items =
+                    "Meatloaf, Lasagna, Spaghetti with meatballs, Chicken burger, Chicken parmesan, Chicken Pesto, Burger Sliders",
+                Name = "Basic Options"
+            };
+            var menu3 = new Menu
+            {
+                Items =
+                    "Burgers with locally sourced beef or chicken, Salads with ingredients from nearby farms, Lobster rolls, shrimp, grilled fish if you are next to a fresh body of water",
+                Name = "Locally Sourced"
+            };
+            var menu4 = new Menu
+            {
+                Items =
+                    "Grilled cheese, Tomato soup, Chicken fingers, Flatbread pizza, Mac & cheese, Mini burgers, Mini pizzas",
+                Name = "Kid Friendly"
+            };
+            var menu5 = new Menu
+            {
+                Items =
+                    "Spaghetti with meatballs, Chicken burger, Mac & cheese, Mini burgers, Mashed potatoes, Fried chicken",
+                Name = "Easy Breezy"
+            };
+            var menu6 = new Menu
+            {
+                Items =
+                    "Mashed potatoes, Fried chicken, Mac & cheese, Mini burgers, Salads with ingredients from nearby farms, Tomato soup, Chicken fingers",
+                Name = "Traditional"
+            };
+            var menu7 = new Menu
+            {
+                Items =
+                    "Burgers, Chicken soup, Fries, Flatbread pizza, Mac & cheese, Mini burgers",
+                Name = "No Brainer"
+            };
+            var menu8 = new Menu
+            {
+                Items =
+                    "Apple pie, Pumpkin pie, Giant chocolate chip cookies, Banana split, Molten lava cakes, Cinnamon rolls, Cheesecake",
+                Name = "Just Desserts"
+            };
+            menus.Add(menu1);
+            menus.Add(menu2);
+            menus.Add(menu3);
+            menus.Add(menu4);
+            menus.Add(menu5);
+            menus.Add(menu6);
+            menus.Add(menu7);
+            menus.Add(menu8);
+
+            foreach (var menu in menus)
+            {
+                context.Menus.Add(menu);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InsertRestaurantTypes(ReviewsContext context)
+        {
+            var restaurantTypes = new List<RestaurantType>();
+
+            var restaurantType1 = new RestaurantType { Name = "Fine Dining" };
+            var restaurantType2 = new RestaurantType { Name = "Casual Dining" };
+            var restaurantType3 = new RestaurantType { Name = "Fast Casual" };
+            var restaurantType4 = new RestaurantType { Name = "Fast Food" };
+            var restaurantType5 = new RestaurantType { Name = "Cafe" };
+            var restaurantType6 = new RestaurantType { Name = "Food Truck, Cart, Or Stand" };
+            var restaurantType7 = new RestaurantType { Name = "Family Style" };
+
+            restaurantTypes.Add(restaurantType1);
+            restaurantTypes.Add(restaurantType2);
+            restaurantTypes.Add(restaurantType3);
+            restaurantTypes.Add(restaurantType4);
+            restaurantTypes.Add(restaurantType5);
+            restaurantTypes.Add(restaurantType6);
+            restaurantTypes.Add(restaurantType7);
+
+            foreach (var restaurantType in restaurantTypes)
+            {
+                context.RestaurantTypes.Add(restaurantType);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InsertUsers(ReviewsContext context)
+        {
+            var users = new List<User>();
+
+            var user1 = new User { FirstName = "Bill", LastName = "Napier" };
+            var user2 = new User { FirstName = "Denise", LastName = "Napier" };
+            var user3 = new User { FirstName = "Grace", LastName = "Napier" };
+            var user4 = new User { FirstName = "Isaac", LastName = "Napier" };
+
+            users.Add(user1);
+            users.Add(user2);
+            users.Add(user3);
+            users.Add(user4);
+
+            foreach (var user in users)
+            {
+                context.Users.Add(user);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InsertReviews(ReviewsContext context)
+        {
             var reviews = new List<Review>();
 
             var review1 = new Review
@@ -226,257 +484,6 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             }
 
             context.SaveChanges();
-
-            //Users
-            var users = new List<User>();
-
-            var user1 = new User { FirstName = "Bill", LastName = "Napier" };
-            var user2 = new User { FirstName = "Denise", LastName = "Napier" };
-            var user3 = new User { FirstName = "Grace", LastName = "Napier" };
-            var user4 = new User { FirstName = "Isaac", LastName = "Napier" };
-
-            users.Add(user1);
-            users.Add(user2);
-            users.Add(user3);
-            users.Add(user4);
-
-            foreach (var user in users)
-            {
-                context.Users.Add(user);
-            }
-
-            context.SaveChanges();
-
-
-            //Restaurant Types
-            var restaurantTypes = new List<RestaurantType>();
-
-            var restaurantType1 = new RestaurantType { Name = "Fine Dining" };
-            var restaurantType2 = new RestaurantType { Name = "Casual Dining" };
-            var restaurantType3 = new RestaurantType { Name = "Fast Casual" };
-            var restaurantType4 = new RestaurantType { Name = "Fast Food" };
-            var restaurantType5 = new RestaurantType { Name = "Cafe" };
-            var restaurantType6 = new RestaurantType { Name = "Food Truck, Cart, Or Stand" };
-            var restaurantType7 = new RestaurantType { Name = "Family Style" };
-
-            restaurantTypes.Add(restaurantType1);
-            restaurantTypes.Add(restaurantType2);
-            restaurantTypes.Add(restaurantType3);
-            restaurantTypes.Add(restaurantType4);
-            restaurantTypes.Add(restaurantType5);
-            restaurantTypes.Add(restaurantType6);
-            restaurantTypes.Add(restaurantType7);
-
-            foreach (var restaurantType in restaurantTypes)
-            {
-                context.RestaurantTypes.Add(restaurantType);
-            }
-
-            context.SaveChanges();
-
-            //Menus
-            var menus = new List<Menu>();
-            var menu1 = new Menu
-            {
-                RestaurantId = 1,
-                Items =
-                    "Chicken pot pie, Mashed potatoes, Fried chicken, Burgers, Chicken soup",
-                Name = "Standard Fare"
-            };
-            var menu2 = new Menu
-            {
-                RestaurantId = 2,
-                Items =
-                    "Meatloaf, Lasagna, Spaghetti with meatballs, Chicken burger, Chicken parmesan, Chicken Pesto, Burger Sliders",
-                Name = "Basic Options"
-            };
-            var menu3 = new Menu
-            {
-                RestaurantId = 3,
-                Items =
-                    "Burgers with locally sourced beef or chicken, Salads with ingredients from nearby farms, Lobster rolls, shrimp, grilled fish if you are next to a fresh body of water",
-                Name = "Locally Sourced"
-            };
-            var menu4 = new Menu
-            {
-                RestaurantId = 4,
-                Items =
-                    "Grilled cheese, Tomato soup, Chicken fingers, Flatbread pizza, Mac & cheese, Mini burgers, Mini pizzas",
-                Name = "Kid Friendly"
-            };
-            var menu5 = new Menu
-            {
-                RestaurantId = 5,
-                Items =
-                    "Spaghetti with meatballs, Chicken burger, Mac & cheese, Mini burgers, Mashed potatoes, Fried chicken",
-                Name = "Easy Breezy"
-            };
-            var menu6 = new Menu
-            {
-                RestaurantId = 6,
-                Items =
-                    "Mashed potatoes, Fried chicken, Mac & cheese, Mini burgers, Salads with ingredients from nearby farms, Tomato soup, Chicken fingers",
-                Name = "Traditional"
-            };
-            var menu7 = new Menu
-            {
-                RestaurantId = 7,
-                Items =
-                    "Burgers, Chicken soup, Fries, Flatbread pizza, Mac & cheese, Mini burgers",
-                Name = "No Brainer"
-            };
-            var menu8 = new Menu
-            {
-                RestaurantId = 8,
-                Items =
-                    "Apple pie, Pumpkin pie, Giant chocolate chip cookies, Banana split, Molten lava cakes, Cinnamon rolls, Cheesecake",
-                Name = "Just Desserts"
-            };
-            menus.Add(menu1);
-            menus.Add(menu2);
-            menus.Add(menu3);
-            menus.Add(menu4);
-            menus.Add(menu5);
-            menus.Add(menu6);
-            menus.Add(menu7);
-            menus.Add(menu8);
-
-            foreach (var menu in menus)
-            {
-                context.Menus.Add(menu);
-            }
-
-            context.SaveChanges();
-
-
-            //Cities
-            var cities = new List<City>();
-            var city1 = new City { Name = "Pittsburgh, PA" };
-            var city2 = new City { Name = "Barboursville, WV" };
-            var city3 = new City { Name = "New York, NY" };
-            var city4 = new City { Name = "San Francisco, CA" };
-            var city5 = new City { Name = "Dallas, TX" };
-            cities.Add(city1);
-            cities.Add(city2);
-            cities.Add(city3);
-            cities.Add(city4);
-            cities.Add(city5);
-
-            foreach (var city in cities)
-            {
-                context.Cities.Add(city);
-            }
-
-            context.SaveChanges();
-
-
-            //Restaurants
-            var restaurants = new List<Restaurant>();
-            var restaurant1 = new Restaurant
-            {
-                CityId = 1,
-                MenuId = 1,
-                RestaurantTypeId = 1,
-                Name = "Bitter Ends Garden Luncheonette"
-            };
-            var restaurant2 = new Restaurant
-            {
-                CityId = 1,
-                MenuId = 2,
-                RestaurantTypeId = 2,
-                Name = "The Capital Grille"
-            };
-            var restaurant3 = new Restaurant
-            {
-                CityId = 1,
-                MenuId = 3,
-                RestaurantTypeId = 3,
-                Name = "Oak Hill Post"
-            };
-            var restaurant4 = new Restaurant
-            {
-                CityId = 1,
-                MenuId = 4,
-                RestaurantTypeId = 4,
-                Name = "Savor Bread"
-            };
-            var restaurant5 = new Restaurant
-            {
-                CityId = 2,
-                MenuId = 5,
-                RestaurantTypeId = 5,
-                Name = "Food Wish"
-            };
-            var restaurant6 = new Restaurant
-            {
-                CityId = 2,
-                MenuId = 6,
-                RestaurantTypeId = 6,
-                Name = "Feed Logic"
-            };
-            var restaurant7 = new Restaurant
-            {
-                CityId = 3,
-                MenuId = 7,
-                RestaurantTypeId = 7,
-                Name = "Burgerpad"
-            };
-            var restaurant8 = new Restaurant
-            {
-                CityId = 4,
-                MenuId = 8,
-                RestaurantTypeId = 1,
-                Name = "Alluring Lo"
-            };
-            var restaurant9 = new Restaurant
-            {
-                CityId = 4,
-                MenuId = 2,
-                RestaurantTypeId = 2,
-                Name = "Spices Mein"
-            };
-            var restaurant10 = new Restaurant
-            {
-                CityId = 5,
-                MenuId = 4,
-                RestaurantTypeId = 4,
-                Name = "Tasty Noodle"
-            };
-            var restaurant11 = new Restaurant
-            {
-                CityId = 5,
-                MenuId = 6,
-                RestaurantTypeId = 7,
-                Name = "Diced Bean"
-            };
-            var restaurant12 = new Restaurant
-            {
-                CityId = 5,
-                MenuId = 7,
-                RestaurantTypeId = 3,
-                Name = "Cuisine Lemo"
-            };
-
-            restaurants.Add(restaurant1);
-            restaurants.Add(restaurant2);
-            restaurants.Add(restaurant3);
-            restaurants.Add(restaurant4);
-            restaurants.Add(restaurant5);
-            restaurants.Add(restaurant6);
-            restaurants.Add(restaurant7);
-            restaurants.Add(restaurant8);
-            restaurants.Add(restaurant9);
-            restaurants.Add(restaurant10);
-            restaurants.Add(restaurant11);
-            restaurants.Add(restaurant12);
-
-            foreach (var restaurant in restaurants)
-            {
-                context.Restaurants.Add(restaurant);
-            }
-
-            context.SaveChanges();
-
         }
     }
 }
