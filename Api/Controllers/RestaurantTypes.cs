@@ -10,48 +10,48 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReviewsController : ControllerBase
+    public class RestaurantTypesController : ControllerBase
     {
         private readonly ReviewsContext _context;
 
-        public ReviewsController(ReviewsContext context)
+        public RestaurantTypesController(ReviewsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Reviews
+        // GET: api/RestaurantTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<RestaurantType>>> GetRestaurantTypes()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.RestaurantTypes.ToListAsync();
         }
 
-        // GET: api/Reviews/1
+        // GET: api/RestaurantTypes/1
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
+        public async Task<ActionResult<RestaurantType>> GetRestaurantType(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var RestaurantType = await _context.RestaurantTypes.FindAsync(id);
 
-            if (Review == null)
+            if (RestaurantType == null)
             {
                 return NotFound();
             }
 
-            return Review;
+            return RestaurantType;
         }
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Update
-        // PUT: api/Reviews/1
+        // PUT: api/RestaurantTypes/1
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutReview(int id, Review Review)
+        public async Task<IActionResult> PutRestaurantType(int id, RestaurantType RestaurantType)
         {
-            if (id != Review.Id)
+            if (id != RestaurantType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(Review).State = EntityState.Modified;
+            _context.Entry(RestaurantType).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReviewExists(id))
+                if (!RestaurantTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -75,39 +75,39 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Create
-        // POST: api/Reviews
+        // POST: api/RestaurantTypes
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review Review)
+        public async Task<ActionResult<RestaurantType>> PostRestaurantType(RestaurantType RestaurantType)
         {
-            _context.Reviews.Add(Review);
+            _context.RestaurantTypes.Add(RestaurantType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReview), new { id = Review.Id }, Review);
+            return CreatedAtAction(nameof(GetRestaurantType), new { id = RestaurantType.Id }, RestaurantType);
         }
         #endregion
 
         #region snippet_Delete
-        // DELETE: api/Reviews/1
+        // DELETE: api/RestaurantTypes/1
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteReview(int id)
+        public async Task<IActionResult> DeleteRestaurantType(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var RestaurantType = await _context.RestaurantTypes.FindAsync(id);
 
-            if (Review == null)
+            if (RestaurantType == null)
             {
                 return NotFound();
             }
 
-            _context.Reviews.Remove(Review);
+            _context.RestaurantTypes.Remove(RestaurantType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         #endregion
 
-        private bool ReviewExists(long id)
+        private bool RestaurantTypeExists(long id)
         {
-            return _context.Reviews.Any(e => e.Id == id);
+            return _context.RestaurantTypes.Any(e => e.Id == id);
         }
     }
 }

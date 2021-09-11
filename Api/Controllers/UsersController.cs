@@ -10,48 +10,48 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReviewsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly ReviewsContext _context;
 
-        public ReviewsController(ReviewsContext context)
+        public UsersController(ReviewsContext context)
         {
             _context = context;
         }
 
-        // GET: api/Reviews
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Reviews/1
+        // GET: api/Users/1
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var User = await _context.Users.FindAsync(id);
 
-            if (Review == null)
+            if (User == null)
             {
                 return NotFound();
             }
 
-            return Review;
+            return User;
         }
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Update
-        // PUT: api/Reviews/1
+        // PUT: api/Users/1
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutReview(int id, Review Review)
+        public async Task<IActionResult> PutUser(int id, User User)
         {
-            if (id != Review.Id)
+            if (id != User.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(Review).State = EntityState.Modified;
+            _context.Entry(User).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReviewExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -75,39 +75,39 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Create
-        // POST: api/Reviews
+        // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review Review)
+        public async Task<ActionResult<User>> PostUser(User User)
         {
-            _context.Reviews.Add(Review);
+            _context.Users.Add(User);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReview), new { id = Review.Id }, Review);
+            return CreatedAtAction(nameof(GetUser), new { id = User.Id }, User);
         }
         #endregion
 
         #region snippet_Delete
-        // DELETE: api/Reviews/1
+        // DELETE: api/Users/1
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteReview(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
+            var User = await _context.Users.FindAsync(id);
 
-            if (Review == null)
+            if (User == null)
             {
                 return NotFound();
             }
 
-            _context.Reviews.Remove(Review);
+            _context.Users.Remove(User);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         #endregion
 
-        private bool ReviewExists(long id)
+        private bool UserExists(long id)
         {
-            return _context.Reviews.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

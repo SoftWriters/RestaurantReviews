@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Softwriters.RestaurantReviews.Models.Entities
 {
@@ -10,6 +11,7 @@ namespace Softwriters.RestaurantReviews.Models.Entities
 
         public string FirstName { get; set; }
 
+        [JsonIgnore]
         public ICollection<Review> Reviews { get; set; }
     }
 }
