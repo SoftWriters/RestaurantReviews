@@ -14,16 +14,16 @@ namespace Softwriters.RestaurantReviews.Data.DataContext
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantType> RestaurantTypes { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Critic> Critics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<City>().ToTable("City");
-            modelBuilder.Entity<Menu>().ToTable("Menu");
-            modelBuilder.Entity<Restaurant>().ToTable("Restaurant");
-            modelBuilder.Entity<RestaurantType>().ToTable("RestaurantType");
-            modelBuilder.Entity<Review>().ToTable("Review");
-            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<City>().ToTable(nameof(City));
+            modelBuilder.Entity<Menu>().ToTable(nameof(Menu));
+            modelBuilder.Entity<Restaurant>().ToTable(nameof(Restaurant));
+            modelBuilder.Entity<RestaurantType>().ToTable(nameof(RestaurantType));
+            modelBuilder.Entity<Review>().ToTable(nameof(Review));
+            modelBuilder.Entity<Critic>().ToTable(nameof(Critic));
         }
     }
 }

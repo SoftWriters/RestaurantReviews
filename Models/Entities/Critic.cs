@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Softwriters.RestaurantReviews.Models.Entities
 {
-    public class User
+    public class Critic
     {
         public int Id { get; set; }
 
