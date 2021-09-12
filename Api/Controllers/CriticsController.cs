@@ -19,14 +19,12 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Critics
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Critic>>> GetCritics()
         {
             return await _context.Critics.ToListAsync();
         }
 
-        // GET: api/Critics/1
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Critic>> GetCritic(int id)
         {
@@ -40,9 +38,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             return Critic;
         }
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Update
-        // PUT: api/Critics/1
         [HttpPut("{id:int}")]
         public async Task<IActionResult> PutCritic(int id, Critic critic)
         {
@@ -71,11 +66,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Create
-        // POST: api/Critics
         [HttpPost]
         public async Task<ActionResult<Critic>> PostCritic(Critic critic)
         {
@@ -84,10 +75,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return CreatedAtAction(nameof(GetCritic), new { id = critic.Id }, critic);
         }
-        #endregion
 
-        #region snippet_Delete
-        // DELETE: api/Critics/1
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCritic(int id)
         {
@@ -103,7 +91,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
         private bool CriticExists(long id)
         {
