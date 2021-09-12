@@ -19,14 +19,12 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Menus
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Menu>>> GetMenus()
         {
             return await _context.Menus.ToListAsync();
         }
 
-        // GET: api/Menus/1
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Menu>> GetMenu(int id)
         {
@@ -40,9 +38,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             return Menu;
         }
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Update
-        // PUT: api/Menus/1
         [HttpPut("{id:int}")]
         public async Task<IActionResult> PutMenu(int id, Menu Menu)
         {
@@ -71,11 +66,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Create
-        // POST: api/Menus
         [HttpPost]
         public async Task<ActionResult<Menu>> PostMenu(Menu Menu)
         {
@@ -84,10 +75,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return CreatedAtAction(nameof(GetMenu), new { id = Menu.Id }, Menu);
         }
-        #endregion
 
-        #region snippet_Delete
-        // DELETE: api/Menus/1
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteMenu(int id)
         {
@@ -103,7 +91,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
         private bool MenuExists(long id)
         {

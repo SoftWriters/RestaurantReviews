@@ -19,14 +19,12 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Reviews
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
             return await _context.Reviews.ToListAsync();
         }
 
-        // GET: api/Reviews/1
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Review>> GetReview(int id)
         {
@@ -40,9 +38,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             return Review;
         }
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Update
-        // PUT: api/Reviews/1
         [HttpPut("{id:int}")]
         public async Task<IActionResult> PutReview(int id, Review Review)
         {
@@ -71,11 +66,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Create
-        // POST: api/Reviews
         [HttpPost]
         public async Task<ActionResult<Review>> PostReview(Review Review)
         {
@@ -84,10 +75,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return CreatedAtAction(nameof(GetReview), new { id = Review.Id }, Review);
         }
-        #endregion
 
-        #region snippet_Delete
-        // DELETE: api/Reviews/1
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteReview(int id)
         {
@@ -103,7 +91,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
         private bool ReviewExists(long id)
         {

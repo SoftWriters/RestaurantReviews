@@ -19,14 +19,12 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Cities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
             return await _context.Cities.ToListAsync();
         }
 
-        // GET: api/Cities/1
         [HttpGet("{id:int}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
@@ -40,9 +38,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
             return city;
         }
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Update
-        // PUT: api/Cities/1
         [HttpPut("{id:int}")]
         public async Task<IActionResult> PutCity(int id, City city)
         {
@@ -71,11 +66,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
-        // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        #region snippet_Create
-        // POST: api/Cities
         [HttpPost]
         public async Task<ActionResult<City>> PostCity(City city)
         {
@@ -84,10 +75,7 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return CreatedAtAction(nameof(GetCity), new { id = city.Id }, city);
         }
-        #endregion
 
-        #region snippet_Delete
-        // DELETE: api/Cities/1
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
@@ -103,7 +91,6 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
 
             return NoContent();
         }
-        #endregion
 
         private bool CityExists(long id)
         {

@@ -30,7 +30,8 @@ namespace Softwriters.RestaurantReviews.Api
                 {
                     Version = "v1",
                     Title = "Softwriters Restaurant Reviews API",
-                    Description = "Use the Softwriters Restaurant Reviews REST API to create, read, update and delete reviews.",
+                    Description =
+                        "Use the Softwriters Restaurant Reviews REST API to create, read, update and delete reviews.",
                     TermsOfService = new Uri("http://www.example.com/terms-of-service/"),
                     Contact = new OpenApiContact
                     {
@@ -58,19 +59,20 @@ namespace Softwriters.RestaurantReviews.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1");
+                    //
+                });
+
+                app.UseHttpsRedirection();
+
+                app.UseRouting();
+
+                app.UseAuthorization();
+
+                app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
     }
 }
