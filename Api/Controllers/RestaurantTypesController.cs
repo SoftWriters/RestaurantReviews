@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Data;
+using Softwriters.RestaurantReviews.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +12,9 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantTypesController : ControllerBase
     {
-        private readonly ReviewsContext _context;
+        private readonly DataContext _context;
 
-        public RestaurantTypesController(ReviewsContext context)
+        public RestaurantTypesController(DataContext context)
         {
             _context = context;
         }

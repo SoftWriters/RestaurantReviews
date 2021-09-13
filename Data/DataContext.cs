@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Models;
 
-namespace Softwriters.RestaurantReviews.Data.DataContext
+namespace Softwriters.RestaurantReviews.Data
 {
-    public class ReviewsContext : DbContext
+    public class DataContext : DbContext
     {
-        public ReviewsContext(DbContextOptions<ReviewsContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 

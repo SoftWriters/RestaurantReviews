@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Softwriters.RestaurantReviews.Models.PrivateModels;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Softwriters.RestaurantReviews.Models.Entities
+namespace Softwriters.RestaurantReviews.Models
 {
-    public class City
+    public class City : EntityBase
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         [JsonIgnore]

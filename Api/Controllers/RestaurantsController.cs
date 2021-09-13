@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Data;
+using Softwriters.RestaurantReviews.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +12,9 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantsController : ControllerBase
     {
-        private readonly ReviewsContext _context;
+        private readonly DataContext _context;
 
-        public RestaurantsController(ReviewsContext context)
+        public RestaurantsController(DataContext context)
         {
             _context = context;
         }
@@ -28,25 +28,25 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Restaurant>> GetRestaurant(int id)
         {
-            var Restaurant = await _context.Restaurants.FindAsync(id);
+            var restaurant = await _context.Restaurants.FindAsync(id);
 
-            if (Restaurant == null)
+            if (restaurant == null)
             {
                 return NotFound();
             }
 
-            return Restaurant;
+            return restaurant;
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutRestaurant(int id, Restaurant Restaurant)
+        public async Task<IActionResult> PutRestaurant(int id, Restaurant restaurant)
         {
-            if (id != Restaurant.Id)
+            if (id != restaurant.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(Restaurant).State = EntityState.Modified;
+            _context.Entry(restaurant).State = EntityState.Modified;
 
             try
             {
@@ -68,25 +68,25 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Restaurant>> PostRestaurant(Restaurant Restaurant)
+        public async Task<ActionResult<Restaurant>> PostRestaurant(Restaurant restaurant)
         {
-            _context.Restaurants.Add(Restaurant);
+            _context.Restaurants.Add(restaurant);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetRestaurant), new { id = Restaurant.Id }, Restaurant);
+            return CreatedAtAction(nameof(GetRestaurant), new { id = restaurant.Id }, restaurant);
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteRestaurant(int id)
         {
-            var Restaurant = await _context.Restaurants.FindAsync(id);
+            var restaurant = await _context.Restaurants.FindAsync(id);
 
-            if (Restaurant == null)
+            if (restaurant == null)
             {
                 return NotFound();
             }
 
-            _context.Restaurants.Remove(Restaurant);
+            _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
 
             return NoContent();

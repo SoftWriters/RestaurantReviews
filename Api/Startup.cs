@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Softwriters.RestaurantReviews.Data.DataContext;
+using Softwriters.RestaurantReviews.Data;
 using System;
 
 namespace Softwriters.RestaurantReviews.Api
@@ -21,8 +21,9 @@ namespace Softwriters.RestaurantReviews.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c =>
             {
@@ -47,7 +48,7 @@ namespace Softwriters.RestaurantReviews.Api
                 });
             });
 
-            services.AddDbContext<ReviewsContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ReviewsDbConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -62,7 +63,6 @@ namespace Softwriters.RestaurantReviews.Api
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1");
-                    //
                 });
 
                 app.UseHttpsRedirection();
