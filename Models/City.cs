@@ -1,7 +1,9 @@
 ﻿using Softwriters.RestaurantReviews.Models.PrivateModels;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
+[assembly: InternalsVisibleTo("Data")]
 namespace Softwriters.RestaurantReviews.Models
 {
     public class City : EntityBase
@@ -9,6 +11,6 @@ namespace Softwriters.RestaurantReviews.Models
         public string Name { get; set; }
 
         [JsonIgnore]
-        public ICollection<Restaurant> Restaurants { get; set; }
+        internal ICollection<Restaurant> Restaurants { get; set; }
     }
 }

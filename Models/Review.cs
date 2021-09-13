@@ -1,7 +1,9 @@
 using Softwriters.RestaurantReviews.Models.PrivateModels;
 using System;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
+[assembly: InternalsVisibleTo("Data")]
 namespace Softwriters.RestaurantReviews.Models
 {
     public class Review : EntityBase
@@ -17,9 +19,9 @@ namespace Softwriters.RestaurantReviews.Models
         public int UserId { get; set; }
 
         [JsonIgnore]
-        public Critic Critic { get; set; }
+        internal Critic Critic { get; set; }
 
         [JsonIgnore]
-        public Restaurant Restaurant { get; set; }
+        internal Restaurant Restaurant { get; set; }
     }
 }
