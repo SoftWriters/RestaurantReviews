@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "25d57915-4bdf-4f94-badb-0865ac35f8e0",
+		"name": "SoftWriters Restaurant Reviews POC Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:5001/user/users",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/review/reviews/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews",
+						"3"
+					]
+				},
+				"description": "List All Users"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/restaurant/restaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/restaurant/restaurants",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"restaurant",
+						"restaurants"
+					]
+				},
+				"description": "List All Restaurants"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/review/reviews",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"dan\",\r\n  \"password\": \"dan\",\r\n  \"email\": \"dan@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/user/users/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"users",
+						"1"
+					]
+				},
+				"description": "List All Reviews"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/user/users/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/user/users/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"users",
+						"1"
+					]
+				},
+				"description": "Get User by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/restaurant/restaurants/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/restaurant/restaurants/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"restaurant",
+						"restaurants",
+						"1"
+					]
+				},
+				"description": "Get Restaurant by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/review/reviews/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/review/reviews/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews",
+						"1"
+					]
+				},
+				"description": "Get Review by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/restaurant/restaurants/city?name=las%20vegas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/restaurant/restaurants/city?name=las%20vegas",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"restaurant",
+						"restaurants",
+						"city"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "las%20vegas"
+						}
+					]
+				},
+				"description": "List Restaurants by City"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/review/reviews?id=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/review/reviews?id=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "List Reviews by User"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/restaurant/restaurants",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Tacos Tacos Tacos\",\r\n  \"address\": \"11 J Street\",\r\n  \"city\": \"San Diego\",\r\n  \"state\": \"CA\",\r\n  \"phone\": \"619 555-1111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/restaurant/restaurants",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"restaurant",
+						"restaurants"
+					]
+				},
+				"description": "Add a New Restaurant"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/user/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"restaurantID\": 2,\r\n    \"userID\": 2,\r\n    \"text\": \"I love me some tacos!\",\r\n    \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/review/reviews",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews"
+					]
+				},
+				"description": "Add a New User"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/review/reviews",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"restaurantID\": 2,\r\n    \"userID\": 2,\r\n    \"text\": \"I love me some tacos!\",\r\n    \"rating\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/review/reviews",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews"
+					]
+				},
+				"description": "Create a New Review"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5001/review/reviews/4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/review/reviews/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"review",
+						"reviews",
+						"4"
+					]
+				},
+				"description": "Dealte a Review"
+			},
+			"response": []
+		}
+	]
+}

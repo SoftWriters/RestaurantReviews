@@ -48,6 +48,10 @@ namespace RestaurantReviews.Repositories
         public override async Task<Review> DeleteAsync(long id)
         {
             var review = await _context.Reviews.FindAsync(id);
+            if (review == null) {
+                // No Record Found
+                return null;
+            }
             _context.Reviews.Remove(review);
             await _context.SaveChangesAsync();
 
