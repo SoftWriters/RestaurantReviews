@@ -29,6 +29,51 @@ Testing Tools
 -------------
 Postman (v.8.12.1)
 
+Database Engine
+---------------
+SQLite (v.3.32.2)
+
 Implementation Process
 ----------------------
-1. Begin With .NET SDK Generated Scaffolding (ASP.NET Core Web API)
+* Data Tier
+    * Define the Review Database in SQL
+        * `SQLite/RestaurantReviews.sql`
+    * Generate the SQLite Review Database
+        * `$ sqlite3 RestaurantReviews.db -init RestaurantReviews.sql`
+    * Create the Review Data Models
+        * `Models/Restaurant`
+        * `Models/RestaurantDTO`
+        * `Models/Review` 
+        * `Models/ReviewDTO` 
+        * `Models/User`
+        * `Models/UserDTO`
+    * Add the Microsoft EF Controller for SQLite
+        * `$ dotnet add package Microsoft.EntityFrameworkCore.Sqlite`
+    * Create the Review Database Context
+        * `Contexts/ReviewContext`
+* Business Tier
+    * Create the Review Data Repository Interfaces
+        * `Interfaces/IGenericRepository`
+        * `Interfaces/IRestaurantRepository`
+        * `Interfaces/IReviewRepository`
+        * `Interfaces/IUnitOfWork`
+        * `Interfaces/IUserRepository`
+    * Create the Review Data Repository Implementations
+        * `Repositories/GenericRepository`
+        * `Repositories/RestaurantRepository`
+        * `Repositories/ReviewRepository`
+        * `Repositories/UserRepository`
+* Web Service API
+    * Generate .NET Core Web API Scaffolding
+        * `$ dotnet new webapi`
+    * Create the Unit of Work Context Manager
+        * `Controllers/UnitOfWork`
+    * Create the Review Service Controllers
+        * `Controllers/RestaurantController`
+        * `Controllers/ReviewController`
+        * `Controllers/UserController`
+
+Testing Process
+---------------
+* Review the API Using Swagger
+    * `https://localhost:5001/swagger/index.html`
