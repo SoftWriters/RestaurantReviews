@@ -1,8 +1,8 @@
 ﻿using Softwriters.RestaurantReviews.PrivateModels;
 
-namespace Softwriters.RestaurantReviews.Models
+namespace Softwriters.RestaurantReviews.Dto
 {
-    public class RestaurantType : EntityBase
+    public class CityRequest : EntityBase
     {
         public string Name { get; set; }
     }

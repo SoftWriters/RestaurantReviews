@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data;
+using Softwriters.RestaurantReviews.Dto;
 using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Api.Controllers
@@ -12,89 +11,46 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class CitiesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ICityService _cityService;
 
-        public CitiesController(DataContext context)
+        public CitiesController(ICityService cityService)
         {
-            _context = context;
+            _cityService = cityService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
-            return await _context.Cities.ToListAsync();
+            var cities = await _cityService.GetAll();
+            return Ok(cities);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
-
-            if (city == null)
-            {
-                return NotFound();
-            }
-
-            return city;
+            var city = await _cityService.GetById(id);
+            return Ok(city);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutCity(int id, City city)
+        public async Task<IActionResult> PutCity(int id, CityRequest dto)
         {
-            if (id != city.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(city).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _cityService.Update(id, dto);
+            return Ok(new { message = "City updated successfully" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<City>> PostCity(City city)
+        public async Task<ActionResult<City>> PostCity(CityRequest dto)
         {
-            _context.Cities.Add(city);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetCity), new { id = city.Id }, city);
+            await _cityService.Create(dto);
+            return Ok(new { message = "City created successfully" });
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
-
-            if (city == null)
-            {
-                return NotFound();
-            }
-
-            _context.Cities.Remove(city);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CityExists(long id)
-        {
-            return _context.Cities.Any(e => e.Id == id);
+            await _cityService.Delete(id);
+            return Ok(new { message = "City deleted successfully" });
         }
     }
 }

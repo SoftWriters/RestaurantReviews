@@ -1,4 +1,4 @@
-using Softwriters.RestaurantReviews.Models.PrivateModels;
+using Softwriters.RestaurantReviews.PrivateModels;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;

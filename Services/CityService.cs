@@ -10,48 +10,48 @@ using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Services
 {
-    public class RestaurantService : IRestaurantService
+    public class CityService : ICityService
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IServiceHelper _serviceHelper;
 
-        public RestaurantService(DataContext context, IMapper mapper, IServiceHelper serviceHelper)
+        public CityService(DataContext context, IMapper mapper, IServiceHelper serviceHelper)
         {
             _context = context;
             _mapper = mapper;
             _serviceHelper = serviceHelper;
         }
 
-        public async Task<IEnumerable<Restaurant>> GetAll()
+        public async Task<IEnumerable<City>> GetAll()
         {
-            return await _context.Restaurants.ToListAsync();
+            return await _context.Cities.ToListAsync();
         }
 
-        public async Task<Restaurant> GetById(int id)
+        public async Task<City> GetById(int id)
         {
-            return await _serviceHelper.GetRestaurant(id);
+            return await _serviceHelper.GetCity(id);
         }
 
-        public async Task Update(int id, RestaurantRequest dto)
+        public async Task Update(int id, CityRequest dto)
         {
-            var restaurant = await _serviceHelper.GetRestaurant(id);
-            _ = _mapper.Map(dto, restaurant);
-            _context.Restaurants.Update(restaurant);
+            var city = await _serviceHelper.GetCity(id);
+            _ = _mapper.Map(dto, city);
+            _context.Cities.Update(city);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Create(RestaurantRequest dto)
+        public async Task Create(CityRequest dto)
         {
-            var restaurant = _mapper.Map<Restaurant>(dto);
-            _context.Restaurants.Add(restaurant);
+            var city = _mapper.Map<City>(dto);
+            _context.Cities.Add(city);
             await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            var restaurant = await _serviceHelper.GetRestaurant(id);
-            _context.Restaurants.Remove(restaurant);
+            var city = await _serviceHelper.GetCity(id);
+            _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
         }
     }

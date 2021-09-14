@@ -10,48 +10,48 @@ using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Services
 {
-    public class RestaurantService : IRestaurantService
+    public class CriticService : ICriticService
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IServiceHelper _serviceHelper;
 
-        public RestaurantService(DataContext context, IMapper mapper, IServiceHelper serviceHelper)
+        public CriticService(DataContext context, IMapper mapper, IServiceHelper serviceHelper)
         {
             _context = context;
             _mapper = mapper;
             _serviceHelper = serviceHelper;
         }
 
-        public async Task<IEnumerable<Restaurant>> GetAll()
+        public async Task<IEnumerable<Critic>> GetAll()
         {
-            return await _context.Restaurants.ToListAsync();
+            return await _context.Critics.ToListAsync();
         }
 
-        public async Task<Restaurant> GetById(int id)
+        public async Task<Critic> GetById(int id)
         {
-            return await _serviceHelper.GetRestaurant(id);
+            return await _serviceHelper.GetCritic(id);
         }
 
-        public async Task Update(int id, RestaurantRequest dto)
+        public async Task Update(int id, CriticRequest dto)
         {
-            var restaurant = await _serviceHelper.GetRestaurant(id);
-            _ = _mapper.Map(dto, restaurant);
-            _context.Restaurants.Update(restaurant);
+            var critic = await _serviceHelper.GetCritic(id);
+            _ = _mapper.Map(dto, critic);
+            _context.Critics.Update(critic);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Create(RestaurantRequest dto)
+        public async Task Create(CriticRequest dto)
         {
-            var restaurant = _mapper.Map<Restaurant>(dto);
-            _context.Restaurants.Add(restaurant);
+            var critic = _mapper.Map<Critic>(dto);
+            _context.Critics.Add(critic);
             await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            var restaurant = await _serviceHelper.GetRestaurant(id);
-            _context.Restaurants.Remove(restaurant);
+            var critic = await _serviceHelper.GetCritic(id);
+            _context.Critics.Remove(critic);
             await _context.SaveChangesAsync();
         }
     }

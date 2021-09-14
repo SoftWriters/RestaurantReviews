@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data;
+using Softwriters.RestaurantReviews.Dto;
 using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Api.Controllers
@@ -12,89 +11,46 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class CriticsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ICriticService _criticService;
 
-        public CriticsController(DataContext context)
+        public CriticsController(ICriticService criticService)
         {
-            _context = context;
+            _criticService = criticService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Critic>>> GetCritics()
         {
-            return await _context.Critics.ToListAsync();
+            var critics = await _criticService.GetAll();
+            return Ok(critics);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Critic>> GetCritic(int id)
         {
-            var Critic = await _context.Critics.FindAsync(id);
-
-            if (Critic == null)
-            {
-                return NotFound();
-            }
-
-            return Critic;
+            var critic = await _criticService.GetById(id);
+            return Ok(critic);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutCritic(int id, Critic critic)
+        public async Task<IActionResult> PutCritic(int id, CriticRequest dto)
         {
-            if (id != critic.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(critic).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CriticExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _criticService.Update(id, dto);
+            return Ok(new { message = "Critic updated successfully" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<Critic>> PostCritic(Critic critic)
+        public async Task<ActionResult<Critic>> PostCritic(CriticRequest dto)
         {
-            _context.Critics.Add(critic);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetCritic), new { id = critic.Id }, critic);
+            await _criticService.Create(dto);
+            return Ok(new { message = "Critic created successfully" });
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCritic(int id)
         {
-            var critic = await _context.Critics.FindAsync(id);
-
-            if (critic == null)
-            {
-                return NotFound();
-            }
-
-            _context.Critics.Remove(critic);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CriticExists(long id)
-        {
-            return _context.Critics.Any(e => e.Id == id);
+            await _criticService.Delete(id);
+            return Ok(new { message = "Critic deleted successfully" });
         }
     }
 }

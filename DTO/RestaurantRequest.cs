@@ -1,6 +1,8 @@
-﻿namespace Softwriters.RestaurantReviews.Dto
+﻿using Softwriters.RestaurantReviews.PrivateModels;
+
+namespace Softwriters.RestaurantReviews.Dto
 {
-    public class RestaurantRequest
+    public class RestaurantRequest : EntityBase
     {
         public int CityId { get; set; }
 
