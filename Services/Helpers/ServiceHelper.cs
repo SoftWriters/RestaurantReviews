@@ -7,9 +7,9 @@ namespace Softwriters.RestaurantReviews.Services.Helpers
 {
     public class ServiceHelper : IServiceHelper
     {
-        private readonly DataContext _context;
+        private readonly ReviewsDataContext _context;
 
-        public ServiceHelper(DataContext context)
+        public ServiceHelper(ReviewsDataContext context)
         {
             _context = context;
         }

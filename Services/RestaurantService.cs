@@ -12,11 +12,11 @@ namespace Softwriters.RestaurantReviews.Services
 {
     public class RestaurantService : IRestaurantService
     {
-        private readonly DataContext _context;
+        private readonly ReviewsDataContext _context;
         private readonly IMapper _mapper;
         private readonly IServiceHelper _serviceHelper;
 
-        public RestaurantService(DataContext context, IMapper mapper, IServiceHelper serviceHelper)
+        public RestaurantService(ReviewsDataContext context, IMapper mapper, IServiceHelper serviceHelper)
         {
             _context = context;
             _mapper = mapper;
