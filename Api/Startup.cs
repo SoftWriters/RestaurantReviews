@@ -5,7 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Softwriters.RestaurantReviews.Data.DataContext;
+using Softwriters.RestaurantReviews.Data;
+using Softwriters.RestaurantReviews.Services;
+using Softwriters.RestaurantReviews.Services.Helpers;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System;
 
 namespace Softwriters.RestaurantReviews.Api
@@ -21,8 +24,9 @@ namespace Softwriters.RestaurantReviews.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddSwaggerGen(c =>
             {
@@ -47,10 +51,18 @@ namespace Softwriters.RestaurantReviews.Api
                 });
             });
 
-            services.AddDbContext<ReviewsContext>(options =>
+            services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ReviewsDbConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IServiceHelper, ServiceHelper>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICriticService, CriticService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<IRestaurantTypeService, RestaurantTypeService>();
+            services.AddScoped<IReviewService, ReviewService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,7 +74,6 @@ namespace Softwriters.RestaurantReviews.Api
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1");
-                    //
                 });
 
                 app.UseHttpsRedirection();

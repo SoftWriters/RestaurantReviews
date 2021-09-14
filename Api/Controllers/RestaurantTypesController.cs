@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Dto;
+using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Api.Controllers
@@ -12,89 +11,46 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantTypesController : ControllerBase
     {
-        private readonly ReviewsContext _context;
+        private readonly IRestaurantTypeService _restaurantTypeService;
 
-        public RestaurantTypesController(ReviewsContext context)
+        public RestaurantTypesController(IRestaurantTypeService restaurantTypeService)
         {
-            _context = context;
+            _restaurantTypeService = restaurantTypeService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RestaurantType>>> GetRestaurantTypes()
         {
-            return await _context.RestaurantTypes.ToListAsync();
+            var restaurantTypes = await _restaurantTypeService.GetAll();
+            return Ok(restaurantTypes);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<RestaurantType>> GetRestaurantType(int id)
         {
-            var RestaurantType = await _context.RestaurantTypes.FindAsync(id);
-
-            if (RestaurantType == null)
-            {
-                return NotFound();
-            }
-
-            return RestaurantType;
+            var restaurantType = await _restaurantTypeService.GetById(id);
+            return Ok(restaurantType);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutRestaurantType(int id, RestaurantType RestaurantType)
+        public async Task<IActionResult> PutRestaurantType(int id, RestaurantTypeRequest dto)
         {
-            if (id != RestaurantType.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(RestaurantType).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RestaurantTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _restaurantTypeService.Update(id, dto);
+            return Ok(new { message = "Restaurant Type updated successfully" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<RestaurantType>> PostRestaurantType(RestaurantType RestaurantType)
+        public async Task<ActionResult<RestaurantType>> PostRestaurant(RestaurantTypeRequest dto)
         {
-            _context.RestaurantTypes.Add(RestaurantType);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetRestaurantType), new { id = RestaurantType.Id }, RestaurantType);
+            await _restaurantTypeService.Create(dto);
+            return Ok(new { message = "Restaurant Type created successfully" });
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteRestaurantType(int id)
+        public async Task<IActionResult> DeleteRestaurant(int id)
         {
-            var RestaurantType = await _context.RestaurantTypes.FindAsync(id);
-
-            if (RestaurantType == null)
-            {
-                return NotFound();
-            }
-
-            _context.RestaurantTypes.Remove(RestaurantType);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool RestaurantTypeExists(long id)
-        {
-            return _context.RestaurantTypes.Any(e => e.Id == id);
+            await _restaurantTypeService.Delete(id);
+            return Ok(new { message = "Restaurant Type deleted successfully" });
         }
     }
 }

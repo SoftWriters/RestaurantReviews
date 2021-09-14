@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Data.DataSeeding;
+using Softwriters.RestaurantReviews.Data;
 using System;
 
 namespace Softwriters.RestaurantReviews.Api
@@ -26,7 +25,7 @@ namespace Softwriters.RestaurantReviews.Api
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ReviewsContext>();
+                    var context = services.GetRequiredService<DataContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

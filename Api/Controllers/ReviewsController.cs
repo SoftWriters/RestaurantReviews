@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Dto;
+using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Api.Controllers
@@ -12,89 +11,46 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class ReviewsController : ControllerBase
     {
-        private readonly ReviewsContext _context;
+        private readonly IReviewService _reviewService;
 
-        public ReviewsController(ReviewsContext context)
+        public ReviewsController(IReviewService reviewService)
         {
-            _context = context;
+            _reviewService = reviewService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            var reviews = await _reviewService.GetAll();
+            return Ok(reviews);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Review>> GetReview(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
-
-            if (Review == null)
-            {
-                return NotFound();
-            }
-
-            return Review;
+            var review = await _reviewService.GetById(id);
+            return Ok(review);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutReview(int id, Review Review)
+        public async Task<IActionResult> PutReview(int id, ReviewRequest dto)
         {
-            if (id != Review.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(Review).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _reviewService.Update(id, dto);
+            return Ok(new { message = "Review updated successfully" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review Review)
+        public async Task<ActionResult<Review>> PostReview(ReviewRequest dto)
         {
-            _context.Reviews.Add(Review);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetReview), new { id = Review.Id }, Review);
+            await _reviewService.Create(dto);
+            return Ok(new { message = "Review created successfully" });
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteReview(int id)
         {
-            var Review = await _context.Reviews.FindAsync(id);
-
-            if (Review == null)
-            {
-                return NotFound();
-            }
-
-            _context.Reviews.Remove(Review);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ReviewExists(long id)
-        {
-            return _context.Reviews.Any(e => e.Id == id);
+            await _reviewService.Delete(id);
+            return Ok(new { message = "Review deleted successfully" });
         }
     }
 }

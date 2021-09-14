@@ -1,13 +1,12 @@
-﻿using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+﻿using Softwriters.RestaurantReviews.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Softwriters.RestaurantReviews.Data.DataSeeding
+namespace Softwriters.RestaurantReviews.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(ReviewsContext context)
+        public static void Initialize(DataContext context)
         {
             context.Database.EnsureCreated();
 
@@ -24,7 +23,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             InsertReviews(context);
         }
 
-        private static void InsertRestaurants(ReviewsContext context)
+        private static void InsertRestaurants(DataContext context)
         {
             var restaurants = new List<Restaurant>();
             var restaurant1 = new Restaurant
@@ -133,7 +132,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertCities(ReviewsContext context)
+        private static void InsertCities(DataContext context)
         {
             var cities = new List<City>();
             var city1 = new City { Name = "Pittsburgh, PA" };
@@ -155,7 +154,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertMenus(ReviewsContext context)
+        private static void InsertMenus(DataContext context)
         {
             var menus = new List<Menu>();
             var menu1 = new Menu
@@ -223,7 +222,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertRestaurantTypes(ReviewsContext context)
+        private static void InsertRestaurantTypes(DataContext context)
         {
             var restaurantTypes = new List<RestaurantType>();
 
@@ -251,7 +250,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertCritics(ReviewsContext context)
+        private static void InsertCritics(DataContext context)
         {
             var critics = new List<Critic>();
 
@@ -273,7 +272,7 @@ namespace Softwriters.RestaurantReviews.Data.DataSeeding
             context.SaveChanges();
         }
 
-        private static void InsertReviews(ReviewsContext context)
+        private static void InsertReviews(DataContext context)
         {
             var reviews = new List<Review>();
 

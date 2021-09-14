@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Softwriters.RestaurantReviews.Data.DataContext;
-using Softwriters.RestaurantReviews.Models.Entities;
+using Softwriters.RestaurantReviews.Dto;
+using Softwriters.RestaurantReviews.Models;
+using Softwriters.RestaurantReviews.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Softwriters.RestaurantReviews.Api.Controllers
@@ -12,89 +11,46 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
     [Route("api/[controller]")]
     public class RestaurantsController : ControllerBase
     {
-        private readonly ReviewsContext _context;
+        private readonly IRestaurantService _restaurantService;
 
-        public RestaurantsController(ReviewsContext context)
+        public RestaurantsController(IRestaurantService restaurantService)
         {
-            _context = context;
+            _restaurantService = restaurantService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Restaurant>>> GetRestaurants()
         {
-            return await _context.Restaurants.ToListAsync();
+            var restaurants = await _restaurantService.GetAll();
+            return Ok(restaurants);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Restaurant>> GetRestaurant(int id)
         {
-            var Restaurant = await _context.Restaurants.FindAsync(id);
-
-            if (Restaurant == null)
-            {
-                return NotFound();
-            }
-
-            return Restaurant;
+            var restaurant = await _restaurantService.GetById(id);
+            return Ok(restaurant);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> PutRestaurant(int id, Restaurant Restaurant)
+        public async Task<IActionResult> PutRestaurant(int id, RestaurantRequest dto)
         {
-            if (id != Restaurant.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(Restaurant).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RestaurantExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            await _restaurantService.Update(id, dto);
+            return Ok(new { message = "Restaurant updated successfully" });
         }
 
         [HttpPost]
-        public async Task<ActionResult<Restaurant>> PostRestaurant(Restaurant Restaurant)
+        public async Task<ActionResult<Restaurant>> PostRestaurant(RestaurantRequest dto)
         {
-            _context.Restaurants.Add(Restaurant);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetRestaurant), new { id = Restaurant.Id }, Restaurant);
+            await _restaurantService.Create(dto);
+            return Ok(new { message = "Restaurant created successfully" });
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteRestaurant(int id)
         {
-            var Restaurant = await _context.Restaurants.FindAsync(id);
-
-            if (Restaurant == null)
-            {
-                return NotFound();
-            }
-
-            _context.Restaurants.Remove(Restaurant);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool RestaurantExists(long id)
-        {
-            return _context.Restaurants.Any(e => e.Id == id);
+            await _restaurantService.Delete(id);
+            return Ok(new { message = "Restaurant deleted successfully" });
         }
     }
 }
