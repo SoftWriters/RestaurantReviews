@@ -25,7 +25,7 @@ namespace Softwriters.RestaurantReviews.Api
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DataContext>();
+                    var context = services.GetRequiredService<ReviewsDataContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

@@ -5,10 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Softwriters.RestaurantReviews.Api.Infrastructure;
 using Softwriters.RestaurantReviews.Data;
-using Softwriters.RestaurantReviews.Services;
-using Softwriters.RestaurantReviews.Services.Helpers;
-using Softwriters.RestaurantReviews.Services.Interfaces;
 using System;
 
 namespace Softwriters.RestaurantReviews.Api
@@ -51,18 +49,12 @@ namespace Softwriters.RestaurantReviews.Api
                 });
             });
 
-            services.AddDbContext<DataContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDbConnection")));
-
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddScoped<IServiceHelper, ServiceHelper>();
-            services.AddScoped<ICityService, CityService>();
-            services.AddScoped<ICriticService, CriticService>();
-            services.AddScoped<IMenuService, MenuService>();
-            services.AddScoped<IRestaurantService, RestaurantService>();
-            services.AddScoped<IRestaurantTypeService, RestaurantTypeService>();
-            services.AddScoped<IReviewService, ReviewService>();
+            services.AddDbContext<ReviewsDataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDbConnection")));
+
+            ServicesTypeRegistry.UpdateServiceCollection(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -77,11 +69,8 @@ namespace Softwriters.RestaurantReviews.Api
                 });
 
                 app.UseHttpsRedirection();
-
                 app.UseRouting();
-
                 app.UseAuthorization();
-
                 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             }
         }

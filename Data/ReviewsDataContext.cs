@@ -3,9 +3,9 @@ using Softwriters.RestaurantReviews.Models;
 
 namespace Softwriters.RestaurantReviews.Data
 {
-    public class DataContext : DbContext
+    public class ReviewsDataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public ReviewsDataContext(DbContextOptions<ReviewsDataContext> options) : base(options)
         {
         }
 

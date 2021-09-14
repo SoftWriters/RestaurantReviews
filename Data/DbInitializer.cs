@@ -6,7 +6,7 @@ namespace Softwriters.RestaurantReviews.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(DataContext context)
+        public static void Initialize(ReviewsDataContext context)
         {
             context.Database.EnsureCreated();
 
@@ -23,7 +23,7 @@ namespace Softwriters.RestaurantReviews.Data
             InsertReviews(context);
         }
 
-        private static void InsertRestaurants(DataContext context)
+        private static void InsertRestaurants(ReviewsDataContext context)
         {
             var restaurants = new List<Restaurant>();
             var restaurant1 = new Restaurant
@@ -132,7 +132,7 @@ namespace Softwriters.RestaurantReviews.Data
             context.SaveChanges();
         }
 
-        private static void InsertCities(DataContext context)
+        private static void InsertCities(ReviewsDataContext context)
         {
             var cities = new List<City>();
             var city1 = new City { Name = "Pittsburgh, PA" };
@@ -154,7 +154,7 @@ namespace Softwriters.RestaurantReviews.Data
             context.SaveChanges();
         }
 
-        private static void InsertMenus(DataContext context)
+        private static void InsertMenus(ReviewsDataContext context)
         {
             var menus = new List<Menu>();
             var menu1 = new Menu
@@ -222,7 +222,7 @@ namespace Softwriters.RestaurantReviews.Data
             context.SaveChanges();
         }
 
-        private static void InsertRestaurantTypes(DataContext context)
+        private static void InsertRestaurantTypes(ReviewsDataContext context)
         {
             var restaurantTypes = new List<RestaurantType>();
 
@@ -250,7 +250,7 @@ namespace Softwriters.RestaurantReviews.Data
             context.SaveChanges();
         }
 
-        private static void InsertCritics(DataContext context)
+        private static void InsertCritics(ReviewsDataContext context)
         {
             var critics = new List<Critic>();
 
@@ -272,7 +272,7 @@ namespace Softwriters.RestaurantReviews.Data
             context.SaveChanges();
         }
 
-        private static void InsertReviews(DataContext context)
+        private static void InsertReviews(ReviewsDataContext context)
         {
             var reviews = new List<Review>();
 
