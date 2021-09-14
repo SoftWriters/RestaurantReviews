@@ -70,12 +70,11 @@ namespace RestaurantReviews.Controllers
         }
 
         [HttpGet]
-        [Route("restaurants/search")]
+        [Route("restaurants/city")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> GetRestaurantsByCity([FromQuery(Name = "city")] string city)
+        public async Task<ActionResult> GetRestaurantsByCity([FromQuery(Name = "name")] string city)
         {
             var reviews = await _unitOfWork.Restaurants.ListRestaurantsByCityAsync(city);
-
             // Return Status Code 200
             return Ok(reviews);
         }

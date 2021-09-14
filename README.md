@@ -75,5 +75,14 @@ Implementation Process
 
 Testing Process
 ---------------
-* Review the API Using Swagger
+* Review and Test the API Using Swagger
     * `https://localhost:5001/swagger/index.html`
+* Run the Postman Test Suite
+    * `Postman/SoftWritersRestaurantReviewsPOCTest.json`
+
+TODO List
+---------
+* Resolve Swagger Operation / Path Conflicts
+* Add Generic Filter Operations
+* Shore Up Parameter Checking and Exception Handling
+* Add Basic Authentication

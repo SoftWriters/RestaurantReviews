@@ -88,12 +88,11 @@ namespace RestaurantReviews.Controllers
         }
 
         [HttpGet]
-        [Route("reviews/search")]
+        [Route("reviews/user")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> GetReviewsByUser([FromQuery(Name = "userid")] long userId)
+        public async Task<ActionResult> GetReviewsByUser([FromQuery(Name = "id")] long userId)
         {
             var reviews = await _unitOfWork.Reviews.ListReviewsByUserAsync(userId);
-
             // Return Status Code 200
             return Ok(reviews);
         }
