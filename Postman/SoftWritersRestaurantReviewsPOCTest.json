@@ -8,19 +8,18 @@
 		{
 			"name": "https://localhost:5001/user/users",
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/review/reviews/3",
+					"raw": "https://localhost:5001/user/users",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
-						"review",
-						"reviews",
-						"3"
+						"user",
+						"users"
 					]
 				},
 				"description": "List All Users"
@@ -58,7 +57,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userName\": \"dan\",\r\n  \"password\": \"dan\",\r\n  \"email\": \"dan@\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -66,16 +65,15 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:5001/user/users/1",
+					"raw": "https://localhost:5001/review/reviews",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
-						"user",
-						"users",
-						"1"
+						"review",
+						"reviews"
 					]
 				},
 				"description": "List All Reviews"
@@ -177,20 +175,21 @@
 			"response": []
 		},
 		{
-			"name": "https://localhost:5001/review/reviews?id=1",
+			"name": "https://localhost:5001/Review/reviews/user?id=1",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/review/reviews?id=1",
+					"raw": "https://localhost:5001/Review/reviews/user?id=1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
-						"review",
-						"reviews"
+						"Review",
+						"reviews",
+						"user"
 					],
 					"query": [
 						{
@@ -199,7 +198,7 @@
 						}
 					]
 				},
-				"description": "List Reviews by User"
+				"description": "Get Reviews by User"
 			},
 			"response": []
 		},
@@ -210,7 +209,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Tacos Tacos Tacos\",\r\n  \"address\": \"11 J Street\",\r\n  \"city\": \"San Diego\",\r\n  \"state\": \"CA\",\r\n  \"phone\": \"619 555-1111\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Tacos Tacos Tacos\",\r\n    \"address\": \"11 J Street\",\r\n    \"city\": \"San Diego\",\r\n    \"state\": \"CA\",\r\n    \"phone\": \"619 555-1111\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -240,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"restaurantID\": 2,\r\n    \"userID\": 2,\r\n    \"text\": \"I love me some tacos!\",\r\n    \"rating\": 4\r\n}",
+					"raw": "{\r\n    \"userName\": \"amy\",\r\n    \"password\": \"amy\",\r\n    \"email\": \"amy@test.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -248,15 +247,15 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:5001/review/reviews",
+					"raw": "https://localhost:5001/user/users",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
-						"review",
-						"reviews"
+						"user",
+						"users"
 					]
 				},
 				"description": "Add a New User"
@@ -294,12 +293,12 @@
 			"response": []
 		},
 		{
-			"name": "https://localhost:5001/review/reviews/4",
+			"name": "https://localhost:5001/review/reviews/1",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5001/review/reviews/4",
+					"raw": "https://localhost:5001/review/reviews/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -308,7 +307,7 @@
 					"path": [
 						"review",
 						"reviews",
-						"4"
+						"1"
 					]
 				},
 				"description": "Dealte a Review"
