@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include config.wxi?>
+  <Product Id="*" Name="$(var.ProductName)" Language="1033" Version="!(bind.FileVersion.SoftWriters.RestaurantReviews.WebApi.dll)" Manufacturer="$(var.Company)" UpgradeCode="d2a0342f-d3af-41f1-8a5f-72b0fd176624">
+		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Feature Id="ProductFeature" Title="RestaurantReviews" Level="1">
+      <ComponentGroupRef Id="RegistryComponents" />
+      <ComponentGroupRef Id="ServiceComponents" />
+      <ComponentGroupRef Id="TestClientComponents" />
+		</Feature>
+
+    <!-- These would be configured via command line, such as passed via installer bootstrapper -->
+    <Property Id="DOMAIN" Secure="yes"/>
+    <Property Id="INSTALLFOLDER" Secure="yes"/>
+
+    <Binary Id="InstallHelper" SourceFile="$(var.InstallHelper.TargetDir)InstallHelper.CA.dll"/>
+    <CustomAction Id="UpdateDomainInConfigs.SetProperty" Property="UpdateDomainInConfigs" Value="DOMAINCONFIGDATA=[INSTALLFOLDER]*[DOMAIN]" Execute="immediate" Return="check"/>
+    <CustomAction Id="UpdateDomainInConfigs" BinaryKey="InstallHelper" DllEntry="UpdateDomainInConfigs" Execute="deferred" Return="check"/>
+    <InstallExecuteSequence>
+      <Custom Action="UpdateDomainInConfigs.SetProperty" Before="InstallInitialize">NOT (REMOVE ~= "ALL") OR WIX_UPGRADE_DETECTED</Custom>
+      <Custom Action="UpdateDomainInConfigs" Before="InstallFinalize">NOT (REMOVE ~= "ALL") OR WIX_UPGRADE_DETECTED</Custom>
+    </InstallExecuteSequence>
+
+	</Product>
+
+</Wix>
