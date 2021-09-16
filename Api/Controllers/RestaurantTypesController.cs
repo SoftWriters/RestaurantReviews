@@ -40,14 +40,14 @@ namespace Softwriters.RestaurantReviews.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RestaurantType>> PostRestaurant(RestaurantTypeRequest dto)
+        public async Task<ActionResult<RestaurantType>> PostRestaurantType(RestaurantTypeRequest dto)
         {
             await _restaurantTypeService.Create(dto);
             return Ok(new { message = "Restaurant Type created successfully" });
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteRestaurant(int id)
+        public async Task<IActionResult> DeleteRestaurantType(int id)
         {
             await _restaurantTypeService.Delete(id);
             return Ok(new { message = "Restaurant Type deleted successfully" });

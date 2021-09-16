@@ -257,16 +257,16 @@ namespace Softwriters.RestaurantReviews.Data
             var critic1 = new Critic { FirstName = "Bill", LastName = "Napier" };
             var critic2 = new Critic { FirstName = "Denise", LastName = "Napier" };
             var critic3 = new Critic { FirstName = "Grace", LastName = "Napier" };
-            var user4 = new Critic { FirstName = "Isaac", LastName = "Napier" };
+            var critic4 = new Critic { FirstName = "Isaac", LastName = "Napier" };
 
             critics.Add(critic1);
             critics.Add(critic2);
             critics.Add(critic3);
-            critics.Add(user4);
+            critics.Add(critic4);
 
-            foreach (var user in critics)
+            foreach (var critic in critics)
             {
-                context.Critics.Add(user);
+                context.Critics.Add(critic);
             }
 
             context.SaveChanges();

@@ -105,7 +105,6 @@ namespace Softwriters.RestaurantReviews.ApiTests
             //Act
             var actionResult = await controller.DeleteRestaurant(It.IsAny<int>());
             var objectResult = (OkObjectResult)actionResult;
-            var msg = objectResult.Value;
 
             //Assert
             Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult));
@@ -122,7 +121,7 @@ namespace Softwriters.RestaurantReviews.ApiTests
         {
             var restaurants = new List<Restaurant>
             {
-                new Restaurant
+                new()
                 {
                     Id = 1,
                     CityId = 1,
@@ -130,7 +129,7 @@ namespace Softwriters.RestaurantReviews.ApiTests
                     RestaurantTypeId = 1,
                     Name = "Bitter Ends Garden Luncheonette"
                 },
-                new Restaurant
+                new()
                 {
                     Id = 2,
                     CityId = 1,
@@ -138,7 +137,7 @@ namespace Softwriters.RestaurantReviews.ApiTests
                     RestaurantTypeId = 2,
                     Name = "The Capital Grille"
                 },
-                new Restaurant
+                new()
                 {
                     Id = 3,
                     CityId = 1,
