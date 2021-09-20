@@ -1,0 +1,62 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.validationFailed {
+    background-color: #f0a0b0;
+}
+
+.link {
+    color: blue;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.userTable td {
+    width: 200px; 
+    height: 55px;
+}
+
+.restaurantTable td {
+    width: 200px;
+    height: 55px;
+}
+
+.restaurantTable input[type="text"], textarea {
+    width: 300px;
+}
+
+.reviewTable td {
+    width: 200px;
+    height: 55px;
+}
+
+.reviewTable input[type="text"], textarea {
+    width: 300px;
+}
+
+.red {
+    color: red;
+}
+
+.multiline {
+    height: 100px;
+}
+
+.bold {
+    font-weight: bold;
+}

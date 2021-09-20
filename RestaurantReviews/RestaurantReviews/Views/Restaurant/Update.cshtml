@@ -1,0 +1,54 @@
+﻿@using RestaurantReviews.Models;
+@model RestaurantInfoModel
+
+@{
+    ViewBag.Title = "Restaurant";
+}
+
+<script src="/Scripts/view/restaurantUpdate.js" type="text/javascript"></script>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            restaurantUpdatePage.init(@Model.ID);
+        });
+    </script>
+}
+
+<h2>Restaurant</h2>
+
+<div class="validationFailed hidden" data-failed="1" style="margin-top: 15px;"></div>
+
+<div style="margin-top:20px;">
+    <table class="restaurantTable">
+        <tr>
+            <td>
+                Name: <span class="red">*</span>
+            </td>
+            <td>
+                <input id="txt_Name" type="text" value="@Model.Name" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                City: <span class="red">*</span>
+            </td>
+            <td>
+                <input id="txt_City" type="text" value="@Model.City" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description: <span class="red">*</span>
+            </td>
+            <td>
+                <textarea id="txt_Description" type="text" class="multiline" required>@Model.Description</textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="margin-top:20px;">
+    <button class="btn btn-lg" data-cancel="1">Cancel</button>
+    <button class="btn btn-lg btn-primary" data-save="1">Save</button>
+</div>

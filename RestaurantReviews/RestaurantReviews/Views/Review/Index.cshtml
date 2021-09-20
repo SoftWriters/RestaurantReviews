@@ -1,0 +1,94 @@
+﻿@using RestaurantReviews.Models;
+@using RestaurantReviews.Helpers;
+@model ReviewViewModel
+
+@{
+    ViewBag.Title = "Reviews";
+}
+
+<script src="/Scripts/view/review.js" type="text/javascript"></script>
+
+<h2>Reviews</h2>
+
+@if (Model.Restaurants.Count > 0)
+{
+    <div>
+        <button id="btn_Add" class="btn btn-lg">Add Review</button>
+    </div>
+}
+else
+{
+    <div>
+        Add a
+        <a href="/Restaurant">Restaurant</a>
+        to get started with Reviews.
+    </div>
+}
+
+<div style="margin-top:20px;">
+    Reviews can be searched by User and Restaurant.
+    You can update or delete a Review if you are the user that added it.
+</div>
+
+<div style="float:left; margin-top:20px;">
+    <select id="ddl_User">
+        <option value="0" @((Model.UserID == 0) ? "selected=\"selected\"" : "")>All Users</option>
+        @foreach (UserModel user in Model.Users)
+        {
+            <option value="@user.ID" @((user.ID == Model.UserID) ? "selected=\"selected\"" : "")>@(user.FirstName + " " + user.LastName)</option>
+        }
+    </select>
+    <select id="ddl_Restaurant">
+        <option value="0" @((Model.RestaurantID == 0) ? "selected=\"selected\"" : "")>All Restaurants</option>
+        @foreach (RestaurantInfoModel restaurant in Model.Restaurants)
+        {
+            <option value="@restaurant.ID" @((restaurant.ID == Model.RestaurantID) ? "selected=\"selected\"" : "")>@restaurant.Name</option>
+        }
+    </select>
+    <button id="btn_Search" class="btn">Search</button>
+    <button id="btn_Clear" class="btn">Clear</button>
+</div>
+
+@if (Model.Reviews.Count > 0)
+{
+    <div id="div_Reviews" style="clear:both; margin-top:60px;">
+        <table id="tbl_Reviews" style="width:75%;">
+            <thead>
+                <tr>
+                    <th>Restaurant</th>
+                    <th>Added By</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ReviewInfoModel review in Model.Reviews)
+                {
+                    <tr>
+                        <td style="width:150px;">@review.RestaurantName</td>
+                        <td style="width:150px;">@review.UserDisplayName</td>
+                        <td style="width:150px;" data-title="1">@review.Title</td>
+                        <td>@review.Description</td>
+                        <td style="width:100px;">
+                            @if (review.UserID == SessionHelper.UserID)
+                            {
+                                <select data-actions="1" data-id="@review.ID">
+                                    <option value="0" selected="selected">Actions</option>
+                                    <option value="Update">Update</option>
+                                    <option value="Delete">Delete</option>
+                                </select>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div style="clear:both; margin-top:60px;">
+        There are no Reviews matching the search criteria.
+    </div>
+}
