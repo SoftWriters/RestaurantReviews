@@ -7,6 +7,9 @@ namespace RestaurantReviews
 {
     public static class WebApiConfig
     {
+        public static string UrlPrefix { get { return "api"; } }
+        public static string UrlPrefixRelative { get { return "~/api"; } }
+
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -15,8 +18,14 @@ namespace RestaurantReviews
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "DefaultApiAction",
+                routeTemplate: UrlPrefix + "/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: UrlPrefix + "/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }

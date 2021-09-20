@@ -1,5 +1,6 @@
 *.vshost.exe
 *.vshost.exe.config
+.vs/
 bin/
 obj/
 

@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<script src="/Scripts/view/login.js" type="text/javascript"></script>
+
+<h2>Restaurant Reviews</h2>
+
+<div style="margin-top:50px;">
+    Login with an existing user here or create a new user account by clicking Signup.
+</div>
+
+<div class="validationFailed hidden" data-failed="1" style="margin-top: 15px;">
+    Login failed!
+</div>
+
+<div style="margin-top:20px;">
+    <table>
+        <tr>
+            <td style="width:100px; height:55px;">
+                Username:
+            </td>
+            <td>
+                <input id="txt_Username" type="text" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input id="txt_Password" type="password" required />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="margin-top:50px;">
+    <button class="btn btn-lg btn-primary" data-login="1">Login &raquo;</button>
+    <button class="btn btn-lg" data-signup="1">Signup</button>
+</div>

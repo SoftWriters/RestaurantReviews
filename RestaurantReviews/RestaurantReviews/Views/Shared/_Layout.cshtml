@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using RestaurantReviews.Helpers;
+@using RestaurantReviews.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,6 +9,10 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,12 +23,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Restaurant Reviews", "Index", "Restaurant", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Restaurants", "Index", "Restaurant", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Reviews", "Index", "Review", new { area = "" }, null)</li>
+                    @{
+                        UserModel user = SessionHelper.Get<UserModel>("User");
+                    }
+                    @if (user != null)
+                    {
+                        <li>@Html.ActionLink(user.FirstName + " " + user.LastName, "Index", "User", new { id = user.ID }, null)</li>
+                        <li>@Html.ActionLink("Sign Out", "Index", "Login", new { area = "" }, null)</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -30,12 +45,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>@DateTime.Now.Year - Restaurant Reviews</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

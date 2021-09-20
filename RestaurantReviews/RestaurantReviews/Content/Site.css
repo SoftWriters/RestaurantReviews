@@ -15,3 +15,48 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.validationFailed {
+    background-color: #f0a0b0;
+}
+
+.link {
+    color: blue;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.userTable td {
+    width: 200px; 
+    height: 55px;
+}
+
+.restaurantTable td {
+    width: 200px;
+    height: 55px;
+}
+
+.restaurantTable input[type="text"], textarea {
+    width: 300px;
+}
+
+.reviewTable td {
+    width: 200px;
+    height: 55px;
+}
+
+.reviewTable input[type="text"], textarea {
+    width: 300px;
+}
+
+.red {
+    color: red;
+}
+
+.multiline {
+    height: 100px;
+}
+
+.bold {
+    font-weight: bold;
+}

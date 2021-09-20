@@ -1,0 +1,60 @@
+﻿@using RestaurantReviews.Models;
+@model ReviewUpdateViewModel
+
+@{
+    ViewBag.Title = "Review";
+}
+
+<script src="/Scripts/view/reviewUpdate.js" type="text/javascript"></script>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            reviewUpdatePage.init(@Model.Review.ID);
+        });
+    </script>
+}
+
+<h2>Review</h2>
+
+<div class="validationFailed hidden" data-failed="1" style="margin-top: 15px;"></div>
+
+<div style="margin-top:20px;">
+    <table class="reviewTable">
+        <tr>
+            <td>
+                Restaurant: <span class="red">*</span>
+            </td>
+            <td>
+                <select id="ddl_Restaurant" required>
+                    <option value="0" @((Model.Review.RestaurantID == 0) ? "selected=\"selected\"" : "")>Choose a restaurant...</option>
+                    @foreach (RestaurantInfoModel restaurant in Model.Restaurants)
+                    {
+                        <option value="@restaurant.ID" @((restaurant.ID == Model.Review.RestaurantID) ? "selected=\"selected\"" : "")>@restaurant.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Title: <span class="red">*</span>
+            </td>
+            <td>
+                <input id="txt_Title" type="text" value="@Model.Review.Title" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description: <span class="red">*</span>
+            </td>
+            <td>
+                <textarea id="txt_Description" type="text" class="multiline" required>@Model.Review.Description</textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="margin-top:20px;">
+    <button class="btn btn-lg" data-cancel="1">Cancel</button>
+    <button class="btn btn-lg btn-primary" data-save="1">Save</button>
+</div>

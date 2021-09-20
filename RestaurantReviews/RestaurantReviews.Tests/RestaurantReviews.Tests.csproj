@@ -98,9 +98,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\RestaurantApiControllerTest.cs" />
+    <Compile Include="Controllers\Api\ReviewApiControllerTest.cs" />
+    <Compile Include="Controllers\Api\UserApiControllerTest.cs" />
+    <Compile Include="Controllers\LoginControllerTest.cs" />
+    <Compile Include="Controllers\RestaurantControllerTest.cs" />
+    <Compile Include="Controllers\ReviewControllerTest.cs" />
+    <Compile Include="Controllers\UserControllerTest.cs" />
+    <Compile Include="Managers\RestaurantTest.cs" />
+    <Compile Include="Managers\ReviewTest.cs" />
+    <Compile Include="Managers\UserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -109,11 +117,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RestaurantReviews.DataAccess\RestaurantReviews.DataAccess.csproj">
+      <Project>{c734c1ae-9635-4fec-94ac-1fd00f19b045}</Project>
+      <Name>RestaurantReviews.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestaurantReviews.Models\RestaurantReviews.Models.csproj">
+      <Project>{f01ce0c5-5ceb-4fcd-83c4-fe5e54454f04}</Project>
+      <Name>RestaurantReviews.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RestaurantReviews\RestaurantReviews.csproj">
       <Project>{B48BF837-56DE-4D45-AA85-175DC3613F82}</Project>
       <Name>RestaurantReviews</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
